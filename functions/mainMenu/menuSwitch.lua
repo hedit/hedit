@@ -31,7 +31,6 @@ function updateData ( m )
 				guiSetText ( hedit[i], round ( config[ hData[m].h[i] ] ) )
 			end
 		end
-		outputChatBox ( packHandling ( veh ) )
 	end
 end
 -------------------------------------------------------------------------------------------------------------------------
