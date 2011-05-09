@@ -12,23 +12,21 @@
 	<script src="handlers/onHover.lua" type="client" />
 	<script src="handlers/onClick.lua" type="client" />
 	<script src="handlers/onAccept.lua" type="client" />
-	<script src="functions/menu/menuSwitch.lua" type="client" />
-	<script src="functions/menu/dyno.lua" type="client" />
-	<script src="functions/menu/help.lua" type="client" />
-	<script src="functions/utils/save.lua" type="client" />
-	<script src="functions/utils/load.lua" type="client" />
-	<script src="functions/utils/import.lua" type="client" />
-	<script src="functions/utils/reset.lua" type="client" />
+	<script src="functions/mainMenu/menuSwitch.lua" type="client" />
+	<script src="functions/mainMenu/dyno.lua" type="client" />
+	<script src="functions/mainMenu/help.lua" type="client" />
+	<script src="functions/utilMenu/save.lua" type="client" />
+	<script src="functions/utilMenu/load.lua" type="client" />
+	<script src="functions/utilMenu/import.lua" type="client" />
+	<script src="functions/utilMenu/reset.lua" type="client" />
 	<script src="functions/onApply/log.lua" type="client" />
 	<script src="functions/onApply/update.lua" type="client" />
 	<script src="functions/trigger/doClient.lua" type="client" />
 	<script src="utilMenu/createItems.lua" type="client" />
 	<script src="utilMenu/utilSelection.lua" type="client" />
-	<script src="simulator/client.lua" type="client" />
 	
 	<!-- Required Server-Scripts -->
 	<script src="functions/trigger/doServer.lua" type="server" />
-	<script src="simulator/server.lua" type="server" />
 	
 	<!-- Required Images -->
 	<file src="images/transmission.png" />
@@ -42,5 +40,4 @@
 	<file src="images/reset.png" />
 	
 	<!-- Required Config-Files -->
-
 </meta>

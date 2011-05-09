@@ -9,14 +9,13 @@
 --|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
 
-local lVeh			= nil
-
 function updateHandlingData ( )
 	local cVeh = getPedOccupiedVehicle ( localPlayer )
 	if cVeh ~= lVeh then
-		showData ( "transmission" )
+		showData ( mProperty[1] )
 		lVeh = cVeh
 	else
-		updateData ( getElementData(localPlayer,"currentMenu") )
+		if cm ~= mProperty[4] and cm ~= mProperty[5] then
+		updateData ( cm ) end
 	end
 end

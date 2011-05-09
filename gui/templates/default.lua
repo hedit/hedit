@@ -24,11 +24,11 @@ loadTemplate["default"] = function ( )
 	-----------------------------------------------------------------------------------------------------------------------
 	-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 	-----------------------------------------------------------------------------------------------------------------------
-	menuButton[1]		= guiCreateStaticImage	( 9,	56,		80,		80, 	img.transmission,	false, mainWnd.window )
-	menuButton[2]		= guiCreateStaticImage	( 9,	145,	80,		80, 	img.suspension,		false, mainWnd.window )
-	menuButton[3]		= guiCreateStaticImage	( 9,	234,	80,		80, 	img.other,			false, mainWnd.window )
-	menuButton[4]		= guiCreateStaticImage	( 9,	323,	80,		80,		img.test,			false, mainWnd.window )
-	menuButton[5]		= guiCreateStaticImage	( 9,	420,	80,		80,		img.help,			false, mainWnd.window )
+	menuButton[1]		= guiCreateStaticImage	( 9,	56,		80,		80, 	img[ mProperty[1] ],false, mainWnd.window )
+	menuButton[2]		= guiCreateStaticImage	( 9,	145,	80,		80, 	img[ mProperty[2] ],false, mainWnd.window )
+	menuButton[3]		= guiCreateStaticImage	( 9,	234,	80,		80, 	img[ mProperty[3] ],false, mainWnd.window )
+	menuButton[4]		= guiCreateStaticImage	( 9,	323,	80,		80,		img[ mProperty[4] ],false, mainWnd.window )
+	menuButton[5]		= guiCreateStaticImage	( 9,	420,	80,		80,		img[ mProperty[5] ],false, mainWnd.window )
 	-----------------------------------------------------------------------------------------------------------------------
 	-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 	-----------------------------------------------------------------------------------------------------------------------
@@ -105,6 +105,5 @@ loadTemplate["default"] = function ( )
 		guiSetPosition	( logWnd.window,	logX, logY, false )
 	-----------------------------------------------------------
 	end
-	
 	return true
 end

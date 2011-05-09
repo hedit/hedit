@@ -9,17 +9,23 @@
 --|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
 
-limit						= {}
-min							= {}
-max							= {}
+minLimit					= {}
+maxLimit					= {}
 text						= {}
 log							= {}
 info						= {}
 dyno						= {}
-hinfo						= {}
+mInfo						= {}
+menuButton					= {}
+mProperty					= {}
+uProperty					= {}
+hProperty					= {}
+iProperty					= {}
+sProperty					= {}
 hData						= {}
-hName						= {}
-utilText					= {}
+comboItem					= {}
+uMenuText					= {}
+uItemText					= {}
 img							= {}
 -------------------------------------------------------------------------------------------------------------------------
 cDriveType					= {}
@@ -28,9 +34,11 @@ cABS						= {}
 cLightType					= {}
 cAnimType					= {}
 -------------------------------------------------------------------------------------------------------------------------
+isInt						= {}
+isHex						= {}
+-------------------------------------------------------------------------------------------------------------------------
 mainWnd						= {}
 utilButton					= {}
-menuButton					= {}
 defHedit					= {}
 label						= {}
 hedit						= {}
@@ -53,86 +61,136 @@ loadTranslation				= {}
 -------------------------------------------------------------------------------------------------------------------------
 HEDIT_VERSION_MAJOR			= "2"
 HEDIT_VERSION_MINOR			= "0a"
-HEDIT_VERSION_REVISION		= "r249"
 HEDIT_VERSION				= "v"..HEDIT_VERSION_MAJOR.."."..HEDIT_VERSION_MINOR
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+cm							= nil
+cu							= nil
+openedHandlingBox			= nil
+hidedHeditButton			= nil
+lVeh						= nil
+-------------------------------------------------------------------------------------------------------------------------
+oldGuiText					= ""
 -------------------------------------------------------------------------------------------------------------------------
 pSeat						= -1
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-oldGuiText					= ""
+mProperty[1]				= "transmission"
+mProperty[2]				= "suspension"
+mProperty[3]				= "advanced"
+mProperty[4]				= "dynamometer"
+mProperty[5]				= "help"
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-hData["transmission"]		= {h={}}
-hData["suspension"]			= {h={}}
-hData["other"]				= {h={}}
+uProperty[1]				= "file"
+uProperty[2]				= "options"
+uProperty[3]				= "view"
 -------------------------------------------------------------------------------------------------------------------------
-hData["transmission"].h[1]	= "numberOfGears"
-hData["transmission"].h[2]	= "maxVelocity"
-hData["transmission"].h[3]	= "engineAcceleration"
-hData["transmission"].h[4]	= "engineInertia"
-hData["transmission"].h[5]	= "driveType"
-hData["transmission"].h[6]	= "engineType"
-hData["transmission"].h[7]	= "brakeDeceleration"
-hData["transmission"].h[8]	= "brakeBias"
-hData["transmission"].h[9]	= "ABS"
-hData["transmission"].h[10]	= "steeringLock"
-hData["transmission"].h[11]	= "tractionMultiplier"
-hData["transmission"].h[12]	= "tractionLoss"
-hData["transmission"].h[13]	= "tractionBias"
--------------------------------------------------------------------------------------------------------------------------
-hData["suspension"].h[1]	= "mass"
-hData["suspension"].h[2]	= "turnMass"
-hData["suspension"].h[3]	= "dragCoeff"
-hData["suspension"].h[4]	= "centerOfMass"
-hData["suspension"].h[5]	= "percentSubmerged"
-hData["suspension"].h[6]	= "suspensionForceLevel"
-hData["suspension"].h[7]	= "suspensionDamping"
-hData["suspension"].h[8]	= "suspensionHighSpeedDamping"
-hData["suspension"].h[9]	= "suspensionLowerLimit"
-hData["suspension"].h[10]	= "suspensionUpperLimit"
-hData["suspension"].h[11]	= "suspensionAntidiveMultiplier"
-hData["suspension"].h[12]	= "suspensionFrontRearBias"
--------------------------------------------------------------------------------------------------------------------------
-hData["other"].h[1]			= "seatOffsetDistance"
-hData["other"].h[2]			= "collisionDamageMultiplier"
-hData["other"].h[3]			= "headLight"
-hData["other"].h[4]			= "tailLight"
-hData["other"].h[5]			= "monetary"
-hData["other"].h[6]			= "animGroup"
+uItem[ uProperty[1] ]		= { "new", "open", "import", "export", "save", "saveas", "close" }
+uItem[ uProperty[2] ]		= {}
+uItem[ uProperty[3] ]		= {}
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-cDriveType["fwd"]			= 0
-cDriveType["rwd"]			= 1
-cDriveType["awd"]			= 2
--------------------------------------------------------------------------------------------------------------------------
-cEngineType["petrol"]		= 0
-cEngineType["diesel"]		= 1
-cEngineType["electric"]		= 2
--------------------------------------------------------------------------------------------------------------------------
-cABS["true"]				= 0
-cABS["false"]				= 1
+hProperty[1]				= "vehicleName"
+hProperty[2]				= "mass"
+hProperty[3]				= "turnMass"
+hProperty[4]				= "dragCoeff"
+hProperty[5]				= "centerOfMass"		-- pos.X
+hProperty[6]				= "centerOfMass"		-- pos.Y
+hProperty[7]				= "centerOfMass"		-- pos.Z
+hProperty[8]				= "percentSubmerged"
+hProperty[9]				= "tractionMultiplier"
+hProperty[10]				= "tractionLoss"
+hProperty[11]				= "tractionBias"
+hProperty[12]				= "numberOfGears"
+hProperty[13]				= "maxVelocity"
+hProperty[14]				= "engineAcceleration"
+hProperty[15]				= "engineInertia"
+hProperty[16]				= "driveType"
+hProperty[17]				= "engineType"
+hProperty[18]				= "brakeDeceleration"
+hProperty[19]				= "brakeBias"
+hProperty[20]				= "ABS"
+hProperty[21]				= "steeringLock"
+hProperty[22]				= "suspensionForceLevel"
+hProperty[23]				= "suspensionDamping"
+hProperty[24]				= "suspensionHighSpeedDamping"
+hProperty[25]				= "suspensionUpperLimit"
+hProperty[26]				= "suspensionLowerLimit"
+hProperty[27]				= "suspensionFrontRearBias"
+hProperty[28]				= "suspensionAntiDiveMultiplier"
+hProperty[29]				= "seatOffsetDistance"
+hProperty[30]				= "collisionDamageMultiplier"
+hProperty[31]				= "monetary"
+hProperty[32]				= "modelFlags"
+hProperty[33]				= "handlingFlags"
+hProperty[34]				= "headLight"
+hProperty[35]				= "tailLight"
+hProperty[36]				= "animGroup"
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-content["transmission"]		= 13
-content["suspension"]		= 12
-content["other"]			= 6
+hData[ mProperty[1] ]		= {h={}}
+hData[ mProperty[2] ]		= {h={}}
+hData[ mProperty[3] ]		= {h={}}
 -------------------------------------------------------------------------------------------------------------------------
-buttonMenu[1]				= "transmission"
-buttonMenu[2]				= "suspension"
-buttonMenu[3]				= "other"
-buttonMenu[4]				= "test"
-buttonMenu[5]				= "help"
+hData[ mProperty[1] ].h[1]	= hProperty[12]
+hData[ mProperty[1] ].h[2]	= hProperty[13]
+hData[ mProperty[1] ].h[3]	= hProperty[14]
+hData[ mProperty[1] ].h[4]	= hProperty[15]
+hData[ mProperty[1] ].h[5]	= hProperty[16]
+hData[ mProperty[1] ].h[6]	= hProperty[17]
+hData[ mProperty[1] ].h[7]	= hProperty[18]
+hData[ mProperty[1] ].h[8]	= hProperty[19]
+hData[ mProperty[1] ].h[9]	= hProperty[21]
+hData[ mProperty[1] ].h[10]	= hProperty[9]
+hData[ mProperty[1] ].h[11]	= hProperty[10]
+hData[ mProperty[1] ].h[12]	= hProperty[11]
+hData[ mProperty[1] ].h[13]	= hProperty[30]
+-------------------------------------------------------------------------------------------------------------------------
+hData[ mProperty[2] ].h[1]	= hProperty[2]
+hData[ mProperty[2] ].h[2]	= hProperty[3]
+hData[ mProperty[2] ].h[3]	= hProperty[4]
+hData[ mProperty[2] ].h[4]	= hProperty[5]
+hData[ mProperty[2] ].h[5]	= hProperty[8]
+hData[ mProperty[2] ].h[6]	= hProperty[22]
+hData[ mProperty[2] ].h[7]	= hProperty[23]
+hData[ mProperty[2] ].h[8]	= hProperty[24]
+hData[ mProperty[2] ].h[9]	= hProperty[26]
+hData[ mProperty[2] ].h[10]	= hProperty[25]
+hData[ mProperty[2] ].h[11]	= hProperty[28]
+hData[ mProperty[2] ].h[12]	= hProperty[27]
+hData[ mProperty[2] ].h[13]	= hProperty[29]
+-------------------------------------------------------------------------------------------------------------------------
+hData[ mProperty[3] ].h[1]	= hProperty[36]
+hData[ mProperty[3] ].h[2]	= hProperty[32]
+hData[ mProperty[3] ].h[3]	= hProperty[33]
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-img.transmission			= "images/transmission.png"
-img.suspension				= "images/massusp.png"
-img.other					= "images/other.png"
-img.test					= "images/test.png"
-img.help					= "images/help.png"
+comboItem[ hProperty[16] ]	= { "fwd",		"rwd",		"awd"				}
+comboItem[ hProperty[17] ]	= { "petrol",	"diesel",	"electric"			}
+comboItem[ hProperty[20] ]	= { "true",		"false"							}
+comboItem[ hProperty[34] ]	= { "long",		"small",	"tall",		"big"	}
+comboItem[ hProperty[35] ]	= { "long",		"small",	"tall", 	"big"	}
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+isInt[ hProperty[8]  ]		= true
+isInt[ hProperty[12] ]		= true
+isInt[ hProperty[31] ]		= true
+-------------------------------------------------------------------------------------------------------------------------
+isHex[ hProperty[32] ]		= true
+isHex[ hProperty[33] ]		= true
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+img[ mProperty[1] ]			= "images/transmission.png"
+img[ mProperty[2] ]			= "images/massusp.png"
+img[ mProperty[3] ]			= "images/other.png"
+img[ mProperty[4] ]			= "images/test.png"
+img[ mProperty[5] ]			= "images/help.png"

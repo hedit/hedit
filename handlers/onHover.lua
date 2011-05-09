@@ -10,14 +10,9 @@
 --|| ***************************************************************************************************************** ]]
 
 function onEnter ( )
-	local uMenu		= getElementData ( source, "utilButton" )
-	local uItem		= getElementData ( source, "utilItem" )
-	local mButton	= getElementData ( source, "menuButton" )
-	local hLabel	= getElementData ( source, "heditLabel" )
-	local hButton	= getElementData ( source, "heditButton" )
-	if uMenu and isElement ( utilGridList ) then
-		tryDropList ( source ) 
-	elseif uItem then
+	if uMenu[source] and isElement ( utilGridList ) then
+		--[[tryDropList ( source ) 
+	elseif uItem[source] then
 		guiLabelSetColor ( source, 237, 134, 0 )
 		if guiGetText ( source ) == text.pickLanguage then
 			local t_Lang = {}
@@ -35,22 +30,20 @@ function onEnter ( )
 				i=1+1
 			end
 			createSubMenu ( source, 1, unpack(t_Temp) )
-		end
-	elseif mButton then setButtonEffect ( source, info[mButton] )
-	elseif hLabel then
-		local cm = getElementData	( localPlayer, "currentMenu" )
+		end]]
+	elseif mButton[source] then setButtonEffect ( source, mInfo[ mButton[source] ] )
+	elseif hLabel[source] then
 		guiLabelSetColor			( source, 255, 255, 128 )
-		guiSetText					( mainWnd.info, info[cm].l[hLabel] )
+		guiSetText					( mainWnd.info, sProperty[ hData[cm].h[ hLabel[source] ] ] )
 	end
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function onLeave ( )
-	if not getElementData ( source, "utilItem" ) then
-		local mButton  = getElementData ( source, "menuButton" )
+	if not uItem[source] then
 		guiSetText ( mainWnd.info, oldGuiText )
-		guiSetAlpha ( menuButton[mButton], 0.7 )
+		guiSetAlpha ( hProperty[ mButton[source] ], 0.7 )
 	end
 	if getElementType ( source ) == "gui-label" then return guiLabelSetColor ( source, 255, 255, 255 ) end 
 end

@@ -24,7 +24,7 @@ function createDropList ( src, ... )
 		currentLine	= 10
 		for k,v in ipairs ( arg ) do
 			if arg[k] == "LINE" then
-				local label = guiCreateLabel ( 0, currentLine-5, 165, 15, text.hr, false, utilGridList )
+				local label = guiCreateLabel ( 0, currentLine-5, 165, 20, text.hr, false, utilGridList )
 				guiSetAlpha ( label, 0.3 )
 			end
 			currentLine = currentLine + 15
@@ -34,7 +34,7 @@ function createDropList ( src, ... )
 			if arg[k] ~= "LINE" then
 				local label = guiCreateLabel ( 10, currentLine, 165, 15, arg[k], false, utilGridList )
 				if guiLabelGetTextExtent ( label ) > width then width = guiLabelGetTextExtent ( label ) end
-				setElementData ( label, "utilItem", true )
+				uItem[label] = k
 			end
 			currentLine = currentLine + 15
 		end
@@ -43,7 +43,7 @@ function createDropList ( src, ... )
 	guiSetSize		( utilGridList, width+20, currentLine+15, false )
 	guiSetAlpha		( utilGridList, 1 )
 	----------------------------------------------------------------------------------------------------------------------
-	setElementData ( localPlayer, "currentUtilMenu", src )
+	cu=src
 end
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
@@ -65,7 +65,7 @@ function createSubMenu ( src, int, ...)
 			local label = guiCreateLabel ( 10, currentLine, 165, 15, arg[k], false, subGridList )
 			if guiLabelGetTextExtent ( label ) > width then width = guiLabelGetTextExtent ( label ) end
 			currentLine = currentLine + 15
-			setElementData ( label, "utilItem", true )
+			uItem[label] = k
 			addEventHandler ( "onClientGUIClick", label,
 				function ( )
 					if int==0 then outputChatBox ( "Translation: "..arg[k] )
@@ -84,8 +84,8 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function hideUtilMenu ( )
 	if isElement ( utilGridList ) then
+		cu=nil
 		destroyElement ( utilGridList )
-		setElementData ( localPlayer, "currentUtilMenu", nil )
 		if isElement ( subGridList ) then destroyElement ( subGridList ) end
 	end
 end

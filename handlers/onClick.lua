@@ -9,31 +9,22 @@
 --|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
 
-openedHandlingBox			= nil
-
 function onClick ( )
-	local uMenu		= getElementData ( source, "utilButton" )
-	local uItem		= getElementData ( source, "utilItem" )
-	if uMenu then
-		if isElement ( utilGridList ) and source == getElementData ( localPlayer, "currentUtilMenu" ) then
-			hideUtilMenu ( )
+	if uMenu[source] then
+		--[[if isElement ( utilGridList ) and source == cu then hideUtilMenu ( )
 		else
 			if source == utilButton[#utilButton] then toggleEditor ( )
-			else
-				tryDropList ( source )
-			end
+			else tryDropList ( source ) end
 		end
-	elseif uItem then
+	elseif uItem[source] then]]
+		
 	else
-		local mButton	= getElementData ( source, "menuButton" )
-		local hButton	= getElementData ( source, "heditButton" )
 		if guiGetText ( source ) ~= text.hr then hideUtilMenu ( ) end
-		if mButton then
+		if mButton[source] then
 			playSoundFrontEnd ( 41 )
-			showData ( buttonMenu[mButton] )
-		elseif hButton then
-			local cm = getElementData ( localPlayer, "currentMenu" )
-			createHeditBox ( hedit[hButton], info[cm].h[hButton], true )
+			showData ( mProperty[ mButton[source] ] )
+		elseif hButton[source] then
+			createHeditBox ( hedit[ hButton[source] ], iProperty[ hData[cm].h[ hButton[source] ] ][3], true )
 		end
 	end
 end
@@ -51,6 +42,7 @@ function createHeditBox(box,text,bool)
 		guiBringToFront(openedHandlingBox)
 		guiEditSetCaretIndex(openedHandlingBox,string.len(guiGetText(box)))
 		guiSetVisible(box,false)
+		hidedHeditButton=hButton[box]
 	end
 end
 -------------------------------------------------------------------------------------------------------------------------
