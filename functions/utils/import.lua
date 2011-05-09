@@ -1,0 +1,11 @@
+--|| ***************************************************************************************************************** [[
+--|| PROJECT:		MTA Ingame Handling Editor
+--|| FILE:			functions/utils/import.lua
+--|| DEVELOPERS:	Remi-X <rdg94@live.nl>
+--|| PURPOSE:		Creating and verifying the gui and adding keybinds
+--||
+--|| COPYRIGHTED BY REMI-X
+--|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
+--|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
+--|| ***************************************************************************************************************** ]]
+
