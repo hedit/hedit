@@ -38,27 +38,35 @@ function enableTemplate ( )
 	--------------------------------------------------------------------------------------------------------------------
 	for k,v in ipairs ( defHedit )	do guiSetVisible	( defHedit[k], false )	end
 	--------------------------------------------------------------------------------------------------------------------
-	for k,v in ipairs ( utilButton ) do
-		setElementData	( utilButton[k], "utilButton", k )
-		guiSetText		( utilButton[k], utilText[k] )
-	end
+	--[[for k,v in ipairs ( utilButton ) do
+		uMenu[ utilButton[k] ] = k
+		guiSetText ( utilButton[k], uItemText[ uProperty[k] ] )
+	end]]
 	--------------------------------------------------------------------------------------------------------------------
 	for k,v in ipairs ( menuButton ) do
-		setElementData	( menuButton[k], "menuButton", k )
-		guiSetAlpha		( menuButton[k], 0.7 )
+		mButton[ menuButton[k] ] = k
+		guiSetAlpha ( menuButton[k], 0.7 )
 	end
 	--------------------------------------------------------------------------------------------------------------------
 	for k,v in ipairs ( label ) do
-		setElementData	( label[k], "heditLabel", k )
+		hLabel[ label[k] ] = k
 	end
 	--------------------------------------------------------------------------------------------------------------------
-	local xmlRoot	= xmlLoadFile		( "VERSION" )
-	local xmlChild	= xmlFindChild		( xmlRoot, "version", 0 )
-	local xmlValue	= xmlNodeGetValue	( xmlChild )
-	xmlNodeSetValue	( xmlChild, tostring(tonumber(xmlValue)+1) )
-	xmlSaveFile		( xmlRoot )
-	xmlUnloadFile	( xmlRoot )
-	guiSetText		( mainWnd.window, HEDIT_VERSION.."-r"..xmlValue )
+	for k,v in ipairs ( hProperty ) do
+		sProperty[v] = iProperty[v][1].."\n"..iProperty[v][2]
+	end
+	--------------------------------------------------------------------------------------------------------------------
+	local xmlRoot	= xmlLoadFile			( "VERSION" )
+	if xmlRoot then
+		local xmlChild	= xmlFindChild		( xmlRoot, "version", 0 )
+		local xmlValue	= xmlNodeGetValue	( xmlChild )
+		xmlNodeSetValue	( xmlChild, tostring(tonumber(xmlValue)+1) )
+		xmlSaveFile		( xmlRoot )
+		guiSetText		( mainWnd.window, HEDIT_VERSION.."-r"..xmlValue )
+		xmlUnloadFile	( xmlRoot )
+	else
+		guiSetText		( mainWnd.window, HEDIT_VERSION.."-Guest" )
+	end
 	--------------------------------------------------------------------------------------------------------------------
 	guiSetVisible	( mainWnd.window,	false )
 	guiSetVisible	( logWnd.window,	false )
@@ -77,16 +85,19 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 function toggleEditor (  )
 	if guiGetVisible ( mainWnd.window ) then
+		removeEventHandler ( "onClientRender", root, onRenderCheck )
 		guiSetVisible ( mainWnd.window, false )
 		guiSetVisible ( logWnd.window, false )
 		showCursor ( false, false )
 		hideUtilMenu ( )
 	else
 		if not isElement ( popupWnd ) then
-			if isPedInVehicle ( localPlayer ) then
-				if pSeat > 0 and allowPassengersToEdit == false then
-					return
+			local veh = getPedOccupiedVehicle ( localPlayer )
+			if veh then
+				if getVehicleController ( veh ) ~= localPlayer and allowPassengersToEdit == false then
+					return outputChatBox ( text.restrictedPassenger )
 				end
+				addEventHandler ( "onClientRender", root, onRenderCheck )
 				guiSetVisible ( mainWnd.window, true )
 				guiSetVisible ( logWnd.window, true )
 				showCursor ( true, true )
@@ -98,24 +109,17 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-addEventHandler ( "onClientPlayerVehicleEnter", root,
-	function ( veh, seat )
-		if source == localPlayer then
-			pSeat = seat end end )
--------------------------------------------------------------------------------------------------------------------------
--- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
--------------------------------------------------------------------------------------------------------------------------
-addEventHandler ( "onClientPlayerVehicleExit", root,
-	function ( )
-		if source == localPlayer then
-			if guiGetVisible ( mainWnd.window ) then
-				guiSetVisible ( mainWnd.window, false )
-				guiSetVisible ( logWnd.window, false )
-				showCursor ( false, false )
-			end
+function onRenderCheck ( )
+	local cVeh = getPedOccupiedVehicle ( localPlayer )
+	if not cVeh then
+		toggleEditor ( )
+	else
+		if cVeh ~= lVeh then
+			updateData ( cm )
+			lVeh = cVeh
 		end
 	end
-)
+end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------

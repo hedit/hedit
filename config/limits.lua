@@ -9,137 +9,146 @@
 --|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
 
-limit.minGears				= "1"
-limit.maxGears				= "5"		-- *** STADED AS 7 IN HANDLING.CFG ***
+-- VEHICLE IDENTIFIER
+minLimit[ hProperty[1] ]	= false
+maxLimit[ hProperty[1] ]	= false
 
-limit.minVelocity			= "0.0"		-- *** STATED AS 5.0 IN HANDLING.CFG ***
-limit.maxVelocity			= "200000"
+-- MASS
+minLimit[ hProperty[2] ]	= "1.0"
+maxLimit[ hProperty[2] ]	= "100000.0"
 
-limit.minAcceleration		= "0.1"
-limit.maxAcceleration		= "100000"
+-- TURNMASS
+minLimit[ hProperty[3] ]	= "0.0"
+maxLimit[ hProperty[3] ]	= "100000.0"
 
-limit.minInertia			= "-1000.0"	-- *** STATED AS 0.0 IN HANDLING.CFG ***
-limit.maxInertia			= "1000.0"	-- *** STATED AS 50.0 IN HANDLING.CFG ***
+-- DRAGCOEFF
+minLimit[ hProperty[4] ]	= "-100.0"
+maxLimit[ hProperty[4] ]	= "100.0"
 
-limit.minBrakedecel			= "0.0"		-- *** STATED AS 0.1 IN HANDLING.CFG ***
-limit.maxBrakedecel			= "100000.0"-- *** STATED AS 10.0 IN HANDLING.CFG ***
+-- CENTEROFMASS.X
+minLimit[ hProperty[5] ]	= "-100.0"
+maxLimit[ hProperty[5] ]	= "100.0"
 
-limit.minSteering			= "0.0"		-- *** STATED AS 10.0 IN HANDLING.CFG ***
-limit.maxSteering			= "360.0"	-- *** STATED AS 40.0 IN HANDLING.CFG ***
+-- CENTEROFMASS.Y
+minLimit[ hProperty[6] ]	= "-100.0"
+maxLimit[ hProperty[6] ]	= "100.0"
 
-limit.minTractionmult		= "0.0"		-- *** STATED AS 0.5 IN HANDLING.CFG ***
-limit.maxTractionmult		= "100000.0"-- *** STATED AS 2.0 IN HANDLING.CFG ***
+-- CENTEROFMASS.Z
+minLimit[ hProperty[7] ]	= "-100.0"
+maxLimit[ hProperty[7] ]	= "100.0"
 
-limit.minTractionloss		= "0.0"
-limit.maxTractionloss		= "99999.0"	-- *** STATED AS 1.0 IN HANDLING.CFG ***
--------------------------------------------------------------------------------------------------------------------------
-limit.minMass				= "1.0"
-limit.maxMass				= "100000.0"-- *** STATED AS 50000.0 IN HANDLING.CFG ***
+-- PERCENTSUBMERGED
+minLimit[ hProperty[8] ]	= "1"
+maxLimit[ hProperty[8] ]	= "99999"
 
-limit.minTurnmass			= "0.0"
-limit.maxTurnmass			= "100000.0"
+-- TRACTIONMULTIPLIER
+minLimit[ hProperty[9] ]	= "0.0"
+maxLimit[ hProperty[9] ]	= "100000.0"
 
-limit.minDragcoeff			= "-100.0"
-limit.maxDragcoeff			= "100.0"
+-- TRACTIONLOSS
+minLimit[ hProperty[10] ]	= "0.0"
+maxLimit[ hProperty[10] ]	= "100000.0"
 
-limit.minCentermass			= "-10.0"
-limit.maxCentermass			= "10.0"
+-- TRACTIONBIAS
+minLimit[ hProperty[11] ]	= "0.0"
+maxLimit[ hProperty[11] ]	= "1.0"
 
-limit.minSubmerged			= "0"		-- *** STATED AS 10 IN HANDLING.CFG ***
-limit.maxSubmerged			= "99999"	-- *** STATED AS 120 IN HANDLING.CFG ***
+-- NUMBEROFGEARS
+minLimit[ hProperty[12] ]	= "1"
+maxLimit[ hProperty[12] ]	= "5"
 
-limit.minForcelevel			= "0.0"
-limit.maxForcelevel			= "100.0"
+-- MAXVELOCITY
+minLimit[ hProperty[13] ]	= "0.1"
+maxLimit[ hProperty[13] ]	= "200000.0"
 
-limit.minDamping			= "0.0"
-limit.maxDamping			= "100.0"
+-- ENGINEACCELERATION
+minLimit[ hProperty[14] ]	= "0.1"
+maxLimit[ hProperty[14] ]	= "100000.0"
 
-limit.minHsdamping			= "0.0"
-limit.maxHsdamping			= "500.0"
+-- ENGINEINERTIA
+minLimit[ hProperty[15] ]	= "-1000.0"
+maxLimit[ hProperty[15] ]	= "999999.0"
 
-limit.minLowerlimit			= "-50.0"
-limit.maxLowerlimit			= "50.0"
+-- DRIVETYPE
+minLimit[ hProperty[16] ]	= false
+maxLimit[ hProperty[16] ]	= false
 
-limit.minUpperlimit			= "-50.0"
-limit.maxUpperlimit			= "50.0"
+-- ENGINETYPE
+minLimit[ hProperty[17] ]	= false
+maxLimit[ hProperty[17] ]	= false
 
-limit.minAntidive			= "0.0"
-limit.maxAntidive			= "30.0"
--------------------------------------------------------------------------------------------------------------------------
-limit.minSeatoffset			= "0.0"
-limit.maxSeatoffset			= "5.0"
+-- BRAKEDECELERATION
+minLimit[ hProperty[18] ]	= "0.1"
+maxLimit[ hProperty[18] ]	= "100000.0"
 
-limit.minColdamage			= "0.0"		-- *** STATED AS 0.2 IN HANDLING.CFG ***
-limit.maxColdamage			= "10.0"
+-- BRAKEBIAS
+minLimit[ hProperty[19] ]	= "0.0"
+maxLimit[ hProperty[19] ]	= "1.0"
 
-limit.minMonetary			= "0"
-limit.maxMonetary			= tostring(math.huge)
--------------------------------------------------------------------------------------------------------------------------
-limit.minBias				= "0.0"
-limit.maxBias				= "1.0"
-limit.midBias				= (tonumber(limit.minBias)+tonumber(limit.maxBias))/2
--------------------------------------------------------------------------------------------------------------------------
--- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
--------------------------------------------------------------------------------------------------------------------------
-min["transmission"]			= {h={}}
-max["transmission"]			= {h={}}
-min["suspension"]			= {h={}}
-max["suspension"]			= {h={}}
-min["other"]				= {h={}}
-max["other"]				= {h={}}
--------------------------------------------------------------------------------------------------------------------------
-min["transmission"].h[1]	= tonumber(limit.minGears)
-min["transmission"].h[2]	= tonumber(limit.minVelocity)
-min["transmission"].h[3]	= tonumber(limit.minAcceleration)
-min["transmission"].h[4]	= tonumber(limit.minInertia)
-min["transmission"].h[7]	= tonumber(limit.minBrakedecel)
-min["transmission"].h[8]	= tonumber(limit.minBias)
-min["transmission"].h[10]	= tonumber(limit.minSteering)
-min["transmission"].h[11]	= tonumber(limit.minTractionmult)
-min["transmission"].h[12]	= tonumber(limit.minTractionloss)
-min["transmission"].h[13]	= tonumber(limit.minBias)
--------------------------------------------------------------------------------------------------------------------------
-max["transmission"].h[1]	= tonumber(limit.maxGears)
-max["transmission"].h[2]	= tonumber(limit.maxVelocity)
-max["transmission"].h[3]	= tonumber(limit.maxAcceleration)
-max["transmission"].h[4]	= tonumber(limit.maxInertia)
-max["transmission"].h[7]	= tonumber(limit.maxBrakedecel)
-max["transmission"].h[8]	= tonumber(limit.maxBias)
-max["transmission"].h[10]	= tonumber(limit.maxSteering)
-max["transmission"].h[11]	= tonumber(limit.maxTractionmult)
-max["transmission"].h[12]	= tonumber(limit.maxTractionloss)
-max["transmission"].h[13]	= tonumber(limit.maxBias)
--------------------------------------------------------------------------------------------------------------------------
-min["suspension"].h[1]		= tonumber(limit.minMass)
-min["suspension"].h[2]		= tonumber(limit.minTurnmass)
-min["suspension"].h[3]		= tonumber(limit.minDragcoeff)
-min["suspension"].h[4]		= tonumber(limit.minCentermass)
-min["suspension"].h[5]		= tonumber(limit.minSubmerged)
-min["suspension"].h[6]		= tonumber(limit.minForcelevel)
-min["suspension"].h[7]		= tonumber(limit.minDamping)
-min["suspension"].h[8]		= tonumber(limit.minHsdamping)
-min["suspension"].h[9]		= tonumber(limit.minLowerlimit)
-min["suspension"].h[10]		= tonumber(limit.minUpperlimit)
-min["suspension"].h[11]		= tonumber(limit.minAntidive)
-min["suspension"].h[12]		= tonumber(limit.minBias)
--------------------------------------------------------------------------------------------------------------------------
-max["suspension"].h[1]		= tonumber(limit.maxMass)
-max["suspension"].h[2]		= tonumber(limit.maxTurnmass)
-max["suspension"].h[3]		= tonumber(limit.maxDragcoeff)
-max["suspension"].h[4]		= tonumber(limit.maxCentermass)
-max["suspension"].h[5]		= tonumber(limit.maxSubmerged)
-max["suspension"].h[6]		= tonumber(limit.maxForcelevel)
-max["suspension"].h[7]		= tonumber(limit.maxDamping)
-max["suspension"].h[8]		= tonumber(limit.maxHsdamping)
-max["suspension"].h[9]		= tonumber(limit.maxLowerlimit)
-max["suspension"].h[10]		= tonumber(limit.maxUpperlimit)
-max["suspension"].h[11]		= tonumber(limit.maxAntidive)
-max["suspension"].h[12]		= tonumber(limit.maxBias)
--------------------------------------------------------------------------------------------------------------------------
-min["other"].h[1]			= tonumber(limit.minSeatoffset)
-min["other"].h[2]			= tonumber(limit.minColdamage)
-min["other"].h[5]			= tonumber(limit.minMonetary)
--------------------------------------------------------------------------------------------------------------------------
-max["other"].h[1]			= tonumber(limit.maxSeatoffset)
-max["other"].h[2]			= tonumber(limit.maxColdamage)
-max["other"].h[5]			= tonumber(limit.maxMonetary)
+-- ABS
+minLimit[ hProperty[20] ]	= false
+maxLimit[ hProperty[20] ]	= false
+
+-- STEERINGLOCK
+minLimit[ hProperty[21] ]	= "0.0"
+maxLimit[ hProperty[21] ]	= "360.0"
+
+-- SUSPENSIONFORCELEVEL
+minLimit[ hProperty[22] ]	= "0.1"
+maxLimit[ hProperty[22] ]	= "100.0"
+
+-- SUSPENSIONDAMPING
+minLimit[ hProperty[23] ]	= "0.1"
+maxLimit[ hProperty[23] ]	= "100.0"
+
+-- SUSPENSIONHIGHSPEEDDAMPING
+minLimit[ hProperty[24] ]	= "0.1"
+maxLimit[ hProperty[24] ]	= "500.0"
+
+-- SUSPENSIONUPPERLIMIT
+minLimit[ hProperty[25] ]	= "-50.0"
+maxLimit[ hProperty[25] ]	= "50.0"
+
+-- SUSPENSIONLOWERLIMIT
+minLimit[ hProperty[26] ]	= "-50.0"
+maxLimit[ hProperty[26] ]	= "50.0"
+
+-- SUSPENSIONBIAS
+minLimit[ hProperty[27] ]	= "0.0"
+maxLimit[ hProperty[27] ]	= "1.0"
+
+-- SUSPENSIONANTIDIVEMULTIPLIER
+minLimit[ hProperty[28] ]	= "0.1"
+maxLimit[ hProperty[28] ]	= "1000.0"
+
+-- SEAT OFFSET DISTANCE
+minLimit[ hProperty[29] ]	= "-10.0"
+maxLimit[ hProperty[29] ]	= "10.0"
+
+-- COLLISION DAMAGE MULTIPLIER
+minLimit[ hProperty[30] ]	= "0.0"
+maxLimit[ hProperty[30] ]	= "10.0"
+
+-- MONETARY VALUE
+minLimit[ hProperty[31] ]	= "0"
+maxLimit[ hProperty[31] ]	= "230195200"
+
+-- MODELFLAGS
+minLimit[ hProperty[32] ]	= false
+maxLimit[ hProperty[32] ]	= false
+
+-- HANDLINGFLAGS
+minLimit[ hProperty[33] ]	= 11111111
+maxLimit[ hProperty[33] ]	= 88888888
+
+-- HEADLIGHT
+minLimit[ hProperty[34] ]	= false
+maxLimit[ hProperty[34] ]	= false
+
+-- TAILLIGHT
+minLimit[ hProperty[35] ]	= false
+maxLimit[ hProperty[35] ]	= false
+
+-- ANIMGROUP
+minLimit[ hProperty[36] ]	= false
+maxLimit[ hProperty[36] ]	= false
