@@ -1,0 +1,148 @@
+-- *************************************************
+-- * AF Save And Load Positions (AF-SL)            *
+-- * Developed and Scripted by Qais                *
+-- * copyright Qais (c) 2011                       *
+-- *************************************************
+
+--[[
+
+	FOR REMI-X (Remi De Groot)
+
+]]
+
+-- /s saves position into xml with your parameter
+-- /l loads position saved from xml name your param
+-- "/s HI" saves your pos to slot HI
+-- "/l HI"loads position and sets your position from slot HI
+
+me = getLocalPlayer()
+
+function errMsg(nam)
+	name = tostring(nam)
+	if name then
+		outputChatBox(name, 255,0,0)
+	end
+end
+
+function setPosition(x,y,z)
+	veh = getPedOccupiedVehicle(me)
+	xMe,yMe,zMe = getElementPosition(me)
+	posDistance = getDistanceBetweenPoints3D ( x,y,z, xMe, yMe, zMe )
+	--[[if not veh then    This is an unfinished part of the script
+	
+		if posDistance >= 1500 then
+				fadeCamera(false, 1.0, 0, 0, 0)
+				setTimer(fadeCamera, 2000, 1, true, 1.0, 0, 0, 0)
+				setTimer(setCameraMatrix,1000,1,px, py, 0)
+				setTimer(
+					function()
+						local pz = getGroundPosition(px, py, 600)
+						setCameraTarget(me,me)
+					
+						-- Spawn the player.
+						triggerServerEvent("spawnPlayer", getRootElement(), me, px, py, pz + 1)
+					end
+				, 2000, 1)
+			else
+				triggerServerEvent("spawnPlayer", me, tonumber(positionX), tonumber(positionY), tonumber(positionZ))
+			end
+	else]]
+	setElementPosition(me, tonumber(x),tonumber(y), tonumber(z))
+end
+function createNewPositionFile()
+	if not xmlLoadFile("positions.xml") then
+		file = xmlCreateFile ( "positions.xml", "root" )
+		positionsNode = xmlCreateChild(file, "positions")
+		defaultNode =  xmlCreateChild(positionsNode, "position")
+		xmlNodeSetAttribute(defaultNode,"id","Default")
+		xmlNodeSetAttribute(defaultNode,"x","0")
+		xmlNodeSetAttribute(defaultNode,"y","2000")
+		xmlNodeSetAttribute(defaultNode,"z",tostring(math.random(2,12)))
+		xmlSaveFile(file)
+		xmlUnloadFile(file)
+	end
+end
+-- This creates the XML file to save the positions
+addEventHandler("onClientPlayerJoin", getRootElement(), createNewPositionFile)
+addEventHandler("onClientResourceStart", getResourceRootElement(getThisResource()), createNewPositionFile)
+
+function isPositionID(id)
+	--this checks if there is already a position with the id, returns true else returns false
+	local rootNode = xmlLoadFile("positions.xml")
+	local positionsNode = xmlFindChild(rootNode, "positions", 0)
+	local positionsNodeChildFindTable = xmlNodeGetChildren(positionsNode)
+	for i,v in pairs(positionsNodeChildTable) do
+		if string.lower(xmlNodeGetAttribute(v,"id")) == string.lower(tostring(id)) then
+			avail = true
+			break
+		else
+			avail = false
+		end
+	end
+	return avail
+end
+
+function createXMLPosition(name,x,y,z) -- saves a position
+	local root = xmlLoadFile("positions.xml")
+	if root then
+		local poschild = xmlFindChild (root,"positions",0)
+		if isPositionID(name) then
+			for i,v in pairs(xmlNodeGetChildren(poschild)) do
+				if string.lower(tostring(xmlNodeGetAttribute(v, "id"))) == string.lower(tostring(name)) then
+					xmlNodeSetAttribute(v,"x",tostring(x))
+					xmlNodeSetAttribute(v,"y",tostring(y))
+					xmlNodeSetAttribute(v,"z",tostring(z))
+					break
+				end
+			end
+		else
+			local child = xmlCreateChild (poschild,"position")
+			xmlNodeSetAttribute(child,"id",string.lower(tostring(name)))
+			xmlNodeSetAttribute(child,"x",tostring(x))
+			xmlNodeSetAttribute(child,"y",tostring(y))
+			xmlNodeSetAttribute(child,"z",tostring(z))
+		end
+		xmlSaveFile(root)
+		xmlUnloadFile(root)
+	end
+end
+
+function loadXMLPosition(name) --loads a position
+	rootNode = xmlLoadFile("positions.xml")
+	if not rootNode then
+		createNewPositionFile()
+	end
+	positionsNode = xmlFindChild(rootNode, "positions", 0)
+	positionsNodeChildTable = xmlNodeGetChildren(positionsNode)
+	for i,v in pairs(positionsNodeChildTable) do
+		idNode = xmlNodeGetAttribute(v, "id")
+		if string.lower(idNode) == string.lower(tostring(name)) then
+			positionX = xmlNodeGetAttribute(v, "x")
+			positionY = xmlNodeGetAttribute(v, "y")
+			positionZ = xmlNodeGetAttribute(v, "z")
+			setPosition(tonumber(positionX), tonumber(positionY), tonumber(positionZ))
+			break
+		end
+	end
+	if not positionX then
+		errMsg("Cannot find position with the ID:\""..name.."\", are you sure you have saved a position into that slot?")
+	end
+	xmlUnloadFile(rootNode)
+end
+
+function saveload(cmd, id) -- save cmd
+	if cmd == "s" then
+		if not id then
+			id = "default"
+		end
+		x,y,z = getElementPosition(me)
+		createXMLPosition(tostring(id),tostring(x),tostring(y),tostring(z))
+	elseif cmd == "l" then
+		if not id then
+			id = "default" 
+		end
+		loadXMLPosition(tostring(id))
+	end
+end
+addCommandHandler("s", saveload)
+addCommandHandler("l", saveload)
