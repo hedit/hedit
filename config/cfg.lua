@@ -12,5 +12,6 @@
 individualHandling          = true
 allowPassengersToEdit       = false
 usedKey                     = "b"
+usedCommand                 = "hedit"
 usedTemplate                = "default"
 usedTranslation             = "english"
