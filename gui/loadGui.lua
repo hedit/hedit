@@ -79,7 +79,7 @@ function enableTemplate ( )
     addEventHandler ( "onClientGUIComboBoxAccepted",    mainWnd.window, onComboBoxAccept )
     --------------------------------------------------------------------------------------------------------------------
     bindKey ( usedKey, "down", toggleEditor )
-  addCommandHandler(usedCommand, toggleEditor)
+    addCommandHandler(usedCommand, toggleEditor)
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
