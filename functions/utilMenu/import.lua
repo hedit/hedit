@@ -1,8 +1,8 @@
 --|| ***************************************************************************************************************** [[
---|| PROJECT:		MTA Ingame Handling Editor
---|| FILE:			functions/utils/import.lua
---|| DEVELOPERS:	Remi-X <rdg94@live.nl>
---|| PURPOSE:		Creating and verifying the gui and adding keybinds
+--|| PROJECT:       MTA Ingame Handling Editor
+--|| FILE:          functions/utils/import.lua
+--|| DEVELOPERS:    Remi-X <rdg94@live.nl>
+--|| PURPOSE:       Importing handling.cfg lines.
 --||
 --|| COPYRIGHTED BY REMI-X
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
