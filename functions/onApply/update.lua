@@ -1,8 +1,8 @@
 --|| ***************************************************************************************************************** [[
---|| PROJECT:		MTA Ingame Handling Editor
---|| FILE:			functions/onApply/update.lua
---|| DEVELOPERS:	Remi-X <rdg94@live.nl>
---|| PURPOSE:		Updating handling data in a correct way
+--|| PROJECT:       MTA Ingame Handling Editor
+--|| FILE:          functions/onApply/update.lua
+--|| DEVELOPERS:    Remi-X <rdg94@live.nl>
+--|| PURPOSE:       Updating handling data in a correct way
 --||
 --|| COPYRIGHTED BY REMI-X
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
@@ -10,12 +10,12 @@
 --|| ***************************************************************************************************************** ]]
 
 function updateHandlingData ( )
-	local cVeh = getPedOccupiedVehicle ( localPlayer )
-	if cVeh ~= lVeh then
-		showData ( mProperty[1] )
-		lVeh = cVeh
-	else
-		if cm ~= mProperty[4] and cm ~= mProperty[5] then
-		updateData ( cm ) end
-	end
+    local cVeh = getPedOccupiedVehicle ( localPlayer )
+    if cVeh ~= lVeh then
+        showData ( mProperty[1] )
+        lVeh = cVeh
+    else
+        if cm ~= mProperty[4] and cm ~= mProperty[5] then
+        updateData ( cm ) end
+    end
 end
