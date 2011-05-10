@@ -84,4 +84,5 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 
 function stopResource()
-    triggerServerEvent("stopTheResource",resourceRoot) end
+    triggerServerEvent("stopTheResource",resourceRoot) 
+end
