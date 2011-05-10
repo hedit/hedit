@@ -4,6 +4,7 @@
 	<!-- Required Client-Scripts -->
 	<script src="config/cfg.lua" type="client" />
 	<script src="config/vars.lua" type="client" />
+	<script src="config/hDefault.lua" type="client" />
 	<script src="config/limits.lua" type="client" />
 	<script src="config/text/english.lua" type="client" />
 	<script src="gui/templates/default.lua" type="client" />
