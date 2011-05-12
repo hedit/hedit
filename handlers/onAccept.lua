@@ -77,7 +77,7 @@ function doTry ( veh, input, num )
                             input[i] > tonumber(maxLimit[hData[cm].h[num]]))then
                             return outputHandlingLog(string.format(log.invalid,iProperty[hData[cm].h[num]][1].." ["..input[i].."]".."("..i..")",2))end end end
                 if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,individualHandling,iProperty[hData[cm].h[num]][1],log) then
-                    history[hData[cm].h[num]]=input[1]..","..input[2]..","..input[3]
+                    history[hData[cm].h[num]]=tostring(input[1]..","..input[2]..","..input[3])
                     return true
                 else
                     return outputHandlingLog(log.unableToCallServer,0)
@@ -96,7 +96,7 @@ function doTry ( veh, input, num )
                     return outputHandlingLog(string.format(log.invalid,iProperty[hData[cm].h[num]][1]).." ["..input.."]",2) end end
             if isInt[hData[cm].h[num]] then input = tonumber(string.format("%.0f",input)) end
             if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,individualHandling,iProperty[hData[cm].h[num]][1],log) then
-                history[hData[cm].h[num]]=input
+                history[hData[cm].h[num]]=tostring(input)
                 return true
             else
                 return outputHandlingLog(log.unableToCallServer,0)
