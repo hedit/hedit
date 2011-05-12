@@ -26,12 +26,12 @@ hData                       = {}
 comboItem                   = {}
 uMenuText                   = {}
 uItemText                   = {}
-hDefault					= {}
+hDefault                    = {}
 img                         = {}
 -------------------------------------------------------------------------------------------------------------------------
 isInt                       = {}
 isHex                       = {}
-canScroll					= {}
+canScroll                   = {}
 -------------------------------------------------------------------------------------------------------------------------
 mainWnd                     = {}
 utilButton                  = {}
@@ -65,7 +65,7 @@ cm                          = nil
 cu                          = nil
 openedHandlingBox           = nil
 hidedHeditButton            = nil
-pointedButton				= nil
+pointedButton               = nil
 lVeh                        = nil
 -------------------------------------------------------------------------------------------------------------------------
 oldGuiText                  = ""
