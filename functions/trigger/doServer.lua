@@ -35,19 +35,21 @@ addEvent ( "setHandling", true )
 addEventHandler ( "setHandling", root,
     function ( veh, handling, data, bool, dname, log )
         local d = round(data)
-        if type(d) == "table" then d = tostring(round(data[1])..", "..round(data[2])..", "..round(data[3]))
+        if type(d) == "table" then d = table.concat ( d, "," )
         else local d = tostring(round(data)) end
         ------------------------------------------------------------------
         local pName    = getPlayerName ( source )
         local vName    = getVehicleName ( veh )
         local vModel   = getElementModel ( veh )
         local hCurrent = getVehicleHandling ( veh )[handling]
+        local time     = getRealTime ( )
+        local tStamp   = "["..time.hour..":"..time.minute..":"..time.second.."]"
         local exists   = fileExists ( "heditLog.txt" )
         local logFile  = nil
         if not exists then logFile = fileCreate ( "heditLog.txt" )
         else logFile = fileOpen ( "heditLog.txt" ) end
         if type(hCurrent) == "table" then hCurrent = table.concat ( hCurrent, "," ) end
-        fileWrite ( logFile, pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d )
+        fileWrite ( logFile, tStamp.." "..pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d )
         fileClose ( logFile )
         ------------------------------------------------------------------
         if setTheHandling ( bool, veh, handling, data ) then
