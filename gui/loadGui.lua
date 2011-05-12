@@ -111,11 +111,12 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 function showValue ( k, s )
     if s == "down" and pointedButton and isPointing then
-      	buttonValue = guiGetText ( pointedButton )
-      	if ( k == "lctrl" or k == "rctrl" ) and not ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )  then
+      	if ( k == "lctrl" or k == "rctrl" ) and not ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )  then 
+            buttonValue = guiGetText ( pointedButton )
 	        guiSetText ( pointedButton, "DEFAULT VALUE" )
 	        guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
         elseif ( k == "lshift" or k == "rshift" ) and not ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) )  then
+			buttonValue = guiGetText ( pointedButton )
             guiSetText ( pointedButton, "PREVIOUS VALUE" )
             guiSetProperty ( pointedButton, "HoverTextColour", "FFF0D400" )
         end
