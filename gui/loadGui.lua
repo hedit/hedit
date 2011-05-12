@@ -77,8 +77,10 @@ end
 function toggleEditor (  )
     if guiGetVisible ( mainWnd.window ) then
         removeEventHandler ( "onClientRender", root, onRenderCheck )
-        unbindKey ( "lctrl", "both", showDefaultValue )
-        unbindKey ( "rctrl", "both", showDefaultValue )
+        unbindKey ( "lctrl",  "both", showDefaultValue )
+        unbindKey ( "rctrl",  "both", showDefaultValue )
+        unbindKey ( "lshift", "both", showPreviousValue )
+        unbindKey ( "rshift", "both", showPreviousValue )
         guiSetVisible ( mainWnd.window, false )
         guiSetVisible ( logWnd.window, false )
         showCursor ( false, false )
@@ -90,11 +92,12 @@ function toggleEditor (  )
             local veh = getPedOccupiedVehicle ( localPlayer )
             if veh then
                 if getVehicleController ( veh ) ~= localPlayer and allowPassengersToEdit == false then
-                    return outputChatBox ( text.restrictedPassenger )
-                end
+                    return outputChatBox ( text.restrictedPassenger ) end
                 addEventHandler ( "onClientRender", root, onRenderCheck )
-                bindKey ( "lctrl", "both", showDefaultValue )
-                bindKey ( "rctrl", "both", showDefaultValue )
+                bindKey ( "lctrl",  "both", showDefaultValue )
+                bindKey ( "rctrl",  "both", showDefaultValue )
+                bindKey ( "lshift", "both", showPreviousValue )
+                bindKey ( "rshift", "both", showPreviousValue )
                 guiSetVisible ( mainWnd.window, true )
                 guiSetVisible ( logWnd.window, true )
                 showCursor ( true, true )
@@ -106,11 +109,24 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-function showDefaultValue ( _, s)
+function showDefaultValue ( _, s )
     if s == "down" and pointedButton and isPointing then
       	buttonValue = guiGetText ( pointedButton )
-        guiSetText ( pointedButton, "HISTORY FUNC" )
-        guiSetProperty ( pointedButton, "HoverTextColour", "FFEB2020" )
+        guiSetText ( pointedButton, "DEFAULT VALUE" )
+        guiSetProperty ( pointedButton, "HoverTextColour", "F00000" )
+        return end
+    guiSetText ( pointedButton, buttonValue )
+    guiSetProperty ( pointedButton, "HoverTextColour", "FFFFFFFF" )
+    buttonValue = nil
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+function showPreviousValue ( _, s )
+    if s == "down" and pointedButton and isPointing then
+      	buttonValue = guiGetText ( pointedButton )
+        guiSetText ( pointedButton, "PREVIOUS VALUE" )
+        guiSetProperty ( pointedButton, "HoverTextColour", "F0D400" )
         return end
     guiSetText ( pointedButton, buttonValue )
     guiSetProperty ( pointedButton, "HoverTextColour", "FFFFFFFF" )
