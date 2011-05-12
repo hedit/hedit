@@ -32,6 +32,7 @@ function onEnter ( )
             createSubMenu ( source, 1, unpack(t_Temp) )
         end]]
     elseif mButton[source] then setButtonEffect ( source, mInfo[ mButton[source] ] )
+    elseif hButton[source] then pointedButton = source
     elseif hLabel[source] then
         guiLabelSetColor ( source, 255, 255, 128 )
         guiSetText ( mainWnd.info, sProperty[ hData[cm].h[ hLabel[source] ] ] )
@@ -44,6 +45,7 @@ function onLeave ( )
     if not uItem[source] then
         guiSetText ( mainWnd.info, oldGuiText )
         guiSetAlpha ( hProperty[ mButton[source] ], 0.7 )
+        if hButton[source] then pointedButton = nil end
     end
     if getElementType ( source ) == "gui-label" then return guiLabelSetColor ( source, 255, 255, 255 ) end 
 end

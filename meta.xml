@@ -13,13 +13,9 @@
 	<script src="handlers/onHover.lua" type="client" />
 	<script src="handlers/onClick.lua" type="client" />
 	<script src="handlers/onAccept.lua" type="client" />
-	<script src="functions/mainMenu/menuSwitch.lua" type="client" />
-	<script src="functions/mainMenu/dyno.lua" type="client" />
-	<script src="functions/mainMenu/help.lua" type="client" />
-	<script src="functions/utilMenu/save.lua" type="client" />
-	<script src="functions/utilMenu/load.lua" type="client" />
-	<script src="functions/utilMenu/import.lua" type="client" />
-	<script src="functions/utilMenu/reset.lua" type="client" />
+	<script src="handlers/onScroll.lua" type="client" />
+	<script src="functions/menu/mainMenu.lua" type="client" />
+	<script src="functions/menu/utilMenu.lua" type="client" />
 	<script src="functions/onApply/log.lua" type="client" />
 	<script src="functions/onApply/update.lua" type="client" />
 	<script src="functions/trigger/doClient.lua" type="client" />
@@ -35,10 +31,4 @@
 	<file src="images/other.png" />
 	<file src="images/test.png" />
 	<file src="images/help.png" />
-	<file src="images/save.png" />
-	<file src="images/load.png" />
-	<file src="images/import.png" />
-	<file src="images/reset.png" />
-	
-	<!-- Required Config-Files -->
 </meta>
