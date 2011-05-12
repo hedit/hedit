@@ -96,7 +96,7 @@ function doTry ( veh, input, num )
                     return outputHandlingLog(string.format(log.invalid,iProperty[hData[cm].h[num]][1]).." ["..input.."]",2) end end
             if isInt[hData[cm].h[num]] then input = tonumber(string.format("%.0f",input)) end
             if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,individualHandling,iProperty[hData[cm].h[num]][1],log) then
-                history[hData[cm].h[num]]=tostring(config)
+                history[hData[cm].h[num]]=tostring(config[hData[cm].h[num]])
                 return true
             else
                 return outputHandlingLog(log.unableToCallServer,0)
