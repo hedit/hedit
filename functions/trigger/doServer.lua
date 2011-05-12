@@ -35,14 +35,23 @@ addEvent ( "setHandling", true )
 addEventHandler ( "setHandling", root,
     function ( veh, handling, data, bool, dname, log )
         local d = round(data)
-        if type(d) == "table" then d = round(data[1])..", "..round(data[2])..", "..round(data[3])
-        else local d = round(data) end
+        if type(d) == "table" then d = tostring(round(data[1])..", "..round(data[2])..", "..round(data[3]))
+        else local d = tostring(round(data)) end
+        ------------------------------------------------------------------
+        local pName    = getPlayerName ( source )
+        local vName    = getVehicleName ( veh )
+        local vModel   = getElementModel ( veh )
+        local hCurrent = getVehicleHandling ( veh )[handling]
+        local logFile  = fileOpen ( "heditLog.txt" )
+        if not logFile then logFile = fileCreate ( "heditLog.txt" ) end
+        fileWrite ( logFile, pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d )
+        fileClose ( logFile )
         ------------------------------------------------------------------
         if setTheHandling ( bool, veh, handling, data ) then
-            str = string.format ( log.succes, dname, tostring(d) )
+            str = string.format ( log.succes, dname, d )
             lvl = 0
         else
-            str = string.format ( log.unable, dname, tostring(d) )
+            str = string.format ( log.unable, dname, d )
             lvl = 2
         end
         ------------------------------------------------------------------
@@ -57,7 +66,7 @@ function round(num) if type(num)=="number" then return tonumber ( string.format 
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 function saveHandling ( vehID, pName, str )
-	-- Coming next weekend
+    -- Coming next weekend
 end
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
