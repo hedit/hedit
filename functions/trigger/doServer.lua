@@ -46,7 +46,7 @@ addEventHandler ( "setHandling", root,
         local logFile  = nil
         if not exists then logFile = fileCreate ( "heditLog.txt" )
         else logFile = fileOpen ( "heditLog.txt" ) end
-        if type(hCurrent) == "table" then hCurrent = hCurrent[1]","..hCurrent[2]..","..hCurrent[3] end
+        if type(hCurrent) == "table" then hCurrent = table.concat ( hCurrent, "," ) end
         fileWrite ( logFile, pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d )
         fileClose ( logFile )
         ------------------------------------------------------------------
