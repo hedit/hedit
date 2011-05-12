@@ -77,10 +77,10 @@ end
 function toggleEditor (  )
     if guiGetVisible ( mainWnd.window ) then
         removeEventHandler ( "onClientRender", root, onRenderCheck )
-        unbindKey ( "lctrl",  "both", showDefaultValue )
-        unbindKey ( "rctrl",  "both", showDefaultValue )
-        unbindKey ( "lshift", "both", showPreviousValue )
-        unbindKey ( "rshift", "both", showPreviousValue )
+        unbindKey ( "lctrl",  "both", showValue )
+        unbindKey ( "rctrl",  "both", showValue )
+        unbindKey ( "lshift", "both", showValue )
+        unbindKey ( "rshift", "both", showValue )
         guiSetVisible ( mainWnd.window, false )
         guiSetVisible ( logWnd.window, false )
         showCursor ( false, false )
@@ -94,10 +94,10 @@ function toggleEditor (  )
                 if getVehicleController ( veh ) ~= localPlayer and allowPassengersToEdit == false then
                     return outputChatBox ( text.restrictedPassenger ) end
                 addEventHandler ( "onClientRender", root, onRenderCheck )
-                bindKey ( "lctrl",  "both", showDefaultValue )
-                bindKey ( "rctrl",  "both", showDefaultValue )
-                bindKey ( "lshift", "both", showPreviousValue )
-                bindKey ( "rshift", "both", showPreviousValue )
+                bindKey ( "lctrl",  "both", showValue )
+                bindKey ( "rctrl",  "both", showValue )
+                bindKey ( "lshift", "both", showValue )
+                bindKey ( "rshift", "both", showValue )
                 guiSetVisible ( mainWnd.window, true )
                 guiSetVisible ( logWnd.window, true )
                 showCursor ( true, true )
@@ -109,28 +109,21 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-function showDefaultValue ( _, s )
+function showValue ( k, s )
     if s == "down" and pointedButton and isPointing then
       	buttonValue = guiGetText ( pointedButton )
-        guiSetText ( pointedButton, "DEFAULT VALUE" )
-        guiSetProperty ( pointedButton, "HoverTextColour", "FFF00000" )
-        return end
-    guiSetText ( pointedButton, buttonValue )
-    guiSetProperty ( pointedButton, "HoverTextColour", "FFFFFFFF" )
-    buttonValue = nil
-end
--------------------------------------------------------------------------------------------------------------------------
--- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
--------------------------------------------------------------------------------------------------------------------------
-function showPreviousValue ( _, s )
-    if s == "down" and pointedButton and isPointing then
-      	buttonValue = guiGetText ( pointedButton )
-        guiSetText ( pointedButton, "PREVIOUS VALUE" )
-        guiSetProperty ( pointedButton, "HoverTextColour", "FFF0D400" )
-        return end
-    guiSetText ( pointedButton, buttonValue )
-    guiSetProperty ( pointedButton, "HoverTextColour", "FFFFFFFF" )
-    buttonValue = nil
+      	if k == "lctrl" or k == "rctrl" then
+	        guiSetText ( pointedButton, "DEFAULT VALUE" )
+	        guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
+        else
+            guiSetText ( pointedButton, "PREVIOUS VALUE" )
+            guiSetProperty ( pointedButton, "HoverTextColour", "FFF0D400" )
+        end
+    else
+        guiSetText ( pointedButton, buttonValue )
+        guiSetProperty ( pointedButton, "HoverTextColour", "FFFFFFFF" )
+        buttonValue = nil
+    end
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --

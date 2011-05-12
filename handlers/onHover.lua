@@ -63,11 +63,9 @@ function setButtonEffect ( button, txt )
     playSoundFrontEnd    ( 42 )
     guiSetText           ( mainWnd.info, txt )
 end
-
+-------------------------------------------------------------------------------------------------------------------------
 function handleKeyState ( str )
-    if getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) then
-        showDefaultValue ( _, str )
-    elseif getKeyState ( "lshift" ) or getKeyState ( "rshift" ) then
-        showPreviousValue ( _, str )
+    if getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) or getKeyState ( "lshift" ) or getKeyState ( "rshift" ) then
+        showValue ( k, str )
     end
 end
