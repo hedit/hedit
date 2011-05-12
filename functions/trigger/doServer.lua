@@ -42,8 +42,10 @@ addEventHandler ( "setHandling", root,
         local vName    = getVehicleName ( veh )
         local vModel   = getElementModel ( veh )
         local hCurrent = getVehicleHandling ( veh )[handling]
-        local logFile  = fileOpen ( "heditLog.txt" )
-        if not logFile then logFile = fileCreate ( "heditLog.txt" ) end
+        local exists   = fileExists ( "heditLog.txt" )
+        local logFile  = nil
+        if exists then logFile = fileCreate ( "heditLog.txt" )
+        else logFile = fileopen ( "heditLog.txt" ) end
         fileWrite ( logFile, pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d )
         fileClose ( logFile )
         ------------------------------------------------------------------
