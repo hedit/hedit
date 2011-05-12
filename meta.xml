@@ -13,7 +13,6 @@
 	<script src="handlers/onHover.lua" type="client" />
 	<script src="handlers/onClick.lua" type="client" />
 	<script src="handlers/onAccept.lua" type="client" />
-	<script src="handlers/onScroll.lua" type="client" />
 	<script src="functions/menu/mainMenu.lua" type="client" />
 	<script src="functions/menu/utilMenu.lua" type="client" />
 	<script src="functions/onApply/log.lua" type="client" />
