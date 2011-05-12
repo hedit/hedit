@@ -56,17 +56,7 @@ function enableTemplate ( )
         sProperty[v] = iProperty[v][1].."\n"..iProperty[v][2]
     end
     --------------------------------------------------------------------------------------------------------------------
-    local xmlRoot       = xmlLoadFile       ( "VERSION" )
-    if xmlRoot then
-        local xmlChild  = xmlFindChild      ( xmlRoot, "version", 0 )
-        local xmlValue  = xmlNodeGetValue   ( xmlChild )
-        xmlNodeSetValue ( xmlChild, tostring(tonumber(xmlValue)+1) )
-        xmlSaveFile     ( xmlRoot )
-        guiSetText      ( mainWnd.window, HEDIT_VERSION.."-r"..xmlValue )
-        xmlUnloadFile   ( xmlRoot )
-    else
-        guiSetText      ( mainWnd.window, HEDIT_VERSION.."-Guest" )
-    end
+    guiSetText      ( mainWnd.window, HEDIT_VERSION )
     --------------------------------------------------------------------------------------------------------------------
     guiSetVisible   ( mainWnd.window,   false )
     guiSetVisible   ( logWnd.window,    false )
@@ -75,11 +65,11 @@ function enableTemplate ( )
     addEventHandler ( "onClientMouseEnter",             mainWnd.window, onEnter )
     addEventHandler ( "onClientMouseLeave",             mainWnd.window, onLeave )
     addEventHandler ( "onClientGUIClick",               mainWnd.window, onClick )
-    addEventHandle  ( "onClientGUIAccepted",            mainWnd.window, onEditBoxAccept )
+    addEventHandler ( "onClientGUIAccepted",            mainWnd.window, onEditBoxAccept )
     addEventHandler ( "onClientGUIComboBoxAccepted",    mainWnd.window, onComboBoxAccept )
     --------------------------------------------------------------------------------------------------------------------
     bindKey ( usedKey, "down", toggleEditor )
-    addCommandHandler(usedCommand, toggleEditor)
+    addCommandHandler ( usedCommand, toggleEditor )
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
@@ -87,9 +77,12 @@ end
 function toggleEditor (  )
     if guiGetVisible ( mainWnd.window ) then
         removeEventHandler ( "onClientRender", root, onRenderCheck )
+        unbindKey ( "lctrl", "both", showDefaultValue )
+        unbindKey ( "rctrl", "both", showDefaultValue )
         guiSetVisible ( mainWnd.window, false )
         guiSetVisible ( logWnd.window, false )
         showCursor ( false, false )
+        pointedButton = false
         hideUtilMenu ( )
     else
         if not isElement ( popupWnd ) then
@@ -99,12 +92,28 @@ function toggleEditor (  )
                     return outputChatBox ( text.restrictedPassenger )
                 end
                 addEventHandler ( "onClientRender", root, onRenderCheck )
+                bindKey ( "lctrl", "both", showDefaultValue )
+                bindKey ( "rctrl", "both", showDefaultValue )
                 guiSetVisible ( mainWnd.window, true )
                 guiSetVisible ( logWnd.window, true )
                 showCursor ( true, true )
                 updateHandlingData ( )
             end
         end
+    end
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+function showDefaultValue ( _, s)
+	if s == "down" then
+	    if pointedButton then
+	        guiSetText ( hButton[pointedButton], "HISTORY FUNC" )
+	        guiSetProperty ( hButton[pointedButton], "HovertTextColour", "FFEB2020" )
+	    end
+	else
+	    guiSetText ( hButton[pointedButton], iProperty[ hData[cm].h[ hButton[pointedButton] ] ][1] )
+	    guiSetProperty ( hButton[pointedButton], "HovertTextColour", "FFFFFFFF" )
     end
 end
 -------------------------------------------------------------------------------------------------------------------------
