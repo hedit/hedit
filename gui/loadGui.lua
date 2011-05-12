@@ -113,7 +113,7 @@ function showDefaultValue ( _, s )
     if s == "down" and pointedButton and isPointing then
       	buttonValue = guiGetText ( pointedButton )
         guiSetText ( pointedButton, "DEFAULT VALUE" )
-        guiSetProperty ( pointedButton, "HoverTextColour", "F00000" )
+        guiSetProperty ( pointedButton, "HoverTextColour", "FFF00000" )
         return end
     guiSetText ( pointedButton, buttonValue )
     guiSetProperty ( pointedButton, "HoverTextColour", "FFFFFFFF" )
@@ -126,7 +126,7 @@ function showPreviousValue ( _, s )
     if s == "down" and pointedButton and isPointing then
       	buttonValue = guiGetText ( pointedButton )
         guiSetText ( pointedButton, "PREVIOUS VALUE" )
-        guiSetProperty ( pointedButton, "HoverTextColour", "F0D400" )
+        guiSetProperty ( pointedButton, "HoverTextColour", "FFF0D400" )
         return end
     guiSetText ( pointedButton, buttonValue )
     guiSetProperty ( pointedButton, "HoverTextColour", "FFFFFFFF" )
