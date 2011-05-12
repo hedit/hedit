@@ -82,7 +82,8 @@ function toggleEditor (  )
         guiSetVisible ( mainWnd.window, false )
         guiSetVisible ( logWnd.window, false )
         showCursor ( false, false )
-        pointedButton = false
+        isPointing = false
+        pointedButton = nil
         hideUtilMenu ( )
     else
         if not isElement ( popupWnd ) then
@@ -106,15 +107,14 @@ end
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function showDefaultValue ( _, s)
-    local hValue = nil
     if s == "down" and pointedButton and isPointing then
-      	hValue = guiGetText ( pointedButton )
+      	buttonValue = guiGetText ( pointedButton )
         guiSetText ( pointedButton, "HISTORY FUNC" )
-        guiSetProperty ( pointedButton, "HovertTextColour", "FFEB2020" )
+        guiSetProperty ( pointedButton, "HoverTextColour", "FFEB2020" )
         return end
-    guiSetText ( pointedButton, hValue )
-    guiSetProperty ( pointedButton, "HovertTextColour", "FFFFFFFF" )
-    hValue = nil
+    guiSetText ( pointedButton, buttonValue )
+    guiSetProperty ( pointedButton, "HoverTextColour", "FFFFFFFF" )
+    buttonValue = nil
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
