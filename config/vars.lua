@@ -65,6 +65,7 @@ cm                          = nil
 cu                          = nil
 openedHandlingBox           = nil
 hidedHeditButton            = nil
+isPointing					= nil
 pointedButton               = nil
 lVeh                        = nil
 -------------------------------------------------------------------------------------------------------------------------

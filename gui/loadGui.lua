@@ -106,15 +106,15 @@ end
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function showDefaultValue ( _, s)
-    if s == "down" then
-        if pointedButton then
-            guiSetText ( hButton[pointedButton], "HISTORY FUNC" )
-            guiSetProperty ( hButton[pointedButton], "HovertTextColour", "FFEB2020" )
-        end
-    else
-        guiSetText ( hButton[pointedButton], iProperty[ hData[cm].h[ hButton[pointedButton] ] ][1] )
-        guiSetProperty ( hButton[pointedButton], "HovertTextColour", "FFFFFFFF" )
-    end
+    local hValue = nil
+    if s == "down" and pointedButton and isPointing then
+      	hValue = guiGetText ( hButton[pointedButton] )
+        guiSetText ( hButton[pointedButton], "HISTORY FUNC" )
+        guiSetProperty ( hButton[pointedButton], "HovertTextColour", "FFEB2020" )
+        return end
+    guiSetText ( hButton[pointedButton], hValue )
+    guiSetProperty ( hButton[pointedButton], "HovertTextColour", "FFFFFFFF" )
+    hValue = nil
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
