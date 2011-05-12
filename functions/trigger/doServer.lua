@@ -50,6 +50,7 @@ addEventHandler ( "setHandling", root,
         else logFile = fileOpen ( "heditLog.txt" ) end
         if type(hCurrent) == "table" then hCurrent = table.concat ( hCurrent, "," ) end
         fileWrite ( logFile, tStamp.." "..pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d )
+        fileFlush ( logFile )
         fileClose ( logFile )
         ------------------------------------------------------------------
         if setTheHandling ( bool, veh, handling, data ) then
