@@ -108,12 +108,12 @@ end
 function showDefaultValue ( _, s)
     local hValue = nil
     if s == "down" and pointedButton and isPointing then
-      	hValue = guiGetText ( hButton[pointedButton] )
-        guiSetText ( hButton[pointedButton], "HISTORY FUNC" )
-        guiSetProperty ( hButton[pointedButton], "HovertTextColour", "FFEB2020" )
+      	hValue = guiGetText ( pointedButton )
+        guiSetText ( pointedButton, "HISTORY FUNC" )
+        guiSetProperty ( pointedButton, "HovertTextColour", "FFEB2020" )
         return end
-    guiSetText ( hButton[pointedButton], hValue )
-    guiSetProperty ( hButton[pointedButton], "HovertTextColour", "FFFFFFFF" )
+    guiSetText ( pointedButton, hValue )
+    guiSetProperty ( pointedButton, "HovertTextColour", "FFFFFFFF" )
     hValue = nil
 end
 -------------------------------------------------------------------------------------------------------------------------
