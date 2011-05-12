@@ -11,6 +11,7 @@
 
 individualHandling          = true
 allowPassengersToEdit       = false
+withLimits					= false
 usedKey                     = "b"
 usedCommand                 = "hedit"
 usedTemplate                = "default"
