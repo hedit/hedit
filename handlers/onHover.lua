@@ -35,6 +35,7 @@ function onEnter ( )
     elseif hButton[source] then
         isPointing = true
         pointedButton = source
+        handleKeyState ( "down" )
     elseif hLabel[source] then
         guiLabelSetColor ( source, 255, 255, 128 )
         guiSetText ( mainWnd.info, sProperty[ hData[cm].h[ hLabel[source] ] ] )
@@ -47,7 +48,10 @@ function onLeave ( )
     if not uItem[source] then
         guiSetText ( mainWnd.info, oldGuiText )
         guiSetAlpha ( hProperty[ mButton[source] ], 0.7 )
-        if hButton[source] then isPointing = false end
+        if hButton[source] then 
+            isPointing = false
+            handleKeyState ( "up" )
+        end
     end
     if getElementType ( source ) == "gui-label" then return guiLabelSetColor ( source, 255, 255, 255 ) end 
 end
@@ -58,4 +62,12 @@ function setButtonEffect ( button, txt )
     guiSetAlpha          ( button, 1 )
     playSoundFrontEnd    ( 42 )
     guiSetText           ( mainWnd.info, txt )
+end
+
+function handleKeyState ( str )
+    if getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) then
+        showDefaultValue ( _, str )
+    elseif getKeyState ( "lshift" ) or getKeyState ( "rshift" ) then
+        showPreviousValue ( _, str )
+    end
 end
