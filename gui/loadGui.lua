@@ -152,6 +152,20 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
+function getKeyStateEx ( str )
+	if str then -- might be useful for stuff added later
+		if str == "ctrl" and ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) ) then
+		elseif str == "shift" and ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )then end
+	elseif (
+	    getKeyState ( "lctrl" )   or
+        getKeyState ( "rctrl" )   or
+        getKeyState ( "lshift" )  or
+        getKeyState ( "rshift" )) then return true end
+	return false
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
 function destroyMenuChildren ( )
     oldGuiText = ""
     if isElement ( openedHandlingBox ) then destroyElement ( openedHandlingBox ) end

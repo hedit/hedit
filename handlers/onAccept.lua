@@ -39,23 +39,31 @@ function onEditBoxAccept ( box )
         local boxText       = guiGetText ( openedHandlingBox )
         local veh           = getPedOccupiedVehicle ( localPlayer )
         ------------------------------------------------------------------------------------------------------------------
-        if hData[cm].h[hidedHeditButton] == hProperty[5] then
-            local   vX      = round ( tonumber ( gettok ( boxText, 1, 44 ) ) )
-            local   vY      = round ( tonumber ( gettok ( boxText, 2, 44 ) ) )
-            local   vZ      = round ( tonumber ( gettok ( boxText, 3, 44 ) ) )
-            local   input   = { vX, vY, vZ }
-            doTry   ( veh, input, hidedHeditButton )
-        else
-            local input     = tonumber ( boxText )
-            if input then doTry ( veh, round(input), hidedHeditButton )
-            else
-                outputHandlingLog ( log.needNumber, 2 )
-            end
-        end
+        fixInput ( veh, boxText, hidedHeditButton )
         ------------------------------------------------------------------------------------------------------------------
         guiSetVisible ( hedit[hidedHeditButton], true )
         ------------------------------------------------------------------------------------------------------------------
         destroyElement ( box )
+    end
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+
+function fixInput ( veh, text, num )
+    if hData[cm].h[num] == hProperty[5] then
+        local   vX      = round ( tonumber ( gettok ( text, 1, 44 ) ) )
+        local   vY      = round ( tonumber ( gettok ( text, 2, 44 ) ) )
+        local   vZ      = round ( tonumber ( gettok ( text, 3, 44 ) ) )
+        local   input   = { vX, vY, vZ }
+        doTry   ( veh, input, num )
+    else
+        local input     = tonumber ( text )
+        if input then doTry ( veh, round(input), num )
+        else
+            outputHandlingLog ( log.needNumber, 2 )
+        end
     end
 end
 
