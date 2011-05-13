@@ -21,14 +21,19 @@ function updateData ( m )
                 guiComboBoxSetSelected ( hedit[i], cI )
             elseif hData[m].h[i] == hProperty[5] then
                 local com   = config[ hData[m].h[i] ]
+                if getKeyStateEx ( ) and hButton[pointedButton] == i then
+                	buttonValue = tostring ( round(com[1]) ) ..", "..tostring ( round(com[2]) ) ..", "..tostring ( round(com[3]) )
+                else
                 guiSetText  (
                             hedit[i],
                             tostring   ( round(com[1]) ) ..", "
                             ..tostring ( round(com[2]) ) ..", "
                             ..tostring ( round(com[3]) )
                             )
+                end
             else
-                guiSetText ( hedit[i], round ( config[ hData[m].h[i] ] ) )
+            	if getKeyStateEx ( ) and hButton[pointedButton] == i then buttonValue = round ( config[ hData[m].h[i] ] )
+            	else guiSetText ( hedit[i], round ( config[ hData[m].h[i] ] ) ) end
             end
         end
     end
