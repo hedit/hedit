@@ -55,9 +55,9 @@ function enableTemplate ( )
     local node = xmlLoadFile ( "defaults.xml" )
     if node then
         for kc,vc in ipairs ( xmlNodeGetChildren ( node ) ) do
-        	local behID = xmlFindChild ( vc, "model", 0 )
+            local behID = xmlFindChild ( vc, "model", 0 )
             for ka,va in ipairs ( xmlNodeGetAttributes ( vc ) ) do
-            	
+                
             end
         end
     end
