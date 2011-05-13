@@ -48,12 +48,18 @@ function enableTemplate ( )
         guiSetAlpha ( menuButton[k], 0.7 )
     end
     --------------------------------------------------------------------------------------------------------------------
-    for k,v in ipairs ( label ) do
-        hLabel[ label[k] ] = k
-    end
+    for k,v in ipairs ( label ) do hLabel[ label[k] ] = k end
     --------------------------------------------------------------------------------------------------------------------
-    for k,v in ipairs ( hProperty ) do
-        sProperty[v] = iProperty[v][1].."\n"..iProperty[v][2]
+    for k,v in ipairs ( hProperty ) do sProperty[v] = iProperty[v][1].."\n"..iProperty[v][2] end
+    --------------------------------------------------------------------------------------------------------------------
+    local node = xmlLoadFile ( "defaults.xml" )
+    if node then
+        for kc,vc in ipairs ( xmlNodeGetChildren ( node ) ) do
+        	local behID = xmlFindChild ( vc, "model", 0 )
+            for ka,va in ipairs ( xmlNodeGetAttributes ( vc ) ) do
+            	
+            end
+        end
     end
     --------------------------------------------------------------------------------------------------------------------
     guiSetText      ( mainWnd.window, HEDIT_VERSION )
@@ -114,8 +120,7 @@ function showValue ( k, s )
       	if ( k == "lctrl" or k == "rctrl" ) and not ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )  then 
             buttonValue = guiGetText ( pointedButton )
             local vehID = getElementModel ( getPedOccupiedVehicle ( localPlayer ) )
-            local val = "NAH NOT YET"
-            -- local val = hDefault[vehID][ hData[cm].h[ hButton[pointedButton] ] ] -- TODO
+            local val = hDefault[vehID][ hData[cm].h[ hButton[pointedButton] ] ] -- TODO
             guiSetText ( pointedButton, val )
             guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
         elseif ( k == "lshift" or k == "rshift" ) and not ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) )  then
