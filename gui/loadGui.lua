@@ -116,11 +116,13 @@ function showValue ( k, s )
             local vehID = getElementModel ( getPedOccupiedVehicle ( localPlayer ) )
             local val = "NAH NOT YET"
             -- local val = hDefault[vehID][ hData[cm].h[ hButton[pointedButton] ] ] -- TODO
-	        guiSetText ( pointedButton, val )
-	        guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
+            guiSetText ( pointedButton, val )
+            guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
         elseif ( k == "lshift" or k == "rshift" ) and not ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) )  then
-			buttonValue = guiGetText ( pointedButton )
-            guiSetText ( pointedButton, history[ hData[cm].h[ hButton[pointedButton] ] ] )
+            buttonValue = guiGetText ( pointedButton )
+            local val = history[ hData[cm].h[ hButton[pointedButton] ] ]
+            if isInt then end
+            guiSetText ( pointedButton, val )
             guiSetProperty ( pointedButton, "HoverTextColour", "FFF0D400" )
         end
     else
