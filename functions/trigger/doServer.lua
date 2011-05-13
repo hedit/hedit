@@ -9,6 +9,15 @@
 --|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
 
+local logFile = nil
+addEventHandler ( "onResourceStart", resourceRoot,
+    function ( )
+        local exists   = fileExists ( "heditLog.txt" )
+        if not exists then logFile = fileCreate ( "heditLog.txt" )
+        else logFile = fileOpen ( "heditLog.txt" ) end
+    end
+)
+addEventHandler ( "onResourceStop", resourceRoot, function ( ) fileClose ( logFile ) end )
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
@@ -20,14 +29,11 @@ function (funcname, ...)
     if (arg[1]) then for key, value in next, arg do arg[key] = tonumber(value) or value end end
     loadstring("return "..funcname)()(unpack(arg))
 end)
-
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
-
 addEvent ( "stopTheResource", true )
 addEventHandler ( "stopTheResource", root, function ( ) stopResource ( getThisResource ( ) ) end )
-
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
@@ -43,18 +49,13 @@ addEventHandler ( "setHandling", root,
         local vModel   = getElementModel ( veh )
         local hCurrent = getVehicleHandling ( veh )[handling]
         local time     = getRealTime ( )
-        local tStamp   = string.format ( "%02d/%02d/%02d", time.hour, time.minute, time.second )
-        local exists   = fileExists ( "heditLog.txt" )
-        local logFile  = nil
-        if not exists then logFile = fileCreate ( "heditLog.txt" )
-        else logFile = fileOpen ( "heditLog.txt" ) end
+        local tStamp   = string.format ( "%02d:%02d:%02d", time.hour, time.minute, time.second )
         if logFile then
             local size = fileGetSize ( logFile )
             fileSetPos ( logFile, size )
             if type(hCurrent) == "table" then hCurrent = table.concat ( hCurrent, "," ) end
-            fileWrite ( logFile, tStamp.." "..pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d.."\n" )
+            fileWrite ( logFile, tStamp.." "..pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d.."\r\n" )
             fileFlush ( logFile )
-            fileClose ( logFile )
         end
         ------------------------------------------------------------------
         if setTheHandling ( bool, veh, handling, data ) then
