@@ -43,7 +43,7 @@ addEventHandler ( "setHandling", root,
         local vModel   = getElementModel ( veh )
         local hCurrent = getVehicleHandling ( veh )[handling]
         local time     = getRealTime ( )
-        local tStamp   = "["..time.hour..":"..time.minute..":"..time.second.."]"
+        local tStamp   = string.format ( "%02d/%02d/%02d", time.hour, time.minute, time.second )
         local exists   = fileExists ( "heditLog.txt" )
         local logFile  = nil
         if not exists then logFile = fileCreate ( "heditLog.txt" )
