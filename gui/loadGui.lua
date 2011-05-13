@@ -120,9 +120,7 @@ function showValue ( k, s )
             guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
         elseif ( k == "lshift" or k == "rshift" ) and not ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) )  then
             buttonValue = guiGetText ( pointedButton )
-            local val = history[ hData[cm].h[ hButton[pointedButton] ] ]
-            if isInt then end
-            guiSetText ( pointedButton, val )
+            guiSetText ( pointedButton, history[ hData[cm].h[ hButton[pointedButton] ] ] )
             guiSetProperty ( pointedButton, "HoverTextColour", "FFF0D400" )
         end
     else
