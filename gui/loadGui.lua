@@ -55,9 +55,10 @@ function enableTemplate ( )
     local node = xmlLoadFile ( "defaults.xml" )
     if node then
         for kc,vc in ipairs ( xmlNodeGetChildren ( node ) ) do
-            local behID = xmlFindChild ( vc, "model", 0 )
+            local vehID = xmlGetAttribute ( vc, "model", 0 )
+            hDefault[vehID] = {}
             for ka,va in ipairs ( xmlNodeGetAttributes ( vc ) ) do
-                
+                hDefault[vehID][ka] = va
             end
         end
     end
@@ -120,7 +121,7 @@ function showValue ( k, s )
       	if ( k == "lctrl" or k == "rctrl" ) and not ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )  then 
             buttonValue = guiGetText ( pointedButton )
             local vehID = getElementModel ( getPedOccupiedVehicle ( localPlayer ) )
-            local val = hDefault[vehID][ hData[cm].h[ hButton[pointedButton] ] ] -- TODO
+            local val = hDefault[vehID][ hData[cm].h[ hButton[pointedButton] ] ]
             guiSetText ( pointedButton, val )
             guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
         elseif ( k == "lshift" or k == "rshift" ) and not ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) )  then
