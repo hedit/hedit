@@ -49,7 +49,7 @@ addEventHandler ( "setHandling", root,
         local vModel   = getElementModel ( veh )
         local hCurrent = getVehicleHandling ( veh )[handling]
         local time     = getRealTime ( )
-        local tStamp   = string.format ( "%02d:%02d:%02d", time.hour, time.minute, time.second )
+        local tStamp   = string.format ( "[%02d:%02d:%02d]", time.hour, time.minute, time.second )
         if logFile then
             local size = fileGetSize ( logFile )
             fileSetPos ( logFile, size )
