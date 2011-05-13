@@ -48,10 +48,14 @@ addEventHandler ( "setHandling", root,
         local logFile  = nil
         if not exists then logFile = fileCreate ( "heditLog.txt" )
         else logFile = fileOpen ( "heditLog.txt" ) end
-        if type(hCurrent) == "table" then hCurrent = table.concat ( hCurrent, "," ) end
-        fileWrite ( logFile, tStamp.." "..pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d )
-        fileFlush ( logFile )
-        fileClose ( logFile )
+        if logFile then
+            local size = fileGetSize ( logFile )
+            fileSetPos ( logFile, size )
+            if type(hCurrent) == "table" then hCurrent = table.concat ( hCurrent, "," ) end
+            fileWrite ( logFile, tStamp.." "..pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d.."\n" )
+            fileFlush ( logFile )
+            fileClose ( logFile )
+        end
         ------------------------------------------------------------------
         if setTheHandling ( bool, veh, handling, data ) then
             str = string.format ( log.succes, dname, d )
