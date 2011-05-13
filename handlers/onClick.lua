@@ -9,7 +9,7 @@
 --|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
 
-function onClick ( )
+function onClick ( b )
     if uMenu[source] then
         --[[if isElement ( utilGridList ) and source == cu then hideUtilMenu ( )
         else
@@ -22,27 +22,32 @@ function onClick ( )
         if guiGetText ( source ) ~= text.hr then hideUtilMenu ( ) end
         if mButton[source] then
             playSoundFrontEnd ( 41 )
-            showData ( mProperty[ mButton[source] ] )
+            return showData ( mProperty[ mButton[source] ] )
         elseif hButton[source] then
-            createHeditBox ( hedit[ hButton[source] ], iProperty[ hData[cm].h[ hButton[source] ] ][3], true )
+        	if getKeyStateEx ( ) and b == "right" then return fixInput ( lVeh, guiGetText ( source ), hButton[source] ) end
+            return createHeditBox ( hedit[ hButton[source] ], iProperty[ hData[cm].h[ hButton[source] ] ][3], true )
         end
     end
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-function createHeditBox(box,text,bool)
-    oldGuiText=text
-    guiSetText(mainWnd.info,text)
-    showAllTheEdits()
-    if(bool==true)then
-        local x,y=guiGetPosition(box,false)
-        local w,h=guiGetSize(box,false)
-        openedHandlingBox=guiCreateEdit(x,y,w,h,guiGetText(box),false,mainWnd.window)
-        guiBringToFront(openedHandlingBox)
-        guiEditSetCaretIndex(openedHandlingBox,string.len(guiGetText(box)))
-        guiSetVisible(box,false)
-        hidedHeditButton=hButton[box]
+function createHeditBox ( box, text, bool )
+    oldGuiText = text
+    guiSetText ( mainWnd.info, text )
+    showAllTheEdits ( )
+    if bool == true then
+        local x,y            = guiGetPosition ( box, false )
+        local w,h            = guiGetSize     ( box, false )
+        local boxtext        = "PROBLEM PAL?"
+        if getKeyStateEx ( ) then
+            boxtext          = buttonValue
+        else boxtext         = guiGetText ( box ) end
+        hidedHeditButton     = hButton[box]
+        openedHandlingBox    = guiCreateEdit ( x, y, w, h, guiGetText ( box ), false, mainWnd.window )
+        guiBringToFront      ( openedHandlingBox )
+        guiEditSetCaretIndex ( openedHandlingBox, string.len ( guiGetText ( box ) ) )
+        guiSetVisible        ( box, false )
     end
 end
 -------------------------------------------------------------------------------------------------------------------------
