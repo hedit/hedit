@@ -57,7 +57,7 @@ function enableTemplate ( )
         for kc,vc in ipairs ( xmlNodeGetChildren ( node ) ) do
             local vehID = tonumber( xmlNodeGetAttribute ( vc, "model", 0 ) )
             hDefault[vehID] = {}
-            for ka,va in ipairs ( xmlNodeGetAttributes ( vc ) ) do
+            for ka,va in pairs ( xmlNodeGetAttributes ( vc ) ) do
                 hDefault[vehID][ka] = va
             end
         end
