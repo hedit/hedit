@@ -65,7 +65,7 @@ function setButtonEffect ( button, txt )
 end
 -------------------------------------------------------------------------------------------------------------------------
 function handleKeyState ( str )
-    if getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) or getKeyState ( "lshift" ) or getKeyState ( "rshift" ) then
-        showValue ( k, str )
+    if getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) then showValue ( "lctrl", str )
+    elseif getKeyState ( "lshift" ) or getKeyState ( "rshift" ) then showValue ( "lshift", str )
     end
 end

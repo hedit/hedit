@@ -42,7 +42,7 @@ addEventHandler ( "setHandling", root,
     function ( veh, handling, data, bool, dname, log )
         local d = round(data)
         if type(d) == "table" then d = table.concat ( d, "," )
-        else local d = tostring(round(data)) end
+        else local d = tostring( round ( data ) ) end
         ------------------------------------------------------------------
         local pName    = getPlayerName ( source )
         local vName    = getVehicleName ( veh )
@@ -53,7 +53,7 @@ addEventHandler ( "setHandling", root,
         if logFile then
             local size = fileGetSize ( logFile )
             fileSetPos ( logFile, size )
-            if type(hCurrent) == "table" then hCurrent = table.concat ( hCurrent, "," ) end
+            if type ( hCurrent ) == "table" then hCurrent = table.concat ( hCurrent, "," ) end
             fileWrite ( logFile, tStamp.." "..pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d.."\r\n" )
             fileFlush ( logFile )
         end
