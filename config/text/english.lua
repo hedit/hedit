@@ -13,7 +13,7 @@ loadTranslation["english"] = function ( )
     text.header                 = "Handling Editor "..HEDIT_VERSION.." - By Remi-X"
     text.logheader              = "Log"
     text.hr                     = "____________________________________________________"
-    text.reenter                = "Please re-enter your vehicle to get the handlingeditor working properly."
+    text.loading                = "Loading the Handling Editor. Please wait...\nThis could take a few seconds."
     text.restrictedPassenger    = "#ff0000HANDLING EDITOR:#ffff00 You are not allowed to edit the handling as a passenger."
     text.incorrectTemplate      = "HANDLING EDITOR: Incorrect/corrupted template. Default template has been loaded."
     text.invalidTemplate        = "HANDLING EDITOR: No such template with that name. Default template has been loaded."
@@ -21,28 +21,9 @@ loadTranslation["english"] = function ( )
     -------------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -------------------------------------------------------------------------------------------------------------------------
-    --[[uMenuText[ uProperty[1] ]   = "File"
+    uMenuText[ uProperty[1] ]   = "File"
     uMenuText[ uProperty[2] ]   = "View"
     uMenuText[ uProperty[3] ]   = "Options"
-    -------------------------------------------------------------------------------------------------------------------------
-    text.newHandling            = "New"
-    text.openHandling           = "Open"
-    text.importHandling         = "Import"
-    text.exportHandling         = "Export"
-    text.saveHandling           = "Save"
-    text.saveHandlingAs         = "Save As"
-    text.closeWindow            = "Close Window"
-    -------------------------------------------------------------------------------------------------------------------------
-    text.showTransmission       = "Engine options"
-    text.showSuspension         = "Body options"
-    text.showOther              = "Advanced options"
-    text.showTest               = "Dynamometer Menu"
-    text.showHelp               = "Help Menu"
-    text.showLog                = "Log"
-    text.showDyno               = "Dynamometer Results"
-    -------------------------------------------------------------------------------------------------------------------------
-    text.pickLanguage           = "Language"
-    text.pickTemplate           = "Template"]]
     -------------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -------------------------------------------------------------------------------------------------------------------------

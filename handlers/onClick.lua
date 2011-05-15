@@ -1,8 +1,8 @@
 --|| ***************************************************************************************************************** [[
---|| PROJECT:        MTA Ingame Handling Editor
---|| FILE:            handlers/onClick.lua
+--|| PROJECT:       MTA Ingame Handling Editor
+--|| FILE:          handlers/onClick.lua
 --|| DEVELOPERS:    Remi-X <rdg94@live.nl>
---|| PURPOSE:        Manage the button clicks
+--|| PURPOSE:       Manage the button clicks
 --||
 --|| COPYRIGHTED BY REMI-X
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
@@ -10,22 +10,20 @@
 --|| ***************************************************************************************************************** ]]
 
 function onClick ( b )
-    if uMenu[source] then
-        --[[if isElement ( utilGridList ) and source == cu then hideUtilMenu ( )
-        else
-            if source == utilButton[#utilButton] then toggleEditor ( )
-            else tryDropList ( source ) end
-        end
-    elseif uItem[source] then]]
-        
+    if uButton[source] then
+        if uButton[source] == #utilButton then toggleEditor ( )
+        elseif dropList[source] == cu then hideUtilMenu ( )
+        else showUtilMenu ( dropList[source] ) end
+    elseif uItem[source] then
+    
     else
         if guiGetText ( source ) ~= text.hr then hideUtilMenu ( ) end
         if mButton[source] then
             playSoundFrontEnd ( 41 )
-            return showData ( mProperty[ mButton[source] ] )
+            showData ( mProperty[ mButton[source] ] )
         elseif hButton[source] then
-        	if getKeyStateEx ( ) and b == "right" then return fixInput ( lVeh, guiGetText ( source ), hButton[source] ) end
-            return createHeditBox ( hedit[ hButton[source] ], iProperty[ hData[cm].h[ hButton[source] ] ][3], true )
+            if getKeyStateEx ( ) and b == "right" then return fixInput ( lVeh, guiGetText ( source ), hButton[source] ) end
+            createHeditBox ( hedit[ hButton[source] ], iProperty[ hData[cm].h[ hButton[source] ] ][3], true )
         end
     end
 end

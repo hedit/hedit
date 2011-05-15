@@ -1,8 +1,8 @@
 --|| ***************************************************************************************************************** [[
---|| PROJECT:        MTA Ingame Handling Editor
---|| FILE:            handlers/onHover.lua
+--|| PROJECT:       MTA Ingame Handling Editor
+--|| FILE:          handlers/onHover.lua
 --|| DEVELOPERS:    Remi-X <rdg94@live.nl>
---|| PURPOSE:        Handling the mouse-hover effects
+--|| PURPOSE:       Handling the mouse-hover effects
 --||
 --|| COPYRIGHTED BY REMI-X
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
@@ -10,27 +10,8 @@
 --|| ***************************************************************************************************************** ]]
 
 function onEnter ( )
-    if uMenu[source] and isElement ( utilGridList ) then
-        --[[tryDropList ( source ) 
-    elseif uItem[source] then
-        guiLabelSetColor ( source, 237, 134, 0 )
-        if guiGetText ( source ) == text.pickLanguage then
-            local t_Lang = {}
-            local i = 1
-            for k,v in pairs ( loadTranslation ) do
-                t_Lang[i] = k
-                i=1+1
-            end
-            createSubMenu ( source, 0, unpack(t_Lang) )
-        elseif guiGetText ( source ) == text.pickTemplate then
-            local t_Temp = {}
-            local i = 1
-            for k,v in pairs ( loadTemplate ) do
-                t_Temp[i] = k
-                i=1+1
-            end
-            createSubMenu ( source, 1, unpack(t_Temp) )
-        end]]
+    if uButton[source] and cu and uButton[source] ~= #utilButton then showUtilMenu ( dropList[source] )
+    elseif uItem[source] then guiLabelSetColor ( source, 237, 134, 0 )
     elseif mButton[source] then setButtonEffect ( source, mInfo[ mButton[source] ] )
     elseif hButton[source] then
         isPointing = true
@@ -47,8 +28,8 @@ end
 function onLeave ( )
     if not uItem[source] then
         guiSetText ( mainWnd.info, oldGuiText )
-        guiSetAlpha ( hProperty[ mButton[source] ], 0.7 )
-        if hButton[source] then 
+        if mButton[source] then guiSetAlpha ( source, 0.7 )
+        elseif hButton[source] then 
             isPointing = false
             handleKeyState ( "up" )
         end
