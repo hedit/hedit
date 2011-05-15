@@ -85,8 +85,7 @@ function doTry ( veh, input, num )
                             input[i] > tonumber(maxLimit[hData[cm].h[num]]))then
                             return outputHandlingLog(string.format(log.invalid,iProperty[hData[cm].h[num]][1].." ["..input[i].."]".."("..i..")",2))end end end
                 if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,individualHandling,iProperty[hData[cm].h[num]][1],log) then
-                    history[hData[cm].h[num]]=tostring(round(d_Table[1])..", "..round(d_Table[2])..", "..round(d_Table[3]))
-                    return true
+                    return setElementData(veh,"history."..hData[cm].h[num],tostring(round(d_Table[1])..", "..round(d_Table[2])..", "..round(d_Table[3])))
                 else
                     return outputHandlingLog(log.unableToCallServer,0)
                 end
@@ -105,10 +104,10 @@ function doTry ( veh, input, num )
             if isInt[hData[cm].h[num]] then input = tonumber(string.format("%.0f",input)) end
             if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,individualHandling,iProperty[hData[cm].h[num]][1],log) then
                 if isInt[hData[cm].h[num]] then
-                    history[hData[cm].h[num]]=string.format("%.0f",config[hData[cm].h[num]])
+                    return setElementData ( veh,"history."..hData[cm].h[num],string.format("%.0f",config[hData[cm].h[num]]) )
                 else
-                    history[hData[cm].h[num]]=tostring(round(config[hData[cm].h[num]])) end
-                return true
+                    return setElementData ( veh,"history."..hData[cm].h[num],tostring(round(config[hData[cm].h[num]])))
+                end
             else
                 return outputHandlingLog(log.unableToCallServer,0)
             end

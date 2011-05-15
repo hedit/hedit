@@ -4,7 +4,6 @@
     <!-- Required Client-Scripts -->
     <script src="config/cfg.lua" type="client" />
     <script src="config/vars.lua" type="client" />
-    <script src="config/hDefault.lua" type="client" />
     <script src="config/limits.lua" type="client" />
     <script src="config/text/english.lua" type="client" />
     <script src="gui/templates/default.lua" type="client" />
@@ -19,8 +18,6 @@
     <script src="functions/onApply/log.lua" type="client" />
     <script src="functions/onApply/update.lua" type="client" />
     <script src="functions/trigger/doClient.lua" type="client" />
-    <script src="utilMenu/createItems.lua" type="client" />
-    <script src="utilMenu/utilSelection.lua" type="client" />
 
     <!-- Required Server-Scripts -->
     <script src="functions/trigger/doServer.lua" type="server" />

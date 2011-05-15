@@ -79,10 +79,9 @@ function packHandling ( veh )
     end
     return str
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function stopResource()
-    triggerServerEvent("stopTheResource",resourceRoot) 
-end
+function stopResource() triggerServerEvent("stopTheResource",resourceRoot)  end

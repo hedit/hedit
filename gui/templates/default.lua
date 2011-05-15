@@ -17,9 +17,9 @@ loadTemplate["default"] = function ( )
     mainWnd.grid        = guiCreateGridList    ( 93,  57,  252, 346,                      false, mainWnd.window )
     -----------------------------------------------------------------------------------------------------------------------
     line[1]             = guiCreateLabel       ( 0,   32,  354, 14,  text.hr,             false, mainWnd.window )
-    utilButton[1]       = guiCreateButton      ( 10,  22,  60,  19,  "",                  false, mainWnd.window )
-    utilButton[2]       = guiCreateButton      ( 73,  22,  60,  19,  "",                  false, mainWnd.window )
-    utilButton[3]       = guiCreateButton      ( 136, 22,  60,  19,  "",                  false, mainWnd.window )
+    utilButton[1]       = guiCreateButton      ( 10,  22,  60,  19,  "???",               false, mainWnd.window )
+    utilButton[2]       = guiCreateButton      ( 73,  22,  60,  19,  "???",               false, mainWnd.window )
+    utilButton[3]       = guiCreateButton      ( 136, 22,  60,  19,  "???",               false, mainWnd.window )
     utilButton[4]       = guiCreateButton      ( 325, 22,  20,  19,  "X",                 false, mainWnd.window )
     -----------------------------------------------------------------------------------------------------------------------
     -- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
@@ -33,7 +33,7 @@ loadTemplate["default"] = function ( )
     -- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -----------------------------------------------------------------------------------------------------------------------
     label[1]            = guiCreateLabel       ( 101, 63,  126,    19,  "",                  false, mainWnd.window )
-    label[2]            = guiCreateLabel       ( 101, 86,  126, 19,  "",                  false, mainWnd.window )
+    label[2]            = guiCreateLabel       ( 101, 86,  126,    19,  "",                  false, mainWnd.window )
     label[3]            = guiCreateLabel       ( 101, 109, 126,    19,  "",                  false, mainWnd.window )
     label[4]            = guiCreateLabel       ( 101, 132, 126,    19,  "",                  false, mainWnd.window )
     label[5]            = guiCreateLabel       ( 101, 155, 126,    19,  "",                  false, mainWnd.window )
@@ -82,7 +82,6 @@ loadTemplate["default"] = function ( )
     -----------------------------------------------------------------------------------------------------------------------
     -- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -----------------------------------------------------------------------------------------------------------------------
-    local scrX, scrY    = guiGetScreenSize ( )
     local wndW, wndH    = guiGetSize ( mainWnd.window,    false )
     local logW, logH    = guiGetSize ( logWnd.window,    false )
     -----------------------------------------------------------
