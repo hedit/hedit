@@ -10,31 +10,28 @@
 --|| ***************************************************************************************************************** ]]
 
 function onEnter ( )
-    if uButton[source] and cu and uButton[source] ~= #utilButton then showUtilMenu ( dropList[source] )
-    elseif uItem[source] then guiLabelSetColor ( source, 237, 134, 0 )
-    elseif mButton[source] then setButtonEffect ( source, mInfo[ mButton[source] ] )
+    if mButton[source] then setButtonEffect ( source, mInfo[ mProperty [ mButton[source] ] ] )
     elseif hButton[source] then
-        isPointing = true
-        pointedButton = source
-        handleKeyState ( "down" )
+        isPointing       = true
+        pointedButton    = source
+        handleKeyState   ( "down" )
     elseif hLabel[source] then
         guiLabelSetColor ( source, 255, 255, 128 )
-        guiSetText ( mainWnd.info, sProperty[ hData[cm].h[ hLabel[source] ] ] )
+        setInfoText ( iProperty[ hData[cm].h[ hLabel[source] ] ][1],
+                      iProperty[ hData[cm].h[ hLabel[source] ] ][2] )
     end
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function onLeave ( )
-    if not uItem[source] then
-        guiSetText ( mainWnd.info, oldGuiText )
-        if mButton[source] then guiSetAlpha ( source, 0.7 )
-        elseif hButton[source] then 
-            isPointing = false
-            handleKeyState ( "up" )
-        end
+    resetInfoText ( )
+    if mButton[source] then guiSetAlpha ( source, 0.7 )
+    elseif hButton[source] then 
+        isPointing = false
+        handleKeyState ( "up" )
     end
-    if getElementType ( source ) == "gui-label" then return guiLabelSetColor ( source, 255, 255, 255 ) end 
+    if getElementType ( source ) == "gui-label" and not logItem[source] then return guiLabelSetColor ( source, 255, 255, 255 ) end 
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
@@ -42,7 +39,7 @@ end
 function setButtonEffect ( button, txt )
     guiSetAlpha          ( button, 1 )
     playSoundFrontEnd    ( 42 )
-    guiSetText           ( mainWnd.info, txt )
+    setInfoText          ( txt )
 end
 -------------------------------------------------------------------------------------------------------------------------
 function handleKeyState ( str )

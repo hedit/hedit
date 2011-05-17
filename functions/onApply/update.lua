@@ -15,7 +15,7 @@ function updateHandlingData ( )
         showData ( mProperty[1] )
         lVeh = cVeh
     else
-        if cm ~= mProperty[4] and cm ~= mProperty[5] then
+        if cm ~= mProperty[7] and cm ~= mProperty[8] then
         updateData ( cm ) end
     end
 end

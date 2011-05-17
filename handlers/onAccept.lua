@@ -33,8 +33,7 @@ end
 
 function onEditBoxAccept ( box )
     if box == openedHandlingBox then
-        oldGuiText = ""
-        guiSetText ( mainWnd.info, oldGuiText )
+        resetInfoText ( true )
         ------------------------------------------------------------------------------------------------------------------
         local boxText       = guiGetText ( openedHandlingBox )
         local veh           = getPedOccupiedVehicle ( localPlayer )

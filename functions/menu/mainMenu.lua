@@ -44,10 +44,11 @@ end
 function showData ( m )
     if guiGetVisible ( mainWnd.window ) then
         cm=m
+        guiSetText ( mainWnd.menuHeader, mInfo[m] )
         destroyMenuChildren ( )
-        hideUtilMenu ( )
-        if m == mProperty[4] then
-        elseif m == mProperty[5] then
+        if m == mProperty[7] then
+        elseif m == mProperty[8] then
+        elseif m == mProperty[9] then guiSetVisible ( logPane )
         else
             for i=1,#hData[m].h do
                 local gX, gY = guiGetPosition   ( defHedit[i], false )

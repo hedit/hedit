@@ -23,13 +23,7 @@ end
 -------------------------------------------------------------------------------------------------------------------------------
 function isTemplateValid ( )
     local valid = {
-        mainWnd.window, menuButton[1], menuButton[2], menuButton[3], menuButton[4],
-        utilButton.file, utilButton.view, utilButton.options, utilButton.close,
-        label[1], label[2], label[3], label[4], label[5], label[6], label[7], label[8], label[9], label[10], label[11], label[12], label[13],
-        defHedit[1], defHedit[2], defHedit[3], defHedit[4], defHedit[5], defHedit[6], defHedit[7],
-        defHedit[8], defHedit[9], defHedit[10], defHedit[11], defHedit[12], defHedit[13],
-        mainWnd.info,
-        logWnd.window, logWnd.scrollpane
+        -- Fill gui variables
     }
     for k,v in ipairs(valid) do
         if not isElement(valid[k]) then

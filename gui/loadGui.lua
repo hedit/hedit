@@ -16,9 +16,7 @@ function loadTheGui ( )
             if loadTemplate[usedTemplate] then
                 loadTemplate[usedTemplate]()
                 if isTemplateValid ( ) then
-                    guiSetVisible     ( mainWnd.window,   false )
-                    guiSetVisible     ( logWnd.window,    false )
-                    bindKey ( usedKey, "down", showLoading )
+                    enableTemplate ( )
                 else
                     faultTemplate ( text.invalidTemplate )
                 end
@@ -36,77 +34,16 @@ addEventHandler ( "onClientResourceStart", resourceRoot, loadTheGui )
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-function showLoading ( )
-    loadWnd = guiCreateWindow  ( (scrX/2)-200, (scrY/2)-40, 400, 80, "Handling Editor", false )
-    loadLbl = guiCreateLabel   ( 10, 22, 380, 40, text.loading, false, loadWnd )
-    guiLabelSetHorizontalAlign ( loadLbl, "center", true )
-    guiLabelSetVerticalAlign   ( loadLbl, "center" )
-    unbindKey ( usedKey, "down", showLoading )
-    setTimer ( enableTemplate, 500, 1 )
-end
--------------------------------------------------------------------------------------------------------------------------
--- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
--------------------------------------------------------------------------------------------------------------------------
 function enableTemplate ( )
-   for k,v in ipairs ( defHedit ) do guiSetVisible ( defHedit[k], false ) end
+    for k,v in ipairs ( defHedit ) do guiSetVisible ( defHedit[k], false ) end
     ---------------------------------------------------------------------------------------------------------------------
     for k,v in ipairs ( menuButton ) do
         mButton[ menuButton[k] ] = k
         guiSetAlpha ( menuButton[k], 0.7 )
     end
     ---------------------------------------------------------------------------------------------------------------------
-    for k,v in ipairs ( label ) do hLabel[ label[k] ] = k end
-    ---------------------------------------------------------------------------------------------------------------------
-    for k,v in ipairs ( hProperty ) do sProperty[v] = iProperty[v][1].."\n"..iProperty[v][2] end
-    ---------------------------------------------------------------------------------------------------------------------
-    for k,v in ipairs ( utilButton ) do
-        if k == #utilButton then
-            uButton [ utilButton [k] ] = k
-            break end
-        guiSetText ( utilButton[k], uMenuText[ uProperty[k] ] )
-        uButton[ utilButton[k] ]  = k
-        -----------------------------------------------------------------------------------------------------------------
-        local currentLine         = 10
-        local width               = 50
-        local posX, posY          = guiGetPosition    ( utilButton[k], false )
-        local _, height           = guiGetSize        ( utilButton[k], false )
-        dropList[ utilButton[k] ] = guiCreateGridList ( posX, posY+height+3, width, 400, false, mainWnd.window )
-        -----------------------------------------------------------------------------------------------------------------
-        if uItem[ uProperty[k] ] then
-            for i,c in ipairs ( uItem[ uProperty[k] ] ) do
-                if c == "LINE" then
-                    local label = guiCreateLabel ( 0, currentLine-5, 165, 20, text.hr, false, dropList[ utilButton[k] ] )
-                    guiSetAlpha ( label, 0.3 )
-                end
-                currentLine = currentLine + 15
-            end
-            currentLine = 10
-            n = 1
-            for i,c in ipairs ( uItem[ uProperty[k] ] ) do
-                if c ~= "LINE" then
-                    local label = guiCreateLabel ( 10, currentLine, 165, 15, c, false, dropList[ utilButton[k] ] )
-                    if guiLabelGetTextExtent ( label ) > width then width = guiLabelGetTextExtent ( label ) end
-                    uItem[label] = n
-                    n = n + 1
-                end
-                currentLine = currentLine + 15
-            end
-        end
-        -----------------------------------------------------------------------------------------------------------------
-        guiSetSize ( dropList[ utilButton[k] ], width+20, currentLine+15, false )
-        guiSetVisible ( dropList[ utilButton[k] ], false )
-    end
-    ---------------------------------------------------------------------------------------------------------------------
-    local node = xmlLoadFile ( "defaults.xml" )
-    if node then
-        for kc,vc in ipairs ( xmlNodeGetChildren ( node ) ) do
-            local vehID = tonumber( xmlNodeGetAttribute ( vc, "model", 0 ) )
-            hDefault[vehID] = {}
-            for ka,va in pairs ( xmlNodeGetAttributes ( vc ) ) do
-                hDefault[vehID][ka] = va
-            end
-        end
-    end
+    for k,v in ipairs ( label )   do hLabel[ label[k] ]    = k end
+    for k,v in ipairs ( logText ) do logItem[ logText[k] ] = k end
     ---------------------------------------------------------------------------------------------------------------------
     guiSetText        ( mainWnd.window, text.header )
     ---------------------------------------------------------------------------------------------------------------------
@@ -121,7 +58,6 @@ function enableTemplate ( )
     bindKey           ( usedKey, "down", toggleEditor   )
     addCommandHandler ( usedCommand,     toggleEditor   )
     ---------------------------------------------------------------------------------------------------------------------
-    destroyElement    ( loadWnd )
     toggleEditor      ( )
 end
 -------------------------------------------------------------------------------------------------------------------------
@@ -135,11 +71,9 @@ function toggleEditor (  )
         unbindKey ( "lshift", "both", showValue )
         unbindKey ( "rshift", "both", showValue )
         guiSetVisible ( mainWnd.window, false )
-        guiSetVisible ( logWnd.window, false )
         showCursor ( false, false )
         isPointing = false
         pointedButton = nil
-        hideUtilMenu ( )
     else
         if not isElement ( popupWnd ) then
             local veh = getPedOccupiedVehicle ( localPlayer )
@@ -152,7 +86,6 @@ function toggleEditor (  )
                 bindKey ( "lshift", "both", showValue )
                 bindKey ( "rshift", "both", showValue )
                 guiSetVisible ( mainWnd.window, true )
-                guiSetVisible ( logWnd.window, true )
                 showCursor ( true, true )
                 updateHandlingData ( )
             end
@@ -167,7 +100,7 @@ function showValue ( k, s )
       	if ( k == "lctrl" or k == "rctrl" ) and not ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )  then 
             buttonValue = guiGetText ( pointedButton )
             local vehID = getElementModel ( lVeh )
-            local val = hDefault[vehID][ hData[cm].h[ hButton[pointedButton] ] ]
+            local val = getDefaultHandling ( vehID, hData[cm].h[ hButton[pointedButton] ] )
             guiSetText ( pointedButton, val )
             guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
         elseif ( k == "lshift" or k == "rshift" ) and not ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) )  then
@@ -212,25 +145,32 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
+function setInfoText ( header, text, bool )
+    guiSetText ( mainWnd.infoHeader, header     )
+    guiSetText ( mainWnd.infoText,   text or "" )
+    if bool == true then
+        oldInfoHeader = header
+        oldInfoText   = text
+    end
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+function resetInfoText ( bool )
+    if bool == true then
+        oldInfoHeader = ""
+        oldInfoText   = ""
+    end
+    guiSetText ( mainWnd.infoHeader, oldInfoHeader )
+    guiSetText ( mainWnd.infoText,   oldInfoText   )
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
 function destroyMenuChildren ( )
     oldGuiText = ""
+    guiSetVisible ( logPane, false )
     if isElement ( openedHandlingBox ) then destroyElement ( openedHandlingBox ) end
     for k,v in ipairs ( hedit ) do if isElement ( hedit[k] ) then destroyElement ( hedit[k] ) end end
     for k,v in ipairs ( label ) do guiSetVisible ( label[k], false ) end
-end
--------------------------------------------------------------------------------------------------------------------------
--- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
--------------------------------------------------------------------------------------------------------------------------
-function showUtilMenu ( src )
-    if cu then hideUtilMenu ( ) end
-    guiSetVisible ( src, true )
-    guiBringToFront ( src )
-    cu = src
-end
--------------------------------------------------------------------------------------------------------------------------
--- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
--------------------------------------------------------------------------------------------------------------------------
-function hideUtilMenu ( )
-    guiSetVisible ( cu, false )
-    cu = nil
 end

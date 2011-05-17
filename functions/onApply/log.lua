@@ -9,41 +9,55 @@
 --|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
 
-local labelLine = 0
+local logLine = 0
 
-function outputHandlingLog ( logText, err )
-    local pane = logWnd.scrollpane
-    local curTime = getRealTime( )
-    local hours = curTime.hour
-    local minutes = curTime.minute
-    local seconds = curTime.second
-    ---------------------------------------------------------------------------------------------------------------------
-    if hours < 10 then hours = "0"..hours end
-    if minutes < 10 then minutes = "0"..minutes end
-    if seconds < 10 then seconds = "0"..seconds end
+function outputHandlingLog ( txt, err )
+    local curTime = getRealTime ( )
+    local time    = {}
+    time[1]       = string.format ( "%02d", curTime.hour )
+    time[2]       = string.format ( "%02d", curTime.minute )
+    time[3]       = string.format ( "%02d", curTime.second )
+    local tStamp  = "["..table.concat(time,":").."]"
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
-    local logLabel = guiCreateLabel ( 67, labelLine, 267, 20, logText, false, pane )
-    local logTime = guiCreateLabel ( 0, labelLine, 67, 20, "["..hours..":"..minutes..":"..seconds.."]", false, pane )
-    labelLine = labelLine + 15
+    -- Fuck'd up code, didnt knew anything better atm
+    local oldTime  = {}
+    local oldText  = {}
+    local oldColor = {}
+    ---------------------------------------------------------------------------------------------------------------------
+    for i=1,3 do
+        oldTime[i]  = guiGetText     ( logTime[i] )
+        oldText[i]  = guiGetText     ( logText[i] )
+        oldColor[i] = getElementData ( logText[i], "color" )
+        if not oldColor[i] then oldColor[i] = {0,0,0} end
+    end
+    ---------------------------------------------------------------------------------------------------------------------
+    for i=2,3 do
+        guiSetText       ( logTime[i], oldTime[i-1] )
+        guiSetText       ( logText[i], oldText[i-1] )
+        guiLabelSetColor ( logText[i], unpack ( oldColor[i-1] ) )
+        setElementData   ( logText[i], "color", oldColor[i-1] )
+    end
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
-    if err == 0 then
-        playSoundFrontEnd ( 46 )
-    ---------------------------------------------------------------------------------------------------------------------
-    elseif err == 1 then
-        guiLabelSetColor ( logLabel, 227, 214, 0 )
-        playSoundFrontEnd ( 33 )
-    ---------------------------------------------------------------------------------------------------------------------
-    elseif err == 2 then
-        guiLabelSetColor ( logLabel, 200, 0, 0 )
-        playSoundFrontEnd ( 4 ) end
+    local labelTime = guiCreateLabel       ( 0,  logLine, 70,  20, tStamp, false, logPane )
+    local labelText = guiCreateLabel       ( 70, logLine, 220, 20, txt,    false, logPane )
+    guiScrollPaneSetVerticalScrollPosition ( logPane, 100 )
+    logLine = logLine + 15
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
-    guiScrollPaneSetVerticalScrollPosition ( pane, 100 )
+    guiSetText         ( logTime[1], tStamp  )
+    guiSetText         ( logText[1], txt )
+    guiLabelSetColor   ( logText[1], unpack ( errColor[err] ) )
+    setElementData     ( logText[1], "color", errColor[err] )
+    guiLabelSetColor   ( labelText,  unpack ( errColor[err] ) )
+    playSoundFrontEnd  ( errSound[err] )
+    ---------------------------------------------------------------------------------------------------------------------
+    -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+    ---------------------------------------------------------------------------------------------------------------------
     updateHandlingData ( )
 end
 

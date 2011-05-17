@@ -9,7 +9,8 @@
 --|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
 
-loadTemplate["default"] = function ( )
+--[[loadTemplate["default"] = function ( )
+    local line = {}
     -----------------------------------------------------------------------------------------------------------------------
     -- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -----------------------------------------------------------------------------------------------------------------------
@@ -17,9 +18,9 @@ loadTemplate["default"] = function ( )
     mainWnd.grid        = guiCreateGridList    ( 93,  57,  252, 346,                      false, mainWnd.window )
     -----------------------------------------------------------------------------------------------------------------------
     line[1]             = guiCreateLabel       ( 0,   32,  354, 14,  text.hr,             false, mainWnd.window )
-    utilButton[1]       = guiCreateButton      ( 10,  22,  60,  19,  "???",               false, mainWnd.window )
-    utilButton[2]       = guiCreateButton      ( 73,  22,  60,  19,  "???",               false, mainWnd.window )
-    utilButton[3]       = guiCreateButton      ( 136, 22,  60,  19,  "???",               false, mainWnd.window )
+    utilButton[1]       = guiCreateButton      ( 10,  22,  60,  19,  "",                  false, mainWnd.window )
+    utilButton[2]       = guiCreateButton      ( 73,  22,  60,  19,  "",                  false, mainWnd.window )
+    utilButton[3]       = guiCreateButton      ( 136, 22,  60,  19,  "",                  false, mainWnd.window )
     utilButton[4]       = guiCreateButton      ( 325, 22,  20,  19,  "X",                 false, mainWnd.window )
     -----------------------------------------------------------------------------------------------------------------------
     -- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
@@ -58,7 +59,7 @@ loadTemplate["default"] = function ( )
     defHedit[10]        = guiCreateButton      ( 233, 270, 106, 20,  "",                  false, mainWnd.window )
     defHedit[11]        = guiCreateButton      ( 233, 293, 106, 20,  "",                  false, mainWnd.window )
     defHedit[12]        = guiCreateButton      ( 233, 316, 106, 20,  "",                  false, mainWnd.window )
-    defHedit[13]        = guiCreateButton      ( 233, 339, 106, 20,  "",                  false, mainWnd.window )    
+    defHedit[13]        = guiCreateButton      ( 233, 339, 106, 20,  "",                  false, mainWnd.window )
     -----------------------------------------------------------------------------------------------------------------------
     -- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -----------------------------------------------------------------------------------------------------------------------
@@ -74,6 +75,7 @@ loadTemplate["default"] = function ( )
     -- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -----------------------------------------------------------------------------------------------------------------------
     guiSetProperty             ( mainWnd.grid,   "Disabled", "True" )
+    guiSetProperty             ( line[1],        "Disabled", "True" )
     guiLabelSetHorizontalAlign ( mainWnd.info,   "left",     true   )
     guiWindowSetSizable        ( mainWnd.window,             false  )
     guiWindowSetSizable        ( logWnd.window,              false  )
@@ -105,4 +107,4 @@ loadTemplate["default"] = function ( )
     -----------------------------------------------------------
     end
     return true
-end
+end]]

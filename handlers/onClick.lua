@@ -10,29 +10,20 @@
 --|| ***************************************************************************************************************** ]]
 
 function onClick ( b )
-    if uButton[source] then
-        if uButton[source] == #utilButton then toggleEditor ( )
-        elseif dropList[source] == cu then hideUtilMenu ( )
-        else showUtilMenu ( dropList[source] ) end
-    elseif uItem[source] then
-    
-    else
-        if guiGetText ( source ) ~= text.hr then hideUtilMenu ( ) end
-        if mButton[source] then
-            playSoundFrontEnd ( 41 )
-            showData ( mProperty[ mButton[source] ] )
-        elseif hButton[source] then
-            if getKeyStateEx ( ) and b == "right" then return fixInput ( lVeh, guiGetText ( source ), hButton[source] ) end
-            createHeditBox ( hedit[ hButton[source] ], iProperty[ hData[cm].h[ hButton[source] ] ][3], true )
-        end
+    if mButton[source] then
+        playSoundFrontEnd ( 41 )
+        showData ( mProperty[ mButton[source] ] )
+    elseif logItem[source] then showData ( mProperty[9] )
+    elseif hButton[source] then
+        if getKeyStateEx ( ) and b == "right" then return fixInput ( lVeh, guiGetText ( source ), hButton[source] ) end
+        createHeditBox ( hedit[ hButton[source] ], iProperty[ hData[cm].h[ hButton[source] ] ], true )
     end
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function createHeditBox ( box, text, bool )
-    oldGuiText = text
-    guiSetText ( mainWnd.info, text )
+    setInfoText ( text[3], text[4], true )
     showAllTheEdits ( )
     if bool == true then
         local x,y            = guiGetPosition ( box, false )
