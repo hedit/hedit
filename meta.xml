@@ -7,6 +7,7 @@
     <script src="config/limits.lua" type="client" />
     <script src="config/text/english.lua" type="client" />
     <script src="gui/templates/default.lua" type="client" />
+	<script src="gui/templates/extended.lua" type="client" />
     <script src="gui/checkGui.lua" type="client" />
     <script src="gui/loadGui.lua" type="client" />
     <script src="handlers/onHover.lua" type="client" />

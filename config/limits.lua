@@ -138,8 +138,8 @@ minLimit[ hProperty[32] ]   = false
 maxLimit[ hProperty[32] ]   = false
 
 -- HANDLINGFLAGS
-minLimit[ hProperty[33] ]   = 11111111
-maxLimit[ hProperty[33] ]   = 88888888
+minLimit[ hProperty[33] ]   = false
+maxLimit[ hProperty[33] ]   = false
 
 -- HEADLIGHT
 minLimit[ hProperty[34] ]   = false
