@@ -78,11 +78,10 @@ function doTry ( veh, input, num )
             if (input[1]==round(d_Table[1])) and (input[2]==round(d_Table[2])) and (input[3]==round(d_Table[3])) then
                 return outputHandlingLog(string.format(log.same,iProperty[hData[cm].h[num]][1]),1)
             else
-                if (withLimits) then
-                    for i=1,#input do
-                        if (input[i] < tonumber(minLimit[hData[cm].h[num]]) or
-                            input[i] > tonumber(maxLimit[hData[cm].h[num]]))then
-                            return outputHandlingLog(string.format(log.invalid,iProperty[hData[cm].h[num]][1].." ["..input[i].."]".."("..i..")",2))end end end
+                for i=1,#input do
+                    if (input[i] < tonumber(minLimit[hData[cm].h[num]]) or
+                        input[i] > tonumber(maxLimit[hData[cm].h[num]]))then
+                        return outputHandlingLog(string.format(log.invalid,iProperty[hData[cm].h[num]][1].." ["..input[i].."]".."("..i..")",2))end end
                 if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,individualHandling,iProperty[hData[cm].h[num]][1],log) then
                     return setElementData(veh,"history."..hData[cm].h[num],tostring(round(d_Table[1])..", "..round(d_Table[2])..", "..round(d_Table[3])))
                 else
@@ -96,7 +95,7 @@ function doTry ( veh, input, num )
         if (input==round(config[ hData[cm].h[num] ])) then
             return outputHandlingLog(string.format(log.same,iProperty[hData[cm].h[num]][1]),1)
         else
-            if (type(input)=="number" and withLimits) then
+            if (type(input)=="number") then
                 if (input < tonumber(minLimit[hData[cm].h[num]]) or
                     input > tonumber(maxLimit[hData[cm].h[num]]))then
                     return outputHandlingLog(string.format(log.invalid,iProperty[hData[cm].h[num]][1]).." ["..input.."]",2) end end

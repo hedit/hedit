@@ -45,6 +45,7 @@ function outputHandlingLog ( txt, err )
     local labelTime = guiCreateLabel       ( 0,  logLine, 70,  20, tStamp, false, logPane )
     local labelText = guiCreateLabel       ( 70, logLine, 220, 20, txt,    false, logPane )
     guiScrollPaneSetVerticalScrollPosition ( logPane, 100 )
+    
     logLine = logLine + 15
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --

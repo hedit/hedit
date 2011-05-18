@@ -31,7 +31,7 @@ function onLeave ( )
         isPointing = false
         handleKeyState ( "up" )
     end
-    if getElementType ( source ) == "gui-label" and not logItem[source] then return guiLabelSetColor ( source, 255, 255, 255 ) end 
+    if hLabel[source] then return guiLabelSetColor ( source, 255, 255, 255 ) end 
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
