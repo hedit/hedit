@@ -13,6 +13,7 @@ function updateData ( m )
     local veh               = getPedOccupiedVehicle ( localPlayer )
     if veh then
         local config        = getVehicleHandling ( veh )
+        if not hData[m] then return false end
         for i=1,#hData[m].h do
             if comboItem[ hData[m].h[i] ] then
                 local cI=-1
