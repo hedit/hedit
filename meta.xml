@@ -29,7 +29,4 @@
     <file src="images/other.png" />
     <file src="images/test.png" />
     <file src="images/help.png" />
-
-    <!-- Required XML-Files -->
-    <config src="defaults.xml" type="client" />
 </meta>

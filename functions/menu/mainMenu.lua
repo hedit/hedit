@@ -48,7 +48,7 @@ function showData ( m )
         destroyMenuChildren ( )
         if m == mProperty[7] then
         elseif m == mProperty[8] then
-        elseif m == mProperty[9] then guiSetVisible ( logPane )
+        elseif m == mProperty[9] then guiSetVisible ( logPane, true )
         else
             for i=1,#hData[m].h do
                 local gX, gY = guiGetPosition   ( defHedit[i], false )
