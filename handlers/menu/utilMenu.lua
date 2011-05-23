@@ -1,6 +1,6 @@
 --|| ***************************************************************************************************************** [[
 --|| PROJECT:       MTA Ingame Handling Editor
---|| FILE:          functions/menu/utilMenu.lua
+--|| FILE:          handlers/menu/utilMenu.lua
 --|| DEVELOPERS:    Remi-X <rdg94@live.nl>
 --|| PURPOSE:       Creating the dropLists and subMenus
 --||

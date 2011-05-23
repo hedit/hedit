@@ -11,7 +11,6 @@
 
 loadTranslation["english"] = function ( )
     text.header                 = "Handling Editor "..HEDIT_VERSION.." - By Remi-X"
-    text.logheader              = "Log"
     text.hr                     = "____________________________________________________"
     text.loading                = "Loading the Handling Editor. Please wait...\nThis could take a few seconds."
     text.restrictedPassenger    = "#ff0000HANDLING EDITOR:#ffff00 You are not allowed to edit the handling as a passenger."
@@ -21,11 +20,16 @@ loadTranslation["english"] = function ( )
     -------------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -------------------------------------------------------------------------------------------------------------------------
-    log.same                    = "The %s is already that!"
-    log.succes                  = "%s set to %s."
-    log.unable                  = "Unable to set the %s to %s!"
-    log.invalid                 = "Invalid %s!"
-    log.needNumber              = "You need to use a number!"
+    clog.same                   = "The %s is already that!"
+    clog.invalid                = "Invalid %s!"
+    clog.needNumber             = "You need to use a number!"
+    clog.noAccount              = "You are not logged in! Please login first."
+    clog.saving                 = "Saving your handling..."
+    clog.loading                = "Loading that handling..."
+    slog.succes                 = "%s set to %s."
+    slog.unable                 = "Unable to set the %s to %s!"
+    slog.saved                  = "Your handling has been succesfully saved!"
+    slog.loaded                 = "That handling has been succesfully loaded!"
     -------------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -------------------------------------------------------------------------------------------------------------------------

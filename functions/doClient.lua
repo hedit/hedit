@@ -1,8 +1,8 @@
 --|| ***************************************************************************************************************** [[
 --|| PROJECT:       MTA Ingame Handling Editor
---|| FILE:          functions/trigger/doServer.lua
+--|| FILE:          functions/doClient.lua
 --|| DEVELOPERS:    Remi-X <rdg94@live.nl>
---|| PURPOSE:       Creating serverside functions
+--|| PURPOSE:       Creating clientside functions
 --||
 --|| COPYRIGHTED BY REMI-X
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
@@ -12,23 +12,23 @@
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
--- BY NEONBLACK [http://wiki.multitheftauto.com/wiki/CallServerFunction]
-function callServer(funcname, ...)
-    local arg = {...}
-    if (arg[1]) then
-        for key,value in next,arg do
-            if (type(value)=="number") then arg[key] = tostring(value) end end end
-    triggerServerEvent("onClientCallsServerFunction",resourceRoot,funcname,unpack(arg))
+
+function round ( num )
+    if type(num)=="number" then
+        return tonumber ( string.format ( "%.3f", num ) ) end
+    return num
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function round ( num )
-    if type(num)=="number" then
-        return tonumber ( string.format ( "%.3f", num ) ) end
-    return num
+function updateHandlingData ( )
+    local cVeh = getPedOccupiedVehicle ( localPlayer )
+    if cVeh ~= lVeh then
+        showData ( mProperty[1] )
+        lVeh = cVeh
+    else updateData ( cm ) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------

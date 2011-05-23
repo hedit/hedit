@@ -35,8 +35,8 @@ function onEditBoxAccept ( box )
     if box == openedHandlingBox then
         resetInfoText ( true )
         ------------------------------------------------------------------------------------------------------------------
-        local boxText       = guiGetText ( openedHandlingBox )
-        local veh           = getPedOccupiedVehicle ( localPlayer )
+        local boxText = guiGetText ( openedHandlingBox )
+        local veh     = getPedOccupiedVehicle ( localPlayer )
         ------------------------------------------------------------------------------------------------------------------
         fixInput ( veh, boxText, hidedHeditButton )
         ------------------------------------------------------------------------------------------------------------------
@@ -76,38 +76,34 @@ function doTry ( veh, input, num )
         local d_Table = config[ hData[cm].h[num] ]
         if (type(input[1])=="number" and type(input[2])=="number" and type(input[3])=="number") then
             if (input[1]==round(d_Table[1])) and (input[2]==round(d_Table[2])) and (input[3]==round(d_Table[3])) then
-                return outputHandlingLog(string.format(log.same,iProperty[hData[cm].h[num]][1]),1)
+                return outputHandlingLog(string.format(clog.same,iProperty[hData[cm].h[num]][1]),1)
             else
                 for i=1,#input do
                     if (input[i] < tonumber(minLimit[hData[cm].h[num]]) or
                         input[i] > tonumber(maxLimit[hData[cm].h[num]]))then
                         return outputHandlingLog(string.format(log.invalid,iProperty[hData[cm].h[num]][1].." ["..input[i].."]".."("..i..")",2))end end
-                if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,individualHandling,iProperty[hData[cm].h[num]][1],log) then
+                if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,individualHandling,iProperty[hData[cm].h[num]][1],slog) then
                     return setElementData(veh,"history."..hData[cm].h[num],tostring(round(d_Table[1])..", "..round(d_Table[2])..", "..round(d_Table[3])))
-                else
-                    return outputHandlingLog(log.unableToCallServer,0)
                 end
             end
         else
-            return outputHandlingLog(log.needNumber,2)
+            return outputHandlingLog(clog.needNumber,2)
         end
     else
         if (input==round(config[ hData[cm].h[num] ])) then
-            return outputHandlingLog(string.format(log.same,iProperty[hData[cm].h[num]][1]),1)
+            return outputHandlingLog(string.format(clog.same,iProperty[hData[cm].h[num]][1]),1)
         else
             if (type(input)=="number") then
                 if (input < tonumber(minLimit[hData[cm].h[num]]) or
                     input > tonumber(maxLimit[hData[cm].h[num]]))then
-                    return outputHandlingLog(string.format(log.invalid,iProperty[hData[cm].h[num]][1]).." ["..input.."]",2) end end
+                    return outputHandlingLog(string.format(clog.invalid,iProperty[hData[cm].h[num]][1]).." ["..input.."]",2) end end
             if isInt[hData[cm].h[num]] then input = tonumber(string.format("%.0f",input)) end
-            if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,individualHandling,iProperty[hData[cm].h[num]][1],log) then
+            if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,individualHandling,iProperty[hData[cm].h[num]][1],slog) then
                 if isInt[hData[cm].h[num]] then
                     return setElementData ( veh,"history."..hData[cm].h[num],string.format("%.0f",config[hData[cm].h[num]]) )
                 else
                     return setElementData ( veh,"history."..hData[cm].h[num],tostring(round(config[hData[cm].h[num]])))
                 end
-            else
-                return outputHandlingLog(log.unableToCallServer,0)
             end
         end
     end
