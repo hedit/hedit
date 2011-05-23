@@ -1,6 +1,6 @@
 --|| ***************************************************************************************************************** [[
 --|| PROJECT:       MTA Ingame Handling Editor
---|| FILE:          functions/menu/menuSwitch.lua
+--|| FILE:          handlers/menu/menuSwitch.lua
 --|| DEVELOPERS:    Remi-X <rdg94@live.nl>
 --|| PURPOSE:       Showing and updating the correct menus
 --||
@@ -44,12 +44,13 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 function showData ( m )
     if guiGetVisible ( mainWnd.window ) then
+        if not cm then pm=m elseif not cm==m then pm=cm end
         cm=m
         guiSetText ( mainWnd.menuHeader, mInfo[m] )
         destroyMenuChildren ( )
         if m == mProperty[7] then
         elseif m == mProperty[8] then
-        elseif m == mProperty[9] then guiSetVisible ( logPane, true )
+        elseif m == mProperty[9] then if guiGetVisible ( vehLog ) then guiSetVisible ( vehLog, false ) else guiSetVisible ( vehLog, true ) end
         else
             for i=1,#hData[m].h do
                 local gX, gY = guiGetPosition   ( defHedit[i], false )
@@ -69,4 +70,18 @@ function showData ( m )
             updateData ( m )
         end
     end
-end     
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+addCommandHandler ( "hm",
+    function ( cmd, arg )
+        if tonumber ( arg ) then
+            if mProperty[tonumber(arg)] then
+                showData ( mProperty[tonumber(arg)] )
+            end
+        else
+            showData ( arg )
+        end
+    end
+)

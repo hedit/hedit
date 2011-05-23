@@ -1,6 +1,6 @@
 --|| ***************************************************************************************************************** [[
 --|| PROJECT:       MTA Ingame Handling Editor
---|| FILE:          functions/onApply/log.lua
+--|| FILE:          functions/log.lua
 --|| DEVELOPERS:    Remi-X <rdg94@live.nl>
 --|| PURPOSE:       Outputting log into the log window & playing the succes level sound
 --||
@@ -12,6 +12,7 @@
 local logLine = 0
 
 function outputHandlingLog ( txt, err )
+    if not vehLog then return outputDebugString ( "No vehicle log found!", 1 ) end
     local curTime = getRealTime ( )
     local time    = {}
     time[1]       = string.format ( "%02d", curTime.hour )
@@ -42,9 +43,9 @@ function outputHandlingLog ( txt, err )
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
-    local labelTime = guiCreateLabel       ( 0,  logLine, 70,  20, tStamp, false, logPane )
-    local labelText = guiCreateLabel       ( 70, logLine, 220, 20, txt,    false, logPane )
-    guiScrollPaneSetVerticalScrollPosition ( logPane, 100 )
+    local labelTime = guiCreateLabel       ( 0,  logLine, 70,  20, tStamp, false, vehLog )
+    local labelText = guiCreateLabel       ( 70, logLine, 220, 20, txt,    false, vehLog )
+    guiScrollPaneSetVerticalScrollPosition ( vehLog, 100 )
     
     logLine = logLine + 15
     ---------------------------------------------------------------------------------------------------------------------

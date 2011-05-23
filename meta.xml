@@ -7,26 +7,19 @@
     <script src="config/limits.lua" type="client" />
     <script src="config/text/english.lua" type="client" />
     <script src="gui/templates/default.lua" type="client" />
-	<script src="gui/templates/extended.lua" type="client" />
+    <script src="gui/templates/extended.lua" type="client" />
     <script src="gui/checkGui.lua" type="client" />
     <script src="gui/loadGui.lua" type="client" />
     <script src="handlers/onHover.lua" type="client" />
     <script src="handlers/onClick.lua" type="client" />
     <script src="handlers/onAccept.lua" type="client" />
     <script src="handlers/onScroll.lua" type="client" />
-    <script src="functions/menu/mainMenu.lua" type="client" />
-    <script src="functions/menu/utilMenu.lua" type="client" />
-    <script src="functions/onApply/log.lua" type="client" />
-    <script src="functions/onApply/update.lua" type="client" />
-    <script src="functions/trigger/doClient.lua" type="client" />
+    <script src="handlers/menu/mainMenu.lua" type="client" />
+    <script src="handlers/menu/utilMenu.lua" type="client" />
+    <script src="functions/log.lua" type="client" />
+    <script src="functions/saveload.lua" type="client" />
+    <script src="functions/doClient.lua" type="client" />
 
     <!-- Required Server-Scripts -->
-    <script src="functions/trigger/doServer.lua" type="server" />
-
-    <!-- Required Images -->
-    <file src="images/transmission.png" />
-    <file src="images/massusp.png" />
-    <file src="images/other.png" />
-    <file src="images/test.png" />
-    <file src="images/help.png" />
+    <script src="functions/doServer.lua" type="server" />
 </meta>

@@ -11,6 +11,7 @@
 
 individualHandling          = true
 allowPassengersToEdit       = false
+allowGuestsToSave           = false
 usedKey                     = "b"
 usedCommand                 = "hedit"
 usedTemplate                = "extended"
