@@ -1,8 +1,8 @@
 --|| ***************************************************************************************************************** [[
---|| PROJECT:        MTA Ingame Handling Editor
---|| FILE:            gui/loadGui.lua
+--|| PROJECT:       MTA Ingame Handling Editor
+--|| FILE:          gui/loadGui.lua
 --|| DEVELOPERS:    Remi-X <rdg94@live.nl>
---|| PURPOSE:        Creating and verifying the gui and adding keybinds
+--|| PURPOSE:       Creating and verifying the gui and adding keybinds
 --||
 --|| COPYRIGHTED BY REMI-X
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
@@ -35,6 +35,9 @@ addEventHandler ( "onClientResourceStart", resourceRoot, loadTheGui )
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function enableTemplate ( )
+    destroyMenuChildren ( )
+    loadSaveFile ( )
+    lVeh = getPedOccupiedVehicle ( localPlayer )
     for k,v in ipairs ( defHedit ) do guiSetVisible ( defHedit[k], false ) end
     ---------------------------------------------------------------------------------------------------------------------
     for k,v in ipairs ( menuButton ) do
@@ -80,6 +83,15 @@ function toggleEditor (  )
             if veh then
                 if getVehicleController ( veh ) ~= localPlayer and allowPassengersToEdit == false then
                     return outputChatBox ( text.restrictedPassenger ) end
+                vehLog = getElementData ( veh, "vehLog" )
+                if not vehLog then
+                    logX, logY = guiGetPosition      ( logPane, false )
+                    lodW, logH = guiGetSize          ( logPane, false )
+                    vehLog     = guiCreateScrollPane ( logX, logY, logW, logH, false, mainWnd.window )
+                    guiSetVisible  ( vehLog, false )
+                    setElementData ( veh, "vehLog", vehLog )
+                end
+                setElementParent ( vehLog, mainWnd.window ) -- Possible fix?
                 addEventHandler ( "onClientRender", root, onRenderCheck )
                 bindKey ( "lctrl",  "both", showValue )
                 bindKey ( "rctrl",  "both", showValue )
@@ -123,7 +135,7 @@ function onRenderCheck ( )
         toggleEditor ( )
     else
         if cVeh ~= lVeh then
-            updateData ( cm )
+            toggleEditor ( )
             lVeh = cVeh
         end
     end
@@ -171,6 +183,6 @@ function destroyMenuChildren ( )
     oldGuiText = ""
     guiSetVisible ( logPane, false )
     if isElement ( openedHandlingBox ) then destroyElement ( openedHandlingBox ) end
-    for k,v in ipairs ( hedit ) do if isElement ( hedit[k] ) then destroyElement ( hedit[k] ) end end
-    for k,v in ipairs ( label ) do guiSetVisible ( label[k], false ) end
+    for k,v in ipairs ( hedit )    do if isElement  ( v ) then destroyElement ( v ) end end
+    for k,v in ipairs ( label )    do guiSetVisible ( v, false ) end
 end
