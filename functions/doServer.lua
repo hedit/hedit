@@ -58,7 +58,8 @@ addEventHandler ( "onResourceStart", resourceRoot,
     end
 )
 --------------------------------------------------------------------------------------------------------------------------
-addEventHandler ( "onResourceStop", resourceRoot, function ( )       fileClose ( logFile ); xmlUnloadFile ( xmlNode )              end )
+addEventHandler ( "onResourceStop", resourceRoot, function ( )       fileClose ( logFile )
+                                                                     xmlUnloadFile ( xmlNode )                                     end )
 addEventHandler ( "onPlayerJoin",   root,         function ( )       setElementData ( source, "hAccount", "guest" )                end )
 addEventHandler ( "onPlayerLogin",  root,         function ( _,acc ) setElementData ( source, "hAccount", getAccountName ( acc ) ) end )
 addEventHandler ( "onPlayerLogout", root,         function ( )       setElementData ( source, "hAccount", "guest" )                end )

@@ -15,7 +15,7 @@ function onClick ( b )
         showData ( mProperty[ mButton[source] ] )
     elseif logItem[source] then if cm == mProperty[9] then showData ( pm ) else showData ( mProperty[9] ) end
     elseif hButton[source] then
-        if getKeyStateEx ( ) and b == "right" then return fixInput ( lVeh, guiGetText ( source ), hButton[source] ) end
+        if getKeyStateEx ( ) and b == "right" then return fixInput ( pVeh, guiGetText ( source ), hButton[source] ) end
         createHeditBox ( hedit[ hButton[source] ], iProperty[ hData[cm].h[ hButton[source] ] ], true )
     end
 end

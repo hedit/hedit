@@ -48,6 +48,7 @@ mButton                     = {}
 hLabel                      = {}
 hButton                     = {}
 logItem                     = {}
+vehLog                      = {}
 -------------------------------------------------------------------------------------------------------------------------
 loadTemplate                = {}
 loadTranslation             = {}
@@ -66,14 +67,13 @@ HEDIT_VERSION               = "v"..HEDIT_VERSION_MAJOR.."."..HEDIT_VERSION_MINOR
 -------------------------------------------------------------------------------------------------------------------------
 pm                          = nil
 cm                          = nil
-lm                          = nil
-vehLog                      = nil
 openedHandlingBox           = nil
 hidedHeditButton            = nil
 buttonValue                 = nil  
 isPointing                  = nil
 pointedButton               = nil
-lVeh                        = nil
+pVeh                        = nil
+vString                     = nil
 xmlNode                     = nil
 -------------------------------------------------------------------------------------------------------------------------
 oldInfoHeader               = ""

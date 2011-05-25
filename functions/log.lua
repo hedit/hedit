@@ -12,7 +12,6 @@
 local logLine = 0
 
 function outputHandlingLog ( txt, err )
-    if not vehLog then return outputDebugString ( "No vehicle log found!", 1 ) end
     local curTime = getRealTime ( )
     local time    = {}
     time[1]       = string.format ( "%02d", curTime.hour )
@@ -43,11 +42,13 @@ function outputHandlingLog ( txt, err )
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
-    local labelTime = guiCreateLabel       ( 0,  logLine, 70,  20, tStamp, false, vehLog )
-    local labelText = guiCreateLabel       ( 70, logLine, 220, 20, txt,    false, vehLog )
-    guiScrollPaneSetVerticalScrollPosition ( vehLog, 100 )
-    
-    logLine = logLine + 15
+    if vehLog[vString] then
+        local labelTime = guiCreateLabel       ( 0,  logLine, 70,  20, tStamp, false, vehLog[vString] )
+        local labelText = guiCreateLabel       ( 70, logLine, 220, 20, txt,    false, vehLog[vString] )
+        guiScrollPaneSetVerticalScrollPosition ( vehLog[vString], 100 )
+        guiLabelSetColor   ( labelText, unpack ( errColor[err] ) )
+        logLine = logLine + 15
+    else outputDebugString ( "No vehicle log found!", 1 ) end
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
@@ -55,12 +56,11 @@ function outputHandlingLog ( txt, err )
     guiSetText         ( logText[1], txt )
     guiLabelSetColor   ( logText[1], unpack ( errColor[err] ) )
     setElementData     ( logText[1], "color", errColor[err] )
-    guiLabelSetColor   ( labelText,  unpack ( errColor[err] ) )
     playSoundFrontEnd  ( errSound[err] )
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
-    updateHandlingData ( )
+    updateData ( cm )
 end
 
 addEvent ( "outputLog", true )
