@@ -11,7 +11,6 @@
 
 function onComboBoxAccept ( )
     local boxText       = guiComboBoxGetItemText ( source, guiComboBoxGetSelected ( source ) )
-    local veh           = getPedOccupiedVehicle ( localPlayer )
     local input         = boxText
     ----------------------------------------------------------------------------------------------------------------------
     for i,v in ipairs ( hedit ) do
@@ -21,7 +20,7 @@ function onComboBoxAccept ( )
                 elseif  input == "false"       then input = false
                 end
             end
-            doTry ( veh, input, i )
+            doTry ( pVeh, input, i )
             break
         end
     end
@@ -36,9 +35,8 @@ function onEditBoxAccept ( box )
         resetInfoText ( true )
         ------------------------------------------------------------------------------------------------------------------
         local boxText = guiGetText ( openedHandlingBox )
-        local veh     = getPedOccupiedVehicle ( localPlayer )
         ------------------------------------------------------------------------------------------------------------------
-        fixInput ( veh, boxText, hidedHeditButton )
+        fixInput ( pVeh, boxText, hidedHeditButton )
         ------------------------------------------------------------------------------------------------------------------
         guiSetVisible ( hedit[hidedHeditButton], true )
         ------------------------------------------------------------------------------------------------------------------

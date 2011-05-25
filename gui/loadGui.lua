@@ -37,7 +37,6 @@ addEventHandler ( "onClientResourceStart", resourceRoot, loadTheGui )
 function enableTemplate ( )
     destroyMenuChildren ( )
     loadSaveFile ( )
-    lVeh = getPedOccupiedVehicle ( localPlayer )
     for k,v in ipairs ( defHedit ) do guiSetVisible ( defHedit[k], false ) end
     ---------------------------------------------------------------------------------------------------------------------
     for k,v in ipairs ( menuButton ) do
@@ -79,19 +78,21 @@ function toggleEditor (  )
         pointedButton = nil
     else
         if not isElement ( popupWnd ) then
-            local veh = getPedOccupiedVehicle ( localPlayer )
-            if veh then
-                if getVehicleController ( veh ) ~= localPlayer and allowPassengersToEdit == false then
+            local cVeh = getPedOccupiedVehicle ( localPlayer )
+            if cVeh then
+                if getVehicleController ( cVeh ) ~= localPlayer and allowPassengersToEdit == false then
                     return outputChatBox ( text.restrictedPassenger ) end
-                vehLog = getElementData ( veh, "vehLog" )
-                if not vehLog then
-                    logX, logY = guiGetPosition      ( logPane, false )
-                    lodW, logH = guiGetSize          ( logPane, false )
-                    vehLog     = guiCreateScrollPane ( logX, logY, logW, logH, false, mainWnd.window )
-                    guiSetVisible  ( vehLog, false )
-                    setElementData ( veh, "vehLog", vehLog )
-                end
-                setElementParent ( vehLog, mainWnd.window ) -- Possible fix?
+                if cVeh ~= pVeh then
+                    pVeh = cVeh
+                    vString = tostring ( pVeh )
+                    showData ( mProperty[1] )
+                    if not vehLog[vString] then
+                        logX, logY   = guiGetPosition      ( logPane, false )
+                        lodW, logH   = guiGetSize          ( logPane, false )
+                        vehLog[vString] = guiCreateScrollPane ( logX, logY, 290, logH, false, mainWnd.window )
+                        guiSetVisible ( vehLog[vString], false )
+                    end
+                else updateData ( cm ) end
                 addEventHandler ( "onClientRender", root, onRenderCheck )
                 bindKey ( "lctrl",  "both", showValue )
                 bindKey ( "rctrl",  "both", showValue )
@@ -99,7 +100,6 @@ function toggleEditor (  )
                 bindKey ( "rshift", "both", showValue )
                 guiSetVisible ( mainWnd.window, true )
                 showCursor ( true, true )
-                updateHandlingData ( )
             end
         end
     end
@@ -111,13 +111,13 @@ function showValue ( k, s )
     if s == "down" and pointedButton and isPointing then
       	if ( k == "lctrl" or k == "rctrl" ) and not ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )  then 
             buttonValue = guiGetText ( pointedButton )
-            local vehID = getElementModel ( lVeh )
-            local val = getDefaultHandling ( vehID, hData[cm].h[ hButton[pointedButton] ] )
+            local pVehID = getElementModel ( pVeh )
+            local val = getDefaultHandling ( pVehID, hData[cm].h[ hButton[pointedButton] ] )
             guiSetText ( pointedButton, val )
             guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
         elseif ( k == "lshift" or k == "rshift" ) and not ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) )  then
             buttonValue = guiGetText ( pointedButton )
-            guiSetText ( pointedButton, getElementData ( lVeh, "history."..hData[cm].h[ hButton[pointedButton] ] ) )
+            guiSetText ( pointedButton, getElementData ( pVeh, "history."..hData[cm].h[ hButton[pointedButton] ] ) )
             guiSetProperty ( pointedButton, "HoverTextColour", "FFF0D400" )
         end
     else
@@ -134,9 +134,10 @@ function onRenderCheck ( )
     if not cVeh then
         toggleEditor ( )
     else
-        if cVeh ~= lVeh then
+        if cVeh ~= pVeh then
             toggleEditor ( )
-            lVeh = cVeh
+            pVeh = cVeh
+            vString = tostring ( pVeh )
         end
     end
 end

@@ -25,14 +25,14 @@ end]]
 
 addCommandHandler ( "save",
     function ( cmd, sName )
-        if sName and lVeh then
+        if sName and pVeh then
             local aName = "guest"
             local str = string.lower ( sName )
             if xmlTable[aName] and xmlTable[aName][str] then
                 outputChatBox ( "ALREADY EXISTS" )
             else
                 outputHandlingLog ( clog.saving, 0 )
-                triggerServerEvent ( "saveTheHandling", localPlayer, lVeh, aName, str, slog )
+                triggerServerEvent ( "saveTheHandling", localPlayer, pVeh, aName, str, slog )
             end
         else
             outputChatBox ( "Error" )
@@ -73,12 +73,12 @@ end]]
 
 addCommandHandler ( "load",
     function ( cmd, sName )
-        if sName and lVeh then
+        if sName and pVeh then
             local aName = "guest"
             local str = string.lower ( sName )
             if xmlTable[aName] and xmlTable[aName][str] then
                 outputHandlingLog ( clog.loading, 0 )
-                triggerServerEvent ( "loadTheHandling", localPlayer, lVeh, aName, str, slog )
+                triggerServerEvent ( "loadTheHandling", localPlayer, pVeh, aName, str, slog )
             end
         else
             outputChatBox ( "Error" )
