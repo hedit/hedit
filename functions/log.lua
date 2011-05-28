@@ -45,12 +45,6 @@ function outputHandlingLog ( txt, err )
         guiScrollPaneSetVerticalScrollPosition ( vehLog[pVeh], 100 )
         guiLabelSetColor   ( labelText, unpack ( errColor[err] ) )
         logLine[pVeh] = logLine[pVeh] + 15
-        outputDebugString("hi after logging"
-                    .. " pVeh:" .. tostring(pVeh)
-                    .. " vehLog[pVeh]:" .. tostring(vehLog[pVeh])
-                    .. " logPane:" .. tostring(logPane)
-                    .. " mainWnd.window:" .. tostring(mainWnd.window)
-                    )
     else outputDebugString ( "No vehicle log found!", 1 ) end
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
