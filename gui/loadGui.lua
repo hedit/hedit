@@ -83,29 +83,14 @@ function toggleEditor (  )
                     return outputChatBox ( text.restrictedPassenger ) end
                 if cVeh ~= pVeh then
                     pVeh = cVeh
-                    vString = tostring ( pVeh )
                     showData ( mProperty[1] )
                     if not vehLog[pVeh] then
-                        --[[logX, logY   = guiGetPosition      ( logPane, false )
-                        lodW, logH   = guiGetSize          ( logPane, false )]]
-                        logX = 123
-                        logY = 123
-                        logW = 123
-                        logH = 123
+                        logX, logY   = guiGetPosition      ( logPane, false )
+                        logW, logH   = guiGetSize          ( logPane, false )
                         vehLog[pVeh] = guiCreateScrollPane ( logX, logY, logW, logH, false, mainWnd.window )
                         guiSetVisible ( vehLog[pVeh], false )
                         logLine[pVeh] = 0
                     end
-                    outputDebugString("hi after creation"
-                    .. " pVeh:" .. tostring(pVeh)
-                    .. " vehLog[pVeh]:" .. tostring(vehLog[pVeh])
-                    .. " logPane:" .. tostring(logPane)
-                    .. " logX:" .. tostring(logX)
-                    .. " logY:" .. tostring(logY)
-                    .. " logW:" .. tostring(logW)
-                    .. " logH:" .. tostring(logH)
-                    .. " mainWnd.window:" .. tostring(mainWnd.window)
-                    )
                 else updateData ( cm ) end
                 addEventHandler ( "onClientRender", root, onRenderCheck )
                 bindKey ( "lctrl",  "both", showValue )
