@@ -6,10 +6,7 @@
 --||
 --|| COPYRIGHTED BY REMI-X
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
---|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
-
-local logLine = 0
 
 function outputHandlingLog ( txt, err )
     local curTime = getRealTime ( )
@@ -42,12 +39,18 @@ function outputHandlingLog ( txt, err )
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
-    if vehLog[vString] then
-        local labelTime = guiCreateLabel       ( 0,  logLine, 70,  20, tStamp, false, vehLog[vString] )
-        local labelText = guiCreateLabel       ( 70, logLine, 220, 20, txt,    false, vehLog[vString] )
-        guiScrollPaneSetVerticalScrollPosition ( vehLog[vString], 100 )
+    if vehLog[pVeh] then
+        local labelTime = guiCreateLabel       ( 0,  logLine, 70,  20, tStamp, false, vehLog[pVeh] )
+        local labelText = guiCreateLabel       ( 70, logLine, 220, 20, txt,    false, vehLog[pVeh] )
+        guiScrollPaneSetVerticalScrollPosition ( vehLog[pVeh], 100 )
         guiLabelSetColor   ( labelText, unpack ( errColor[err] ) )
-        logLine = logLine + 15
+        logLine[pVeh] = logLine[pVeh] + 15
+        outputDebugString("hi after logging"
+                    .. " pVeh:" .. tostring(pVeh)
+                    .. " vehLog[pVeh]:" .. tostring(vehLog[pVeh])
+                    .. " logPane:" .. tostring(logPane)
+                    .. " mainWnd.window:" .. tostring(mainWnd.window)
+                    )
     else outputDebugString ( "No vehicle log found!", 1 ) end
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
