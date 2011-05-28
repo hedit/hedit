@@ -6,7 +6,6 @@
 --||
 --|| COPYRIGHTED BY REMI-X
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
---|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
 
 function loadTheGui ( )
@@ -86,12 +85,27 @@ function toggleEditor (  )
                     pVeh = cVeh
                     vString = tostring ( pVeh )
                     showData ( mProperty[1] )
-                    if not vehLog[vString] then
-                        logX, logY   = guiGetPosition      ( logPane, false )
-                        lodW, logH   = guiGetSize          ( logPane, false )
-                        vehLog[vString] = guiCreateScrollPane ( logX, logY, 290, logH, false, mainWnd.window )
-                        guiSetVisible ( vehLog[vString], false )
+                    if not vehLog[pVeh] then
+                        --[[logX, logY   = guiGetPosition      ( logPane, false )
+                        lodW, logH   = guiGetSize          ( logPane, false )]]
+                        logX = 123
+                        logY = 123
+                        logW = 123
+                        logH = 123
+                        vehLog[pVeh] = guiCreateScrollPane ( logX, logY, logW, logH, false, mainWnd.window )
+                        guiSetVisible ( vehLog[pVeh], false )
+                        logLine[pVeh] = 0
                     end
+                    outputDebugString("hi after creation"
+                    .. " pVeh:" .. tostring(pVeh)
+                    .. " vehLog[pVeh]:" .. tostring(vehLog[pVeh])
+                    .. " logPane:" .. tostring(logPane)
+                    .. " logX:" .. tostring(logX)
+                    .. " logY:" .. tostring(logY)
+                    .. " logW:" .. tostring(logW)
+                    .. " logH:" .. tostring(logH)
+                    .. " mainWnd.window:" .. tostring(mainWnd.window)
+                    )
                 else updateData ( cm ) end
                 addEventHandler ( "onClientRender", root, onRenderCheck )
                 bindKey ( "lctrl",  "both", showValue )

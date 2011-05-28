@@ -6,7 +6,6 @@
 --||
 --|| COPYRIGHTED BY REMI-X
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
---|| THIS RESOURCE HAS BEEN UPLOADED TO COMMUNITY.MTASA.COM
 --|| ***************************************************************************************************************** ]]
 function updateData ( m )
     if not m then m         = cm end
@@ -47,7 +46,7 @@ function showData ( m )
     destroyMenuChildren ( )
     if m == mProperty[7] then
     elseif m == mProperty[8] then
-    elseif m == mProperty[9] then guiSetVisible ( vehLog[vString] )
+    elseif m == mProperty[9] then guiSetVisible ( vehLog[pVeh] )
     else
         for i=1,#hData[m].h do
             local gX, gY = guiGetPosition   ( defHedit[i], false )

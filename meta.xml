@@ -21,4 +21,11 @@
 
     <!-- Required Server-Scripts -->
     <script src="functions/doServer.lua"     type="server" />
+    
+    <!-- Settings -->
+    <settings>
+        <!-- Server -->
+        <setting name="*loadDefaultsOnStart" value="true" />
+        <setting name="*showWelcomeMessage"  value="true" />
+    </settings>
 </meta>
