@@ -10,10 +10,11 @@
 
 function outputHandlingLog ( txt, err )
     local curTime = getRealTime ( )
-    local time    = {}
-    time[1]       = string.format ( "%02d", curTime.hour )
-    time[2]       = string.format ( "%02d", curTime.minute )
-    time[3]       = string.format ( "%02d", curTime.second )
+    local time    = {
+                      string.format ( "%02d", curTime.hour ),
+                      string.format ( "%02d", curTime.minute ),
+                      string.format ( "%02d", curTime.second )
+                    }
     local tStamp  = "["..table.concat(time,":").."]"
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
@@ -40,12 +41,14 @@ function outputHandlingLog ( txt, err )
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
     if vehLog[pVeh] then
-        local labelTime = guiCreateLabel       ( 0,  logLine, 70,  20, tStamp, false, vehLog[pVeh] )
-        local labelText = guiCreateLabel       ( 70, logLine, 220, 20, txt,    false, vehLog[pVeh] )
+        local labelTime = guiCreateLabel       ( 0,  logLine[pVeh], 70,  20, tStamp, false, vehLog[pVeh] )
+        local labelText = guiCreateLabel       ( 70, logLine[pVeh], 220, 20, txt,    false, vehLog[pVeh] )
+        guiSetFont ( labelTime, "default-small" )
+        guiSetFont ( labelText, "default-small" )
         guiScrollPaneSetVerticalScrollPosition ( vehLog[pVeh], 100 )
         guiLabelSetColor   ( labelText, unpack ( errColor[err] ) )
         logLine[pVeh] = logLine[pVeh] + 15
-    else outputDebugString ( "No vehicle log found!", 1 ) end
+    else outputDebugString ( "[HEDIT] No vehicle log found!", 1 ) end
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------

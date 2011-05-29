@@ -35,7 +35,7 @@ function updateData ( m )
             	else guiSetText ( hedit[i], round ( config[ hData[m].h[i] ] ) ) end
             end
         end
-    end
+    else outputDebugString ( "[HEDIT] Unable to update." ) end
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
@@ -46,7 +46,7 @@ function showData ( m )
     destroyMenuChildren ( )
     if m == mProperty[7] then
     elseif m == mProperty[8] then
-    elseif m == mProperty[9] then guiSetVisible ( vehLog[pVeh] )
+    elseif m == mProperty[9] then guiSetVisible ( vehLog[pVeh], true )
     else
         for i=1,#hData[m].h do
             local gX, gY = guiGetPosition   ( defHedit[i], false )
@@ -71,12 +71,7 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 addCommandHandler ( "hm",
     function ( cmd, arg )
-        if tonumber ( arg ) then
-            if mProperty[tonumber(arg)] then
-                showData ( mProperty[tonumber(arg)] )
-            end
-        else
-            showData ( arg )
-        end
+        if tonumber ( arg ) and mProperty[tonumber(arg)] then showData ( mProperty[tonumber(arg)] )
+        else showData ( arg ) end
     end
 )
