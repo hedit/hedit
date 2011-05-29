@@ -58,7 +58,7 @@ function fixInput ( veh, text, num )
         local input     = tonumber ( text )
         if input then doTry ( veh, round(input), num )
         else
-            outputHandlingLog ( log.needNumber, 2 )
+            outputHandlingLog ( clog.needNumber, 2 )
         end
     end
 end
