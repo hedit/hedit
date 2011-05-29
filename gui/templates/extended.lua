@@ -89,6 +89,7 @@ loadTemplate["extended"] = function ( )
     guiLabelSetHorizontalAlign ( mainWnd.infoText, "left",     true   )
     guiWindowSetSizable        ( mainWnd.window,               false  )
     guiWindowSetMovable        ( mainWnd.window,               false  )
+    guiSetVisible              ( logPane,                      false )
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------

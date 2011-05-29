@@ -41,7 +41,8 @@ end
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function showData ( m )
-    if not cm then cm=m elseif not cm==m then pm=cm end
+    if not cm==m then pm=cm end
+    cm=m
     guiSetText ( mainWnd.menuHeader, mInfo[m] )
     destroyMenuChildren ( )
     if m == mProperty[7] then

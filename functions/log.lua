@@ -41,8 +41,8 @@ function outputHandlingLog ( txt, err )
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
     if vehLog[pVeh] then
-        local labelTime = guiCreateLabel       ( 0,  logLine[pVeh], 70,  20, tStamp, false, vehLog[pVeh] )
-        local labelText = guiCreateLabel       ( 70, logLine[pVeh], 220, 20, txt,    false, vehLog[pVeh] )
+        local labelTime = guiCreateLabel       ( 0,  logLine[pVeh], 45,  20, tStamp, false, vehLog[pVeh] )
+        local labelText = guiCreateLabel       ( 45, logLine[pVeh], 220, 20, txt,    false, vehLog[pVeh] )
         guiSetFont ( labelTime, "default-small" )
         guiSetFont ( labelText, "default-small" )
         guiScrollPaneSetVerticalScrollPosition ( vehLog[pVeh], 100 )

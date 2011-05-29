@@ -81,6 +81,7 @@ function toggleEditor (  )
             if getVehicleController ( cVeh ) ~= localPlayer and allowPassengersToEdit == false then
                 return outputChatBox ( text.restrictedPassenger ) end
             if cVeh ~= pVeh then
+                if isElement ( vehLog[pVeh] ) then guiSetVisible ( vehLog[pVeh], false ) end
                 pVeh = cVeh
                 showData ( mProperty[1] )
                 if not vehLog[pVeh] then
@@ -178,7 +179,7 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 function destroyMenuChildren ( )
     oldGuiText = ""
-    guiSetVisible ( logPane, false )
+    if isElement ( vehLog[pVeh] )      then guiSetVisible ( vehLog[pVeh], false ) end
     if isElement ( openedHandlingBox ) then destroyElement ( openedHandlingBox ) end
     for k,v in ipairs ( hedit )    do if isElement  ( v ) then destroyElement ( v ) end end
     for k,v in ipairs ( label )    do guiSetVisible ( v, false ) end
