@@ -76,30 +76,28 @@ function toggleEditor (  )
         isPointing = false
         pointedButton = nil
     else
-        if not isElement ( popupWnd ) then
-            local cVeh = getPedOccupiedVehicle ( localPlayer )
-            if cVeh then
-                if getVehicleController ( cVeh ) ~= localPlayer and allowPassengersToEdit == false then
-                    return outputChatBox ( text.restrictedPassenger ) end
-                if cVeh ~= pVeh then
-                    pVeh = cVeh
-                    showData ( mProperty[1] )
-                    if not vehLog[pVeh] then
-                        logX, logY   = guiGetPosition      ( logPane, false )
-                        logW, logH   = guiGetSize          ( logPane, false )
-                        vehLog[pVeh] = guiCreateScrollPane ( logX, logY, logW, logH, false, mainWnd.window )
-                        guiSetVisible ( vehLog[pVeh], false )
-                        logLine[pVeh] = 0
-                    end
-                else updateData ( cm ) end
-                addEventHandler ( "onClientRender", root, onRenderCheck )
-                bindKey ( "lctrl",  "both", showValue )
-                bindKey ( "rctrl",  "both", showValue )
-                bindKey ( "lshift", "both", showValue )
-                bindKey ( "rshift", "both", showValue )
-                guiSetVisible ( mainWnd.window, true )
-                showCursor ( true, true )
-            end
+        local cVeh = getPedOccupiedVehicle ( localPlayer )
+        if cVeh then
+            if getVehicleController ( cVeh ) ~= localPlayer and allowPassengersToEdit == false then
+                return outputChatBox ( text.restrictedPassenger ) end
+            if cVeh ~= pVeh then
+                pVeh = cVeh
+                showData ( mProperty[1] )
+                if not vehLog[pVeh] then
+                    logX, logY   = guiGetPosition      ( logPane, false )
+                    logW, logH   = guiGetSize          ( logPane, false )
+                    vehLog[pVeh] = guiCreateScrollPane ( logX, logY, logW, logH, false, mainWnd.window )
+                    guiSetVisible ( vehLog[pVeh], false )
+                    logLine[pVeh] = 0
+                end
+            else updateData ( cm ) end
+            addEventHandler ( "onClientRender", root, onRenderCheck )
+            bindKey ( "lctrl",  "both", showValue )
+            bindKey ( "rctrl",  "both", showValue )
+            bindKey ( "lshift", "both", showValue )
+            bindKey ( "rshift", "both", showValue )
+            guiSetVisible ( mainWnd.window, true )
+            showCursor ( true, true )
         end
     end
 end
@@ -136,7 +134,6 @@ function onRenderCheck ( )
         if cVeh ~= pVeh then
             toggleEditor ( )
             pVeh = cVeh
-            vString = tostring ( pVeh )
         end
     end
 end
