@@ -25,9 +25,9 @@ function outputHandlingLog ( txt, err )
     local oldColor = {}
     ---------------------------------------------------------------------------------------------------------------------
     for i=1,3 do
-        oldTime[i]  = guiGetText     ( logTime[i] )
-        oldText[i]  = guiGetText     ( logText[i] )
-        oldColor[i] = getElementData ( logText[i], "color" )
+        oldTime[i]  = guiGetText ( logTime[i] )
+        oldText[i]  = guiGetText ( logText[i] )
+        oldColor[i] = logColor[ logText[i] ]
         if not oldColor[i] then oldColor[i] = {0,0,0} end
     end
     ---------------------------------------------------------------------------------------------------------------------
@@ -35,18 +35,18 @@ function outputHandlingLog ( txt, err )
         guiSetText       ( logTime[i], oldTime[i-1] )
         guiSetText       ( logText[i], oldText[i-1] )
         guiLabelSetColor ( logText[i], unpack ( oldColor[i-1] ) )
-        setElementData   ( logText[i], "color", oldColor[i-1] )
+        logColor [ logText[i] ] = oldColor[i-1]
     end
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
     if vehLog[pVeh] then
-        local labelTime = guiCreateLabel       ( 0,  logLine[pVeh], 45,  20, tStamp, false, vehLog[pVeh] )
-        local labelText = guiCreateLabel       ( 45, logLine[pVeh], 220, 20, txt,    false, vehLog[pVeh] )
+        local labelTime = guiCreateLabel ( 0,  logLine[pVeh], 45,  20, tStamp, false, vehLog[pVeh] )
+        local labelText = guiCreateLabel ( 45, logLine[pVeh], 220, 20, txt,    false, vehLog[pVeh] )
         guiSetFont ( labelTime, "default-small" )
         guiSetFont ( labelText, "default-small" )
         guiScrollPaneSetVerticalScrollPosition ( vehLog[pVeh], 100 )
-        guiLabelSetColor   ( labelText, unpack ( errColor[err] ) )
+        guiLabelSetColor ( labelText, unpack ( errColor[err] ) )
         logLine[pVeh] = logLine[pVeh] + 15
     else outputDebugString ( "[HEDIT] No vehicle log found!", 1 ) end
     ---------------------------------------------------------------------------------------------------------------------
@@ -55,8 +55,8 @@ function outputHandlingLog ( txt, err )
     guiSetText         ( logTime[1], tStamp  )
     guiSetText         ( logText[1], txt )
     guiLabelSetColor   ( logText[1], unpack ( errColor[err] ) )
-    setElementData     ( logText[1], "color", errColor[err] )
     playSoundFrontEnd  ( errSound[err] )
+    logColor [ logText[1] ] = errColor[err]
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------

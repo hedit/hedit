@@ -2,30 +2,41 @@
     <info name="Ingame Handling Editor" version="2.0.0" type="script" author="Remi-X" description="The first, and only ingame handling editor available for San Andreas, made with MTA ofcourse!" />
 
     <!-- Required Client-Scripts -->
-    <script src="config/cfg.lua"             type="client" />
-    <script src="config/vars.lua"            type="client" />
-    <script src="config/limits.lua"          type="client" />
-    <script src="config/text/english.lua"    type="client" />
-    <script src="gui/templates/extended.lua" type="client" />
-    <script src="gui/checkGui.lua"           type="client" />
-    <script src="gui/loadGui.lua"            type="client" />
-    <script src="handlers/onHover.lua"       type="client" />
-    <script src="handlers/onClick.lua"       type="client" />
-    <script src="handlers/onAccept.lua"      type="client" />
-    <script src="handlers/onScroll.lua"      type="client" />
-    <script src="handlers/menu/mainMenu.lua" type="client" />
-    <script src="handlers/menu/utilMenu.lua" type="client" />
-    <script src="functions/log.lua"          type="client" />
-    <script src="functions/saveload.lua"     type="client" />
-    <script src="functions/doClient.lua"     type="client" />
+    <script src="config/vars.lua"              type="client"    />
+    <script src="config/text/english.lua"      type="client"    />
+    <script src="gui/templates/extended.lua"   type="client"    />
+    <script src="gui/checkGui.lua"             type="client"    />
+    <script src="gui/loadGui.lua"              type="client"    />
+    <script src="handlers/onHover.lua"         type="client"    />
+    <script src="handlers/onClick.lua"         type="client"    />
+    <script src="handlers/onAccept.lua"        type="client"    />
+    <script src="handlers/onScroll.lua"        type="client"    />
+    <script src="handlers/menu/mainMenu.lua"   type="client"    />
+    <script src="handlers/menu/utilMenu.lua"   type="client"    />
+    <script src="handlers/menu/subMenu.lua"    type="client"    />
+    <script src="functions/log.lua"            type="client"    />
+    <script src="functions/dyno.lua"           type="client"    />
+    <script src="functions/saveload.lua"       type="client"    />
+    <script src="functions/doClient.lua"       type="client"    />
 
     <!-- Required Server-Scripts -->
-    <script src="functions/doServer.lua"     type="server" />
+    <script src="functions/doServer.lua"       type="server"    />
+    
+    <!-- Required Config-Files -->
+    <config src="config/limits.xml"            type="client"    />
     
     <!-- Settings -->
     <settings>
         <!-- Server -->
-        <setting name="*loadDefaultsOnStart" value="true" />
-        <setting name="*showWelcomeMessage"  value="true" />
+        <setting name="*loadDefaultsOnStart"   value="false"    />
+        <setting name="*showWelcomeMessage"    value="true"     />
+        
+        <!-- Client -->
+        <setting name="individualHandling"    value="true"     />
+        <setting name="allowPassengersToEdit" value="false"    />
+        <setting name="usedKey"               value="b"        />
+        <setting name="usedCommand"           value="hedit"    />
+        <setting name="template"              value="extended" />
+        <setting name="language"              value="english"  />
     </settings>
 </meta>

@@ -31,8 +31,8 @@ function updateData ( m )
                            )
                 end
             else
-            	if getKeyStateEx ( ) and hButton[pointedButton] == i then buttonValue = round ( config[ hData[m].h[i] ] )
-            	else guiSetText ( hedit[i], round ( config[ hData[m].h[i] ] ) ) end
+                if getKeyStateEx ( ) and hButton[pointedButton] == i then buttonValue = round ( config[ hData[m].h[i] ] )
+                else guiSetText ( hedit[i], round ( config[ hData[m].h[i] ] ) ) end
             end
         end
     else outputDebugString ( "[HEDIT] Unable to update." ) end
@@ -41,7 +41,7 @@ end
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function showData ( m )
-    if not cm==m then pm=cm end
+    if cm~=m then pm=cm end
     cm=m
     guiSetText ( mainWnd.menuHeader, mInfo[m] )
     destroyMenuChildren ( )
@@ -49,22 +49,26 @@ function showData ( m )
     elseif m == mProperty[8] then
     elseif m == mProperty[9] then guiSetVisible ( vehLog[pVeh], true )
     else
-        for i=1,#hData[m].h do
-            local gX, gY = guiGetPosition   ( defHedit[i], false )
-            local wX, wY = guiGetSize       ( defHedit[i], false )
-            guiSetText ( label[i], iProperty[ hData[m].h[i] ][1] )
-            guiSetVisible ( label[i], true )
-            if comboItem[ hData[m].h[i] ] then
-                hedit[i] = guiCreateComboBox ( gX, gY, wX, (20*#comboItem[ hData[m].h[i] ])+20, "", false, mainWnd.window )
-                for cI=1,#comboItem[ hData[m].h[i] ] do
-                    guiComboBoxAddItem ( hedit[i], comboItem[ hData[m].h[i] ][cI] )
+        if hData[m] then
+            for i=1,#hData[m].h do
+                local gX, gY = guiGetPosition   ( defHedit[i], false )
+                local wX, wY = guiGetSize       ( defHedit[i], false )
+                guiSetText ( label[i], iProperty[ hData[m].h[i] ][1] )
+                guiSetVisible ( label[i], true )
+                if comboItem[ hData[m].h[i] ] then
+                    hedit[i] = guiCreateComboBox ( gX, gY, wX, (20*#comboItem[ hData[m].h[i] ])+20, "", false, mainWnd.window )
+                    for cI=1,#comboItem[ hData[m].h[i] ] do
+                        guiComboBoxAddItem ( hedit[i], comboItem[ hData[m].h[i] ][cI] )
+                    end
+                else
+                    hedit[i] = guiCreateButton ( gX, gY, wX, wY, "", false, mainWnd.window )
                 end
-            else
-                hedit[i] = guiCreateButton ( gX, gY, wX, wY, "", false, mainWnd.window )
+                hButton [ hedit[i] ] = i
             end
-            hButton [ hedit[i] ] = i
+            updateData ( m )
+        else
+            for k,v in pairs ( menuContent[m] ) do guiSetVisible ( v, true ) end
         end
-        updateData ( m )
     end
 end
 -------------------------------------------------------------------------------------------------------------------------

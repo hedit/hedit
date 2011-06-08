@@ -45,13 +45,38 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function getDefaultHandling ( veh, handling )
-    local data = getOriginalHandling ( veh )[handling]
-    if type(data) == "table" then return round(data[1])..", "..round(data[2])..", "..round(data[3])
-    elseif type(data) == "number" then
-        if isInt[handling] then return string.format ( "%.0f", data )
-        else return tostring ( round ( data ) ) end
+function handlingToString ( d )
+    if type(d) == "table" then return round(d[1])..", "..round(d[2])..", "..round(d[3])
+    elseif type(d) == "number" then return tostring ( round ( d ) )
     end
+    return tostring(d)
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+
+function stringToHandling ( property, str )
+    if property == "centerOfMass" then
+        local vX  = round ( tonumber ( gettok ( str, 1, 44 ) ) )
+        local vY  = round ( tonumber ( gettok ( str, 2, 44 ) ) )
+        local vZ  = round ( tonumber ( gettok ( str, 3, 44 ) ) )
+              str = { vX, vY, vZ }
+    elseif property == "ABS" then if str == "true" then str = true else str = false end
+    elseif property == "driveType" then
+        if     str == "F" then str = "fwd"
+        elseif str == "R" then str = "rwd"
+        elseif str == "4" then str = "awd"
+        end
+    elseif property == "engineType" then
+        if     str == "E" then str = "electric"
+        elseif str == "P" then str = "petrol"
+        elseif str == "D" then str = "diesel"
+        end
+    else
+        str = tonumber ( str )
+    end
+    return str
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -85,9 +110,9 @@ function packHandling ( veh )
     for i=2,#hProperty do
         if hnd[ hProperty[i] ] then
             if type ( hnd[ hProperty[i] ] ) == "table" then
-                tbl[i]      = hnd[ hProperty[i] ][1]
-                tbl[i+1]    = hnd[ hProperty[i] ][2]
-                tbl[i+2]    = hnd[ hProperty[i] ][3]
+                tbl[i]   = hnd[ hProperty[i] ][1]
+                tbl[i+1] = hnd[ hProperty[i] ][2]
+                tbl[i+2] = hnd[ hProperty[i] ][3]
                 i=i+3
             else
                 tbl[i] = hnd[ hProperty[i] ]
@@ -96,15 +121,53 @@ function packHandling ( veh )
         end
     end
     --------------------------------------------------------
-    local str = ""
-    for k,v in ipairs ( tbl ) do
-        str = str..v.." "
-    end
-    return str
+    return table.concat ( tbl, " " )
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function stopResource() triggerServerEvent("stopTheResource",resourceRoot)  end
+function loadVariables ( )
+    for k,v in pairs ( getElementData ( resourceRoot, "hedit.settings" ) ) do
+        setting[k] = v
+    end
+    ----------------------------------------------------------------------------------------------------------------------
+    local limitsXML = xmlLoadFile ( "config/limits.xml" )
+    for i,v in ipairs ( xmlNodeGetChildren ( limitsXML ) ) do
+        local p = xmlNodeGetName ( v )
+        minLimit[p] = xmlNodeGetAttribute ( v, "minLimit" )
+        maxLimit[p] = xmlNodeGetAttribute ( v, "maxLimit" )
+    end
+    ----------------------------------------------------------------------------------------------------------------------
+    defaultHandling = {}
+    if getElementData ( resourceRoot, "usingCustoms" ) then
+        local node = xmlLoadFile ( "config/defaults.xml" )
+        for _,uNode in ipairs ( xmlNodeGetChildren ( node ) ) do
+            local model   = xmlNodeGetAttribute ( uNode, "model" )
+            local modelID = tonumber( model )
+            if modelID then
+                defaultHandling[model] = {}
+                for p,v in pairs ( xmlNodeGetAttributes ( uNode ) ) do
+                    if k ~= "model" then
+                        defaultHandling[model][p] = stringToHandling ( p, v )
+                    end
+                end
+            end
+        end
+    end
+    for i=400,611 do
+        if not defaultHandling[i] then
+            defaultHandling[i] = {}
+            for p,v in pairs ( getOriginalHandling ( i ) ) do
+                defaultHandling[i][p] = v
+            end
+        end
+    end
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+
+function stopResource() triggerServerEvent("stopTheResource",resourceRoot) end

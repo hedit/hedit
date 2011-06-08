@@ -1,17 +1,13 @@
 --|| ***************************************************************************************************************** [[
 --|| PROJECT:       MTA Ingame Handling Editor
---|| FILE:          config/cfg.lua
+--|| FILE:          functions/dyno.lua
 --|| DEVELOPERS:    Remi-X <rdg94@live.nl>
---|| PURPOSE:       Handling Editor Configuration file
+--|| PURPOSE:       Starting, updating, and stopping the dynamometer.
 --||
 --|| COPYRIGHTED BY REMI-X
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
 --|| ***************************************************************************************************************** ]]
 
-individualHandling          = true
-allowPassengersToEdit       = false
-allowGuestsToSave           = false
-usedKey                     = "b"
-usedCommand                 = "hedit"
-usedTemplate                = "extended"
-usedTranslation             = "english"
+function startSpeedTest ( veh )
+    
+end

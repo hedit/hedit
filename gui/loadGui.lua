@@ -8,45 +8,80 @@
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
 --|| ***************************************************************************************************************** ]]
 
-function loadTheGui ( )
-    if loadTranslation[usedTranslation] then
-        loadTranslation[usedTranslation]()
+function loadTheTranslation ( )
+    loadVariables ( )
+    if loadTranslation[ setting["language"] ] then
+        loadTranslation[ setting["language"] ]()
         if isTranslationValid ( ) then
-            if loadTemplate[usedTemplate] then
-                loadTemplate[usedTemplate]()
-                if isTemplateValid ( ) then
-                    enableTemplate ( )
-                else
-                    faultTemplate ( text.invalidTemplate )
-                end
-            else
-                faultTemplate ( text.incorrectTemplate )
-            end
+            loadTheTemplate ( )
         else
-            faultTranslation ( "HANDLING EDITOR: Incorrect/corrupted translation. Loading english instead." )
+            faultTranslation ( "HANDLING EDITOR: Incorrect/corrupted translation.["..setting["language"].."] Loading english instead." )
         end
     else
-        faultTranslation ( "HANDLING EDITOR: No such translation with that name." )
+        faultTranslation ( "HANDLING EDITOR: No such translation with name "..setting["language"].."." )
     end
 end
-addEventHandler ( "onClientResourceStart", resourceRoot, loadTheGui )
+-------------------------------------------------------------------------------------------------------------------------
+function loadTheTemplate ( )
+    if loadTemplate[ setting["template"] ] then
+        loadTemplate[ setting["template"] ]()
+        if isTemplateValid ( ) then
+            enableTemplate ( )
+        else
+            faultTemplate ( text.invalidTemplate, setting["template"] )
+        end
+    else
+        faultTemplate ( text.incorrectTemplate, setting["template"] )
+    end
+end
+addEventHandler ( "onClientResourceStart", resourceRoot, loadTheTranslation )
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function enableTemplate ( )
-    destroyMenuChildren ( )
-    loadSaveFile ( )
-    for k,v in ipairs ( defHedit ) do guiSetVisible ( defHedit[k], false ) end
+    loadXmlFiles        ( )
+    loadErrorPage       ( )
     ---------------------------------------------------------------------------------------------------------------------
-    for k,v in ipairs ( menuButton ) do
-        mButton[ menuButton[k] ] = k
-        guiSetAlpha ( menuButton[k], 0.7 )
+    for i,v in ipairs ( hProperty ) do
+        if minLimit[v] and maxLimit[v] then
+            iProperty[v][3] = iProperty[v][3]..": "..minLimit[v].." - "..maxLimit[v]
+        end
     end
     ---------------------------------------------------------------------------------------------------------------------
-    for k,v in ipairs ( label )   do hLabel[ label[k] ]    = k end
-    for k,v in ipairs ( logText ) do logItem[ logText[k] ] = k end
+    for k,v in ipairs ( defHedit ) do guiSetVisible ( v, false ) end
+    ---------------------------------------------------------------------------------------------------------------------
+    for k,v in ipairs ( menuButton ) do
+        if mProperty[k] then mButton[v] = k 
+        else guiSetEnabled ( v, false ) end
+        guiSetAlpha ( v, 0.7 )
+    end
+    ---------------------------------------------------------------------------------------------------------------------
+    for i,c in pairs ( menuContent ) do for k,v in pairs ( c ) do
+        guiSetVisible ( v, false )
+        if subItemHandler[i] then sItem[v] = i
+        else guiSetEnabled ( v, false ) end
+    end end
+    ---------------------------------------------------------------------------------------------------------------------
+    for k,v in ipairs ( utilButton ) do
+        uButton[v] = k
+        if utilButtonText[k] then guiSetText ( v, utilButtonText[k] ) end
+    end
+    ---------------------------------------------------------------------------------------------------------------------
+    for i,c in pairs ( utilContent ) do for k,v in pairs ( c ) do
+        guiSetProperty ( v, "HoverTextColour", "FFFF8000" )
+        guiSetVisible ( v, false )
+        if menuContent[k] then uItem[v] = k
+        else uItem[v] = "corruptedlink" end
+        if utilItemText[k] then guiSetText ( v, utilItemText[k] ) end
+    end end
+    ---------------------------------------------------------------------------------------------------------------------
+    for k,v in ipairs ( label )   do hLabel[v]  = k end
+    for k,v in ipairs ( logText ) do logItem[v] = k end
     ---------------------------------------------------------------------------------------------------------------------
     guiSetText        ( mainWnd.window, text.header )
+      -------------------------------------------------------------------------------------------------------------------
+    loadSavesIntoGrid ( menuContent["saveclient"].grid )
+    loadSavesIntoGrid ( menuContent["loadclient"].grid )
     ---------------------------------------------------------------------------------------------------------------------
     guiSetInputMode   ( "no_binds_when_editing" )
     ---------------------------------------------------------------------------------------------------------------------
@@ -56,8 +91,11 @@ function enableTemplate ( )
     addEventHandler   ( "onClientGUIAccepted",            mainWnd.window, onEditBoxAccept )
     addEventHandler   ( "onClientGUIComboBoxAccepted",    mainWnd.window, onComboBoxAccept )
     ---------------------------------------------------------------------------------------------------------------------
-    bindKey           ( usedKey, "down", toggleEditor   )
-    addCommandHandler ( usedCommand,     toggleEditor   )
+    bindKey           ( "mouse_wheel_up",   "up",   onScroll, "up"   )
+    bindKey           ( "mouse_wheel_down", "up",   onScroll, "down" )
+    bindKey           ( "delete",           "down", deleteHandling   )
+    bindKey           ( setting["usedKey"], "down", toggleEditor     )
+    addCommandHandler ( setting["usedCommand"],     toggleEditor     )
     ---------------------------------------------------------------------------------------------------------------------
     toggleEditor      ( )
 end
@@ -75,21 +113,39 @@ function toggleEditor (  )
         showCursor ( false, false )
         isPointing = false
         pointedButton = nil
+        if um then
+            for k,v in pairs ( utilContent[um] ) do guiSetVisible ( v, false ) end
+            um = nil
+        end
     else
         local cVeh = getPedOccupiedVehicle ( localPlayer )
         if cVeh then
-            if getVehicleController ( cVeh ) ~= localPlayer and allowPassengersToEdit == false then
+            if getVehicleController ( cVeh ) ~= localPlayer and setting["allowPassengersToEdit"] == false then
                 return outputChatBox ( text.restrictedPassenger ) end
             if cVeh ~= pVeh then
                 if isElement ( vehLog[pVeh] ) then guiSetVisible ( vehLog[pVeh], false ) end
                 pVeh = cVeh
                 showData ( mProperty[1] )
                 if not vehLog[pVeh] then
-                    logX, logY   = guiGetPosition      ( logPane, false )
-                    logW, logH   = guiGetSize          ( logPane, false )
-                    vehLog[pVeh] = guiCreateScrollPane ( logX, logY, logW, logH, false, mainWnd.window )
+                    for i,v in ipairs ( logTime ) do
+                        guiSetText ( logTime[i], "" )
+                        guiSetText ( logText[i], "" )
+                    end
+                    logX, logY    = guiGetPosition      ( logPane, false )
+                    logW, logH    = guiGetSize          ( logPane, false )
+                    vehLog[pVeh]  = guiCreateScrollPane ( logX, logY, logW, logH, false, mainWnd.window )
                     guiSetVisible ( vehLog[pVeh], false )
                     logLine[pVeh] = 0
+                else
+                    local childs = getElementChildren ( vehLog[pVeh] )
+                    for i,v in ipairs ( logTime ) do
+                        local oldColor = logColor [ childs[#childs-(-1+i)] ]
+                        if not oldColor then oldColor = {0,0,0} end
+                        guiSetText       ( logTime[i], guiGetText ( childs[#childs-i] ) )
+                        guiSetText       ( logText[i], guiGetText ( childs[#childs-(-1+i)] ) )
+                        guiLabelSetColor ( logText[i], unpack ( oldColor ) )
+                        logColor [ logText[i] ] = oldColor
+                    end
                 end
             else updateData ( cm ) end
             addEventHandler ( "onClientRender", root, onRenderCheck )
@@ -110,7 +166,7 @@ function showValue ( k, s )
       	if ( k == "lctrl" or k == "rctrl" ) and not ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )  then 
             buttonValue = guiGetText ( pointedButton )
             local pVehID = getElementModel ( pVeh )
-            local val = getDefaultHandling ( pVehID, hData[cm].h[ hButton[pointedButton] ] )
+            local val = handlingToString ( defaultHandling[pVehID][hData[cm].h[ hButton[pointedButton] ] ] )
             guiSetText ( pointedButton, val )
             guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
         elseif ( k == "lshift" or k == "rshift" ) and not ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) )  then
@@ -142,7 +198,7 @@ end
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function getKeyStateEx ( str )
-	if str then -- might be useful for stuff added later
+	if str then
 		if str == "ctrl" and ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) ) then
 		elseif str == "shift" and ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )then end
 	elseif (
@@ -177,10 +233,24 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
+function loadErrorPage ( )
+    mInfo[ mProperty[20] ]= "Missing buttonlink!"
+    menuContent["corruptedlink"] = {
+    }
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
 function destroyMenuChildren ( )
     oldGuiText = ""
+    um         = nil
+    ---------------------------------------------------------------------------------------------------------------------
     if isElement ( vehLog[pVeh] )      then guiSetVisible ( vehLog[pVeh], false ) end
     if isElement ( openedHandlingBox ) then destroyElement ( openedHandlingBox ) end
-    for k,v in ipairs ( hedit )    do if isElement  ( v ) then destroyElement ( v ) end end
-    for k,v in ipairs ( label )    do guiSetVisible ( v, false ) end
+    ---------------------------------------------------------------------------------------------------------------------
+    for k,v in ipairs ( hedit ) do if isElement  ( v ) then destroyElement ( v ) end end
+    for k,v in ipairs ( label ) do guiSetVisible ( v, false ) end
+    ---------------------------------------------------------------------------------------------------------------------
+    for i,c in pairs ( menuContent ) do for k,v in pairs ( c ) do guiSetVisible ( v, false ) end end
+    for i,c in pairs ( utilContent ) do for k,v in pairs ( c ) do guiSetVisible ( v, false ) end end
 end

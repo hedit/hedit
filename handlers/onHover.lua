@@ -15,9 +15,18 @@ function onEnter ( )
         pointedButton    = source
         handleKeyState   ( "down" )
     elseif hLabel[source] then
-        guiLabelSetColor ( source, 255, 255, 128 )
         setInfoText ( iProperty[ hData[cm].h[ hLabel[source] ] ][1],
                       iProperty[ hData[cm].h[ hLabel[source] ] ][2] )
+        guiLabelSetColor ( source, 255, 255, 128 )
+    elseif uButton[source] and um and um ~= source and utilContent[source] then
+        for k,v in pairs ( utilContent[um] )     do guiSetVisible ( v, false ) end
+        for k,v in pairs ( utilContent[source] ) do
+            guiSetVisible ( v, true )
+            guiBringToFront ( v )
+        end
+        um = source
+    elseif uItem[source] then
+        setInfoText ( guiGetText ( source ), mInfo[ mProperty[ uItem[source] ] ] )
     end
 end
 -------------------------------------------------------------------------------------------------------------------------
@@ -29,8 +38,8 @@ function onLeave ( )
     elseif hButton[source] then 
         isPointing = false
         handleKeyState ( "up" )
+    elseif hLabel[source] then guiLabelSetColor ( source, 255, 255, 255 )
     end
-    if hLabel[source] then return guiLabelSetColor ( source, 255, 255, 255 ) end 
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
@@ -40,6 +49,8 @@ function setButtonEffect ( button, txt )
     playSoundFrontEnd    ( 42 )
     setInfoText          ( txt )
 end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function handleKeyState ( str )
     if getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) then showValue ( "lctrl", str )

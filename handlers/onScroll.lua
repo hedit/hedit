@@ -8,8 +8,10 @@
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
 --|| ***************************************************************************************************************** ]]
 
-function onScrollUp ( )
-	if canScroll[pointedButton] then
-		
+function onScroll ( direction )
+	if pointedButton and canScroll[pointedButton] then
+		if direction == "up" then
+		elseif direction == "down" then
+		end
 	end
 end
