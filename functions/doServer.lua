@@ -1,4 +1,4 @@
---|| ***************************************************************************************************************** [[
+----|| ***************************************************************************************************************** [[
 --|| PROJECT:       MTA Ingame Handling Editor
 --|| FILE:          functions/doServer.lua
 --|| DEVELOPERS:    Remi-X <rdg94@live.nl>
@@ -8,16 +8,18 @@
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
 --|| ***************************************************************************************************************** ]]
 
-updateForAll                = false
+updateForAll     = false
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
-logFile                     = nil
-xmlSaves                    = nil
-xmlDefaults                 = nil
-xmlSavesTable               = {}
-xmlDefaultsTable            = {}
-strHandling                 = {}
+logFile          = nil
+xmlShared        = nil
+xmlDefaults      = nil
+xmlSharedTable   = {}
+xmlDefaultsTable = {}
+strHandling      = {}
+minLimit         = {}
+maxLimit         = {}
 --------------------------------------------------------------------------------------------------------------------------
 hProperty = { 
               "model","mass","turnMass","dragCoeff","centerOfMass",
@@ -80,68 +82,84 @@ multiHandling = {
     ["FREIFLAT"] = { "569", "590" }
 }
 --------------------------------------------------------------------------------------------------------------------------
-addEvent ( "saveTheHandling", true )
-addEvent ( "loadTheHandling", true )
-addEvent ( "setHandling",     true )
+addEvent ( "saveSharedHandling",  true )
+addEvent ( "saveDefaultHandling", true )
+addEvent ( "loadClientHandling",  true )
+addEvent ( "setHandling",         true )
+addEvent ( "stopTheResource",     true )
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 addEventHandler ( "onResourceStart", resourceRoot,
     function ( )
+        -- !HIGH PRIORITY!
+        -- KEEP THIS IN ORDER TO LET CLIENTS SYNC THEIR SAVED HANDLINGS BETWEEN SERVERS
+        -- BY KEEPING THE DEFAULT RESOURCENAME PLAYERS CAN STORE THEIR HANDLINGS CLIENTSIDE
+        -- SO WHENEVER THEY JOIN ANOTHER SERVER, THEY WILL BE ABLE TO LOAD THEIR OWN HANDLINGS
+        local resName = getResourceName ( getThisResource ( ) )
+        if resName ~= "hedit" then
+            print ( "===============================================================================" )
+            print ( "[HEDIT] Please rename resource '"..resName.."' to 'hedit' in order to work." )
+            print ( "[HEDIT] This is needed to sync the clients handlings properly." )
+            print ( "[HEDIT] The handling editor will not work now. Please rename first." )
+            print ( "===============================================================================" )
+            return cancelEvent ( true, "Rename the handling editor resource to 'hedit' in order to work." )
+        end
+        ------------------------------------------------------------------------------------------------------------------
         local saves   = 0
         local customs = 0
         ------------------------------------------------------------------------------------------------------------------
+        setElementData ( resourceRoot, "hedit.settings", get ( "" ) )
         loadDefaultsOnStart = get ( "loadDefaultsOnStart" )
         showWelcomeMessage  = get ( "showWelcomeMessage" )
+        individualHandling  = get ( "individualHandling" )
+        if loadDefaultsOnStart == "true" then setElementData ( resourceRoot, "usingCustoms", true ) end
         ------------------------------------------------------------------------------------------------------------------
-        local exists  = fileExists ( "heditLog.txt" )
-        if not exists then logFile = fileCreate ( "heditLog.txt" )
-        else logFile = fileOpen ( "heditLog.txt" ) end
-        ------------------------------------------------------------------------------------------------------------------
-        local saveRes = getResourceFromName ( "hedit_saves" )
-        if not saveRes then
-            saveRes = createResource ( "hedit_saves" )
-            if saveRes then
-                addResourceConfig ( ":hedit_saves/saves.xml",    "client" )
-                addResourceConfig ( ":hedit_saves/defaults.xml", "client" )
-            end
+        local limitsXML = xmlLoadFile ( "config/limits.xml" )
+        for i,v in ipairs ( xmlNodeGetChildren ( limitsXML ) ) do
+            local p = xmlNodeGetName ( v )
+            minLimit[p] = xmlNodeGetAttribute ( v, "minLimit" )
+            maxLimit[p] = xmlNodeGetAttribute ( v, "maxLimit" )
         end
         ------------------------------------------------------------------------------------------------------------------
-        xmlSaves    = xmlLoadFile ( ":hedit_saves/saves.xml" )
-        xmlDefaults = xmlLoadFile ( ":hedit_saves/defaults.xml" )
-        if not xmlSaves    then xmlSaves    = addResourceConfig ( ":hedit_saves/saves.xml",    "client" ) end
-        if not xmlDefaults then xmlDefaults = addResourceConfig ( ":hedit_saves/defaults.xml", "client" ) end
-        
-        startResource ( saveRes )
-        
-        for uIndex,uNode in ipairs ( xmlNodeGetChildren ( xmlSaves ) ) do
-            local aName       = xmlNodeGetAttribute ( uNode, "account" )
-            xmlSavesTable[aName]   = {}
-            xmlSavesTable[aName].u = uNode
-            for sIndex,sNode in ipairs ( xmlNodeGetChildren ( uNode ) ) do
-                local sName = string.lower ( xmlNodeGetAttribute ( sNode, "name" ) )
-                local hConf = xmlFindChild ( sNode, "handling", 0 )
-                xmlSavesTable[aName][sName]   = {}
-                xmlSavesTable[aName][sName].h = {}
-                xmlSavesTable[aName][sName].s = sNode
-                xmlSavesTable[aName][sName].i = hConf
-                saves = saves + 1
-                for k,v in pairs ( xmlNodeGetAttributes ( hConf ) ) do
-                    xmlSavesTable[aName][sName].h[k] = v
+        if not fileExists ( "heditLog.txt" ) then logFile = fileCreate ( "heditLog.txt" )
+        else logFile = fileOpen ( "heditLog.txt" ) end
+        ------------------------------------------------------------------------------------------------------------------
+        xmlShared   = xmlLoadFile ( "saves/shared.xml"   )
+        xmlDefaults = xmlLoadFile ( "saves/defaults.xml" )
+        if not xmlShared   then xmlShared   = xmlCreateFile ( "saves/shared.xml"   ) end
+        if not xmlDefaults then xmlDefaults = xmlCreateFile ( "saves/defaults.xml" ) end
+        ------------------------------------------------------------------------------------------------------------------
+        for uIndex,uNode in ipairs ( xmlNodeGetChildren ( xmlShared ) ) do
+            local aName            = xmlNodeGetAttribute ( uNode, "account" )
+            if aName then
+                xmlSharedTable[aName]   = {}
+                xmlSharedTable[aName].u = uNode
+                for sIndex,sNode in ipairs ( xmlNodeGetChildren ( uNode ) ) do
+                    local sName = string.lower ( xmlNodeGetAttribute ( sNode, "name" ) )
+                    local hConf = xmlFindChild ( sNode, "handling", 0 )
+                    xmlSharedTable[aName][sName]   = {}
+                    xmlSharedTable[aName][sName].h = {}
+                    xmlSharedTable[aName][sName].s = sNode
+                    xmlSharedTable[aName][sName].i = hConf
+                    saves = saves + 1
+                    for k,v in pairs ( xmlNodeGetAttributes ( hConf ) ) do
+                        xmlSharedTable[aName][sName].h[k] = v
+                    end
                 end
             end
         end
-        
+        ------------------------------------------------------------------------------------------------------------------
         for uIndex,uNode in ipairs ( xmlNodeGetChildren ( xmlDefaults ) ) do
             local model = xmlNodeGetAttribute ( uNode, "model" )
-            xmlDefaultsTable[model]   = {}
-            xmlDefaultsTable[model].h = {}
-            xmlDefaultsTable[model].u = uNode
-            if loadDefaultsOnStart == "true" then customs = customs + 1 end
-            for k,v in pairs ( xmlNodeGetAttributes ( uNode ) ) do
-                if k ~= "model" then
-                    local modelID = tonumber( model )
-                    if modelID then
+            local modelID = tonumber( model )
+            if modelID then
+                xmlDefaultsTable[model]   = {}
+                xmlDefaultsTable[model].h = {}
+                xmlDefaultsTable[model].u = uNode
+                customs = customs + 1
+                for k,v in pairs ( xmlNodeGetAttributes ( uNode ) ) do
+                    if k ~= "model" then
                         xmlDefaultsTable[model].h[k] = v
                         if loadDefaultsOnStart == "true" then
                             setModelHandling ( modelID, k, stringToHandling ( k, v ) )
@@ -157,10 +175,12 @@ addEventHandler ( "onResourceStart", resourceRoot,
         end
         ------------------------------------------------------------------------------------------------------------------
         if showWelcomeMessage == "true" then
-            print ( "===============================================================================" )
+            print ( "\n===============================================================================" )
             print ( " HANDLING EDITOR BY REMI-X [V2.0 unstable]" )
             print ( " Loaded "..saves.." saved handlings." )
-            print ( " Loaded "..customs.." custom handlings." )
+            if loadDefaultsOnStart == "true" then
+                print ( " Loaded "..customs.." custom handlings." )
+            end
             print ( "===============================================================================" )
             if fileExists ( "handling.cfg" ) then
                 print ( " Handling.cfg found." )
@@ -168,86 +188,94 @@ addEventHandler ( "onResourceStart", resourceRoot,
                 print ( " After this, you can import the handling into defaults.xml." )
             else
                 print ( " No handling.cfg found to import." )
-                print ( " Ensure the file is located in the root of this resource in order to load." )
+                print ( " Ensure the file is located in the root of this resource in order to load." )                print ( " Ensure the file is located in the root of this resource in order to load." )
             end
             print ( "===============================================================================" )
+            if loadDefaultsOnStart ~= "true" and customs > 0 then
+                print ( " "..customs.." custom handling entries found." )
+                print ( " Type 'loaddefaults' to load these onto all vehicles." )
+                print ( "===============================================================================" )
+            end
         end
     end
 )
 --------------------------------------------------------------------------------------------------------------------------
-addEventHandler ( "onResourceStop", resourceRoot, function ( )       fileClose     ( logFile )
-                                                                     xmlUnloadFile ( xmlSaves )    
-                                                                     xmlUnloadFile ( xmlDefaults )                                 end )
+addEventHandler ( "onResourceStop", resourceRoot, function ( )       if logFile     then fileClose     ( logFile )     end
+                                                                     if xmlShared   then xmlUnloadFile ( xmlShared )    end   
+                                                                     if xmlDefaults then xmlUnloadFile ( xmlDefaults ) end         end )
 addEventHandler ( "onPlayerJoin",   root,         function ( )       setElementData ( source, "hAccount", "guest" )                end )
 addEventHandler ( "onPlayerLogin",  root,         function ( _,acc ) setElementData ( source, "hAccount", getAccountName ( acc ) ) end )
 addEventHandler ( "onPlayerLogout", root,         function ( )       setElementData ( source, "hAccount", "guest" )                end )
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
-function saveHandling ( veh, aName, sName, log )
-    if not xmlSavesTable[aName] then
-        xmlSavesTable[aName] = {}
-        xmlSavesTable[aName].u = xmlCreateChild ( xmlSaves, "user" )
-        xmlNodeSetAttribute ( xmlSavesTable[aName].u, "account", aName )
-        xmlNodeSetAttribute ( xmlSavesTable[aName].u, "name",    pName )
+addEventHandler ( "saveSharedHandling", root,
+    function ( )
     end
-    ----------------------------------------------------------------------------------------------------------------------
-    if not xmlSavesTable[aName][sName] then
-        xmlSavesTable[aName][sName]   = {}
-        xmlSavesTable[aName][sName].h = {}
-        xmlSavesTable[aName][sName].s = xmlCreateChild ( xmlSavesTable[aName].u,        "save"     )
-        xmlSavesTable[aName][sName].i = xmlCreateChild ( xmlSavesTable[aName][sName].s, "handling" )
-        xmlNodeSetAttribute ( xmlSavesTable[aName][sName].s, "name", sName )
-    end
-    ----------------------------------------------------------------------------------------------------------------------
-    xmlNodeSetAttribute ( xmlSavesTable[aName][sName].i, "model", getElementModel ( veh ) )
-    for k,v in pairs ( getVehicleHandling ( veh ) ) do
-        local str = handlingToString ( v )
-        xmlNodeSetAttribute ( xmlSavesTable[aName][sName].i, k, str )
-        xmlSavesTable[aName][sName].h[k] = str
-    end
-    ----------------------------------------------------------------------------------------------------------------------
-    xmlSaveFile        ( xmlSaves )
-    triggerClientEvent ( source, "outputLog", source, log.saved, 0 )
-    restartResource    ( getResourceFromName ( "hedit_saves" ) )
-end
-addEventHandler ( "saveTheHandling", root, saveHandling )
+)
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
-function loadHandling ( veh, aName, sName, log )
-    if xmlSaves and xmlSavesTable[aName][sName] then
-        for k,v in pairs ( xmlSavesTable[aName][sName].h ) do
-            if k ~= "model" then
-                setVehicleHandling ( veh, k, stringToHandling ( k, v ) )
-            end
-        end
-        triggerClientEvent ( source, "outputLog", source, log.loaded, 0 )
+addEventHandler ( "saveDefaultHandling", root,
+    function ( )
     end
-end
-addEventHandler ( "loadTheHandling", root, loadHandling )
+)
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+addEventHandler ( "loadClientHandling", root,
+    function ( veh, data, log )
+        if veh and data and log then
+            for p,v in pairs ( data ) do
+                if not setVehicleHandling ( veh, p, v ) then
+                    outputDebugString ( "[HEDIT] Unable to load "..p.."("..handlingToString(v)..")!", 1 )
+                end
+            end
+            triggerClientEvent ( source, "outputLog", source, log.loaded, 0 )
+        end
+    end
+)
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 addCommandHandler ( "loaddefaults",
     function ( player )
         if getElementType ( player ) ~= "console" then return end
+        if getPlayerCount ( ) > 0 then
+            print ( "[HEDIT] Sorry, you can't use this function when there are clients connected." )
+            print ( "[HEDIT] This is to prevent bugs that are caused by this function." )
+            print ( "[HEDIT] I'm look into a way to fix this as soon as possible." )
+            print ( "[HEDIT] Change setting 'loadDefaultsOnStart' to 'true' to load the defaults on resource start." ) 
+            return false
+        end
         local loaded = 0
-        local found = 0
+        local found  = 0
+        local double = {}
         print ( "[HEDIT] Loading defaults.xml on all vehicles..." )
         setTimer ( function ( )
             for model,pedobear in pairs ( xmlDefaultsTable ) do
                 if xmlDefaultsTable[model] and xmlDefaultsTable[model].h then
                     found = found + 1
+                    if double[model] then outputDebugString ( "Multi: "..model )
+                    else double[model] = true end
                     local modelID = tonumber( model )
                     if modelID then
                         loaded = loaded + 1
                         for k,v in pairs ( xmlDefaultsTable[model].h ) do
-                            if k ~= "model" then
-                                setModelHandling ( modelID, k, stringToHandling ( k, v ) )
-                                for num,veh in ipairs ( getElementsByType ( "vehicle" ) ) do
-                                    if getElementModel ( veh ) == modelID then
-                                        setVehicleHandling ( veh, k, stringToHandling ( k, v ) )
+                            local val = stringToHandling ( k, v )
+                            if k ~= "model" and val then
+                                if type(val) == "number"       and
+                                   tonumber(minLimit[k])       and
+                                   tonumber(maxLimit[k])       and
+                                   val < tonumber(minLimit[k]) and
+                                   val > tonumber(maxLimit[k]) then 
+                                   print ( "[HEDIT] Invalid "..k.." for "..modelID.."! ["..v.."]" )
+                                else
+                                    setModelHandling ( modelID, k, val )
+                                    for num,veh in ipairs ( getElementsByType ( "vehicle" ) ) do
+                                        if getElementModel ( veh ) == modelID then
+                                            setVehicleHandling ( veh, k, val )
+                                        end
                                     end
                                 end
                             end
@@ -261,13 +289,14 @@ addCommandHandler ( "loaddefaults",
                 print ( "[HEDIT] No usable handling entries found in "..found.." entries." )
             else
                 print ( "[HEDIT] Loaded "..loaded.." of "..found.." handling entries." )
+                setElementData ( resourceRoot, "usingCustoms", true )
             end
         end, 500, 1 )
     end
 )
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
---------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 addCommandHandler ( "loadcfg",
     function ( player )
         if getElementType ( player ) ~= "console" then return end
@@ -329,7 +358,7 @@ addCommandHandler ( "loadcfg",
                                     if multiHandling[tbl[1]] then
                                         for num,id in ipairs ( multiHandling[tbl[1]] ) do
                                             if not xmlDefaultsTable[id] then
-                                                xmlDefaultsTable[id]   = {}
+                                                xmlDefaultsTable[id]   = {}                                                xmlDefaultsTable[id]   = {}
                                                 xmlDefaultsTable[id].u = xmlCreateChild ( xmlDefaults, "handling" )
                                             end
                                             for i,v in ipairs ( tbl ) do
@@ -344,7 +373,7 @@ addCommandHandler ( "loadcfg",
                                         if vModel[tbl[1]] then tbl[1] = vModel[tbl[1]] end
                                         if not xmlDefaultsTable[tbl[1]] then
                                             xmlDefaultsTable[tbl[1]]   = {}
-                                            xmlDefaultsTable[tbl[1]].u = xmlCreateChild ( xmlDefaults, "handling" )
+                                            xmlDefaultsTable[tbl[1]].u = xmlCreateChild ( xmlDefaults, "handling" )                                            xmlDefaultsTable[tbl[1]].u = xmlCreateChild ( xmlDefaults, "handling" )
                                         end
                                         for i,v in ipairs ( tbl ) do
                                             xmlNodeSetAttribute ( xmlDefaultsTable[tbl[1]].u, hProperty[i], v )
@@ -380,13 +409,8 @@ addCommandHandler ( "loadcfg",
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
-addEvent ( "stopTheResource", true )
-addEventHandler ( "stopTheResource", root, function ( ) stopResource ( getThisResource ( ) ) end )
---------------------------------------------------------------------------------------------------------------------------
---//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
---------------------------------------------------------------------------------------------------------------------------
 addEventHandler ( "setHandling", root,
-    function ( veh, handling, data, bool, dname, log )
+    function ( veh, handling, data, dname, log )
         local d = handlingToString ( data )
         ------------------------------------------------------------------------------------------------------------------
         local pName    = getPlayerName ( source )
@@ -403,7 +427,7 @@ addEventHandler ( "setHandling", root,
             fileFlush ( logFile )
         end
         ------------------------------------------------------------------------------------------------------------------
-        if setTheHandling ( bool, veh, handling, data ) then
+        if setTheHandling ( individualHandling, veh, handling, data ) then
             str = string.format ( log.succes, dname, d )
             lvl = 0
         else
@@ -415,6 +439,8 @@ addEventHandler ( "setHandling", root,
     end
 )
 --------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
 function setTheHandling ( bool, veh, handling, data )
     if bool == false then return setModelHandling ( getElementModel ( veh ), handling, data )
     else return setVehicleHandling ( veh, handling, data ) end
@@ -424,10 +450,16 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 function round(num) if type(num)=="number" then return tonumber ( string.format ( "%.3f", num ) ) else return num end end
 --------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
 function handlingToString ( d )
-    if type(d) == "table" then return tostring(round(d[1])..", "..round(d[2])..", "..round(d[3]))
-    else return tostring ( round ( d ) ) end
+    if type(d) == "table" then return round(d[1])..", "..round(d[2])..", "..round(d[3])
+    elseif type(d) == "number" then return tostring ( round ( d ) )
+    end
+    return tostring(d)
 end
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 function stringToHandling ( property, str )
     if property == "centerOfMass" then
@@ -436,8 +468,6 @@ function stringToHandling ( property, str )
         local vZ  = round ( tonumber ( gettok ( str, 3, 44 ) ) )
               str = { vX, vY, vZ }
     elseif property == "ABS" then if str == "true" then str = true else str = false end
-    elseif property == "modelFlags" or property == "handlingFlags" then
-        str = tonumber ( "0x"..str )
     elseif property == "driveType" then
         if     str == "F" then str = "fwd"
         elseif str == "R" then str = "rwd"
@@ -454,6 +484,8 @@ function stringToHandling ( property, str )
     return str
 end
 --------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
 function unpackHandling ( str )
     local tbl = {}
     local i = 1
@@ -469,3 +501,7 @@ function unpackHandling ( str )
     end
     return tbl
 end
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+addEventHandler ( "stopTheResource", root, function ( ) stopResource ( getThisResource ( ) ) end )

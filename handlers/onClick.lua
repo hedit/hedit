@@ -16,6 +16,32 @@ function onClick ( b )
     elseif hButton[source] then
         if getKeyStateEx ( ) and b == "right" then return fixInput ( pVeh, guiGetText ( source ), hButton[source] ) end
         createHeditBox ( hedit[ hButton[source] ], iProperty[ hData[cm].h[ hButton[source] ] ], true )
+    elseif uButton[source] then
+        if source == utilButton[#utilButton] then toggleEditor ( )
+        else
+            if um == source then
+                um = nil
+                for k,v in pairs ( utilContent[source] ) do guiSetVisible ( v, false ) end
+            elseif utilContent[source] then
+                um = source
+                for k,v in pairs ( utilContent[source] ) do
+                    guiSetVisible ( v, true )
+                    guiBringToFront ( v )
+                end
+            end
+        end
+    elseif uItem[source] then
+        if menuContent[ uItem[source] ] then
+            showData ( uItem[source] )
+        else
+            utilItemHandler[ uItem[source] ]()
+        end
+    elseif sItem[source] then subItemHandler[ sItem[source] ](source,"click")
+    end
+    
+    if um and not uButton[source] then
+        for k,v in pairs ( utilContent[ um ] ) do guiSetVisible ( v, false ) end
+        um = nil
     end
 end
 -------------------------------------------------------------------------------------------------------------------------
@@ -27,7 +53,7 @@ function createHeditBox ( box, text, bool )
     if bool == true then
         local x,y            = guiGetPosition ( box, false )
         local w,h            = guiGetSize     ( box, false )
-        local boxtext        = "PROBLEM PAL?"
+        local boxtext        = "PEDOBEAR SPOTTED!"
         if getKeyStateEx ( ) then
             boxtext          = buttonValue
         else boxtext         = guiGetText ( box ) end

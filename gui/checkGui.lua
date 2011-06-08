@@ -33,14 +33,14 @@ function isTemplateValid ( )
 end
 -------------------------------------------------------------------------------------------------------------------------------
 function faultTranslation ( txt )
-    if usedTranslation == "english" then
+    if setting["language"] == "english" then
         outputChatBox ( "HANDLING EDITOR: No english translation available! Handling editor will not work now.", 255, 0, 0 )
         stopResource ( )
     else
-        if loadTemplate["default"] then
-            loadTemplate["default"]()
-            if isTemplateValid ( ) then
-                enableTemplate ( )
+        if loadTranslation["english"] then
+            loadTranslation["english"]()
+            if isTranslationValid ( ) then
+                loadTheTemplate ( )
                 outputChatBox ( txt, 255, 0, 0 )
             else
                 outputChatBox ( "HANDLING EDITOR: No english translation available! Handling editor will not work now.", 255, 0, 0 )
@@ -53,8 +53,8 @@ function faultTranslation ( txt )
     end
 end
 -------------------------------------------------------------------------------------------------------------------------------
-function faultTemplate ( txt )
-    if usedTemplate == "default" then
+function faultTemplate ( txt, template )
+    if setting["template"] == "default" then
         outputChatBox ( text.noDefaultTemplate, 255, 0, 0 )
         stopResource ( )
     else
@@ -62,7 +62,7 @@ function faultTemplate ( txt )
             loadTemplate["default"]()
             if isTemplateValid ( ) then
                 enableTemplate ( )
-                outputChatBox ( txt, 255, 0, 0 )
+                outputChatBox ( string.format ( txt, template ), 255, 0, 0 )
             else
                 outputChatBox ( text.noDefaultTemplate, 255, 0, 0 )
                 stopResource ( )

@@ -8,130 +8,104 @@
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
 --|| ***************************************************************************************************************** ]]
 
---[[utilAccept[ mProperty[10] ] = function ( sName )
-    if not sName then sName = guiGetText ( saveMenu.edit ) end
-    local aName = getElementData ( localPlayer, "hAccount" )
-    if not allowGuestsToSave and aName == "guest" then return outputHandlingLog ( clog.noAccount, 2 ) end
-    local str = string.lower ( sName )
-    if xmlTable[aName] and xmlTable[aName][str] then
-        outputChatBox ( "ALREADY EXISTS" )
-    else
-        outputHandlingLog ( clog.saving, 0 )
+function saveClient (  )
+    local sName = guiGetText ( menuContent["saveclient"].nameEdit )
+    local description = "description" --guiGetText ( menuContent["saveclient"].descriptionEdit )
+    if xmlSavesNode and sName and sName ~= "" and description and description ~= "" then
+        local lName = string.lower ( sName )
+        local model = tostring ( getElementModel ( pVeh ) )
+        if not xmlSavesTable[lName] then
+            xmlSavesTable[lName]       = {h={}}
+            xmlSavesTable[lName].m     = model
+            xmlSavesTable[lName].s     = sName
+            xmlSavesTable[lName].d     = description
+            xmlSavesTable[lName].sNode = xmlCreateChild ( xmlSavesNode,               "save"     )
+            xmlSavesTable[lName].hNode = xmlCreateChild ( xmlSavesTable[lName].sNode, "handling" )
+        end
+        xmlNodeSetAttribute ( xmlSavesTable[lName].sNode, "model",       model )
+        xmlNodeSetAttribute ( xmlSavesTable[lName].sNode, "name",        sName )
+        xmlNodeSetAttribute ( xmlSavesTable[lName].sNode, "description", description )
+        for p,v in pairs ( getVehicleHandling ( pVeh ) ) do
+            xmlSavesTable[lName].h[p] = handlingToString ( v )
+            xmlNodeSetAttribute ( xmlSavesTable[lName].hNode, p, handlingToString ( v ) )
+        end
+        xmlSaveFile ( xmlSavesNode )
+        reloadClientSaves ( )
         showData ( pm )
-        triggerServerEvent ( "saveTheHandling", localPlayer, lVeh, aName, str, slog )
+        outputHandlingLog ( clog.saved, 0 )
+    else outputHandlingLog ( clog.invalidSave, 2 )
     end
-end]]
-
-addCommandHandler ( "save",
-    function ( cmd, sName )
-        if sName and pVeh then
-            local aName = "guest"
-            local str = string.lower ( sName )
-            if xmlTable[aName] and xmlTable[aName][str] then
-                outputChatBox ( "ALREADY EXISTS" )
-            else
-                outputHandlingLog ( clog.saving, 0 )
-                triggerServerEvent ( "saveTheHandling", localPlayer, pVeh, aName, str, slog )
-            end
-        else
-            outputChatBox ( "Error" )
-        end
-    end
-)
-
---------------------------------------------------------------------------------------------------------------------------
---//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
---------------------------------------------------------------------------------------------------------------------------
-
---[[utilAccept[ mProperty[11] ] = function ( )
-    local aName = nil
-    local sName = nil
-    outputChatBox ( "omg" )
-    if guiGetVisible ( loadMenu.gridMy ) then
-        local row,col = guiGridListGetSelectedItem ( loadMenu.gridMy )
-        if row ~= -1 then
-            aName = getElementData ( localPlayer, "hAccount" )
-            sName = guiGridListGetItemData ( loadMenu.gridMy, row, col )
-        end
-    else
-        local nRow,nCol = guiGridListGetSelectedItem ( loadMenu.gridName )
-        local sRow,sCol = guiGridListGetSelectedItem ( loadMenu.gridSave )
-        if nRow ~= -1 and sRow ~= -1 then
-            aName = guiGridListGetItemData ( loadMenu.gridName, nRow, nCol )
-            sName = guiGridListGetItemData ( loadMenu.gridSave, sRow, sCol )
-        end
-    end
-    outputChatBox ( tostring ( aName ) )
-    outputChatBox ( tostring ( sName ) )
-    if aName and sName  then
-        outputHandlingLog ( clog.loading, 0 )
-        showData ( pm )
-        triggerServerEvent ( "loadTheHandling", localPlayer, aName, sName, slog )
-    end
-end]]
-
-addCommandHandler ( "load",
-    function ( cmd, sName )
-        if sName and pVeh then
-            local aName = "guest"
-            local str = string.lower ( sName )
-            if xmlTable[aName] and xmlTable[aName][str] then
-                outputHandlingLog ( clog.loading, 0 )
-                triggerServerEvent ( "loadTheHandling", localPlayer, pVeh, aName, str, slog )
-            end
-        else
-            outputChatBox ( "Error" )
-        end
-    end
-)
-
---------------------------------------------------------------------------------------------------------------------------
---//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
---------------------------------------------------------------------------------------------------------------------------
-
-function loadSaveFile ( )
-    xmlNode  = xmlLoadFile ( ":hedit_saves/saves.xml" )
-    xmlTable = {}
-    ----------------------------------------------------------------------------------------------------------------------
-    for uIndex,uNode in ipairs ( xmlNodeGetChildren ( xmlNode ) ) do
-        local aName       = xmlNodeGetAttribute ( uNode, "account" )
-        xmlTable[aName]   = {}
-        for sIndex, sNode in ipairs ( xmlNodeGetChildren ( uNode ) ) do
-            local sName = xmlNodeGetAttribute ( sNode, "name" )
-            local hConf = xmlFindChild ( sNode, "handling", 0 )
-            xmlTable[aName][sName]   = {}
-            xmlTable[aName][sName].h = {}
-            for k,v in pairs ( xmlNodeGetAttributes ( hConf ) ) do
-                xmlTable[aName][sName].h[k] = v
-            end
-        end
-    end
-    xmlUnloadFile ( xmlNode )
 end
-addEventHandler ( "onClientResourceStart", root,
-    function ( res ) if res == getResourceFromName ( "hedit_saves" ) then loadSaveFile ( ) end end )
+
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function loadXMLToGrid ( grid, name )
-    if not isElement ( grid ) then return false end
-    guiGridListClear ( grid )
-    loadSaveFile ( )
-    if not name then
-        for k,v in pairs ( xmlTable ) do
-            local row = guiGridListAddRow ( grid )
-            guiGridListSetItemText ( grid, row, 1, k,  false, false )
-            guiGridListSetItemText ( grid, row, 2, #v, false, false )
-            guiGridListSetItemData ( grid, row, 1, k )
+function deleteHandling ( )
+    if     guiGetVisible ( menuContent["saveclient"].grid ) then grid = menuContent["saveclient"].grid
+    elseif guiGetVisible ( menuContent["loadclient"].grid ) then grid = menuContent["loadclient"].grid
+    end
+    if grid then
+        local row,col = guiGridListGetSelectedItem ( grid )
+        if row > -1 and col > -1 then
+            local name = string.lower ( guiGridListGetItemText ( grid, row, col ) )
+            if name and xmlSavesTable[name] then
+                xmlDestroyNode ( xmlSavesTable[name].sNode )
+                xmlSavesTable[name] = {}
+                reloadClientSaves ( )
+            end
         end
-    else
-        if not xmlTable[name] then return false end
-        for k,v in pairs ( xmlTable[name] ) do
-            local row = guiGridListAddRow ( grid )
-            guiGridListSetItemText ( grid, row, 1, k,            false, false )
-            guiGridListSetItemText ( grid, row, 2, v.h["model"], false, false )
-            guiGridListSetItemData ( grid, row, 1, k )
+    end
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+
+function loadSavesIntoGrid ( gridList )
+    if xmlSavesTable and gridList then
+        guiGridListClear ( gridList )
+        for n,v in pairs ( xmlSavesTable ) do
+            if xmlSavesTable[n].sNode then
+                local row = guiGridListAddRow ( gridList )
+                guiGridListSetItemText ( gridList, row, 1, xmlSavesTable[n].s, false, false )
+                guiGridListSetItemText ( gridList, row, 2, xmlSavesTable[n].m, false, false )
+            end
+        end
+    end
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+
+function reloadClientSaves ( )
+    loadSavesIntoGrid ( menuContent["saveclient"].grid )
+    loadSavesIntoGrid ( menuContent["loadclient"].grid )
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+
+function loadXmlFiles ( )
+    xmlSavesTable = {}
+    xmlSavesNode  = xmlLoadFile ( "saves/saves.xml" )
+    if not xmlSavesNode then xmlSavesNode = xmlCreateFile ( "saves/saves.xml", "root" ) end
+    ----------------------------------------------------------------------------------------------------------------------
+    for i,node in ipairs ( xmlNodeGetChildren ( xmlSavesNode ) ) do
+        local model       = xmlNodeGetAttribute ( node, "model" )
+        local name        = xmlNodeGetAttribute ( node, "name" )
+        local description = xmlNodeGetAttribute ( node, "description" )
+        local lName       = string.lower ( name )
+        xmlSavesTable[lName]       = {h={}}
+        xmlSavesTable[lName].m     = model
+        xmlSavesTable[lName].s     = name
+        xmlSavesTable[lName].d     = description
+        xmlSavesTable[lName].sNode = node
+        xmlSavesTable[lName].hNode = xmlFindChild ( node, "handling", 0 )
+        for p,v in pairs ( xmlNodeGetAttributes ( xmlSavesTable[lName].hNode ) ) do
+            xmlSavesTable[lName].h[p] = v
         end
     end
 end
