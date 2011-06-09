@@ -93,7 +93,7 @@ function enableTemplate ( )
     ---------------------------------------------------------------------------------------------------------------------
     bindKey           ( "mouse_wheel_up",   "up",   onScroll, "up"   )
     bindKey           ( "mouse_wheel_down", "up",   onScroll, "down" )
-    bindKey           ( "delete",           "down", deleteHandling   )
+    bindKey           ( "delete",           "down", tryDelete        )
     bindKey           ( setting["usedKey"], "down", toggleEditor     )
     addCommandHandler ( setting["usedCommand"],     toggleEditor     )
     ---------------------------------------------------------------------------------------------------------------------
@@ -237,6 +237,40 @@ function loadErrorPage ( )
     mInfo[ mProperty[20] ]= "Missing buttonlink!"
     menuContent["corruptedlink"] = {
     }
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+function guiCreateWarningMessage ( txt, level, one, two )
+    if type(txt) == "string" and type(level) == "number" then
+        local wnd = guiCreateWindow ( (scrX/2)-200, (scrY/2)-67, 400, 134, wHeader[level], false )
+        local lbl = guiCreateLabel  ( 114, 25,  276, 57, txt,         false, wnd )
+        local bt1 = guiCreateButton ( 114, 100, 136, 25, text.accept, false, wnd )
+        local bt2 = guiCreateButton ( 255, 100, 136, 25, text.cancel, false, wnd )
+        guiCreateButton ( 9, 25, 100,100, "lolwut", false, wnd )
+        -- guiCreateImage ( 9, 25, 100, 100, wImg[level], false, wnd )
+        guiLabelSetHorizontalAlign ( lbl, "left", true )
+        guiSetEnabled ( mainWnd.window, false )
+        guiBringToFront ( wnd )
+        addEventHandler ( "onClientGUIClick", wnd,
+            function ( )
+                if source == bt1 or source == bt2 then
+                    local args = {}
+                    if source == bt1 and one and type(one[1]) == "function" then
+                        for i=2,#one do args[i-1] = one[i] end
+                        one[1] ( unpack ( args ) )
+                    elseif source == bt2 and two and type(two[1]) == "function" then
+                        for i=2,#two do args[i-1] = two[i] end
+                        two[1] ( unpack ( args ) )
+                    end
+                    destroyElement ( wnd )
+                    guiSetEnabled ( mainWnd.window, true )
+                    guiBringToFront ( mainWnd.window )
+                end
+            end
+        )
+        return wnd, bt1, bt2
+    else return false end
 end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --

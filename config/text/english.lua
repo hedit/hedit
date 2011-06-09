@@ -15,6 +15,16 @@ loadTranslation["english"] = function ( )
     text.incorrectTemplate      = "#ff0000HANDLING EDITOR:#ffff00 Incorrect/corrupted template.[%s] Default template has been loaded."
     text.invalidTemplate        = "#ff0000HANDLING EDITOR:#ffff00 No such template with name %s. Default template has been loaded."
     text.noDefaultTemplate      = "#ff0000HANDLING EDITOR:#ffff00 Default template has not been found or is incorrect. Please fix. HandlingEditor will not work now."
+    text.askToReplace           = "Are you sure to overwrite the existing save?"
+    text.askToDelete            = "Are you sure to delete this handling?"
+    text.accept                 = "Proceed"
+    text.cancel                 = "Cancel"
+    -------------------------------------------------------------------------------------------------------------------------
+    -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+    -------------------------------------------------------------------------------------------------------------------------
+    wHeader[0]                  = "Information"
+    wHeader[1]                  = "WARNING"
+    wHeader[2]                  = "ERROR"
     -------------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -------------------------------------------------------------------------------------------------------------------------
@@ -45,10 +55,11 @@ loadTranslation["english"] = function ( )
     clog.needNumber             = "You need to use a number!"
     clog.noAccount              = "You are not logged in! Please login first."
     clog.invalidSave            = "Please refer a save name."
-    clog.saved                  = "Your handling has been succesfully saved!"
+    clog.saved                  = "Your handling has been succesfully saved."
+    clog.deletedHandling        = "Deleted handling %s."
     slog.succes                 = "%s set to %s."
     slog.unable                 = "Unable to set the %s to %s!"
-    slog.loaded                 = "That handling has been succesfully loaded!"
+    slog.loaded                 = "That handling has been succesfully loaded."
     -------------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -------------------------------------------------------------------------------------------------------------------------
