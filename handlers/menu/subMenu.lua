@@ -12,7 +12,7 @@ subItemHandler["saveclient"] = function ( src, event )
     if not xmlSavesNode then return end
     if event == "click" then
         if src == menuContent["saveclient"].button then
-            saveClient ( )
+            trySave ( )
         elseif src == menuContent["saveclient"].grid then
             local row,col = guiGridListGetSelectedItem ( src )
             if row > -1 and col > -1 then
@@ -21,8 +21,8 @@ subItemHandler["saveclient"] = function ( src, event )
             end
         end
     elseif event == "editAccept" then
-        if scr == menuContent["saveclient"].nameEdit then
-            saveClient ( )
+        if src == menuContent["saveclient"].nameEdit then
+            trySave ( )
         end
     end
 end
@@ -43,12 +43,9 @@ subItemHandler["loadclient"] = function ( src, event )
                         data[k] = stringToHandling ( k, v )
                     end
                     if src == menuContent["loadclient"].button then
-                        outputChatBox ( "blah" )
                         if data then
-                            outputChatBox ( "boe" )
                             triggerServerEvent ( "loadClientHandling", localPlayer, pVeh, data, slog )
                             showData ( pm )
-                        else outputChatBox ( "nah" )
                         end
                     elseif src == menuContent["loadclient"].grid then
                         --setInfoText ( xmlSavesTable[name].h, "description", true )
