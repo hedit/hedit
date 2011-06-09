@@ -93,9 +93,9 @@ addEvent ( "stopTheResource",     true )
 addEventHandler ( "onResourceStart", resourceRoot,
     function ( )
         -- !HIGH PRIORITY!
-        -- KEEP THIS IN ORDER TO LET CLIENTS SYNC THEIR SAVED HANDLINGS BETWEEN SERVERS
-        -- BY KEEPING THE DEFAULT RESOURCENAME PLAYERS CAN STORE THEIR HANDLINGS CLIENTSIDE
-        -- SO WHENEVER THEY JOIN ANOTHER SERVER, THEY WILL BE ABLE TO LOAD THEIR OWN HANDLINGS
+        -- KEEP THIS IN ORDER TO LET CLIENTS SYNC THEIR SAVED HANDLINGS BETWEEN SERVERS!
+        -- BY KEEPING THE DEFAULT RESOURCENAME PLAYERS CAN STORE THEIR HANDLINGS CLIENTSIDE,
+        -- SO WHENEVER THEY JOIN ANOTHER SERVER, THEY WILL BE ABLE TO LOAD THEIR OWN HANDLINGS!
         local resName = getResourceName ( getThisResource ( ) )
         if resName ~= "hedit" then
             print ( "===============================================================================" )
@@ -127,8 +127,8 @@ addEventHandler ( "onResourceStart", resourceRoot,
         ------------------------------------------------------------------------------------------------------------------
         xmlShared   = xmlLoadFile ( "saves/shared.xml"   )
         xmlDefaults = xmlLoadFile ( "saves/defaults.xml" )
-        if not xmlShared   then xmlShared   = xmlCreateFile ( "saves/shared.xml"   ) end
-        if not xmlDefaults then xmlDefaults = xmlCreateFile ( "saves/defaults.xml" ) end
+        if not xmlShared   then xmlShared   = xmlCreateFile ( "saves/shared.xml"  , "root" ) end
+        if not xmlDefaults then xmlDefaults = xmlCreateFile ( "saves/defaults.xml", "root" ) end
         ------------------------------------------------------------------------------------------------------------------
         for uIndex,uNode in ipairs ( xmlNodeGetChildren ( xmlShared ) ) do
             local aName            = xmlNodeGetAttribute ( uNode, "account" )
