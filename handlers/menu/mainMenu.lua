@@ -41,8 +41,16 @@ end
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function showData ( m )
-    if cm~=m then pm=cm end
-    cm=m
+    if cm~=m then
+        pm=cm
+        cm=m
+    else return end
+    local txt = {
+                  guiGetText ( mainWnd.infoHeader ),
+                  guiGetText ( mainWnd.infoText )
+                }
+    resetInfoText ( true )
+    setInfoText ( unpack ( txt ) )
     guiSetText ( mainWnd.menuHeader, mInfo[m] )
     destroyMenuChildren ( )
     if m == mProperty[7] then
