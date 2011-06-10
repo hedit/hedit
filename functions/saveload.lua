@@ -14,7 +14,7 @@ function trySave ( )
     if sName and sName ~= "" and description and description ~= "" then
         local lName = string.lower ( sName )
         if xmlSavesTable[lName] then guiCreateWarningMessage ( text.askToReplace, 1, {saveClient,sName,lName,description} )
-        else saveClient ( sName, lName ) end
+        else saveClient ( sName, lName, description ) end
     else outputHandlingLog ( clog.invalidSave, 2 ) end
 end
 
@@ -72,7 +72,7 @@ function deleteHandling ( name )
     xmlDestroyNode ( xmlSavesTable[name].sNode )
     xmlSaveFile ( xmlSavesNode )
     outputHandlingLog ( string.format ( clog.deletedHandling, xmlSavesTable[name].s ), 0 )
-    xmlSavesTable[name] = {}
+    xmlSavesTable[name] = nil
     reloadClientSaves ( )
 end
 

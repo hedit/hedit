@@ -18,6 +18,7 @@ subItemHandler["saveclient"] = function ( src, event )
             if row > -1 and col > -1 then
                 local name = string.lower ( guiGridListGetItemText ( src, row, col ) )
                 guiSetText ( menuContent["saveclient"].nameEdit, xmlSavesTable[name].s )
+                setInfoText ( xmlSavesTable[name].s, xmlSavesTable[name].d, true )
             end
         end
     elseif event == "editAccept" then
@@ -48,7 +49,7 @@ subItemHandler["loadclient"] = function ( src, event )
                             showData ( pm )
                         end
                     elseif src == menuContent["loadclient"].grid then
-                        --setInfoText ( xmlSavesTable[name].h, "description", true )
+                        setInfoText ( xmlSavesTable[name].s, xmlSavesTable[name].d, true )
                     end
                 end
             end
