@@ -54,12 +54,12 @@ function faultTranslation ( txt )
 end
 -------------------------------------------------------------------------------------------------------------------------------
 function faultTemplate ( txt, template )
-    if setting["template"] == "default" then
+    if setting["template"] == "extended" then
         outputChatBox ( text.noDefaultTemplate, 255, 0, 0 )
         stopResource ( )
     else
-        if loadTemplate["default"] then
-            loadTemplate["default"]()
+        if loadTemplate["extended"] then
+            loadTemplate["extended"]()
             if isTemplateValid ( ) then
                 enableTemplate ( )
                 outputChatBox ( string.format ( txt, template ), 255, 0, 0 )

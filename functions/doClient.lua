@@ -129,6 +129,15 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 
 function loadVariables ( )
+    if not loadTranslation["english"] then
+        outputChatBox ( "HANDLING EDITOR: No english translation available! Handling editor will not work now.", 255, 0, 0 )
+        stopResource ( )
+    end
+    if not loadTemplate["extended"] then
+        outputChatBox ( "HANDLING EDITOR: No default template available! Handling editor will not work now.", 255, 0, 0 )
+        stopResource ( )
+    end
+    ----------------------------------------------------------------------------------------------------------------------
     local xmlSettings = xmlLoadFile ( "config/settings.xml" )
     if not xmlSettings then
         xmlSettings = xmlCreateFile ( "config/settings.xml", "root" )
