@@ -129,8 +129,20 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 
 function loadVariables ( )
-    for k,v in pairs ( getElementData ( resourceRoot, "hedit.settings" ) ) do
-        setting[k] = v
+    local xmlSettings = xmlLoadFile ( "config/settings.xml" )
+    if not xmlSettings then
+        xmlSettings = xmlCreateFile ( "config/settings.xml", "root" )
+        for k,v in pairs ( getElementData ( resourceRoot, "hedit.settings" ) ) do
+            local node = xmlCreateChild ( xmlSettings, "setting" )
+            xmlNodeSetAttribute ( node, k, v )
+            setting[k] = v
+        end
+    else
+        for i,n in ipairs ( xmlNodeGetChildren ( xmlSettings ) ) do
+            for k,v in pairs ( xmlNodeGetAttributes ( n ) ) do
+                setting[k] = v
+            end
+        end
     end
     ----------------------------------------------------------------------------------------------------------------------
     local limitsXML = xmlLoadFile ( "config/limits.xml" )
