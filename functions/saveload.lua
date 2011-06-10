@@ -70,6 +70,7 @@ end
 
 function deleteHandling ( name )
     xmlDestroyNode ( xmlSavesTable[name].sNode )
+    xmlSaveFile ( xmlSavesNode )
     outputHandlingLog ( string.format ( clog.deletedHandling, xmlSavesTable[name].s ), 0 )
     xmlSavesTable[name] = {}
     reloadClientSaves ( )

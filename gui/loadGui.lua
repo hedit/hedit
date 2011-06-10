@@ -117,6 +117,7 @@ function toggleEditor (  )
             for k,v in pairs ( utilContent[um] ) do guiSetVisible ( v, false ) end
             um = nil
         end
+        if isElement ( warningWnd ) then guiSetVisible ( warningWnd, false ) end
     else
         local cVeh = getPedOccupiedVehicle ( localPlayer )
         if cVeh then
@@ -124,6 +125,10 @@ function toggleEditor (  )
                 return outputChatBox ( text.restrictedPassenger ) end
             if cVeh ~= pVeh then
                 if isElement ( vehLog[pVeh] ) then guiSetVisible ( vehLog[pVeh], false ) end
+                if isElement ( warningWnd ) then
+                    destroyElement ( warningWnd )
+                    guiSetEnabled ( mainWnd.window, true )
+                end
                 pVeh = cVeh
                 showData ( mProperty[1] )
                 if not vehLog[pVeh] then
@@ -147,7 +152,10 @@ function toggleEditor (  )
                         logColor [ logText[i] ] = oldColor
                     end
                 end
-            else updateData ( cm ) end
+            else
+                if isElement ( warningWnd ) then guiSetVisible ( warningWnd, true ) end
+                updateData ( cm )
+            end
             addEventHandler ( "onClientRender", root, onRenderCheck )
             bindKey ( "lctrl",  "both", showValue )
             bindKey ( "rctrl",  "both", showValue )
@@ -243,16 +251,16 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 function guiCreateWarningMessage ( txt, level, one, two )
     if type(txt) == "string" and type(level) == "number" then
-        local wnd = guiCreateWindow ( (scrX/2)-200, (scrY/2)-67, 400, 134, wHeader[level], false )
-        local lbl = guiCreateLabel  ( 114, 25,  276, 57, txt,         false, wnd )
-        local bt1 = guiCreateButton ( 114, 100, 136, 25, text.accept, false, wnd )
-        local bt2 = guiCreateButton ( 255, 100, 136, 25, text.cancel, false, wnd )
-        guiCreateButton ( 9, 25, 100,100, "lolwut", false, wnd )
-        -- guiCreateImage ( 9, 25, 100, 100, wImg[level], false, wnd )
+        warningWnd = guiCreateWindow ( (scrX/2)-200, (scrY/2)-67, 400, 134, wHeader[level], false )
+        local lbl  = guiCreateLabel  ( 114, 25,  276, 57, txt,         false, warningWnd )
+        local bt1  = guiCreateButton ( 114, 100, 136, 25, text.accept, false, warningWnd )
+        local bt2  = guiCreateButton ( 255, 100, 136, 25, text.cancel, false, warningWnd )
+        guiCreateButton ( 9, 25, 100,100, "lolwut", false, warningWnd )
+        -- guiCreateImage ( 9, 25, 100, 100, wImg[level], false, warningWnd )
         guiLabelSetHorizontalAlign ( lbl, "left", true )
         guiSetEnabled ( mainWnd.window, false )
-        guiBringToFront ( wnd )
-        addEventHandler ( "onClientGUIClick", wnd,
+        guiBringToFront ( warningWnd )
+        addEventHandler ( "onClientGUIClick", warningWnd,
             function ( )
                 if source == bt1 or source == bt2 then
                     local args = {}
@@ -263,13 +271,13 @@ function guiCreateWarningMessage ( txt, level, one, two )
                         for i=2,#two do args[i-1] = two[i] end
                         two[1] ( unpack ( args ) )
                     end
-                    destroyElement ( wnd )
+                    destroyElement ( warningWnd )
                     guiSetEnabled ( mainWnd.window, true )
                     guiBringToFront ( mainWnd.window )
                 end
             end
         )
-        return wnd, bt1, bt2
+        return warningWnd, bt1, bt2
     else return false end
 end
 -------------------------------------------------------------------------------------------------------------------------

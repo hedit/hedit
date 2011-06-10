@@ -78,6 +78,7 @@ HEDIT_VERSION               = "v"..HEDIT_VERSION_MAJOR.."."..HEDIT_VERSION_MINOR
 -------------------------------------------------------------------------------------------------------------------------
 pm                          = nil
 cm                          = nil
+warningWnd                  = nil
 openedHandlingBox           = nil
 hidedHeditButton            = nil
 buttonValue                 = nil  

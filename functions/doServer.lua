@@ -20,6 +20,7 @@ xmlDefaultsTable = {}
 strHandling      = {}
 minLimit         = {}
 maxLimit         = {}
+setting          = {}
 --------------------------------------------------------------------------------------------------------------------------
 hProperty = { 
               "model","mass","turnMass","dragCoeff","centerOfMass",
@@ -109,10 +110,20 @@ addEventHandler ( "onResourceStart", resourceRoot,
         local saves   = 0
         local customs = 0
         ------------------------------------------------------------------------------------------------------------------
-        setElementData ( resourceRoot, "hedit.settings", get ( "" ) )
-        loadDefaultsOnStart = get ( "loadDefaultsOnStart" )
-        showWelcomeMessage  = get ( "showWelcomeMessage" )
-        individualHandling  = get ( "individualHandling" )
+        local cSettings = {}
+        for k,v in pairs ( get ( "" ) ) do
+            local side = gettok ( k, 1, 45 )
+            local cfg  = gettok ( k, 2, 45 )
+            if side == "server" then
+                setting[cfg] = v
+            elseif side == "client" then
+                cSettings[cfg] = v
+            end
+        end
+        setElementData ( resourceRoot, "hedit.settings", cSettings )
+        loadDefaultsOnStart = setting["loadDefaultsOnStart"]
+        showWelcomeMessage  = setting["showWelcomeMessage"]
+        individualHandling  = setting["individualHandling"]
         if loadDefaultsOnStart == "true" then setElementData ( resourceRoot, "usingCustoms", true ) end
         ------------------------------------------------------------------------------------------------------------------
         local limitsXML = xmlLoadFile ( "config/limits.xml" )
