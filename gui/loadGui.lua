@@ -178,11 +178,14 @@ function showValue ( k, s )
             guiSetText ( pointedButton, val )
             guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
         elseif ( k == "lshift" or k == "rshift" ) and not ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) )  then
-            buttonValue = guiGetText ( pointedButton )
-            guiSetText ( pointedButton, getElementData ( pVeh, "history."..hData[cm].h[ hButton[pointedButton] ] ) )
-            guiSetProperty ( pointedButton, "HoverTextColour", "FFF0D400" )
+            local history = getElementData ( pVeh, "history."..hData[cm].h[ hButton[pointedButton] ] )
+            if history then
+                buttonValue = guiGetText ( pointedButton )
+                guiSetText ( pointedButton, history )
+                guiSetProperty ( pointedButton, "HoverTextColour", "FFF0D400" )
+            end
         end
-    else
+    elseif buttonValue then
         guiSetText ( pointedButton, buttonValue )
         guiSetProperty ( pointedButton, "HoverTextColour", "FFFFFFFF" )
         buttonValue = nil
@@ -284,7 +287,7 @@ end
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function destroyMenuChildren ( )
-    um         = nil
+    um = nil
     ---------------------------------------------------------------------------------------------------------------------
     if isElement ( vehLog[pVeh] )      then guiSetVisible ( vehLog[pVeh], false ) end
     if isElement ( openedHandlingBox ) then destroyElement ( openedHandlingBox ) end

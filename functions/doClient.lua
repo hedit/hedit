@@ -22,9 +22,23 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 
 function round ( num )
-    if type(num)=="number" then
-        return tonumber ( string.format ( "%.3f", num ) ) end
+    if type(num)=="number" then return tonumber ( string.format ( "%.3f", num ) ) end
     return num
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+
+function toHex ( d )
+    if type(d) ~= "number" then return false end
+    local hexnums = {"0","1","2","3","4","5","6","7",
+                     "8","9","A","B","C","D","E","F"}
+    local hex
+    local r = d%16
+    if d-r == 0 then hex = hexnums[r+1]
+    else hex = toHex((d-r)/16)..hexnums[r+1] end
+    return hex
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -73,6 +87,8 @@ function stringToHandling ( property, str )
         elseif str == "P" then str = "petrol"
         elseif str == "D" then str = "diesel"
         end
+    elseif property == "modelFlags" or property == "handlingFlags" then
+        str = tonumber ( "0x"..str )
     else
         str = tonumber ( str )
     end
