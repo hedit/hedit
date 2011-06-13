@@ -8,31 +8,26 @@
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
 --|| ***************************************************************************************************************** ]]
 function updateData ( m )
-    if not m then m         = cm end
+    if not hData[m] then return false end
+    if not m then m = cm end
     if pVeh then
-        local config        = getVehicleHandling ( pVeh )
-        if not hData[m] then return false end
+        local config = getVehicleHandling ( pVeh )
         for i=1,#hData[m].h do
             if comboItem[ hData[m].h[i] ] then
                 local cI=-1
                 for v=1,#comboItem[ hData[m].h[i] ] do 
                     if config[ hData[m].h[i] ] == comboItem[ hData[m].h[i] ][v] then cI = v-1 end end
                 guiComboBoxSetSelected ( hedit[i], cI )
-            elseif hData[m].h[i] == hProperty[5] then
-                local com = config[ hData[m].h[i] ]
-                if getKeyStateEx ( ) and hButton[pointedButton] == i then
-                    buttonValue = tostring ( round(com[1]) ) ..", "..tostring ( round(com[2]) ) ..", "..tostring ( round(com[3]) )
-                else
-                guiSetText (
-                           hedit[i],
-                           tostring   ( round(com[1]) ) ..", "
-                           ..tostring ( round(com[2]) ) ..", "
-                           ..tostring ( round(com[3]) )
-                           )
-                end
             else
-                if getKeyStateEx ( ) and hButton[pointedButton] == i then buttonValue = round ( config[ hData[m].h[i] ] )
-                else guiSetText ( hedit[i], round ( config[ hData[m].h[i] ] ) ) end
+                local str = tostring ( round ( config[ hData[m].h[i] ] ) )
+                if isHex[ hData[m].h[i] ] then str = toHex ( config[ hData[m].h[i] ] ) 
+                elseif type(config[ hData[m].h[i] ]) == "table" then
+                    local tbl = {}
+                    for n,v in ipairs ( config[ hData[m].h[i] ] ) do tbl[n] = tostring(round(v)) end
+                    str = table.concat ( tbl, ", " )
+                end
+                if getKeyStateEx ( ) and hButton[pointedButton] == i then buttonValue = str
+                else guiSetText ( hedit[i], str ) end
             end
         end
     else outputDebugString ( "[HEDIT] Unable to update." ) end
