@@ -36,8 +36,8 @@ function saveClient ( sName, lName, description )
     xmlNodeSetAttribute ( xmlSavesTable[lName].sNode, "name",        sName )
     xmlNodeSetAttribute ( xmlSavesTable[lName].sNode, "description", description )
     for p,v in pairs ( getVehicleHandling ( pVeh ) ) do
-        xmlSavesTable[lName].h[p] = handlingToString ( v )
-        xmlNodeSetAttribute ( xmlSavesTable[lName].hNode, p, handlingToString ( v ) )
+        xmlSavesTable[lName].h[p] = handlingToString ( p, v )
+        xmlNodeSetAttribute ( xmlSavesTable[lName].hNode, p, handlingToString ( p, v ) )
     end
     xmlSaveFile ( xmlSavesNode )
     reloadClientSaves ( )
@@ -50,6 +50,7 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 
 function tryDelete ( )
+    local grid = nil
     if     guiGetVisible ( menuContent["saveclient"].grid ) then grid = menuContent["saveclient"].grid
     elseif guiGetVisible ( menuContent["loadclient"].grid ) then grid = menuContent["loadclient"].grid
     end
