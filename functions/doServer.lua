@@ -423,8 +423,6 @@ addCommandHandler ( "loadcfg",
 addEventHandler ( "setHandling", root,
     function ( veh, handling, data, dname, log )
         local d = handlingToString ( handling, data )
-        outputDebugString ( tostring(data) )
-        outputDebugString ( tostring(d) )
         ------------------------------------------------------------------------------------------------------------------
         local pName    = getPlayerName ( source )
         local vName    = getVehicleName ( veh )
