@@ -59,11 +59,11 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function handlingToString ( d )
-    if type(d) == "table" then return round(d[1])..", "..round(d[2])..", "..round(d[3])
-    elseif type(d) == "number" then return tostring ( round ( d ) )
-    end
-    return tostring(d)
+function handlingToString ( p, h )
+    if p == "centerOfMass" then return round(h[1])..", "..round(h[2])..", "..round(h[3])
+    elseif isInt[p] then return string.format ( "%.0f", h )
+    elseif isHex[p] then return toHex ( h )
+    else return tostring ( h ) end
 end
 
 --------------------------------------------------------------------------------------------------------------------------

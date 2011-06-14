@@ -489,6 +489,8 @@ function stringToHandling ( property, str )
         elseif str == "P" then str = "petrol"
         elseif str == "D" then str = "diesel"
         end
+    elseif property == "modelFlags" or property == "handlingFlags" then
+        str = tonumber ( "0x"..str )
     else
         str = tonumber ( str )
     end

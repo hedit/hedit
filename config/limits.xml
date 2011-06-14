@@ -2,7 +2,6 @@
     <!-- These limitations are the limitations made by MTA.
          Do not lower the 'minLimit' or highen the 'maxLimit'!
          Doing so can cause major problems. -->
-    <vehicleName                  minLimit="false"     maxLimit="false"     />
     <mass                         minLimit="1.0"       maxLimit="100000.0"  />
     <turnMass                     minLimit="0.0"       maxLimit="1000000.0" />
     <dragCoeff                    minLimit="-200.0"    maxLimit="200.0"     />
@@ -19,7 +18,6 @@
     <engineType                   minLimit="false"     maxLimit="false"     />
     <brakeDeceleration            minLimit="0.1"       maxLimit="100000.0"  />
     <brakeBias                    minLimit="0.0"       maxLimit="1.0"       />
-    <ABS                          minLimit="false"     maxLimit="false"     />
     <steeringLock                 minLimit="0.0"       maxLimit="360.0"     />
     <suspensionForceLevel         minLimit="0.0"       maxLimit="100.0"     />
     <suspensionDamping            minLimit="0.0"       maxLimit="100.0"     />
@@ -31,9 +29,4 @@
     <seatOffsetDistance           minLimit="-20.0"     maxLimit="20.0"      />
     <collisionDamageMultiplier    minLimit="0.0"       maxLimit="100.0"     />
     <monetary                     minLimit="0"         maxLimit="230195200" />
-    <modelFlags                   minLimit="false"     maxLimit="false"     />
-    <handlingFlags                minLimit="false"     maxLimit="false"     />
-    <headLight                    minLimit="false"     maxLimit="false"     />
-    <tailLight                    minLimit="false"     maxLimit="false"     />
-    <animGroup                    minLimit="false"     maxLimit="false"     />
 </root>

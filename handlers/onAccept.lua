@@ -47,18 +47,20 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function fixInput ( veh, text, num )
+function fixInput ( veh, txt, num )
+    local input
     if hData[cm].h[num] == hProperty[5] then
-        local vX    = round ( tonumber ( gettok ( text, 1, 44 ) ) )
-        local vY    = round ( tonumber ( gettok ( text, 2, 44 ) ) )
-        local vZ    = round ( tonumber ( gettok ( text, 3, 44 ) ) )
-        local input = { vX, vY, vZ }
-        doTry ( veh, input, num )
-    else
-        local input = tonumber ( text )
-        if input then doTry ( veh, round(input), num )
-        else outputHandlingLog ( clog.needNumber, 2 ) end
-    end
+        input = {
+                  round ( tonumber ( gettok ( txt, 1, 44 ) ) ),
+                  round ( tonumber ( gettok ( txt, 2, 44 ) ) ),
+                  round ( tonumber ( gettok ( txt, 3, 44 ) ) )
+                }
+        return doTry ( veh, input, num )
+    elseif isInt[hData[cm].h[num]] then input = tonumber(string.format("%.0f",txt))
+    elseif isHex[hData[cm].h[num]] then input = tonumber("0x"..txt)
+    else input = tonumber(txt) end
+    if not input then return outputHandlingLog ( clog.needNumber, 2 ) end
+    return doTry ( veh, input, num )
 end
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -66,6 +68,7 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 
 function doTry ( veh, input, num )
+    if not veh or not input or not num then return false end
     local config = getVehicleHandling ( veh )
     if (type(input)=="table") then
         local d_Table = config[hData[cm].h[num]]
@@ -88,11 +91,10 @@ function doTry ( veh, input, num )
         if (input==round(config[hData[cm].h[num]])) then
             return outputHandlingLog(string.format(clog.same,iProperty[hData[cm].h[num]][1]),1)
         else
-            if (type(input)=="number") then
+            if (type(input)=="number" and minLimit[hData[cm].h[num]] and maxLimit[hData[cm].h[num]]) then
                 if (input < tonumber(minLimit[hData[cm].h[num]]) or
                     input > tonumber(maxLimit[hData[cm].h[num]]))then
                     return outputHandlingLog(string.format(clog.invalid,iProperty[hData[cm].h[num]][1]).." ["..input.."]",2) end end
-            if isInt[hData[cm].h[num]] then input = tonumber(string.format("%.0f",input)) end
             if (hData[cm].h[num]==hProperty[25]) and (input==config[hData[cm].h[26]]) then
                 return outputHandlingLog(string.format(clog.cantSame,hData[cm].h[num],hProperty[25]),2)
             elseif (hData[cm].h[num]==hProperty[26]) and (input==config[hData[cm].h[25]]) then
@@ -100,9 +102,11 @@ function doTry ( veh, input, num )
             end
             if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,iProperty[hData[cm].h[num]][1],slog) then
                 if isInt[hData[cm].h[num]] then
-                    return setElementData ( veh,"history."..hData[cm].h[num],string.format("%.0f",config[hData[cm].h[num]]) )
+                    return setElementData(veh,"history."..hData[cm].h[num],string.format("%.0f",config[hData[cm].h[num]]))
+                elseif isHex[hData[cm].h[num]] then
+                    return setElementData(veh,"history."..hData[cm].h[num],toHex(config[hData[cm].h[num]]))
                 else
-                    return setElementData ( veh,"history."..hData[cm].h[num],tostring(round(config[hData[cm].h[num]])))
+                    return setElementData(veh,"history."..hData[cm].h[num],tostring(round(config[hData[cm].h[num]])))
                 end
             end
         end
