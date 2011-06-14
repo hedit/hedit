@@ -107,7 +107,7 @@ addEventHandler ( "onResourceStart", resourceRoot,
             return cancelEvent ( true, "Rename the handling editor resource to 'hedit' in order to work." )
         end
         ------------------------------------------------------------------------------------------------------------------
-        local saves   = 0
+        local shareds = 0
         local customs = 0
         ------------------------------------------------------------------------------------------------------------------
         local cSettings = {}
@@ -153,7 +153,7 @@ addEventHandler ( "onResourceStart", resourceRoot,
                     xmlSharedTable[aName][sName].h = {}
                     xmlSharedTable[aName][sName].s = sNode
                     xmlSharedTable[aName][sName].i = hConf
-                    saves = saves + 1
+                    shareds = shareds + 1
                     for k,v in pairs ( xmlNodeGetAttributes ( hConf ) ) do
                         xmlSharedTable[aName][sName].h[k] = v
                     end
@@ -188,7 +188,7 @@ addEventHandler ( "onResourceStart", resourceRoot,
         if showWelcomeMessage == "true" then
             print ( "\n===============================================================================" )
             print ( " HANDLING EDITOR BY REMI-X [V2.0 unstable]" )
-            print ( " Loaded "..saves.." saved handlings." )
+            print ( " Loaded "..shareds.." shared handlings." )
             if loadDefaultsOnStart == "true" then
                 print ( " Loaded "..customs.." custom handlings." )
             end
@@ -239,7 +239,7 @@ addEventHandler ( "loadClientHandling", root,
         if veh and data and log then
             for p,v in pairs ( data ) do
                 if not setVehicleHandling ( veh, p, v ) then
-                    outputDebugString ( "[HEDIT] Unable to load "..p.."("..handlingToString(v)..")!", 1 )
+                    outputDebugString ( "[HEDIT] Unable to load "..p.."("..handlingToString(p,v)..")!", 1 )
                 end
             end
             triggerClientEvent ( source, "outputLog", source, log.loaded, 0 )
@@ -422,18 +422,19 @@ addCommandHandler ( "loadcfg",
 --------------------------------------------------------------------------------------------------------------------------
 addEventHandler ( "setHandling", root,
     function ( veh, handling, data, dname, log )
-        local d = handlingToString ( data )
+        local d = handlingToString ( handling, data )
+        outputDebugString ( tostring(data) )
+        outputDebugString ( tostring(d) )
         ------------------------------------------------------------------------------------------------------------------
         local pName    = getPlayerName ( source )
         local vName    = getVehicleName ( veh )
         local vModel   = getElementModel ( veh )
-        local hCurrent = getVehicleHandling ( veh )[handling]
+        local hCurrent = handlingToString ( handling, getVehicleHandling ( veh )[handling] )
         local time     = getRealTime ( )
         local tStamp   = string.format ( "[%02d:%02d:%02d]", time.hour, time.minute, time.second )
         if logFile then
             local size = fileGetSize ( logFile )
             fileSetPos ( logFile, size )
-            if type ( hCurrent ) == "table" then hCurrent = tostring(round(hCurrent[1])..", "..round(hCurrent[2])..", "..round(hCurrent[3])) end
             fileWrite ( logFile, tStamp.." "..pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d.."\r\n" )
             fileFlush ( logFile )
         end
@@ -463,11 +464,10 @@ function round(num) if type(num)=="number" then return tonumber ( string.format 
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
-function handlingToString ( d )
-    if type(d) == "table" then return round(d[1])..", "..round(d[2])..", "..round(d[3])
-    elseif type(d) == "number" then return tostring ( round ( d ) )
-    end
-    return tostring(d)
+function handlingToString ( p, h )
+    if p == "centerOfMass" then return round(h[1])..", "..round(h[2])..", "..round(h[3])
+    elseif p == "modelFlags" or p == "handlingFlags" then return string.format ( "%X", h )
+    else return tostring ( round ( h ) ) end
 end
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
