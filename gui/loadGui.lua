@@ -56,6 +56,16 @@ function enableTemplate ( )
         guiSetAlpha ( v, 0.7 )
     end
     ---------------------------------------------------------------------------------------------------------------------
+    for i,c in pairs ( hexMenu ) do
+        for b,t in ipairs ( c ) do
+            for v,g in pairs ( t ) do
+                guiSetVisible ( g, false )
+                hexBox[g] = { b, v }
+                guiSetProperty ( g, "HoverTextColour", "FFFFFF80" )
+            end
+        end
+    end
+    ---------------------------------------------------------------------------------------------------------------------
     for i,c in pairs ( menuContent ) do for k,v in pairs ( c ) do
         guiSetVisible ( v, false )
         if subItemHandler[i] then sItem[v] = i
@@ -79,7 +89,7 @@ function enableTemplate ( )
     for k,v in ipairs ( logText ) do logItem[v] = k end
     ---------------------------------------------------------------------------------------------------------------------
     guiSetText        ( mainWnd.window, text.header )
-      -------------------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------------------------
     loadSavesIntoGrid ( menuContent["saveclient"].grid )
     loadSavesIntoGrid ( menuContent["loadclient"].grid )
     ---------------------------------------------------------------------------------------------------------------------
@@ -289,15 +299,27 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
+function unmarkHexFlags ( )
+    for byte,tbl in pairs ( hexMenu.cb ) do
+        for val,gui in pairs ( tbl ) do
+            guiCheckBoxSetSelected ( gui, false )
+        end
+    end
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
 function destroyMenuChildren ( )
     um = nil
     ---------------------------------------------------------------------------------------------------------------------
     if isElement ( vehLog[pVeh] )      then guiSetVisible ( vehLog[pVeh], false ) end
-    if isElement ( openedHandlingBox ) then destroyElement ( openedHandlingBox ) end
+    if isElement ( openedHandlingBox ) then destroyElement ( openedHandlingBox )  end
     ---------------------------------------------------------------------------------------------------------------------
     for k,v in ipairs ( hedit ) do if isElement  ( v ) then destroyElement ( v ) end end
     for k,v in ipairs ( label ) do guiSetVisible ( v, false ) end
     ---------------------------------------------------------------------------------------------------------------------
     for i,c in pairs ( menuContent ) do for k,v in pairs ( c ) do guiSetVisible ( v, false ) end end
     for i,c in pairs ( utilContent ) do for k,v in pairs ( c ) do guiSetVisible ( v, false ) end end
+    ---------------------------------------------------------------------------------------------------------------------
+    for i,c in pairs ( hexMenu ) do for k,v in ipairs ( c ) do for n,g in pairs ( v ) do guiSetVisible ( g, false ) end end end
 end

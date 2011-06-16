@@ -18,6 +18,9 @@ function onEnter ( )
         setInfoText ( iProperty[ hData[cm].h[ hLabel[source] ] ][1],
                       iProperty[ hData[cm].h[ hLabel[source] ] ][2] )
         guiLabelSetColor ( source, 255, 255, 128 )
+    elseif hexBox[source] then
+        setInfoText ( iProperty[ hData[cm].h[1] ][ hexBox[source][1] ][ hexBox[source][2] ][1],
+                      iProperty[ hData[cm].h[1] ][ hexBox[source][1] ][ hexBox[source][2] ][2] )
     elseif uButton[source] and um and um ~= source and utilContent[source] then
         for k,v in pairs ( utilContent[um] )     do guiSetVisible ( v, false ) end
         for k,v in pairs ( utilContent[source] ) do
