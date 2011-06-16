@@ -79,6 +79,63 @@ loadTemplate["extended"] = function ( )
 	---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
+    hexMenu  = {
+        cb   = {
+            {
+                ["1"] = guiCreateCheckBox ( 72,  77,  135, 15, "[1-1]", false, false, mainWnd.window ),
+                ["2"] = guiCreateCheckBox ( 72,  92,  135, 15, "[1-2]", false, false, mainWnd.window ),
+                ["4"] = guiCreateCheckBox ( 212, 77,  135, 15, "[1-4]", false, false, mainWnd.window ),
+                ["8"] = guiCreateCheckBox ( 212, 92,  135, 15, "[1-8]", false, false, mainWnd.window )
+            },
+            {
+                ["1"] = guiCreateCheckBox ( 72,  107, 135, 15, "[2-1]", false, false, mainWnd.window ),
+                ["2"] = guiCreateCheckBox ( 72,  122, 135, 15, "[2-2]", false, false, mainWnd.window ),
+                ["4"] = guiCreateCheckBox ( 212, 107, 135, 15, "[2-4]", false, false, mainWnd.window ),
+                ["8"] = guiCreateCheckBox ( 212, 122, 135, 15, "[2-8]", false, false, mainWnd.window )
+            },
+            {
+                ["1"] = guiCreateCheckBox ( 72,  137, 135, 15, "[3-1]", false, false, mainWnd.window ),
+                ["2"] = guiCreateCheckBox ( 72,  152, 135, 15, "[3-2]", false, false, mainWnd.window ),
+                ["4"] = guiCreateCheckBox ( 212, 137, 135, 15, "[3-4]", false, false, mainWnd.window ),
+                ["8"] = guiCreateCheckBox ( 212, 152, 135, 15, "[3-8]", false, false, mainWnd.window )
+            },
+            {
+                ["1"] = guiCreateCheckBox ( 72,  167, 135, 15, "[4-1]", false, false, mainWnd.window ),
+                ["2"] = guiCreateCheckBox ( 72,  182, 135, 15, "[4-2]", false, false, mainWnd.window ),
+                ["4"] = guiCreateCheckBox ( 212, 167, 135, 15, "[4-4]", false, false, mainWnd.window ),
+                ["8"] = guiCreateCheckBox ( 212, 182, 135, 15, "[4-8]", false, false, mainWnd.window )
+            },
+            {
+                ["1"] = guiCreateCheckBox ( 72,  197, 135, 15, "[5-1]", false, false, mainWnd.window ),
+                ["2"] = guiCreateCheckBox ( 72,  212, 135, 15, "[5-2]", false, false, mainWnd.window ),
+                ["4"] = guiCreateCheckBox ( 212, 197, 135, 15, "[5-4]", false, false, mainWnd.window ),
+                ["8"] = guiCreateCheckBox ( 212, 212, 135, 15, "[5-8]", false, false, mainWnd.window )
+            },
+            {
+                ["1"] = guiCreateCheckBox ( 72,  227, 135, 15, "[6-1]", false, false, mainWnd.window ),
+                ["2"] = guiCreateCheckBox ( 72,  242, 135, 15, "[6-2]", false, false, mainWnd.window ),
+                ["4"] = guiCreateCheckBox ( 212, 227, 135, 15, "[6-4]", false, false, mainWnd.window ),
+                ["8"] = guiCreateCheckBox ( 212, 242, 135, 15, "[6-8]", false, false, mainWnd.window )
+            },
+            {
+                ["1"] = guiCreateCheckBox ( 72,  257, 135, 15, "[7-1]", false, false, mainWnd.window ),
+                ["2"] = guiCreateCheckBox ( 72,  272, 135, 15, "[7-2]", false, false, mainWnd.window ),
+                ["4"] = guiCreateCheckBox ( 212, 257, 135, 15, "[7-4]", false, false, mainWnd.window ),
+                ["8"] = guiCreateCheckBox ( 212, 272, 135, 15, "[7-8]", false, false, mainWnd.window )
+            },
+            {
+                ["1"] = guiCreateCheckBox ( 72,  287, 135, 15, "[8-1]", false, false, mainWnd.window ),
+                ["2"] = guiCreateCheckBox ( 72,  302, 135, 15, "[8-2]", false, false, mainWnd.window ),
+                ["4"] = guiCreateCheckBox ( 212, 287, 135, 15, "[8-4]", false, false, mainWnd.window ),
+                ["8"] = guiCreateCheckBox ( 212, 302, 135, 15, "[8-8]", false, false, mainWnd.window )
+            }
+        },
+        item = {
+        }
+    }
+    ---------------------------------------------------------------------------------------------------------------------
+    -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+    ---------------------------------------------------------------------------------------------------------------------
     menuContent["saveclient"] = {
         grid     = guiCreateGridList ( 72,  83,  285, 271,          false, mainWnd.window ),
         nameEdit = guiCreateEdit     ( 72,  359, 212, 25,  "",      false, mainWnd.window ),
@@ -149,9 +206,10 @@ loadTemplate["extended"] = function ( )
     ---------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
-    for k,v in ipairs ( line )    do guiSetAlpha ( v, 0.3 ) end
-    for k,v in ipairs ( logTime ) do guiSetFont  ( v, "default-small" ) end
-    for k,v in ipairs ( logText ) do guiSetFont  ( v, "default-small" ) end
+    for i,v in ipairs ( line )    do guiSetAlpha ( v, 0.3 ) end
+    for i,v in ipairs ( logTime ) do guiSetFont  ( v, "default-small" ) end
+    for i,v in ipairs ( logText ) do guiSetFont  ( v, "default-small" ) end
+    for i,v in ipairs ( hexMenu.cb ) do for k,g in pairs ( v ) do guiSetFont ( g, "default-small" ) end end
     local wndW, wndH = guiGetSize ( mainWnd.window, false )
     wndX             = (scrX/2) - (wndW/2)
     wndY             = (scrY/2) - (wndH/2)

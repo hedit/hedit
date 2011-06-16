@@ -16,6 +16,14 @@ function onClick ( b )
     elseif hButton[source] then
         if getKeyStateEx ( ) and b == "right" then return fixInput ( pVeh, guiGetText ( source ), hButton[source] ) end
         createHeditBox ( hedit[ hButton[source] ], iProperty[ hData[cm].h[ hButton[source] ] ], true )
+    elseif hexBox[source] then
+        if guiCheckBoxGetSelected ( source ) then
+            if not hexValue[ hexBox[source][1] ] then hexValue[ hexBox[source][1] ] = 0 end
+            hexValue[ hexBox[source][1] ] = toHex ( tonumber ( "0x"..hexValue[ hexBox[source][1] ] ) + tonumber ( hexBox[source][2] ) )
+        else
+            hexValue[ hexBox[source][1] ] = toHex ( tonumber ( "0x"..hexValue[ hexBox[source][1] ] ) - tonumber ( hexBox[source][2] ) )
+        end
+        fixInput ( pVeh, table.concat ( hexValue, "" ), 1, hexBox[source][1], hexBox[source][2] )
     elseif uButton[source] then
         if source == utilButton[#utilButton] then toggleEditor ( )
         else
