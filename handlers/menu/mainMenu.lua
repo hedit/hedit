@@ -16,7 +16,7 @@ function updateData ( m )
             unmarkHexFlags ( )
             local i = 1
             hexValue = {}
-            local hex = toHex ( config[ hData[m].h[1] ] )
+            local hex = string.reverse ( toHex ( config[ hData[m].h[1] ] ) )
             local add = 8 - string.len ( hex )
             if add > 0 then for i=1,add do hex = hex.."0" end end
             for byte in string.gmatch ( hex, "." ) do
