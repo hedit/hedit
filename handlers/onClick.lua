@@ -23,7 +23,7 @@ function onClick ( b )
         else
             hexValue[ hexBox[source][1] ] = toHex ( tonumber ( "0x"..hexValue[ hexBox[source][1] ] ) - tonumber ( hexBox[source][2] ) )
         end
-        fixInput ( pVeh, table.concat ( hexValue, "" ), 1, hexBox[source][1], hexBox[source][2] )
+        fixInput ( pVeh, string.reverse ( table.concat ( hexValue, "" ) ), 1, hexBox[source][1], hexBox[source][2] )
     elseif uButton[source] then
         if source == utilButton[#utilButton] then toggleEditor ( )
         else
