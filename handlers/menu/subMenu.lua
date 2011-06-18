@@ -61,7 +61,7 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 --[[subItemHandler["dynamometer"] = function ( src, event )
-    if event == "click" then
+    if event == "click" and src == menuContent["dynamometer"].button then
         fadeCamera        ( false )
         guiSetVisible     ( mainWnd.window, false )
         guiSetVisible     ( dynoWnd.window, true )
@@ -75,9 +75,15 @@ end
                               "setCloudsEnabled("..tostring(getCloudsEnabled())..")"
                             }
         -----------------------------------------------------------------------------------------------------------------
+        fadeCamera        ( false )
         setGravity        ( 0.008 )
         setVehicleGravity ( veh, 0, 0, 0 )
         setGameSpeed      ( 1 )
         setCloudsEnabled  ( false )
+        setTimer          ( ) -- Set positions
+        setTimer          ( ) -- Start testing
+        -----------------------------------------------------------------------------------------------------------------
+        setElementPosition ( )
+        setElementRotation ( )
     end
 end]]

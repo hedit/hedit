@@ -126,6 +126,10 @@ addEventHandler ( "onResourceStart", resourceRoot,
         individualHandling  = setting["individualHandling"]
         if loadDefaultsOnStart == "true" then setElementData ( resourceRoot, "usingCustoms", true ) end
         ------------------------------------------------------------------------------------------------------------------
+        for i,v in ipairs ( getElementsByType ( "player" ) ) do
+            setElementData ( v, "hAccount", getAccountName ( getPlayerAccount ( v ) ) )
+        end
+        ------------------------------------------------------------------------------------------------------------------
         local limitsXML = xmlLoadFile ( "config/limits.xml" )
         for i,v in ipairs ( xmlNodeGetChildren ( limitsXML ) ) do
             local p = xmlNodeGetName ( v )
@@ -199,7 +203,7 @@ addEventHandler ( "onResourceStart", resourceRoot,
                 print ( " After this, you can import the handling into defaults.xml." )
             else
                 print ( " No handling.cfg found to import." )
-                print ( " Ensure the file is located in the root of this resource in order to load." )                print ( " Ensure the file is located in the root of this resource in order to load." )
+                print ( " Ensure the file is located in the root of this resource in order to load." )
             end
             print ( "===============================================================================" )
             if loadDefaultsOnStart ~= "true" and customs > 0 then

@@ -17,6 +17,8 @@
     <script src="functions/log.lua"                  type="client"    />
     <script src="functions/dyno.lua"                 type="client"    />
     <script src="functions/saveload.lua"             type="client"    />
+    <script src="functions/updown.lua"               type="client"    />
+    <script src="functions/importexport.lua"         type="client"    />
     <script src="functions/doClient.lua"             type="client"    />
 
     <!-- Required Server-Scripts -->

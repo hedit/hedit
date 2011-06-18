@@ -131,8 +131,8 @@ function toggleEditor (  )
     else
         local cVeh = getPedOccupiedVehicle ( localPlayer )
         if cVeh then
-            if getVehicleController ( cVeh ) ~= localPlayer and setting["allowPassengersToEdit"] == false then
-                return outputChatBox ( text.restrictedPassenger ) end
+            if getVehicleController ( cVeh ) ~= localPlayer and setting["allowPassengersToEdit"] == "false" then
+                return guiCreateWarningMessage ( text.restrictedPassenger, 0 ) end
             if cVeh ~= pVeh then
                 if isElement ( vehLog[pVeh] ) then guiSetVisible ( vehLog[pVeh], false ) end
                 if isElement ( warningWnd ) then
@@ -265,40 +265,6 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
-function guiCreateWarningMessage ( txt, level, one, two )
-    if type(txt) == "string" and type(level) == "number" then
-        warningWnd = guiCreateWindow ( (scrX/2)-200, (scrY/2)-67, 400, 134, wHeader[level], false )
-        local lbl  = guiCreateLabel  ( 114, 25,  276, 57, txt,         false, warningWnd )
-        local bt1  = guiCreateButton ( 114, 100, 136, 25, text.accept, false, warningWnd )
-        local bt2  = guiCreateButton ( 255, 100, 136, 25, text.cancel, false, warningWnd )
-        guiCreateButton ( 9, 25, 100,100, "lolwut", false, warningWnd )
-        -- guiCreateImage ( 9, 25, 100, 100, wImg[level], false, warningWnd )
-        guiLabelSetHorizontalAlign ( lbl, "left", true )
-        guiSetEnabled ( mainWnd.window, false )
-        guiBringToFront ( warningWnd )
-        addEventHandler ( "onClientGUIClick", warningWnd,
-            function ( )
-                if source == bt1 or source == bt2 then
-                    local args = {}
-                    if source == bt1 and one and type(one[1]) == "function" then
-                        for i=2,#one do args[i-1] = one[i] end
-                        one[1] ( unpack ( args ) )
-                    elseif source == bt2 and two and type(two[1]) == "function" then
-                        for i=2,#two do args[i-1] = two[i] end
-                        two[1] ( unpack ( args ) )
-                    end
-                    destroyElement ( warningWnd )
-                    guiSetEnabled ( mainWnd.window, true )
-                    guiBringToFront ( mainWnd.window )
-                end
-            end
-        )
-        return warningWnd, bt1, bt2
-    else return false end
-end
--------------------------------------------------------------------------------------------------------------------------
--- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
--------------------------------------------------------------------------------------------------------------------------
 function unmarkHexFlags ( )
     for byte,tbl in pairs ( hexMenu.cb ) do
         for val,gui in pairs ( tbl ) do
@@ -322,4 +288,49 @@ function destroyMenuChildren ( )
     for i,c in pairs ( utilContent ) do for k,v in pairs ( c ) do guiSetVisible ( v, false ) end end
     ---------------------------------------------------------------------------------------------------------------------
     for i,c in pairs ( hexMenu ) do for k,v in ipairs ( c ) do for n,g in pairs ( v ) do guiSetVisible ( g, false ) end end end
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+function guiCreateWarningMessage ( txt, level, one, two )
+    if type(txt) == "string" and type(level) == "number" then
+        if isElement ( warningWnd ) then destroyElement ( warningWnd ) end
+        warningWnd = guiCreateWindow ( (scrX/2)-200, (scrY/2)-67, 400, 134, wHeader[level], false )
+        local lbl  = guiCreateLabel  ( 114, 25,  276, 57, txt,       false, warningWnd )
+        local bt1,bt2
+        if level == 0 then
+            bt1  = guiCreateButton ( 114, 100, 277, 25, text.accept, false, warningWnd )
+        else
+            bt1  = guiCreateButton ( 114, 100, 136, 25, text.accept, false, warningWnd )
+            bt2  = guiCreateButton ( 255, 100, 136, 25, text.cancel, false, warningWnd )
+        end
+        guiCreateButton ( 9, 25, 100,100, "lolwut", false, warningWnd )
+        -- guiCreateImage ( 9, 25, 100, 100, wImg[level], false, warningWnd )
+        guiLabelSetHorizontalAlign ( lbl, "left", true )
+        if guiGetVisible ( mainWnd.window ) then guiSetEnabled ( mainWnd.window, false ) end
+        guiBringToFront ( warningWnd )
+        showed = false
+        if not isCursorShowing ( ) then showed = showCursor ( true, true ) end
+        addEventHandler ( "onClientGUIClick", warningWnd,
+            function ( )
+                if source == bt1 or source == bt2 then
+                    local args = {}
+                    if source == bt1 and one and type(one[1]) == "function" then
+                        for i=2,#one do args[i-1] = one[i] end
+                        one[1] ( unpack ( args ) )
+                    elseif source == bt2 and two and type(two[1]) == "function" then
+                        for i=2,#two do args[i-1] = two[i] end
+                        two[1] ( unpack ( args ) )
+                    end
+                    destroyElement ( warningWnd )
+                    if guiGetVisible ( mainWnd.window ) then
+                        guiSetEnabled ( mainWnd.window, true )
+                        guiBringToFront ( mainWnd.window )
+                    end
+                    if showed then showCursor ( false, false ) end
+                end
+            end
+        )
+        return warningWnd, bt1, bt2
+    else return false end
 end
