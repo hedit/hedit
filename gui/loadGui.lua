@@ -176,6 +176,8 @@ function toggleEditor (  )
             bindKey ( "delete",           "down", tryDelete        )
             guiSetVisible ( mainWnd.window, true )
             showCursor ( true, true )
+        else
+            guiCreateWarningMessage ( text.needVehicle, 0 )
         end
     end
 end
