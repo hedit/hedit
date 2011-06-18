@@ -14,6 +14,7 @@ loadTranslation["english"] = function ( )
     text.incorrectTemplate      = "#ff0000HANDLING EDITOR:#ffff00 Incorrect/corrupted template.[%s] Default template has been loaded."
     text.invalidTemplate        = "#ff0000HANDLING EDITOR:#ffff00 No such template with name %s. Default template has been loaded."
     text.noDefaultTemplate      = "#ff0000HANDLING EDITOR:#ffff00 Default template has not been found or is incorrect. Please fix. HandlingEditor will not work now."
+    text.needVehicle            = "You need a vehicle in order to open the handling editor! You can't just edit some air :V"
     text.restrictedPassenger    = "You are not allowed to edit the handling as a passenger."
     text.login                  = "Please login in order to use this menu."
     text.askToReplace           = "Are you sure to overwrite the existing save?"
