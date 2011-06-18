@@ -52,6 +52,9 @@ end
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function showData ( m )
+    if requireLogin[m] and getElementData ( localPlayer, "hAccount" ) == "guest" then
+        return guiCreateWarningMessage ( text.login, 0 )
+    end
     if cm~=m then
         pm=cm
         cm=m
