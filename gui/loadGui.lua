@@ -311,8 +311,8 @@ function guiCreateWarningMessage ( txt, level, one, two )
         guiLabelSetHorizontalAlign ( lbl, "left", true )
         if guiGetVisible ( mainWnd.window ) then guiSetEnabled ( mainWnd.window, false ) end
         guiBringToFront ( warningWnd )
-        showed = false
-        if not isCursorShowing ( ) then showed = showCursor ( true, true ) end
+        if not showed then showed = false
+        if not isCursorShowing ( ) then showed = showCursor ( true, true ) end end
         addEventHandler ( "onClientGUIClick", warningWnd,
             function ( )
                 if source == bt1 or source == bt2 then
@@ -329,7 +329,10 @@ function guiCreateWarningMessage ( txt, level, one, two )
                         guiSetEnabled ( mainWnd.window, true )
                         guiBringToFront ( mainWnd.window )
                     end
-                    if showed then showCursor ( false, false ) end
+                    if showed then
+                        showCursor ( false, false )
+                        showed = false
+                    end
                 end
             end
         )

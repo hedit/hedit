@@ -243,7 +243,7 @@ addEventHandler ( "loadClientHandling", root,
         if veh and data and log then
             for p,v in pairs ( data ) do
                 if not setVehicleHandling ( veh, p, v ) then
-                    outputDebugString ( "[HEDIT] Unable to load "..p.."("..handlingToString(p,v)..")!", 1 )
+                    --outputDebugString ( "[HEDIT] Unable to load "..p.."("..handlingToString(p,v)..")!", 1 )
                 end
             end
             triggerClientEvent ( source, "outputLog", source, log.loaded, 0 )
