@@ -137,19 +137,26 @@ loadTemplate["extended"] = function ( )
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     ---------------------------------------------------------------------------------------------------------------------
     menuContent["saveclient"] = {
-        grid     = guiCreateGridList ( 72,  83,  285, 271,          false, mainWnd.window ),
-        nameEdit = guiCreateEdit     ( 72,  359, 212, 25,  "",      false, mainWnd.window ),
-        button   = guiCreateButton   ( 289, 359, 68,  25,  "Save!", false, mainWnd.window )
+        grid             = guiCreateGridList ( 72,  83,  285, 246,                false, mainWnd.window ),
+        nameEdit         = guiCreateEdit     ( 72,  334, 212, 25,  "",            false, mainWnd.window ),
+        descriptionEdit  = guiCreateEdit     ( 72,  359, 212, 25,  "",            false, mainWnd.window ),
+        button           = guiCreateButton   ( 289, 334, 68,  50,  "Save!",       false, mainWnd.window ),
+        nameLabel        = guiCreateLabel    ( 80,  334, 50,  12,  "Name",        false, mainWnd.window ),
+        descriptionLabel = guiCreateLabel    ( 80,  359, 50,  12,  "Description", false, mainWnd.window )
     }
-    guiGridListAddColumn( menuContent["saveclient"].grid, "Name",  0.6 )
-    guiGridListAddColumn( menuContent["saveclient"].grid, "Model", 0.4 )
+    guiGridListAddColumn ( menuContent["saveclient"].grid, "Name",  0.6 )
+    guiGridListAddColumn ( menuContent["saveclient"].grid, "Model", 0.4 )
+    guiLabelSetColor     ( menuContent["saveclient"].nameLabel,        0, 0, 0 )
+    guiLabelSetColor     ( menuContent["saveclient"].descriptionLabel, 0, 0, 0 )
+    guiSetFont           ( menuContent["saveclient"].nameLabel,        "default-small" )
+    guiSetFont           ( menuContent["saveclient"].descriptionLabel, "default-small" )
     ---------------------------------------------------------------------------------------------------------------------
     menuContent["loadclient"] = {
         grid   = guiCreateGridList ( 72,  83,  285, 271,          false, mainWnd.window ),
         button = guiCreateButton   ( 72,  359, 285, 25,  "Load!", false, mainWnd.window )
     }
-    guiGridListAddColumn( menuContent["loadclient"].grid, "Name",  0.6 )
-    guiGridListAddColumn( menuContent["loadclient"].grid, "Model", 0.4 )
+    guiGridListAddColumn ( menuContent["loadclient"].grid, "Name",  0.6 )
+    guiGridListAddColumn ( menuContent["loadclient"].grid, "Model", 0.4 )
     ---------------------------------------------------------------------------------------------------------------------
     menuContent["uploadshared"] = {
     }

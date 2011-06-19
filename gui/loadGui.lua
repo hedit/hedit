@@ -98,6 +98,8 @@ function enableTemplate ( )
     addEventHandler   ( "onClientMouseEnter",             mainWnd.window, onEnter )
     addEventHandler   ( "onClientMouseLeave",             mainWnd.window, onLeave )
     addEventHandler   ( "onClientGUIClick",               mainWnd.window, onClick )
+    addEventHandler   ( "onClientGUIFocus",               mainWnd.window, onFocus )
+    addEventHandler   ( "onClientGUIBlur",                mainWnd.window, onBlur  )
     addEventHandler   ( "onClientGUIAccepted",            mainWnd.window, onEditBoxAccept )
     addEventHandler   ( "onClientGUIComboBoxAccepted",    mainWnd.window, onComboBoxAccept )
     ---------------------------------------------------------------------------------------------------------------------

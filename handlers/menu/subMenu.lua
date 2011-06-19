@@ -8,23 +8,26 @@
 --|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
 --|| ***************************************************************************************************************** ]]
 
-subItemHandler["saveclient"] = function ( src, event )
+subItemHandler["saveclient"] = function ( r, src, event )
     if not xmlSavesNode then return end
     if event == "click" then
-        if src == menuContent["saveclient"].button then
+        if src == r.button then
             trySave ( )
-        elseif src == menuContent["saveclient"].grid then
+        elseif src == r.grid then
             local row,col = guiGridListGetSelectedItem ( src )
             if row > -1 and col > -1 then
                 local name = string.lower ( guiGridListGetItemText ( src, row, col ) )
-                guiSetText ( menuContent["saveclient"].nameEdit, xmlSavesTable[name].s )
+                guiSetText ( r.nameEdit, xmlSavesTable[name].s )
                 setInfoText ( xmlSavesTable[name].s, xmlSavesTable[name].d, true )
             end
         end
     elseif event == "editAccept" then
-        if src == menuContent["saveclient"].nameEdit then
+        if src == r.nameEdit then
             trySave ( )
         end
+    elseif event == "blur" then
+        if src == r.nameEdit and guiGetText ( src ) == "" then guiBringToFront ( r.nameLabel )
+        elseif src == r.descriptionEdit and guiGetText ( src ) == "" then guiBringToFront ( r.descriptionLabel ) end
     end
 end
 
@@ -32,7 +35,7 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-subItemHandler["loadclient"] = function ( src, event )
+subItemHandler["loadclient"] = function ( r, src, event )
     if event == "click" then
         if src == menuContent["loadclient"].button or src == menuContent["loadclient"].grid then
             local row,col = guiGridListGetSelectedItem ( menuContent["loadclient"].grid )
@@ -60,7 +63,7 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
---[[subItemHandler["dynamometer"] = function ( src, event )
+--[[subItemHandler["dynamometer"] = function ( r, src, event )
     if event == "click" and src == menuContent["dynamometer"].button then
         fadeCamera        ( false )
         guiSetVisible     ( mainWnd.window, false )
