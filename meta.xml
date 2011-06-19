@@ -11,6 +11,7 @@
     <script src="handlers/onClick.lua"               type="client"    />
     <script src="handlers/onAccept.lua"              type="client"    />
     <script src="handlers/onScroll.lua"              type="client"    />
+    <script src="handlers/onFocusBlur.lua"           type="client"    />
     <script src="handlers/menu/mainMenu.lua"         type="client"    />
     <script src="handlers/menu/utilMenu.lua"         type="client"    />
     <script src="handlers/menu/subMenu.lua"          type="client"    />

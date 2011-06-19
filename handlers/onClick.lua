@@ -44,7 +44,7 @@ function onClick ( b )
         else
             utilItemHandler[ uItem[source] ]()
         end
-    elseif sItem[source] then subItemHandler[ sItem[source] ](source,"click")
+    elseif sItem[source] then subItemHandler[ sItem[source] ]( menuContent[ sItem[source] ], source, "click" )
     end
     
     if um and not uButton[source] then

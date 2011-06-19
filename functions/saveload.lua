@@ -10,11 +10,11 @@
 
 function trySave ( )
     local sName       = guiGetText ( menuContent["saveclient"].nameEdit )
-    local description = "description" --guiGetText ( menuContent["saveclient"].descriptionEdit )
+    local description = guiGetText ( menuContent["saveclient"].descriptionEdit )
     if sName and sName ~= "" and description and description ~= "" then
         local lName = string.lower ( sName )
-        if xmlSavesTable[lName] then guiCreateWarningMessage ( text.askToReplace, 1, {saveClient,sName,lName,description} )
-        else saveClient ( sName, lName, description ) end
+        if xmlSavesTable[lName] then guiCreateWarningMessage ( text.askToReplace, 1, {saveClient,sName,description} )
+        else saveClient ( sName, description ) end
     else outputHandlingLog ( clog.invalidSave, 2 ) end
 end
 
@@ -22,7 +22,8 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function saveClient ( sName, lName, description )
+function saveClient ( sName, description )
+    local lName = string.lower ( sName )
     local model = tostring ( getElementModel ( pVeh ) )
     if not xmlSavesTable[lName] then
         xmlSavesTable[lName]       = {h={}}
@@ -75,6 +76,7 @@ function deleteHandling ( name )
     outputHandlingLog ( string.format ( clog.deletedHandling, xmlSavesTable[name].s ), 0 )
     xmlSavesTable[name] = nil
     reloadClientSaves ( )
+    resetInfoText ( true )
 end
 
 --------------------------------------------------------------------------------------------------------------------------
