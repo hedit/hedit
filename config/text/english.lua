@@ -18,9 +18,11 @@ loadTranslation["english"] = function ( )
     text.restrictedPassenger    = "You are not allowed to edit the handling as a passenger."
     text.login                  = "Please login in order to use this menu."
     text.askToReplace           = "Are you sure to overwrite the existing save?"
+    text.askToLoad              = "Are you sure to load this handling? Unsaved changes will be lost!"
     text.askToDelete            = "Are you sure to delete this handling?"
     text.accept                 = "Proceed"
     text.cancel                 = "Cancel"
+    text.unsaved                = "Unsaved"
     -------------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -------------------------------------------------------------------------------------------------------------------------
@@ -65,25 +67,25 @@ loadTranslation["english"] = function ( )
     -------------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -------------------------------------------------------------------------------------------------------------------------
-    mInfo[ mProperty[1] ]        = "Engine Options"
-    mInfo[ mProperty[2] ]        = "Body options"
-    mInfo[ mProperty[3] ]        = "Wheel & Brakes"
-    mInfo[ mProperty[4] ]        = "Appearance"
-    mInfo[ mProperty[5] ]        = "Model Flags"
-    mInfo[ mProperty[6] ]        = "Handling Flags"
-    mInfo[ mProperty[7] ]        = "Dynamometer Options"
-    mInfo[ mProperty[8] ]        = "Help Page"
-    mInfo[ mProperty[9] ]        = "Handling log"
-    mInfo[ mProperty[10] ]       = "Save your handling"
-    mInfo[ mProperty[11] ]       = "Load a handling"
-    mInfo[ mProperty[12] ]       = "Upload your handling to the server"
-    mInfo[ mProperty[13] ]       = "Download more handlings from the server"
-    mInfo[ mProperty[14] ]       = "Share your handling with someone else"
-    mInfo[ mProperty[15] ]       = "Import a handling designed for handling.cfg"
-    mInfo[ mProperty[16] ]       = "Export your handling to a usable handling.cfg line"
-    mInfo[ mProperty[17] ]       = "Save your handling to a resource"
-    mInfo[ mProperty[18] ]       = "Options"
-    mInfo[ mProperty[19] ]       = "Administration panel"
+    mInfo[ mProperty[1] ]       = "Engine Options"
+    mInfo[ mProperty[2] ]       = "Body options"
+    mInfo[ mProperty[3] ]       = "Wheel & Brakes"
+    mInfo[ mProperty[4] ]       = "Appearance"
+    mInfo[ mProperty[5] ]       = "Model Flags"
+    mInfo[ mProperty[6] ]       = "Handling Flags"
+    mInfo[ mProperty[7] ]       = "Dynamometer Options"
+    mInfo[ mProperty[8] ]       = "Help Page"
+    mInfo[ mProperty[9] ]       = "Handling log"
+    mInfo[ mProperty[10] ]      = "Save your handling"
+    mInfo[ mProperty[11] ]      = "Load a handling"
+    mInfo[ mProperty[12] ]      = "Upload your handling to the server"
+    mInfo[ mProperty[13] ]      = "Download more handlings from the server"
+    mInfo[ mProperty[14] ]      = "Share your handling with someone else"
+    mInfo[ mProperty[15] ]      = "Import a handling designed for handling.cfg"
+    mInfo[ mProperty[16] ]      = "Export your handling to a usable handling.cfg line"
+    mInfo[ mProperty[17] ]      = "Save your handling to a resource"
+    mInfo[ mProperty[18] ]      = "Options"
+    mInfo[ mProperty[19] ]      = "Administration panel"
     -------------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -------------------------------------------------------------------------------------------------------------------------

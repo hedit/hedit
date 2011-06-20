@@ -28,7 +28,7 @@ function outputHandlingLog ( txt, err )
         oldTime[i]  = guiGetText ( logTime[i] )
         oldText[i]  = guiGetText ( logText[i] )
         oldColor[i] = logColor[ logText[i] ]
-        if not oldColor[i] then oldColor[i] = {0,0,0} end
+        if not oldColor[i] then oldColor[i] = {255,255,255} end
     end
     ---------------------------------------------------------------------------------------------------------------------
     for i=2,3 do

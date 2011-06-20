@@ -46,7 +46,7 @@ function onClick ( b )
         end
     elseif sItem[source] then subItemHandler[ sItem[source] ]( menuContent[ sItem[source] ], source, "click" )
     end
-    
+
     if um and not uButton[source] then
         for k,v in pairs ( utilContent[ um ] ) do guiSetVisible ( v, false ) end
         um = nil

@@ -48,8 +48,11 @@ subItemHandler["loadclient"] = function ( r, src, event )
                     end
                     if src == menuContent["loadclient"].button then
                         if data then
-                            triggerServerEvent ( "loadClientHandling", localPlayer, pVeh, data, slog )
-                            showData ( pm )
+                            if not isSaved[pVeh] then
+                                guiCreateWarningMessage ( text.askToLoad, 1, {loadClient,data} )
+                            else
+                                loadClient ( data )
+                            end
                         end
                     elseif src == menuContent["loadclient"].grid then
                         setInfoText ( xmlSavesTable[name].s, xmlSavesTable[name].d, true )

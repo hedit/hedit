@@ -43,7 +43,20 @@ function saveClient ( sName, description )
     xmlSaveFile ( xmlSavesNode )
     reloadClientSaves ( )
     showData ( pm )
+    guiSetText ( extraInfo, "Vehicle: "..getVehicleName ( pVeh ) )
+    isSaved[pVeh] = true
     outputHandlingLog ( clog.saved, 0 )
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+
+function loadClient ( data )
+    triggerServerEvent ( "loadClientHandling", localPlayer, pVeh, data, slog )
+    guiSetText ( extraInfo, "Vehicle: "..getVehicleName ( pVeh ) )
+    isSaved[pVeh] = true
+    showData ( pm )
 end
 
 --------------------------------------------------------------------------------------------------------------------------
