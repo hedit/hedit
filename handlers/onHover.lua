@@ -9,11 +9,10 @@
 --|| ***************************************************************************************************************** ]]
 
 function onEnter ( )
-    if mButton[source] then setButtonEffect ( source, mInfo[ mProperty [ mButton[source] ] ] )
+    if mButton[source] then
+        setButtonEffect ( source, mInfo[ mProperty [ mButton[source] ] ] )
     elseif hButton[source] then
-        isPointing       = true
-        pointedButton    = source
-        handleKeyState   ( "down" )
+        setPointing ( source, true )
     elseif hLabel[source] then
         setInfoText ( iProperty[ hData[cm].h[ hLabel[source] ] ][1],
                       iProperty[ hData[cm].h[ hLabel[source] ] ][2] )
@@ -21,13 +20,8 @@ function onEnter ( )
     elseif hexBox[source] then
         setInfoText ( iProperty[ hData[cm].h[1] ][ hexBox[source][1] ][ hexBox[source][2] ][1],
                       iProperty[ hData[cm].h[1] ][ hexBox[source][1] ][ hexBox[source][2] ][2] )
-    elseif uButton[source] and um and um ~= source and utilContent[source] then
-        for k,v in pairs ( utilContent[um] )     do guiSetVisible ( v, false ) end
-        for k,v in pairs ( utilContent[source] ) do
-            guiSetVisible ( v, true )
-            guiBringToFront ( v )
-        end
-        um = source
+    elseif uButton[source] and utilContent[source] and um and um ~= source then
+        toggleUtilMenu ( source, true )
     elseif uItem[source] then
         setInfoText ( guiGetText ( source ), mInfo[ mProperty[ uItem[source] ] ] )
     end
@@ -37,26 +31,8 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 function onLeave ( )
     resetInfoText ( )
-    if mButton[source] then guiSetAlpha ( source, 0.7 )
-    elseif hButton[source] then 
-        isPointing = false
-        handleKeyState ( "up" )
-    elseif hLabel[source] then guiLabelSetColor ( source, 255, 255, 255 )
-    end
-end
--------------------------------------------------------------------------------------------------------------------------
--- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
--------------------------------------------------------------------------------------------------------------------------
-function setButtonEffect ( button, txt )
-    guiSetAlpha          ( button, 1 )
-    playSoundFrontEnd    ( 42 )
-    setInfoText          ( txt )
-end
--------------------------------------------------------------------------------------------------------------------------
--- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
--------------------------------------------------------------------------------------------------------------------------
-function handleKeyState ( str )
-    if getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) then showValue ( "lctrl", str )
-    elseif getKeyState ( "lshift" ) or getKeyState ( "rshift" ) then showValue ( "lshift", str )
+    if     mButton[source] then guiSetAlpha      ( source, 0.7 )
+    elseif hButton[source] then setPointing      ( src, false )
+    elseif hLabel[source]  then guiLabelSetColor ( source, 255, 255, 255 )
     end
 end
