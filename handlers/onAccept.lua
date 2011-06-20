@@ -47,8 +47,10 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function fixInput ( veh, txt, num )
+function fixInput ( veh, txt, num, byte, value )
     local input = nil
+    if not byte then byte = 0 end
+    if not value then value = 0 end
     if hData[cm].h[num] == hProperty[5] then
         input = {
                   round ( tonumber ( gettok ( txt, 1, 44 ) ) ),
@@ -67,7 +69,7 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function doTry ( veh, input, num )
+function doTry ( veh, input, num, byte, value )
     if not veh or not input or not num then return false end
     local config = getVehicleHandling ( veh )
     local prop = iProperty[hData[cm].h[num]][1]
