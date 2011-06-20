@@ -82,7 +82,7 @@ function enableTemplate ( )
         guiSetVisible ( v, false )
         if menuContent[k] then uItem[v] = k
         else uItem[v] = "corruptedlink" end
-        if utilItemText[k] then guiSetText ( v, utilItemText[k] ) end
+        if uItemText[k] then guiSetText ( v, uItemText[k] ) end
     end end
     ---------------------------------------------------------------------------------------------------------------------
     for k,v in ipairs ( label )   do hLabel[v]  = k end
