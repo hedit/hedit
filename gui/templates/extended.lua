@@ -18,7 +18,7 @@ loadTemplate["extended"] = function ( )
     ---------------------------------------------------------------------------------------------------------------------
     line[1]            = guiCreateLabel      ( 0,   32,  365, 14,  text.hr,           false, mainWnd.window )
     ---------------------------------------------------------------------------------------------------------------------
-    utilButton[1]      = guiCreateButton     ( 10,  22,  60,  19,  "THIS",            false, mainWnd.window )
+    utilButton[1]      = guiCreateButton     ( 10,  22,  60,  19,  "",                false, mainWnd.window )
     utilButton[2]      = guiCreateButton     ( 75,  22,  60,  19,  "",                false, mainWnd.window )
     utilButton[3]      = guiCreateButton     ( 345, 22,  20,  19,  "X",               false, mainWnd.window )
     ---------------------------------------------------------------------------------------------------------------------
