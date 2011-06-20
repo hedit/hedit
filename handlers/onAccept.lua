@@ -47,10 +47,8 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function fixInput ( veh, txt, num, byte, value )
+function fixInput ( veh, txt, num )
     local input = nil
-    if not byte then byte = 0 end
-    if not value then value = 0 end
     if hData[cm].h[num] == hProperty[5] then
         input = {
                   round ( tonumber ( gettok ( txt, 1, 44 ) ) ),
@@ -69,7 +67,7 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function doTry ( veh, input, num, byte, value )
+function doTry ( veh, input, num )
     if not veh or not input or not num then return false end
     local config = getVehicleHandling ( veh )
     local prop = iProperty[hData[cm].h[num]][1]
@@ -105,6 +103,10 @@ function doTry ( veh, input, num, byte, value )
                 return outputHandlingLog(string.format(clog.cantSame,hData[cm].h[num],hProperty[26]),2)
             end
             if triggerServerEvent("setHandling",localPlayer,veh,hData[cm].h[num],input,prop,slog) then
+                if isSaved[pVeh] then
+                    guiSetText(extraInfo,guiGetText(extraInfo).." - "..text.unsaved)
+                    isSaved[pVeh]=false
+                end
                 if isInt[hData[cm].h[num]] then
                     return setElementData(veh,"history."..hData[cm].h[num],string.format("%.0f",config[hData[cm].h[num]]))
                 elseif isHex[hData[cm].h[num]] then

@@ -143,6 +143,8 @@ function toggleEditor (  )
                 end
                 pVeh = cVeh
                 showData ( mProperty[1] )
+                guiSetText ( extraInfo, "Vehicle: "..getVehicleName ( cVeh ) )
+                if isSaved[pVeh] == nil then isSaved[pVeh] = true end
                 if not vehLog[pVeh] then
                     for i,v in ipairs ( logTime ) do
                         guiSetText ( logTime[i], "" )
@@ -154,12 +156,14 @@ function toggleEditor (  )
                     guiSetVisible ( vehLog[pVeh], false )
                     logLine[pVeh] = 0
                 else
+                    if not isSaved[pVeh] then guiSetText ( extraInfo, guiGetText ( extraInfo ).." - "..text.unsaved ) end
                     local childs = getElementChildren ( vehLog[pVeh] )
                     for i,v in ipairs ( logTime ) do
-                        local oldColor = logColor [ childs[#childs-(-1+i)] ]
-                        if not oldColor then oldColor = {0,0,0} end
+                        outputChatBox ( #childs-i )
+                        local oldColor = logColor [ childs[#childs-(i-1)] ]
+                        if not oldColor then oldColor = {255,255,255} end
                         guiSetText       ( logTime[i], guiGetText ( childs[#childs-i] ) )
-                        guiSetText       ( logText[i], guiGetText ( childs[#childs-(-1+i)] ) )
+                        guiSetText       ( logText[i], guiGetText ( childs[#childs-(i-1)] ) )
                         guiLabelSetColor ( logText[i], unpack ( oldColor ) )
                         logColor [ logText[i] ] = oldColor
                     end
