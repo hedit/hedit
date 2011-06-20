@@ -34,8 +34,7 @@ end
 -------------------------------------------------------------------------------------------------------------------------------
 function faultTranslation ( txt )
     if setting["language"] == "english" then
-        outputChatBox ( "HANDLING EDITOR: No english translation available! Handling editor will not work now.", 255, 0, 0 )
-        stopResource ( )
+        stopResource ( "HANDLING EDITOR: No english translation available! Handling editor will not work now." )
     else
         if loadTranslation["english"] then
             loadTranslation["english"]()
@@ -43,20 +42,17 @@ function faultTranslation ( txt )
                 loadTheTemplate ( )
                 outputChatBox ( txt, 255, 0, 0 )
             else
-                outputChatBox ( "HANDLING EDITOR: No english translation available! Handling editor will not work now.", 255, 0, 0 )
-                stopResource ( )
+                stopResource ( "HANDLING EDITOR: No english translation available! Handling editor will not work now." )
             end
         else
-            outputChatBox ( "HANDLING EDITOR: No english translation available! Handling editor will not work now.", 255, 0, 0 )
-            stopResource ( )
+            stopResource ( "HANDLING EDITOR: No english translation available! Handling editor will not work now." )
         end
     end
 end
 -------------------------------------------------------------------------------------------------------------------------------
 function faultTemplate ( txt, template )
     if setting["template"] == "extended" then
-        outputChatBox ( text.noDefaultTemplate, 255, 0, 0 )
-        stopResource ( )
+        stopResource ( text.noDefaultTemplate )
     else
         if loadTemplate["extended"] then
             loadTemplate["extended"]()
@@ -64,12 +60,10 @@ function faultTemplate ( txt, template )
                 enableTemplate ( )
                 outputChatBox ( string.format ( txt, template ), 255, 0, 0 )
             else
-                outputChatBox ( text.noDefaultTemplate, 255, 0, 0 )
-                stopResource ( )
+                stopResource ( text.noDefaultTemplate )
             end
         else
-            outputChatBox ( text.noDefaultTemplate, 255, 0, 0 )
-            stopResource ( )
+            stopResource ( text.noDefaultTemplate )
         end
     end
 end

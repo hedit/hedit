@@ -122,13 +122,10 @@ function toggleEditor (  )
         unbindKey ( "mouse_wheel_down", "up",   onScroll, "down" )
         unbindKey ( "delete",           "down", tryDelete        )
         guiSetVisible ( mainWnd.window, false )
+        toggleUtilMenu ( um, false )
         showCursor ( false, false )
         isPointing = false
         pointedButton = nil
-        if um then
-            for k,v in pairs ( utilContent[um] ) do guiSetVisible ( v, false ) end
-            um = nil
-        end
         if isElement ( warningWnd ) then guiSetVisible ( warningWnd, false ) end
     else
         local cVeh = getPedOccupiedVehicle ( localPlayer )
@@ -143,8 +140,7 @@ function toggleEditor (  )
                 end
                 pVeh = cVeh
                 showData ( mProperty[1] )
-                guiSetText ( extraInfo, "Vehicle: "..getVehicleName ( cVeh ) )
-                if isSaved[pVeh] == nil then isSaved[pVeh] = true end
+                setSaved ( )
                 if not vehLog[pVeh] then
                     for i,v in ipairs ( logTime ) do
                         guiSetText ( logTime[i], "" )
@@ -156,7 +152,7 @@ function toggleEditor (  )
                     guiSetVisible ( vehLog[pVeh], false )
                     logLine[pVeh] = 0
                 else
-                    if not isSaved[pVeh] then guiSetText ( extraInfo, guiGetText ( extraInfo ).." - "..text.unsaved ) end
+                    setSaved ( false )
                     local childs = getElementChildren ( vehLog[pVeh] )
                     for i,v in ipairs ( logTime ) do
                         outputChatBox ( #childs-i )
@@ -190,6 +186,44 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
+function toggleUtilMenu ( src, bool )
+    if not src then return end
+    if bool then
+        if um then for k,v in pairs ( utilContent[um] ) do guiSetVisible ( v, false ) end end
+        um = src
+        for k,v in pairs ( utilContent[src] ) do
+            guiSetVisible ( v, true )
+            guiBringToFront ( v )
+        end
+    else
+        um = nil
+        for k,v in pairs ( utilContent[src] ) do guiSetVisible ( v, false ) end
+    end
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+function setButtonEffect ( button, txt )
+    guiSetAlpha          ( button, 1 )
+    playSoundFrontEnd    ( 42 )
+    setInfoText          ( txt )
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+function setPointing ( src, bool )
+    isPointing = bool
+    if bool then
+        pointedButton = src
+        handleKeyState ( "down" )
+    else
+        pointedButton = nil
+        handleKeyState ( "up" )
+    end
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
 function showValue ( k, s )
     if s == "down" and pointedButton and isPointing then
       	if ( k == "lctrl" or k == "rctrl" ) and not ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )  then 
@@ -210,6 +244,14 @@ function showValue ( k, s )
         guiSetText ( pointedButton, buttonValue )
         guiSetProperty ( pointedButton, "HoverTextColour", "FFFFFFFF" )
         buttonValue = nil
+    end
+end
+-------------------------------------------------------------------------------------------------------------------------
+-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
+-------------------------------------------------------------------------------------------------------------------------
+function handleKeyState ( str )
+    if getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) then showValue ( "lctrl", str )
+    elseif getKeyState ( "lshift" ) or getKeyState ( "rshift" ) then showValue ( "lshift", str )
     end
 end
 -------------------------------------------------------------------------------------------------------------------------

@@ -31,7 +31,7 @@ loadTemplate["extended"] = function ( )
     menuButton[7]      = guiCreateButton     ( 10,  384, 50,  50,  "Dyno",            false, mainWnd.window )
     menuButton[8]      = guiCreateButton     ( 10,  439, 50,  50,  "Help",            false, mainWnd.window )
     ---------------------------------------------------------------------------------------------------------------------
-    mainWnd.menuHeader = guiCreateLabel      ( 72,  58,  267, 15,  "",                false, mainWnd.window )
+    mainWnd.menuHeader = guiCreateLabel      ( 72,  58,  299, 15,  "",                false, mainWnd.window )
     ---------------------------------------------------------------------------------------------------------------------
     line[2]            = guiCreateLabel      ( 66,  63,  299, 15,  text.hr,           false, mainWnd.window )
     ---------------------------------------------------------------------------------------------------------------------
