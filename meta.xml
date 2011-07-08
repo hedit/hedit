@@ -21,12 +21,16 @@
     <script src="functions/updown.lua"               type="client"    />
     <script src="functions/importexport.lua"         type="client"    />
     <script src="functions/doClient.lua"             type="client"    />
+    <script src="functions/exports_c.lua"            type="client"    />
 
     <!-- Required Server-Scripts -->
     <script src="functions/doServer.lua"             type="server"    />
+    <script src="functions/exports_s.lua"            type="server"    /> 
     
     <!-- Required Config-Files -->
     <config src="config/limits.xml"                  type="client"    />
+
+    <!--Exports -->
     
     <!-- Settings -->
     <settings>

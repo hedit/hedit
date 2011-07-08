@@ -51,8 +51,8 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function loadClient ( data )
-    triggerServerEvent ( "loadClientHandling", localPlayer, pVeh, data, slog )
+function loadClient ( data, log )
+    triggerServerEvent ( "loadHandling", localPlayer, pVeh, data, log )
     setSaved ( true )
     showData ( pm )
 end
@@ -63,15 +63,17 @@ end
 
 function tryDelete ( )
     local grid = nil
-    if     guiGetVisible ( menuContent["saveclient"].grid ) then grid = menuContent["saveclient"].grid
-    elseif guiGetVisible ( menuContent["loadclient"].grid ) then grid = menuContent["loadclient"].grid
-    end
+    if guiGetVisible ( menuContent[cm].grid ) then grid = menuContent[cm].grid end
     if grid then
         local row,col = guiGridListGetSelectedItem ( grid )
         if row > -1 and col > -1 then
-            local name = string.lower ( guiGridListGetItemText ( grid, row, col ) )
-            if name and xmlSavesTable[name] then
-                guiCreateWarningMessage ( text.askToDelete, 1, {deleteHandling,name} )
+            if clientSave[cm] then
+                local name = string.lower ( guiGridListGetItemText ( grid, row, col ) )
+                if name and xmlSavesTable[name] then
+                    guiCreateWarningMessage ( text.askToDelete, 1, {deleteHandling,name} )
+                end
+            elseif serverSave[cm] then
+                -- To delete shared handlings
             end
         end
     end

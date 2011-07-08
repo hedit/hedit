@@ -1,4 +1,4 @@
-----|| ***************************************************************************************************************** [[
+--|| ***************************************************************************************************************** [[
 --|| PROJECT:       MTA Ingame Handling Editor
 --|| FILE:          functions/doServer.lua
 --|| DEVELOPERS:    Remi-X <rdg94@live.nl>
@@ -85,7 +85,7 @@ multiHandling = {
 --------------------------------------------------------------------------------------------------------------------------
 addEvent ( "saveSharedHandling",  true )
 addEvent ( "saveDefaultHandling", true )
-addEvent ( "loadClientHandling",  true )
+addEvent ( "loadHandling",        true )
 addEvent ( "setHandling",         true )
 addEvent ( "stopTheResource",     true )
 --------------------------------------------------------------------------------------------------------------------------
@@ -238,7 +238,7 @@ addEventHandler ( "saveDefaultHandling", root,
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
-addEventHandler ( "loadClientHandling", root,
+addEventHandler ( "loadHandling", root,
     function ( veh, data, log )
         if veh and data and log then
             for p,v in pairs ( data ) do
@@ -246,7 +246,7 @@ addEventHandler ( "loadClientHandling", root,
                     --outputDebugString ( "[HEDIT] Unable to load "..p.."("..handlingToString(p,v)..")!", 1 )
                 end
             end
-            triggerClientEvent ( source, "outputLog", source, log.loaded, 0 )
+            triggerClientEvent ( source, "outputLog", source, log, 0 )
         end
     end
 )

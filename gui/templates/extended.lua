@@ -164,7 +164,19 @@ loadTemplate["extended"] = function ( )
     guiGridListAddColumn ( menuContent["loadclient"].grid, "Model", 0.4 )
     ---------------------------------------------------------------------------------------------------------------------
     menuContent["uploadshared"] = {
+        grid             = guiCreateGridList ( 72,  83,  285, 246,                false, mainWnd.window ),
+        nameEdit         = guiCreateEdit     ( 72,  334, 212, 25,  "",            false, mainWnd.window ),
+        descriptionEdit  = guiCreateEdit     ( 72,  359, 212, 25,  "",            false, mainWnd.window ),
+        button           = guiCreateButton   ( 289, 334, 68,  50,  "Upload!",     false, mainWnd.window ),
+        nameLabel        = guiCreateLabel    ( 80,  334, 50,  12,  "Name",        false, mainWnd.window ),
+        descriptionLabel = guiCreateLabel    ( 80,  359, 50,  12,  "Description", false, mainWnd.window )
     }
+    guiGridListAddColumn ( menuContent["uploadshared"].grid, "Name",  0.6 )
+    guiGridListAddColumn ( menuContent["uploadshared"].grid, "Model", 0.4 )
+    guiLabelSetColor     ( menuContent["uploadshared"].nameLabel,        0, 0, 0 )
+    guiLabelSetColor     ( menuContent["uploadshared"].descriptionLabel, 0, 0, 0 )
+    guiSetFont           ( menuContent["uploadshared"].nameLabel,        "default-small" )
+    guiSetFont           ( menuContent["uploadshared"].descriptionLabel, "default-small" )
     ---------------------------------------------------------------------------------------------------------------------
     menuContent["downloadshared"] = {
     }
@@ -173,10 +185,14 @@ loadTemplate["extended"] = function ( )
     }
     ---------------------------------------------------------------------------------------------------------------------
     menuContent["import"] = {
+        memo   = guiCreateMemo   ( 72,  83,  285, 271, "",        false, mainWnd.window ),
+        button = guiCreateButton ( 72,  359, 285, 25,  "Import!", false, mainWnd.window )
     }
     ---------------------------------------------------------------------------------------------------------------------
     menuContent["export"] = {
+        memo   = guiCreateMemo   ( 72,  83,  285, 300, "",        false, mainWnd.window )
     }
+    guiSetEnabled ( menuContent["export"].memo, false )
     ---------------------------------------------------------------------------------------------------------------------
     menuContent["savetoresource"] = {
     }

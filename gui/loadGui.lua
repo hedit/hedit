@@ -140,6 +140,7 @@ function toggleEditor (  )
                 end
                 pVeh = cVeh
                 showData ( mProperty[1] )
+                updateData ( mProperty[1] )
                 setSaved ( )
                 if not vehLog[pVeh] then
                     for i,v in ipairs ( logTime ) do
@@ -229,7 +230,7 @@ function showValue ( k, s )
       	if ( k == "lctrl" or k == "rctrl" ) and not ( getKeyState ( "lshift" ) or getKeyState ( "rshift" ) )  then 
             buttonValue = guiGetText ( pointedButton )
             local pVehID = getElementModel ( pVeh )
-            local val = handlingToString ( hData[cm].h[ hButton[pointedButton] ], defaultHandling[pVehID][hData[cm].h[ hButton[pointedButton] ] ]  )
+            local val = handlingToString ( hData[cm].h[ hButton[pointedButton] ], defaultHandling[pVehID][hData[cm].h[ hButton[pointedButton] ] ]  )            local val = handlingToString ( hData[cm].h[ hButton[pointedButton] ], defaultHandling[pVehID][hData[cm].h[ hButton[pointedButton] ] ]  )
             guiSetText ( pointedButton, val )
             guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
         elseif ( k == "lshift" or k == "rshift" ) and not ( getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) )  then
@@ -254,7 +255,7 @@ function handleKeyState ( str )
     elseif getKeyState ( "lshift" ) or getKeyState ( "rshift" ) then showValue ( "lshift", str )
     end
 end
--------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
 -------------------------------------------------------------------------------------------------------------------------
 function onRenderCheck ( )
