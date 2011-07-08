@@ -53,12 +53,11 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 function showData ( m )
     if requireLogin[m] and getElementData ( localPlayer, "hAccount" ) == "guest" then
-        return guiCreateWarningMessage ( text.login, 0 )
-    end
+        return guiCreateWarningMessage ( text.login, 0 ) end
     if cm~=m then
         pm=cm
         cm=m
-    else return end
+    else return false end
     local txt = {
                   guiGetText ( mainWnd.infoHeader ),
                   guiGetText ( mainWnd.infoText )

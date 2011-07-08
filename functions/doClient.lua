@@ -21,6 +21,17 @@ end
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
+function table.size ( tab )
+    local length = 0
+    for _ in pairs ( tab ) do
+        length = length + 1 end
+    return length
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+
 function round ( num )
     if type(num)=="number" then return tonumber ( string.format ( "%.3f", num ) ) end
     return num
@@ -85,43 +96,42 @@ function stringToHandling ( property, str )
         local vX  = round ( tonumber ( gettok ( str, 1, 44 ) ) )
         local vY  = round ( tonumber ( gettok ( str, 2, 44 ) ) )
         local vZ  = round ( tonumber ( gettok ( str, 3, 44 ) ) )
-              str = { vX, vY, vZ }
-    elseif property == "ABS" then if str == "true" then str = true else str = false end
+              return { vX, vY, vZ }
+    elseif property == "ABS" then if str == "true" then return true else return false end
     elseif property == "driveType" then
-        if     str == "F" then str = "fwd"
-        elseif str == "R" then str = "rwd"
-        elseif str == "4" then str = "awd"
+        if     str == "F" then return "fwd"
+        elseif str == "R" then return "rwd"
+        elseif str == "4" then return "awd"
         end
     elseif property == "engineType" then
-        if     str == "E" then str = "electric"
-        elseif str == "P" then str = "petrol"
-        elseif str == "D" then str = "diesel"
+        if     str == "E" then return "electric"
+        elseif str == "P" then return "petrol"
+        elseif str == "D" then return "diesel"
         end
     elseif property == "modelFlags" or property == "handlingFlags" then
-        str = tonumber ( "0x"..str )
+        return tonumber ( "0x"..str )
     else
-        str = tonumber ( str )
+        return tonumber ( str )
     end
-    return str
+    return nil
 end
 
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
 
-function unpackHandling ( p, c, str )
-    local tbl = {}
-    local i = 1
+function unpackHandling ( str )
+    local tbl,i = {},1
+    local massChecked = false
     for w in string.gmatch ( str, "[^%s]+" ) do
-        if i==1 and not tonumber(w) then
-            tbl[2] = w
-            i=i+2
-        else
-            tbl[i] = w
+        if not massChecked and tonumber(w) then massChecked = true end
+        if massChecked then
+            if tbl[ hProperty[i+1] ] then tbl[ hProperty[i+1] ] = tbl[ hProperty[i+1] ]..", "..w
+            else tbl[ hProperty[i+1] ] = w end
             i=i+1
         end
     end
-    return tbl
+    return tbl -- table.size should return 33!
 end
 
 --------------------------------------------------------------------------------------------------------------------------

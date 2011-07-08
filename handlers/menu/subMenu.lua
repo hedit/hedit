@@ -17,8 +17,11 @@ subItemHandler["saveclient"] = function ( r, src, event )
             local row,col = guiGridListGetSelectedItem ( src )
             if row > -1 and col > -1 then
                 local name = string.lower ( guiGridListGetItemText ( src, row, col ) )
-                guiSetText ( r.nameEdit, xmlSavesTable[name].s )
-                setInfoText ( xmlSavesTable[name].s, xmlSavesTable[name].d, true )
+                guiMoveToBack ( r.nameLabel        )
+                guiMoveToBack ( r.descriptionLabel )
+                guiSetText    ( r.nameEdit,        xmlSavesTable[name].s )
+                guiSetText    ( r.descriptionEdit, xmlSavesTable[name].d )
+                setInfoText   ( xmlSavesTable[name].s, xmlSavesTable[name].d, true )
             end
         end
     elseif event == "editAccept" then
@@ -37,24 +40,24 @@ end
 
 subItemHandler["loadclient"] = function ( r, src, event )
     if event == "click" then
-        if src == menuContent["loadclient"].button or src == menuContent["loadclient"].grid then
-            local row,col = guiGridListGetSelectedItem ( menuContent["loadclient"].grid )
+        if src == r.button or src == r.grid then
+            local row,col = guiGridListGetSelectedItem ( r.grid )
             if row ~= -1 and col ~= -1 then
-                local name = string.lower ( guiGridListGetItemText ( menuContent["loadclient"].grid, row, col ) )
+                local name = string.lower ( guiGridListGetItemText ( r.grid, row, col ) )
                 if xmlSavesTable[name].s then
                     local data = {}
                     for k,v in pairs ( xmlSavesTable[name].h ) do
                         data[k] = stringToHandling ( k, v )
                     end
-                    if src == menuContent["loadclient"].button then
+                    if src == r.button then
                         if data then
                             if not isSaved[pVeh] then
                                 guiCreateWarningMessage ( text.askToLoad, 1, {loadClient,data} )
                             else
-                                loadClient ( data )
+                                loadClient ( data, slog.loaded )
                             end
                         end
-                    elseif src == menuContent["loadclient"].grid then
+                    elseif src == r.grid then
                         setInfoText ( xmlSavesTable[name].s, xmlSavesTable[name].d, true )
                     end
                 end
@@ -66,6 +69,29 @@ end
 --------------------------------------------------------------------------------------------------------------------------
 --//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
 --------------------------------------------------------------------------------------------------------------------------
+
+subItemHandler["import"] = function ( r, src, event )
+    if event == "click" and src == r.button then
+        local str = guiGetText ( r.memo )
+        if str ~= "" then
+            local data = unpackHandling ( str )
+            if data and table.size ( data ) == 33 then
+                local import = {}
+                for k,v in pairs ( data ) do import[k] = stringToHandling ( k, v, true ) end
+                loadClient ( import, slog.imported )
+            else
+                outputHandlingLog ( clog.unableImport, 2 )
+            end
+        else
+            outputHandlingLog ( clog.invalidImport, 2 )
+        end
+    end
+end
+
+--------------------------------------------------------------------------------------------------------------------------
+--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--
+--------------------------------------------------------------------------------------------------------------------------
+
 --[[subItemHandler["dynamometer"] = function ( r, src, event )
     if event == "click" and src == menuContent["dynamometer"].button then
         fadeCamera        ( false )

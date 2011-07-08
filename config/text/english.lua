@@ -55,10 +55,13 @@ loadTranslation["english"] = function ( )
     clog.noAccount              = "You are not logged in! Please login first."
     clog.invalidSave            = "Please refer a save name and/or description."
     clog.saved                  = "Your handling has been succesfully saved."
+    clog.invalidimport          = "Please enter a handling line."
+    clog.unableImport           = "Unable to import that handling. Make sure it is correct."
     clog.deletedHandling        = "Deleted handling %s."
     slog.succes                 = "%s set to %s."
     slog.unable                 = "Unable to set the %s to %s!"
     slog.loaded                 = "That handling has been succesfully loaded."
+    slog.imported               = "Succesfully imported your handling line."
     -------------------------------------------------------------------------------------------------------------------------
     -- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// --
     -------------------------------------------------------------------------------------------------------------------------
