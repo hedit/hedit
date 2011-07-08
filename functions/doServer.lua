@@ -428,16 +428,17 @@ addEventHandler ( "setHandling", root,
     function ( veh, handling, data, dname, log )
         local d = handlingToString ( handling, data )
         ------------------------------------------------------------------------------------------------------------------
-        local pName    = getPlayerName ( source )
-        local vName    = getVehicleName ( veh )
-        local vModel   = getElementModel ( veh )
-        local hCurrent = handlingToString ( handling, getVehicleHandling ( veh )[handling] )
-        local time     = getRealTime ( )
-        local tStamp   = string.format ( "[%02d:%02d:%02d]", time.hour, time.minute, time.second )
+        local pName      = getPlayerName ( source )
+        local vName      = getVehicleName ( veh )
+        local vModel     = getElementModel ( veh )
+        local hCurrent   = getVehicleHandling ( veh )[handling]
+        local strCurrent = handlingToString ( handling, hCurrent )
+        local time       = getRealTime ( )
+        local tStamp     = string.format ( "[%02d:%02d:%02d]", time.hour, time.minute, time.second )
         if logFile then
             local size = fileGetSize ( logFile )
             fileSetPos ( logFile, size )
-            fileWrite ( logFile, tStamp.." "..pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..hCurrent.." to "..d.."\r\n" )
+            fileWrite ( logFile, tStamp.." "..pName.." changed his "..vName.."("..vModel..")".." "..handling.." from "..strCurrent.." to "..d.."\r\n" )
             fileFlush ( logFile )
         end
         ------------------------------------------------------------------------------------------------------------------
@@ -450,6 +451,11 @@ addEventHandler ( "setHandling", root,
         end
         ------------------------------------------------------------------------------------------------------------------
         triggerClientEvent ( source, "outputLog", source, str, lvl )
+        ------------------------------------------------------------------------------------------------------------------
+        if lvl == 0 then
+            triggerClientEvent ( source, "onClientVehicleHandlingChange", veh, handling, hCurrent, data, dname )
+            triggerEvent ( "onVehicleHandlingChange", veh, source, handling, hCurrent, data, dname )
+        end
     end
 )
 --------------------------------------------------------------------------------------------------------------------------
