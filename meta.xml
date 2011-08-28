@@ -1,6 +1,6 @@
 <meta>
     <info name="Ingame Handling Editor" version="2.0.0" type="script" author="Remi-X" description="The first, and only ingame handling editor available for San Andreas, made with MTA ofcourse!" />
-
+	
     <!-- Required Client-Scripts -->
     <script src="config/vars.lua"                    type="client"    />
     <script src="config/text/english.lua"            type="client"    />
@@ -21,11 +21,11 @@
     <script src="functions/updown.lua"               type="client"    />
     <script src="functions/importexport.lua"         type="client"    />
     <script src="functions/doClient.lua"             type="client"    />
-    <script src="functions/exports_c.lua"            type="client"    />
+    <!--script src="functions/exports_c.lua"            type="client"    /-->
 
     <!-- Required Server-Scripts -->
     <script src="functions/doServer.lua"             type="server"    />
-    <script src="functions/exports_s.lua"            type="server"    /> 
+    <!--script src="functions/exports_s.lua"            type="server"    /--> 
     
     <!-- Required Config-Files -->
     <config src="config/limits.xml"                  type="client"    />
