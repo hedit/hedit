@@ -340,9 +340,9 @@ function saveClientHandling ( vehicle, name, description )
     for p,v in pairs ( getVehicleHandling ( vehicle ) ) do
         local str = valueToString ( p, v )
         handling[p] = str
-        --[[if not xmlNodeSetAttribute ( handlingnode, p, str ) then
-            outputChatBox ( "str: "..tostring ( str ) )
-        end]]
+        if not xmlNodeSetAttribute ( handlingnode, p, str ) and DEBUGMODE then
+            outputDebugString ( "Cant write attribute! property: "..tostring(property).." - str: "..tostring(str) )
+        end
     end
 
     xmlSaveFile ( xmlFile[client_handling_file] )
