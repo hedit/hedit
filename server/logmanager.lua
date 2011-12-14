@@ -1,4 +1,28 @@
-setElementData ( root, "hedit:vehicleLogs", {}, false )
+local vehicleLogs = {}
+
+function loadHandlingLog ( )
+    local data = getElementData ( root, "hedit:vehicleLogs" )
+
+    if data then
+        vehicleLogs = data
+    end
+
+    return true
+end
+
+
+
+
+
+function unloadHandlingLog ( )
+    setElementData ( root, "hedit:vehicleLogs", vehicleLogs, false )
+
+    return true
+end
+
+
+
+
 
 function addLogEntry ( vehicle, player, textPointer, arguments, oldValue, level )
     if not isValidVehicle ( vehicle ) then
@@ -22,8 +46,6 @@ function addLogEntry ( vehicle, player, textPointer, arguments, oldValue, level 
     end
     
     
-    
-    local vehicleLogs = getElementData ( root, "hedit:vehicleLogs" )
     
     if not vehicleLogs[vehicle] then
         vehicleLogs[vehicle] = {}
@@ -60,8 +82,7 @@ function addLogEntry ( vehicle, player, textPointer, arguments, oldValue, level 
             triggerClientEvent ( occupant, "addToLogGUI", occupant, addingEntry )
         end
     end
-    
-    setElementData ( root, "hedit:vehicleLogs", vehicleLogs, false )
+
     return true
 end
 addEvent ( "addToLog", true )
@@ -76,7 +97,7 @@ function uploadMiniLog ( vehicle, amountToSend )
         return false
     end
     
-    local fullLog = getElementData(root,"hedit:vehicleLogs")[vehicle]
+    local fullLog = vehicleLogs[vehicle]
     local toSend = {}
     
     if type ( fullLog ) == "table" then
