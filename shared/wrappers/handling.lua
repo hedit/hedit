@@ -187,8 +187,15 @@ function setVehicleHandling ( vehicle, property, value, withLog )
             --end
             
         --else
-        
-            addLogEntry ( vehicle, client, "successRegular", { property, value }, oldValue, 1 )
+            local data = getVehicleHandling ( vehicle )[property]
+            if property == "centerOfMass" then
+                local hnd = getVehicleHandling ( vehicle )
+                data = math.round ( hnd.centerOfMassX )..", "..math.round ( hnd.centerOfMassY )..", "..math.round ( hnd.centerOfMassZ )
+            elseif type ( data ) == "number" then
+                data = tostring ( math.round ( data ) )
+            end
+
+            addLogEntry ( vehicle, client, "successRegular", { property, data }, oldValue, 1 )
             
         --end
 
@@ -274,9 +281,6 @@ end
 
 
 function conformHandlingTable ( handling, model )
-    
-    --[[outputChatBox ( handling["modelFlags"] )
-    outputChatBox ( handling["handlingFlags"] )]]
     handling["identifier"] = getVehicleIdentifierByModel ( model )
     handling["centerOfMassX"] = handling["centerOfMass"][1]
     handling["centerOfMassY"] = handling["centerOfMass"][2]
