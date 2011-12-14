@@ -1,13 +1,3 @@
---|| ***************************************************************************************************************** [[
---|| PROJECT:       MTA Ingame Handling Editor
---|| FILE:          wrappers/handling_shared.lua
---|| DEVELOPERS:    Remi-X <rdg94@live.nl>
---|| PURPOSE:       Wrapping the handling functions to make them compatible with the Handling Editor.
---||
---|| COPYRIGHTED BY REMI-X
---|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
---|| ***************************************************************************************************************** ]]
-
 _getOriginalHandling = getOriginalHandling
 _getVehicleHandling = getVehicleHandling
 if serverside then

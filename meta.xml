@@ -9,7 +9,6 @@
     
     <script src="client/gui/templates/default.lua"  type="client" />
     <script src="client/gui/languages/english.lua"  type="client" />
-    <script src="client/gui/languages/arabic.lua"   type="client" />
     <script src="client/gui/guicreator.lua"         type="client" />
     <script src="client/gui/guimanager.lua"         type="client" />
     <script src="client/gui/guievents.lua"          type="client" />
