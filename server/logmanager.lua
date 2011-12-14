@@ -1,4 +1,4 @@
-setElementData ( root, "hedit:vehicleLogs", {} )
+setElementData ( root, "hedit:vehicleLogs", {}, false )
 
 function addLogEntry ( vehicle, player, textPointer, arguments, oldValue, level )
     if not isValidVehicle ( vehicle ) then
