@@ -57,7 +57,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Languages", "Languages", "{0061B2DC-4F7B-44F1-848E-1151F7AF315D}"
 	ProjectSection(SolutionItems) = preProject
-		client\gui\languages\arabic.lua = client\gui\languages\arabic.lua
 		client\gui\languages\english.lua = client\gui\languages\english.lua
 	EndProjectSection
 EndProject

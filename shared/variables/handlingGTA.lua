@@ -1,13 +1,3 @@
---|| ***************************************************************************************************************** [[
---|| PROJECT:       MTA Ingame Handling Editor
---|| FILE:          config/variables/handlingGTA_shared.lua
---|| DEVELOPERS:    Remi-X <rdg94@live.nl>
---|| PURPOSE:       Shared variables about the handling of San Andreas itself
---||
---|| COPYRIGHTED BY REMI-X
---|| YOU ARE NOT ALLOWED TO MAKE MIRRORS OR RE-RELEASES OF THIS SCRIPT WITHOUT PERMISSION FROM THE OWNERS
---|| ***************************************************************************************************************** ]]
-
 vehicleModelIdentifier = {
     [400] = "LANDSTAL",
     [401] = "BRAVURA",
