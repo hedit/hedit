@@ -42,8 +42,19 @@ addEventHandler ( "onResourceStart", resourceRoot, function ( )
         setElementData ( root, "originalHandling."..tostring ( model ), getOriginalHandling ( model, true ) )
     end
     
-    initiateCFGLoader ( )
+    --initiateCFGLoader ( )
+    loadHandlingLog ( )
     
+    return true
+end )
+
+
+
+
+
+addEventHandler ( "onResourceStop", resourceRoot, function ( )
+    unloadHandlingLog ( )
+
     return true
 end )
 
