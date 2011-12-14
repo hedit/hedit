@@ -1,5 +1,5 @@
 setting = {
-    usedKey = "k",
+    usedKey = "b",
     usedCommand = "hedit",
     language = "english",
     template = "default",
