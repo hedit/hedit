@@ -18,7 +18,7 @@ guicache = {
 
 
 client_config_file = "settings_c.xml"
-client_handling_file = "handlings_c.xml"
+client_handling_file = "saves/saves.xml" -- handlings_c.xml
 
 
 
