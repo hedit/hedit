@@ -1,5 +1,5 @@
 guiLanguage.english = {
-    windowHeader = "Handling Editor v2.0 RC1 - By Remi-X",
+    windowHeader = "Handling Editor v"..EDITOR_VERSION.." r"..EDITOR_REVISION.." - By Remi-X",
     
     restrictedPassenger = "You are not allowed to edit the handling as a passenger.",
     needVehicle = "You need a vehicle in order to open the handling editor! You can't just edit some air :V",
@@ -7,6 +7,10 @@ guiLanguage.english = {
     needAdmin = "You need to be an administrator in order to access this menu.",
     invalidMenu = "This menu does not exist!",
     disabledMenu = "Sorry, this menu has been disabled from access.",
+    notifyUpdate = "The handling editor has been updated since the last time you've used it. Would you like to see a list of changes now? \nYou can always see the list of changes at 'Extra > Updates'",
+    notifyUpgrade = "The handling editor has been UPGRADED. This means some of your files, such as saved handlings have been changed to another format. As a result, servers with an outdated version of hedit are not fully supported.\nWould you like to see a list of changes now? \nYou can always see the list of changes at 'Extra > Updates'",
+    outdatedUpdate = "This server runs an outdated version of the handling editor. Because if this, there might be some features you are missing.\nPlease contact the serverowner to update his version of the handling editor.",
+    outdatedUpgrade = "This server runs an extremely outdated version of the handling editor. Because of this, some of your files may be newer than the ones this server supports.\nPlease contact the serverowner to update his version of the handling editor as soon as possible!",
     
     sameValue = "The %s is already that!",
     exceedLimits = "Value used at %s exceeded limits [%s]!",
@@ -51,7 +55,7 @@ guiLanguage.english = {
     utilbuttons = {
         handling = "Handling",
         tools = "Tools",
-        options = "Settings",
+        extra = "Extra",
         close = "X"
     },
 
@@ -188,6 +192,10 @@ guiLanguage.english = {
         handlinglog = {
             shortname = "Handlinglog",
             longname = "Handling log"
+        },
+        updatelist = {
+            shortname = "Updates",
+            longname = "15 latest updates"
         }
     },
     
