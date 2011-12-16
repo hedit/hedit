@@ -66,6 +66,8 @@ function startBuilding ( )
     toggleEvents ( window, true )
     
     forceVehicleChange ( )
+
+    checkTheUpdates ( ) -- We check the updates after the gui has been build, because like this the updates will get listed upon a setting change too.
     
     bindKey ( getUserConfig ( "usedKey" ), "down", toggleEditor )
     addCommandHandler ( getUserConfig ( "usedCommand" ), toggleEditor )

@@ -21,7 +21,7 @@ addEventHandler ( "onClientPlayerVehicleExit", localPlayer,
     end
 )
 
--- Starting to enter a vehicle normally.
+-- Starting to enter a vehicle normally. I NEED onClientVehicleAbortEnter!
 --[[addEventHandler ( "onClientVehicleStartEnter", root,
     function ( player )
         if player == localPlayer then
@@ -34,7 +34,8 @@ addEventHandler ( "onClientPlayerVehicleExit", localPlayer,
 -- And exiting normally.
 addEventHandler ( "onClientVehicleStartExit", root,
     function ( player )
-        if player == localPlayer then
+         -- Possible fix for when someone is trying to jack a locked vehicle, you cant open the editor anymore.
+        if player == localPlayer and not isVehicleLocked ( vehicle ) then
             clearLog ( )
             pVehicle = false
             setVisible ( false )

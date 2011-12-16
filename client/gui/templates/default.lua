@@ -76,14 +76,15 @@ guiTemplate.default = {
                 "share"
             }
         },
-        options = {
+        extra = {
             type = "button",
             pos = { 140, 22 },
             size = { 60, 19 },
             hovercolor = { 255, 27, 224, 224 },
             items = {
                 "options",
-                "administration"
+                "administration",
+                "updatelist"
             }
         },
         close = {
@@ -289,6 +290,9 @@ guiTemplate.default = {
                 }
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         redirect_handlingflags = {
             redirect = "THIS_IS_ONE",
             content = {
@@ -507,6 +511,8 @@ guiTemplate.default = {
             }
         },
         
+        ------------------------------------------------------------------------------------------------
+
         --// MENU BUTTONS
         engine = {
             requirelogin = false,
@@ -523,6 +529,9 @@ guiTemplate.default = {
                 "collisionDamageMultiplier"
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         body = {
             requirelogin = false,
             requireadmin = false,
@@ -542,6 +551,9 @@ guiTemplate.default = {
                 "suspensionFrontRearBias"
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         wheels = {
             requirelogin = false,
             requireadmin = false,
@@ -554,6 +566,9 @@ guiTemplate.default = {
                 "brakeBias"
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         appearance = {
             requirelogin = false,
             requireadmin = false,
@@ -563,6 +578,9 @@ guiTemplate.default = {
                 "seatOffsetDistance"
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         modelflags = {
             requirelogin = false,
             requireadmin = false,
@@ -571,6 +589,9 @@ guiTemplate.default = {
                 "modelFlags"
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         handlingflags = {
             requirelogin = false,
             requireadmin = false,
@@ -579,6 +600,9 @@ guiTemplate.default = {
                 "handlingFlags"
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         dynamometer = {
             requirelogin = false,
             requireadmin = false,
@@ -586,6 +610,9 @@ guiTemplate.default = {
             content = {
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         help = {
             requirelogin = false,
             requireadmin = false,
@@ -606,6 +633,8 @@ guiTemplate.default = {
                 }]]
             }
         },
+
+        ------------------------------------------------------------------------------------------------
         
         --// UTILITY
         reset = {
@@ -673,6 +702,9 @@ guiTemplate.default = {
                 }
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         save = {
             requirelogin = false,
             requireadmin = false,
@@ -831,6 +863,9 @@ guiTemplate.default = {
                 }
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         load = {
             requirelogin = false,
             requireadmin = false,
@@ -920,6 +955,9 @@ guiTemplate.default = {
                 }
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         import = {
             requirelogin = false,
             requireadmin = false,
@@ -929,6 +967,9 @@ guiTemplate.default = {
                         type = "checkbox",
                         pos = { 72, 83 },
                         size = { 72, 15 },
+                        runfunction = function ( this )
+                            guiSetEnabled ( this, false )
+                        end,
                         events = {
                             onClick = function ( this )
                                 for k,v in pairs ( heditGUI.menuItems.import.guiItems.methods ) do
@@ -942,6 +983,9 @@ guiTemplate.default = {
                         type = "checkbox",
                         pos = { 144, 83 },
                         size = { 71, 15 },
+                        runfunction = function ( this )
+                            guiSetEnabled ( this, false )
+                        end,
                         events = {
                             onClick = function ( this )
                                 for k,v in pairs ( heditGUI.menuItems.import.guiItems.methods ) do
@@ -955,6 +999,9 @@ guiTemplate.default = {
                         type = "checkbox",
                         pos = { 215, 83 },
                         size = { 71, 15 },
+                        runfunction = function ( this )
+                            guiSetEnabled ( this, false )
+                        end,
                         events = {
                             onClick = function ( this )
                                 for k,v in pairs ( heditGUI.menuItems.import.guiItems.methods ) do
@@ -971,6 +1018,9 @@ guiTemplate.default = {
                         type = "checkbox",
                         pos = { 286, 83 },
                         size = { 71, 15 },
+                        runfunction = function ( this )
+                            guiSetEnabled ( this, false )
+                        end,
                         events = {
                             onClick = function ( this )
                                 for k,v in pairs ( heditGUI.menuItems.import.guiItems.methods ) do
@@ -1009,6 +1059,9 @@ guiTemplate.default = {
                 }
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         export = {
             requirelogin = false,
             requireadmin = false,
@@ -1041,6 +1094,9 @@ guiTemplate.default = {
                 }
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         get = {
             requirelogin = false,
             requireadmin = false,
@@ -1048,6 +1104,9 @@ guiTemplate.default = {
             content = {
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         share = {
             requirelogin = false,
             requireadmin = false,
@@ -1055,6 +1114,9 @@ guiTemplate.default = {
             content = {
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         upload = {
             requirelogin = true,
             requireadmin = true,
@@ -1062,6 +1124,9 @@ guiTemplate.default = {
             content = {
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         download = {
             requirelogin = false,
             requireadmin = false,
@@ -1069,6 +1134,9 @@ guiTemplate.default = {
             content = {
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         resourcesave = {
             requirelogin = true,
             requireadmin = true,
@@ -1076,6 +1144,9 @@ guiTemplate.default = {
             content = {
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         resourceload = {
             requirelogin = true,
             requireadmin = true,
@@ -1083,6 +1154,9 @@ guiTemplate.default = {
             content = {
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         options = {
             requirelogin = false,
             requireadmin = false,
@@ -1211,6 +1285,9 @@ guiTemplate.default = {
                 guiComboBoxSetSelected ( content.combo_commode, guicache.optionmenu_item[ getUserConfig ( "commode" ) ] )
             end
         },
+
+        ------------------------------------------------------------------------------------------------
+
         administration = {
             requirelogin = true,
             requireadmin = true,
@@ -1218,12 +1295,29 @@ guiTemplate.default = {
             content = {
             }
         },
+
+        ------------------------------------------------------------------------------------------------
+
         handlinglog = {
             requirelogin = false,
             requireadmin = false,
             disable = true,
             content = {
                 logpane = {
+                    type = "scrollpane",
+                    pos = { 73, 77 },
+                    size = { 290, 300 }
+                }
+            }
+        },
+
+        ------------------------------------------------------------------------------------------------
+
+        updatelist = {
+            requirelogin = false,
+            requireadmin = false,
+            content = {
+                scrollpane = {
                     type = "scrollpane",
                     pos = { 73, 77 },
                     size = { 290, 300 }

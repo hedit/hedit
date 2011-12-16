@@ -1,46 +1,14 @@
 <meta>
     <info type="script" name="Ingame Handling Editor" author="Remi-X" version="2.0.0" description="The first, and only ingame handling editor available for San Andreas, made with MTA ofcourse!" />
-    
-    
-    
-    <!-- CLIENT -->
-    <script src="client/variables/general.lua"      type="client" />
-    <script src="client/variables/vehicle.lua"      type="client" />
-    
-    <script src="client/gui/templates/default.lua"  type="client" />
-    <script src="client/gui/languages/english.lua"  type="client" />
-    <script src="client/gui/guicreator.lua"         type="client" />
-    <script src="client/gui/guimanager.lua"         type="client" />
-    <script src="client/gui/guievents.lua"          type="client" />
-    <script src="client/gui/guifunctions.lua"       type="client" />
-    <script src="client/gui/guiwrapper.lua"         type="client" />
-    <script src="client/gui/waringwnd.lua"          type="client" />
-    
-    <script src="client/logmanager.lua"             type="client" />
-    <script src="client/settings.lua"               type="client" />
-    <script src="client/cfgloader.lua"              type="client" />
-    <script src="client/utils.lua"                  type="client" />
-    <script src="client/exports.lua"                type="client" />
-    <script src="client/core.lua"                   type="client" />
-    
-    
-    
-    <!-- SERVER -->
-    <script src="server/logmanager.lua"             type="server" />
-    <script src="server/cfgloader.lua"              type="server" />
-    <script src="server/exports.lua"                type="server" />
-    <script src="server/core.lua"                   type="server" />
-    <script src="server/utils.lua"                  type="server" />
-    
-    
-    
+
+
     <!-- SHARED -->
     <script src="shared/variables/general.lua"      type="client" />
     <script src="shared/variables/general.lua"      type="server" />
-    
+
     <script src="shared/variables/handlingMTA.lua"  type="client" />
     <script src="shared/variables/handlingMTA.lua"  type="server" />
-    
+
     <script src="shared/variables/handlingGTA.lua"  type="client" />
     <script src="shared/variables/handlingGTA.lua"  type="server" />
 
@@ -58,4 +26,38 @@
 
     <script src="shared/exports.lua"                type="client" />
     <script src="shared/exports.lua"                type="server" />
+
+
+
+
+
+    <!-- CLIENT -->
+    <script src="client/variables/general.lua"      type="client" />
+    <script src="client/variables/vehicle.lua"      type="client" />
+    
+    <script src="client/gui/templates/default.lua"  type="client" />
+    <script src="client/gui/languages/english.lua"  type="client" />
+    <script src="client/gui/guicreator.lua"         type="client" />
+    <script src="client/gui/guimanager.lua"         type="client" />
+    <script src="client/gui/guievents.lua"          type="client" />
+    <script src="client/gui/guifunctions.lua"       type="client" />
+    <script src="client/gui/guiwrapper.lua"         type="client" />
+    <script src="client/gui/waringwnd.lua"          type="client" />
+    
+    <script src="client/logmanager.lua"             type="client" />
+    <script src="client/updates.lua"                type="client" />
+    <script src="client/settings.lua"               type="client" />
+    <script src="client/cfgloader.lua"              type="client" />
+    <script src="client/utils.lua"                  type="client" />
+    <script src="client/exports.lua"                type="client" />
+    <script src="client/core.lua"                   type="client" />
+    
+    
+    
+    <!-- SERVER -->
+    <script src="server/logmanager.lua"             type="server" />
+    <script src="server/cfgloader.lua"              type="server" />
+    <script src="server/exports.lua"                type="server" />
+    <script src="server/core.lua"                   type="server" />
+    <script src="server/utils.lua"                  type="server" />
 </meta>

@@ -554,7 +554,7 @@ function setUserConfig ( config, value )
         return false
     end
     
-    if not value then 
+    if not value then
         return false
     end
     

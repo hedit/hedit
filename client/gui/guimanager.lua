@@ -145,7 +145,6 @@ end
 
 function toggleEditor ( )
     local window = heditGUI.window
-    local text = getUserLanguage ( )
     
     if guiGetVisible ( window ) then
         guiToggleUtilityDropDown ( currentUtil )
@@ -182,8 +181,38 @@ function toggleEditor ( )
             guiDestroyWarningWindow ( )
         end
         
+        -- Show the editor before notifying updates or upgrades.
         setVisible ( true )
-        
+
+        -- If a server runs an older version, or doesnt meet your version of data files, show a message.
+        local ver = tonumber ( getUserConfig ( "version" ) )
+        local minver = tonumber ( getUserConfig ( "minVersion" ) )
+
+        if ver > EDITOR_REVISION then
+
+            if minver > EDITOR_MINIMUM_REVISION then
+                guiCreateWarningMessage ( getText ( "outdatedUpgrade" ), 0 )
+            else
+                guiCreateWarningMessage ( getText ( "outdatedUpdate" ), 0 )
+            end
+
+        end
+
+        -- Notify the player upon an update or upgrade
+        if getUserConfig ( "notifyUpdate" ) == "true" then
+
+            guiDestroyWarningWindow ( )
+            guiCreateWarningMessage ( getText ( "notifyUpdate" ), 1, {guiShowMenu,"updatelist"} )
+            setUserConfig ( "notifyUpdate", "false" )
+
+        elseif getUserConfig ( "notifyUpgrade" ) == "true" then
+
+            guiDestroyWarningWindow ( )
+            guiCreateWarningMessage ( getText ( "notifyUpgrade" ), 1, {guiShowMenu,"updatelist"} )
+            setUserConfig ( "notifyUpgrade", "false" )
+
+        end
+
         return true
     end
     
