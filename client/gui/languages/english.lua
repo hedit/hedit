@@ -108,7 +108,7 @@ guiLanguage.english = {
                             "Well unfortunately, the handling editor can't do anything to this. MTA 1.2 uses another installation folder than MTA 1.1, and thus your saves are located somewhere else.\n"..
                             "Luckily: Uou don't have to be affraid for losing them forever. There are two ways to get your handlings back:\n"..
                             " - You can EXPORT all your handlings from MTA 1.1, save them at your desktop, and import them again with 1.2. But this requires a lot of work.\n"..
-                            " - Thats why I reccomand you the easier way, migrating your old saves file to MTA 1.2. Please go to the following link, and follor the 'Migrate' tutorial. This will help your out!",
+                            " - Thats why I recommend you migrate your old save file to MTA 1.2. Please go to the following link, and follow the 'Migrate' tutorial.",
                 websitebox = "http://hedit.googlecode.com/",
                 morelabel = "Well, hopefully the rest goes well. If something goes wrong, dont hestitate to ask the admins on the beta test :)"
             }
