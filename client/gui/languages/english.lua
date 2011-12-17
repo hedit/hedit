@@ -11,6 +11,7 @@ guiLanguage.english = {
     notifyUpgrade = "The handling editor has been UPGRADED. This means some of your files, such as saved handlings have been changed to another format. As a result, servers with an outdated version of hedit are not fully supported.\nWould you like to see a list of changes now? \nYou can always see the list of changes at 'Extra > Updates'",
     outdatedUpdate = "This server runs an outdated version of the handling editor. Because if this, there might be some features you are missing.\nPlease contact the serverowner to update his version of the handling editor.",
     outdatedUpgrade = "This server runs an extremely outdated version of the handling editor. Because of this, some of your files may be newer than the ones this server supports.\nPlease contact the serverowner to update his version of the handling editor as soon as possible!",
+    notifyHandlingDelete = "As of MTA 1.2, your saved handlings are NOT present anymore. Would you like to see how you can solve this?\nYou can always see it later at the 'help' menu.",
     
     sameValue = "The %s is already that!",
     exceedLimits = "Value used at %s exceeded limits [%s]!",
@@ -103,7 +104,13 @@ guiLanguage.english = {
             shortname = "Help",
             longname = "Help",
             itemtext = {
-                textlabel = ""
+                textlabel = "Hello, and welcome to the MTA 1.2 mass beta test! You probably came here because of a problem: All your saved handlings are gone.\n"..
+                            "Well unfortunately, the handling editor can't do anything to this. MTA 1.2 uses another installation folder than MTA 1.1, and thus your saves are located somewhere else.\n"..
+                            "Luckily: Uou don't have to be affraid for losing them forever. There are two ways to get your handlings back:\n"..
+                            " - You can EXPORT all your handlings from MTA 1.1, save them at your desktop, and import them again with 1.2. But this requires a lot of work.\n"..
+                            " - Thats why I reccomand you the easier way, migrating your old saves file to MTA 1.2. Please go to the following link, and follor the 'Migrate' tutorial. This will help your out!",
+                websitebox = "http://hedit.googlecode.com/",
+                morelabel = "Well, hopefully the rest goes well. If something goes wrong, dont hestitate to ask the admins on the beta test :)"
             }
         },
         reset = {

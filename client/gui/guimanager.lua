@@ -210,6 +210,12 @@ function toggleEditor ( )
             guiDestroyWarningWindow ( )
             guiCreateWarningMessage ( getText ( "notifyUpgrade" ), 1, {guiShowMenu,"updatelist"} )
             setUserConfig ( "notifyUpgrade", "false" )
+        
+        elseif getUserConfig ( "notifyHandlingDelete" ) == "true" then
+            
+            guiDestroyWarningWindow ( )
+            guiCreateWarningMessage ( getText ( "notifyHandlingDelete" ), 1, {guiShowMenu,"help"} )
+            setUserConfig ( "notifyHandlingDelete", "false" )
 
         end
 

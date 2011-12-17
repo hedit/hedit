@@ -625,12 +625,32 @@ guiTemplate.default = {
                     type = "scrollpane",
                     pos = { 73, 77 },
                     size = { 290, 300 }
-                },
+                },]]
                 textlabel = {
                     type = "label",
                     pos = { 73, 77 },
-                    size = { 290, 100 }
-                }]]
+                    size = { 290, 200 },
+                    runfunction = function ( this )
+                        guiLabelSetHorizontalAlign ( this, "left", true )
+                        guiSetFont ( this, "default-small" )
+                    end
+                },
+                websitebox = {
+                    type = "editbox",
+                    pos = { 73, 220 },
+                    size = { 290, 30 },
+                    runfunction = function ( this )
+                        guiSetEnabled ( this, false )
+                    end
+                },
+                morelabel = {
+                    type = "label",
+                    pos = { 73, 250 },
+                    size = { 290, 50 },
+                    runfunction = function ( this )
+                        guiLabelSetHorizontalAlign ( this, "left", true )
+                    end
+                }
             }
         },
 
