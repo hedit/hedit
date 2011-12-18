@@ -44,7 +44,7 @@ function guiCreateWarningMessage ( text, level, buttonAccept, buttonDecline )
 	--
 	-- TODO: Properly mplement a warning type system to determine both the string and image type to be used.
 	--
-    guiCreateStaticImage( 9, 25, 100,100, "client/warning/info.png", false, warningWnd )
+    guiCreateStaticImage( 9, 25, 100,100, "images/info.png", false, warningWnd )
     guiLabelSetHorizontalAlign ( label, "left", true )
     guiSetFont ( label, "default-small" ) -- Need some advanced length-checker to avoid the resizing.
     

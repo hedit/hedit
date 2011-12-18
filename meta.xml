@@ -52,10 +52,10 @@
     <script src="client/exports.lua"                type="client" />
     <script src="client/core.lua"                   type="client" />
 	
-	<file src="warning.png"                  		type="client" />
-	<file src="question.png"                  		type="client" />
-	<file src="error.png"                  			type="client" />
-	<file src="info.png"              	    		type="client" />
+	<file src="images/warning.png"                  		type="client" />
+	<file src="images/question.png"                  		type="client" />
+	<file src="images/error.png"                  			type="client" />
+	<file src="images/info.png"              	    		type="client" />
     
     
     
