@@ -42,7 +42,7 @@
     <script src="client/gui/guievents.lua"          type="client" />
     <script src="client/gui/guifunctions.lua"       type="client" />
     <script src="client/gui/guiwrapper.lua"         type="client" />
-    <script src="client/gui/waringwnd.lua"          type="client" />
+    <script src="client/gui/warningwnd.lua"          type="client" />
     
     <script src="client/logmanager.lua"             type="client" />
     <script src="client/updates.lua"                type="client" />
@@ -51,6 +51,11 @@
     <script src="client/utils.lua"                  type="client" />
     <script src="client/exports.lua"                type="client" />
     <script src="client/core.lua"                   type="client" />
+	
+	<file src="warning.png"                  		type="client" />
+	<file src="question.png"                  		type="client" />
+	<file src="error.png"                  			type="client" />
+	<file src="info.png"              	    		type="client" />
     
     
     
@@ -59,5 +64,4 @@
     <script src="server/cfgloader.lua"              type="server" />
     <script src="server/exports.lua"                type="server" />
     <script src="server/core.lua"                   type="server" />
-    <script src="server/utils.lua"                  type="server" />
-</meta>
+    <script src="server/utils.lua"                  type="server" /></meta>

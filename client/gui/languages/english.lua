@@ -1,58 +1,66 @@
 guiLanguage.english = {
-    windowHeader = "Handling Editor v"..EDITOR_VERSION.." r"..EDITOR_REVISION.." - By Remi-X",
+    --
+	-- GENERAL STRINGS
+	--
+	windowHeader = "Handling Editor v"..EDITOR_VERSION.." r"..EDITOR_REVISION,
     
-    restrictedPassenger = "You are not allowed to edit the handling as a passenger.",
-    needVehicle = "You need a vehicle in order to open the handling editor! You can't just edit some air :V",
-    needLogin = "You need to be logged in in order to view this menu.",
-    needAdmin = "You need to be an administrator in order to access this menu.",
+    restrictedPassenger = "You are not allowed to use the handling editor as a passenger.",
+    needVehicle = "You must be driving a vehicle to use the handling editor!",
+    needLogin = "You must be logged in in order to view this menu.",
+    needAdmin = "You must be logged in as an administrator to access this menu.",
     invalidMenu = "This menu does not exist!",
-    disabledMenu = "Sorry, this menu has been disabled from access.",
+    disabledMenu = "This menu has been disabled.",
     notifyUpdate = "The handling editor has been updated since the last time you've used it. Would you like to see a list of changes now? \nYou can always see the list of changes at 'Extra > Updates'",
     notifyUpgrade = "The handling editor has been UPGRADED. This means some of your files, such as saved handlings have been changed to another format. As a result, servers with an outdated version of hedit are not fully supported.\nWould you like to see a list of changes now? \nYou can always see the list of changes at 'Extra > Updates'",
-    outdatedUpdate = "This server runs an outdated version of the handling editor. Because if this, there might be some features you are missing.\nPlease contact the serverowner to update his version of the handling editor.",
-    outdatedUpgrade = "This server runs an extremely outdated version of the handling editor. Because of this, some of your files may be newer than the ones this server supports.\nPlease contact the serverowner to update his version of the handling editor as soon as possible!",
-    notifyHandlingDelete = "As of MTA 1.2, your saved handlings are NOT present anymore. Would you like to see how you can solve this?\nYou can always see it later at the 'help' menu.",
+    outdatedUpdate = "This server runs an outdated version of the handling editor. As a result, some features may be missing.\nPlease contact an administrator.",
+    outdatedUpgrade = "This server runs an extremely outdated version of the handling editor. As a result, all settings/saved handling settings are incompatible.\nPlease contact an administrator.",
+    notifyHandlingDelete = "Your saved handlings are no longer compatible; please visit http://code.google.com/p/hedit/ for details.",
     
     sameValue = "The %s is already that!",
-    exceedLimits = "Value used at %s exceeded limits [%s]!",
-    cantSameValue = "%s cant be the same as %s!",
-    needNumber = "You need to use a number!",
-    unsupportedProperty = "%s is not supported by MTA.",
+    exceedLimits = "Value used at %s exceeds the limit. [%s]!",
+    cantSameValue = "%s may not the same as %s!",
+    needNumber = "You must use a number!",
+    unsupportedProperty = "%s is not a supported value.",
     successRegular = "%s set to %s.",
     successHex = "%s %s.",
     unableToChange = "Unable to set the %s to %s!",
     
-    resetted = "Succesfully restted the vehicle handling!",
-    loaded = "Successfully loaded your handling!",
-    imported = "Succesfully imported that handling!",
-    invalidImport = "Invalid handling line, can't import!",
+    resetted = "Succesfully reset the vehicle's handling settings!",
+    loaded = "Successfully loaded your handling settings!",
+    imported = "Succesfully imported the handling settings!",
+    invalidImport = "Import failed; the handling data you provided is invalid!",
     
-    confirmReplace = "Are you sure to overwrite the existing save?",
-    confirmLoad = "Are you sure to load this handling? Unsaved changes will be lost!",
-    confirmDelete = "Are you sure to delete this handling?",
-    confirmReset = "Are you sure to reset your handling with the given base vehicle? Unsaved changes will be lost!",
-    confirmImport = "Are you sure to import this handling? Unsaved changes will be lost!",
+    confirmReplace = "Are you sure you would like to overwrite the existing save?",
+    confirmLoad = "Are you sure you would like to load these handling settings? Any unsaved changes will be lost!",
+    confirmDelete = "Are you sure you would like to delete these handling settings?",
+    confirmReset = "Are you sure you would like to reset your handling? Any unsaved changes will be lost!",
+    confirmImport = "Are you sure you would like to import this handling? Any unsaved changes will be lost!",
 
-    successSave = "Successfully saved your handling!",
-    successLoad = "Successfully loaded your handling!",
+    successSave = "Successfully saved your handling settings!",
+    successLoad = "Successfully loaded your handling settings!",
     
-    wantTheSettings = "Are you sure you want these settings? The editor will rebuild itself.",
+    wantTheSettings = "Are you sure you would like to apply these settings? The handling editor will restart.",
     
     vehicle = "Vehicle",
     unsaved = "Unsaved",
     
-    clickToEdit = "Click this button to edit the value.",
-    enterToSubmit = "Once you are done, press enter to confirm.",
-    clickToViewFullLog = "Click to view the complete vehicle log",
-    copiedToClipboard = "The handling line has been copied to your clipboard!",
+    clickToEdit = "Click to edit.",
+    enterToSubmit = "Press enter to confirm.",
+    clickToViewFullLog = "Click to view the complete vehicle log.",
+    copiedToClipboard = "The handling settings have been copied to the clipboard!",
     
     special = {
         commode = {
-            "Splitted",
+            "Split",
             "Merged"
         }
     },
     
+	--
+	-- BUTTON / MENU STRINGS
+	--
+	
+	--Strings for the buttons at the top
     utilbuttons = {
         handling = "Handling",
         tools = "Tools",
@@ -60,6 +68,7 @@ guiLanguage.english = {
         close = "X"
     },
 
+	--Strings for the buttons at the right
     menubuttons = {
         engine = "Engine",
         body = "Body",
@@ -71,76 +80,75 @@ guiLanguage.english = {
         help = "Help"
     },
     
+	--Strings for the various menus of the editor
     menuinfo = {
         engine = {
             shortname = "Engine",
-            longname = "Engine settings"
+            longname = "Engine Settings"
         },
         body = {
             shortname = "Body",
-            longname = "Body & suspension settings"
+            longname = "Body & Suspension Settings"
         },
         wheels = {
             shortname = "Wheels",
-            longname = "Wheel settings"
+            longname = "Wheel Settings"
         },
         appearance = {
             shortname = "Appearance",
-            longname = "Appearance settings"
+            longname = "Appearance Settings"
         },
         modelflags = {
-            shortname = "Modelflags",
-            longname = "Vehicle model settings"
+            shortname = "Model Flags",
+            longname = "Vehicle Model Settings"
         },
         handlingflags = {
-            shortname = "Handlingflags",
-            longname = "Special handling settings"
+            shortname = "Handling Flags",
+            longname = "Special Handling Settings"
         },
         dynamometer = {
             shortname = "Dyno",
-            longname = "Start dynamometer"
+            longname = "Start Dynamometer"
         },
         help = {
-            shortname = "Help",
+            shortname = "Help and Information",
             longname = "Help",
             itemtext = {
-                textlabel = "Hello, and welcome to the MTA 1.2 mass beta test! You probably came here because of a problem: All your saved handlings are gone.\n"..
-                            "Well unfortunately, the handling editor can't do anything to this. MTA 1.2 uses another installation folder than MTA 1.1, and thus your saves are located somewhere else.\n"..
-                            "Luckily: Uou don't have to be affraid for losing them forever. There are two ways to get your handlings back:\n"..
-                            " - You can EXPORT all your handlings from MTA 1.1, save them at your desktop, and import them again with 1.2. But this requires a lot of work.\n"..
-                            " - Thats why I recommend you migrate your old save file to MTA 1.2. Please go to the following link, and follow the 'Migrate' tutorial.",
+                textlabel = "Welcome to the official MTA handling editor! This resource allows you to edit the handling of any vehicle in-game in real time.\n"..
+                            "You can save and load custom handlings you make, via the 'Handling' menu at the top right.\n"..
+                            "This handling editor is open source, and is available at:\n",
                 websitebox = "http://hedit.googlecode.com/",
-                morelabel = "Well, hopefully the rest goes well. If something goes wrong, dont hestitate to ask the admins on the beta test :)"
+                morelabel = "Thank you for choosing hedit!"
             }
         },
         reset = {
             shortname = "Reset",
-            longname = "Reset handling",
+            longname = "Reset this vehicle's handling settings.",
             itemtext = {
-                label = "Base vehicle:",
+                label = "Base Vehicle:",
                 combo = "-----",
-                button = "Reset handling"
+                button = "Reset"
             }
         },
         save = {
             shortname = "Save",
-            longname = "Save your current handling",
+            longname = "Save this vehicle's handling settings.",
             itemtext = {
                 nameLabel = "Name",
                 descriptionLabel = "Description",
-                button = "Save the handling"
+                button = "Save"
             }
         },
         load = {
             shortname = "Load",
-            longname = "Load a saved handling",
+            longname = "Load a set of handling settings.",
             itemtext = {
-                button = "Load selected save"
+                button = "Load"
             }
         },
         import = {
             shortname = "Import",
-            longname = "Import handlingline from handling.cfg",
+            longname = "Import a handling line in handling.cfg format.",
             itemtext = {
                 button = "Import",
                 III = "III",
@@ -151,61 +159,65 @@ guiLanguage.english = {
         },
         export = {
             shortname = "Export",
-            longname = "Export handling to handling.cfg usable line",
+            longname = "Export the handling settings in handling.cfg format.",
             itemtext = {
-                button = "Copy to clipboard"
+                button = "Copy to Clipboard"
             }
         },
         get = {
             shortname = "Get",
-            longname = "Get a handling from another player"
+            longname = "Get handling settings from another player."
         },
         share = {
             shortname = "Share",
-            longname = "Share your handling with another player"
+            longname = "Share your handling settings with another player."
         },
         upload = {
             shortname = "Upload",
-            longname = "Upload your handling to the server"
+            longname = "Upload your handling settings to the server."
         },
         download = {
             shortname = "Download",
-            longname = "Download a handling from the server"
+            longname = "Download a set of handling settings from the server."
         },
+		
         resourcesave = {
             shortname = "Resource save",
-            longname = "Save your handling to a resource"
+            longname = "Save your handling to a resource."
         },
         resourceload = {
             shortname = "Resource load",
-            longname = "Load a handling from a resource"
+            longname = "Load a handling from a resource."
         },
         options = {
             shortname = "Options",
             longname = "Options",
             itemtext = {
-                label_key = "Key to toggle the editor:",
-                label_cmd = "Command to toggle the editor:",
+                label_key = "Toggle Key",
+                label_cmd = "Toggle Command:",
                 label_template = "GUI template:",
-                label_language = "Text language:",
+                label_language = "Language:",
                 label_commode = "Center Of Mass edit mode:",
-                button_save = "Save changes"
+                button_save = "Apply"
             }
         },
         administration = {
             shortname = "Administration",
-            longname = "Administrator tools"
+            longname = "Administrator tools."
         },
         handlinglog = {
-            shortname = "Handlinglog",
-            longname = "Handling log"
+            shortname = "Handling Log",
+            longname = "Log of recent changes to handling settings."
         },
         updatelist = {
             shortname = "Updates",
-            longname = "15 latest updates"
+            longname = "List of recent updates."
         }
     },
     
+	--
+	--NOTE: 12/17/2011 This section is pending review for typos and grammar.
+	--
     handlingPropertyInformation = { 
         ["identifier"] = {
             friendlyName = "Vehicle Identifier",
