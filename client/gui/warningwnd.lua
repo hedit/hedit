@@ -41,7 +41,10 @@ function guiCreateWarningMessage ( text, level, buttonAccept, buttonDecline )
     
     warningWnd = guiCreateWindow ( (scrX/2)-200, (scrY/2)-67, 400, 134, wHeader[level], false )
     local label = guiCreateLabel ( 114, 25,  276, 70, text, false, warningWnd )
-    guiCreateButton ( 9, 25, 100,100, "image\nhere\nplox", false, warningWnd )
+	--
+	-- TODO: Properly mplement a warning type system to determine both the string and image type to be used.
+	--
+    guiCreateStaticImage( 9, 25, 100,100, "client/warning/info.png", false, warningWnd )
     guiLabelSetHorizontalAlign ( label, "left", true )
     guiSetFont ( label, "default-small" ) -- Need some advanced length-checker to avoid the resizing.
     
