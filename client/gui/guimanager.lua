@@ -269,6 +269,10 @@ function setVisible ( bool )
     end
     
     showCursor ( bool, bool )
+	if bool then
+		guiSetInputMode("no_binds_when_editing")
+	end
+	
     return true
 end
 

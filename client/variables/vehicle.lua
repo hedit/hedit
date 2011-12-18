@@ -35,7 +35,7 @@ addEventHandler ( "onClientPlayerVehicleExit", localPlayer,
 addEventHandler ( "onClientVehicleStartExit", root,
     function ( player )
          -- Possible fix for when someone is trying to jack a locked vehicle, you cant open the editor anymore.
-        if player == localPlayer and not isVehicleLocked ( vehicle ) then
+        if player == localPlayer and not isVehicleLocked ( source ) then
             clearLog ( )
             pVehicle = false
             setVisible ( false )
