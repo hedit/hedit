@@ -4,13 +4,6 @@ addEventHandler ( "onResourceStart", resourceRoot, function ( )
     -- KEEP THIS IN ORDER TO LET CLIENTS SYNC THEIR SAVED HANDLINGS BETWEEN SERVERS!
     -- BY KEEPING THE DEFAULT RESOURCENAME PLAYERS CAN STORE THEIR HANDLINGS CLIENTSIDE,
     -- SO WHENEVER THEY JOIN ANOTHER SERVER, THEY WILL BE ABLE TO LOAD THEIR OWN HANDLINGS!
-    if getVersion().number < 262 then
-        outputChatBox ( "Handling Editor failed to start, see the log's for more information." )
-        print ( "===============================================================================" )
-        print ( "[HEDIT] Server needs version 1.1 or newer, in order for HEDIT to work" )
-        print ( "===============================================================================" )
-        return cancelEvent ( true, "Server is not running MTA:SA 1.1 or later. Install 1.1 or newer." )
-    end
     
     local resName = getResourceName ( resource )
     
