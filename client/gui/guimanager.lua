@@ -163,7 +163,7 @@ function toggleEditor ( )
             end
             
             pVehicle = false
-            guiCreateWarningMessage(getText ( "needVehicle" ), 0)
+            guiCreateWarningMessage(getText ( "needVehicle" ), 1)
             return false
         end
         
@@ -172,7 +172,7 @@ function toggleEditor ( )
         local vehicleController = getVehicleController ( pVehicle )
         
         if vehicleController ~= localPlayer --[[and not setting.allowPassengersToEdit]] then
-            guiCreateWarningMessage ( getText ( "restrictedPassenger" ), 0)
+            guiCreateWarningMessage ( getText ( "restrictedPassenger" ), 1)
             return false
         end
         
@@ -222,7 +222,7 @@ function toggleEditor ( )
         return true
     end
     
-    guiCreateWarningMessage ( getText ( "needVehicle" ), 0 )
+    guiCreateWarningMessage ( getText ( "needVehicle" ), 1 )
     
     return false
 end
