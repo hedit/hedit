@@ -435,7 +435,7 @@ function importHandling ( vehicle, handlingLine, method )
     end
     
     if not isVehicleSaved ( vehicle ) then
-        guiCreateWarningMessage ( getText ( "confirmImport" ), 1, {func} )
+        guiCreateWarningMessage ( getText ( "confirmImport" ), 2, {func} )
         return true
     end
     

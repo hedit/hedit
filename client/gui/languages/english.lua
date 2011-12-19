@@ -29,6 +29,7 @@ guiLanguage.english = {
     loaded = "Successfully loaded your handling settings!",
     imported = "Succesfully imported the handling settings!",
     invalidImport = "Import failed; the handling data you provided is invalid!",
+	invalidSave = "Please provide a valid name and description to save this vehicle's handling data!",
     
     confirmReplace = "Are you sure you would like to overwrite the existing save?",
     confirmLoad = "Are you sure you would like to load these handling settings? Any unsaved changes will be lost!",
@@ -60,6 +61,13 @@ guiLanguage.english = {
 	-- BUTTON / MENU STRINGS
 	--
 	
+	--Warning level strings
+	warningtitles = {
+		info = "Information",
+		question = "Question",
+		warning = "Warning!",
+		["error"] = "Error!"
+	},
 	--Strings for the buttons at the top
     utilbuttons = {
         handling = "Handling",

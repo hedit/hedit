@@ -61,7 +61,7 @@ function saveHandlingToResource ( vehicle, resource, model )
         end
         
         if xmlCache.resourcesaves[resource] and xmlCache.resourcesaves[resource][model] then
-            guiCreateWarningMessage ( text.askToReplace, 1, {trigger} )
+            guiCreateWarningMessage ( text.askToReplace, 2, {trigger} )
             return true
         end
         
@@ -164,7 +164,7 @@ function loadHandlingFromResource ( vehicle, resource, model )
         end
         
         if not isVehicleSaved ( vehicle ) then
-            guiCreateWarningMessage ( "text.askToLoad", 1, {trigger} )
+            guiCreateWarningMessage ( "text.askToLoad", 2, {trigger} )
             return true
         end
         
@@ -228,7 +228,7 @@ function saveHandlingToServer ( player, vehicle, name, description )
         end
         
         if cache then
-            guiCreateWarningMessage ( text.askToReplace, 1, {trigger} )
+            guiCreateWarningMessage ( text.askToReplace, 2, {trigger} )
         end
         
         trigger ( )
@@ -352,7 +352,7 @@ function saveHandlingToClient ( vehicle, name, description )
             save ( )
         end
         
-        guiCreateWarningMessage ( text.askToReplace, 1, {func} )
+        guiCreateWarningMessage ( text.askToReplace, 2, {func} )
         return true
     end
     
@@ -400,7 +400,7 @@ function loadHandling ( vehicle, lowerCaseName, cacheLib )
     end
     
     if not isSaved ( vehicle ) then
-        guiCreateWarningMessage ( text.askToLoad, 1, {hndload} )
+        guiCreateWarningMessage ( text.askToLoad, 2, {hndload} )
         return true
     end
     
@@ -427,7 +427,7 @@ function shareHandlingWithPlayer ( senderPlayer, targetPlayer, vehicle )
     if clientside then
         triggerServerEvent ( "shareHandling", localPlayer, senderPlayer, targetPlayer, vehicle )
         
-        guiCreateWarningMessage ( "string to replace | send your handling to player "..getPlayerName ( targetPlayer ) )
+        --guiCreateWarningMessage ( "string to replace | send your handling to player "..getPlayerName ( targetPlayer ) )
         
         return true
     end

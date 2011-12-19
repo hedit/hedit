@@ -163,7 +163,7 @@ function toggleEditor ( )
             end
             
             pVehicle = false
-            guiCreateWarningMessage ( getText ( "needVehicle" ), 0 )
+            guiCreateWarningMessage(getText ( "needVehicle" ), 0)
             return false
         end
         
@@ -172,7 +172,7 @@ function toggleEditor ( )
         local vehicleController = getVehicleController ( pVehicle )
         
         if vehicleController ~= localPlayer --[[and not setting.allowPassengersToEdit]] then
-            guiCreateWarningMessage ( getText ( "restrictedPassenger" ), 0 )
+            guiCreateWarningMessage ( getText ( "restrictedPassenger" ), 0)
             return false
         end
         
@@ -193,7 +193,7 @@ function toggleEditor ( )
             if minver > EDITOR_MINIMUM_REVISION then
                 guiCreateWarningMessage ( getText ( "outdatedUpgrade" ), 0 )
             else
-                guiCreateWarningMessage ( getText ( "outdatedUpdate" ), 0 )
+                guiCreateWarningMessage ( getText ( "outdatedUpdate" ), 1 )
             end
 
         end
@@ -537,17 +537,17 @@ function guiShowMenu ( menu )
     end
     
     if heditGUI.menuItems[menu].requireLogin and not pData.loggedin then
-        guiCreateWarningMessage ( getText ( "needLogin" ), 0 )
+        guiCreateWarningMessage ( getText ( "needLogin" ), 1 )
         return false
     end
     
     if heditGUI.menuItems[menu].requireAdmin and not pData.isadmin then
-        guiCreateWarningMessage ( getText ( "needAdmin" ), 0 )
+        guiCreateWarningMessage ( getText ( "needAdmin" ), 1 )
         return false
     end
 
     if heditGUI.menuItems[menu].disabled then
-        guiCreateWarningMessage ( getText ( "disabledMenu" ), 0 )
+        guiCreateWarningMessage ( getText ( "disabledMenu" ), 1 )
         return false
     end
     
