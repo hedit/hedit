@@ -715,7 +715,7 @@ guiTemplate.default = {
                                     resetVehicleHandling ( vehicle, vehID )
                                 end
                                 
-                                guiCreateWarningMessage ( getText ( "confirmReset" ), 1, {func} )
+                                guiCreateWarningMessage ( getText ( "confirmReset" ), 2, {func} )
                             end
                         end
                     }
@@ -869,11 +869,11 @@ guiTemplate.default = {
                             local function func ( )
                                 saveClientHandling ( pVehicle, name, description )
                                 guiShowMenu ( previousMenu )
-                                guiCreateWarningMessage ( getText ( "successSave" ), 0 )
+                                guiCreateWarningMessage ( getText ( "successSave" ), 3 )
                             end
 
                             if isClientHandlingExisting ( name ) then
-                                guiCreateWarningMessage ( getText ( "confirmReplace" ), 1, {func} )
+                                guiCreateWarningMessage ( getText ( "confirmReplace" ), 2, {func} )
 								return false
                             end
 
@@ -931,12 +931,12 @@ guiTemplate.default = {
 
                                 local function func ( )
                                     if loadClientHandling ( pVehicle, name ) then
-                                        guiCreateWarningMessage ( getText ( "successLoad" ), 0 )
+                                        guiCreateWarningMessage ( getText ( "successLoad" ), 3)
                                     end
                                 end
 
                                 if not isVehicleSaved ( pVehicle ) then
-                                    guiCreateWarningMessage ( getText ( "confirmLoad" ), 1, {func} )
+                                    guiCreateWarningMessage ( getText ( "confirmLoad" ), 2, {func} )
                                     return true
                                 end
 
@@ -959,12 +959,12 @@ guiTemplate.default = {
 
                                 local function func ( )
                                     if loadClientHandling ( pVehicle, name ) then
-                                        guiCreateWarningMessage ( getText ( "successLoad" ), 0 )
+                                        guiCreateWarningMessage ( getText ( "successLoad" ), 3 )
                                     end
                                 end
 
                                 if not isVehicleSaved ( pVehicle ) then
-                                    guiCreateWarningMessage ( getText ( "confirmLoad" ), 1, {func} )
+                                    guiCreateWarningMessage ( getText ( "confirmLoad" ), 2, {func} )
                                     return true
                                 end
 
@@ -1107,7 +1107,7 @@ guiTemplate.default = {
                             local vehicle = getPedOccupiedVehicle ( localPlayer )
                             if vehicle then
                                 setClipboard ( exportHandling ( vehicle ) )
-                                guiCreateWarningMessage ( getText ( "copiedToClipboard" ), 0 )
+                                guiCreateWarningMessage ( getText ( "copiedToClipboard" ), 3 )
                             end
                         end
                     }
@@ -1292,7 +1292,7 @@ guiTemplate.default = {
                                 
                                 toggleEditor ( )
                             end
-                            guiCreateWarningMessage ( getText ( "wantTheSettings" ), 1, {apply} )
+                            guiCreateWarningMessage ( getText ( "wantTheSettings" ), 2, {apply} )
                         end
                     }
                 }

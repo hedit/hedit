@@ -1,5 +1,5 @@
-local wHeader = { [0] = "Information", [1] = "WARNING", [2] = "ERROR" } -- Move to text file lol
-
+--local warningTypes = {[0] = "info", [1] = "question", [2] = "warning", [3] = "error"}
+local warningTypes = {[0] = "error", [1] = "warning", [2] = "question", [3] = "info"}
 local function sendInput ( buttonFunc )
     if guiGetVisible ( warningWnd ) then
     
@@ -19,13 +19,9 @@ local function sendInput ( buttonFunc )
 end
 
 function guiCreateWarningMessage ( text, level, buttonAccept, buttonDecline )
-    if type ( text ) ~= "string" then
-        return false
-    end
-    
-    if type ( level ) ~= "number" then
-        return false
-    end
+    if type(level) ~= "number" or type(text) ~= "string" then
+		return false
+	end
     
     if isElement ( warningWnd ) then
         guiDestroyWarningWindow ( )
@@ -39,22 +35,22 @@ function guiCreateWarningMessage ( text, level, buttonAccept, buttonDecline )
         guiSetEnabled ( window, false )
     end
     
-    warningWnd = guiCreateWindow ( (scrX/2)-200, (scrY/2)-67, 400, 134, wHeader[level], false )
+    warningWnd = guiCreateWindow ( (scrX/2)-200, (scrY/2)-67, 400, 134, getText("warningtitles", warningTypes[level]), false )
     local label = guiCreateLabel ( 114, 25,  276, 70, text, false, warningWnd )
 	--
 	-- TODO: Properly mplement a warning type system to determine both the string and image type to be used.
 	--
-    guiCreateStaticImage( 9, 25, 100,100, "images/info.png", false, warningWnd )
+    guiCreateStaticImage( 9, 25, 100,100, "images/"..warningTypes[level]..".png", false, warningWnd )
     guiLabelSetHorizontalAlign ( label, "left", true )
     guiSetFont ( label, "default-small" ) -- Need some advanced length-checker to avoid the resizing.
     
     
     local accept, decline
-    if level == 0 then
-        accept = guiCreateButton ( 114, 100, 277, 25, "Accept", false, warningWnd )
-    else
-        accept = guiCreateButton ( 114, 100, 136, 25, "Accept", false, warningWnd )
-        decline = guiCreateButton ( 255, 100, 136, 25, "Cancel", false, warningWnd )
+    if level == 2 then
+		accept = guiCreateButton ( 114, 100, 136, 25, "Yes", false, warningWnd )
+        decline = guiCreateButton ( 255, 100, 136, 25, "No", false, warningWnd )
+	else
+        accept = guiCreateButton ( 114, 100, 277, 25, "Ok", false, warningWnd )
     end
     
     
