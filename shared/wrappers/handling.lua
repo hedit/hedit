@@ -164,7 +164,7 @@ function setVehicleHandling ( vehicle, property, value, withLog )
     
     if not _setVehicleHandling ( vehicle, setProperty, setValue ) then
         if withLog then
-            addLogEntry ( vehicle, client, "unableToChange", { property, value }, nil, 3 )
+            addLogEntry ( vehicle, client, "unableToChange", { string.lower(property), value }, nil, 3 )
         end
         
         if DEBUGMODE then
