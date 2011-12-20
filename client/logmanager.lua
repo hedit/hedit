@@ -20,7 +20,6 @@ function addLogEntry ( vehicle, player, textPointer, arguments, oldValue, level 
     end
     
     
-    
     triggerServerEvent ( "addToLog", root, vehicle, player, textPointer, arguments, oldValue, level )
     return true
 end
