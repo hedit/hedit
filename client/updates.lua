@@ -46,7 +46,7 @@ function checkTheUpdates ( )
     
 
     -- Call version upgrades, especially made for compatibility with older versions.
-    if ver < EDITOR_REVISION then
+    if ver < HREV then
         
         -- We only want to show a version notifier when we haven't performed an upgrade before.
         if getUserConfig ( "notifyUpgrade" ) ~= "true" then
@@ -54,10 +54,10 @@ function checkTheUpdates ( )
         end
 
         -- When we have a new minimum version
-        if ver < EDITOR_MINIMUM_REVISION then
+        if ver < HMREV then
             setUserConfig ( "notifyUpdate", "false" ) -- We reset this as it may been set by previous updates too.
             setUserConfig ( "notifyUpgrade", "true" ) -- We want to show him a message his files got upgraded.
-            setUserConfig ( "minVersion", tostring ( EDITOR_MINIMUM_REVISION ) )
+            setUserConfig ( "minVersion", tostring ( HMREV ) )
         end
 
         -- Add 1 to the version to exclude upgrades from it's current build.
@@ -67,7 +67,7 @@ function checkTheUpdates ( )
             end
         end
 
-        setUserConfig ( "version", tostring ( EDITOR_REVISION ) )
+        setUserConfig ( "version", tostring ( HREV ) )
 
     end
 

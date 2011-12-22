@@ -855,16 +855,16 @@ guiTemplate.default = {
                     type = "button",
                     pos = { 289, 334 },
                     size = { 68, 50 },
-					events = {
-						onClick = function ( this )
-							local content = heditGUI.menuItems.save.guiItems
-							local name = guiGetText ( content.nameEdit )
-							local description = guiGetText ( content.descriptionEdit )
+                    events = {
+                        onClick = function ( this )
+                            local content = heditGUI.menuItems.save.guiItems
+                            local name = guiGetText ( content.nameEdit )
+                            local description = guiGetText ( content.descriptionEdit )
 
-							if string.len ( name ) < 1 or string.len ( description ) < 1 then
-								guiCreateWarningMessage ( getText ( "invalidSave" ), 0 )
-								return false
-							end
+                            if string.len ( name ) < 1 or string.len ( description ) < 1 then
+                                guiCreateWarningMessage ( getText ( "invalidSave" ), 0 )
+                                return false
+                            end
 
                             local function func ( )
                                 saveClientHandling ( pVehicle, name, description )
@@ -874,12 +874,12 @@ guiTemplate.default = {
 
                             if isClientHandlingExisting ( name ) then
                                 guiCreateWarningMessage ( getText ( "confirmReplace" ), 2, {func} )
-								return false
+                                return false
                             end
 
-							func ( )
-						end
-					}
+                            func ( )
+                        end
+                    }
                 }
             }
         },
@@ -1245,7 +1245,6 @@ guiTemplate.default = {
                             guicache.optionmenu_item[name] = item
                             item = item + 1
                         end
-                        --guiSetSize ( this, 100, ( 21 * table.size ( guiLanguage ) ) + 25, false )
                         local size = table.size ( guiLanguage )
                         size = size == 1 and 52 or ( 21 * size ) + 25
                         guiSetSize ( this, 100, size, false )
@@ -1265,10 +1264,13 @@ guiTemplate.default = {
                             guiComboBoxAddItem ( this, getText ( "special", "commode", num ) )
                             guicache.optionmenu_item[name] = num-1
                         end
-                        local size = table.size ( guiLanguage )
-                        size = size == 1 and 52 or ( 21 * size ) + 25
-                        guiSetSize ( this, 100, size, false )
+                        guiSetSize ( this, 100, 68, false )
                     end
+                },
+                checkbox_versionreset = {
+                    type = "checkbox",
+                    pos = { 72, 233 },
+                    size = { 285, 25 },
                 },
                 button_save = {
                     type = "button",
@@ -1276,23 +1278,43 @@ guiTemplate.default = {
                     size = { 285, 25 },
                     events = {
                         onClick = function ( this )
-                            local function apply ( )
-                                local item = heditGUI.menuItems.options.guiItems
+                            local item = heditGUI.menuItems.options.guiItems
+
+                            local function confirm ( )
+
+                                local function apply ( bool )
+
+                                    unbindKey ( getUserConfig ( "usedKey" ), "down", toggleEditor )
+                                    removeCommandHandler ( getUserConfig ( "usedCommand", toggleEditor ) )
                                 
-                                unbindKey ( getUserConfig ( "usedKey" ), "down", toggleEditor )
-                                removeCommandHandler ( getUserConfig ( "usedCommand", toggleEditor ) )
+                                    setUserConfig ( "usedKey", guiComboBoxGetItemText ( item.combo_key, guiComboBoxGetSelected ( item.combo_key ) ) )
+                                    setUserConfig ( "usedCommand", guiGetText ( item.edit_cmd ) )
+                                    setUserConfig ( "template", guiComboBoxGetItemText ( item.combo_template, guiComboBoxGetSelected ( item.combo_template ) ) )
+                                    setUserConfig ( "language", guiComboBoxGetItemText ( item.combo_language, guiComboBoxGetSelected ( item.combo_language ) ) )
+                                    setUserConfig ( "commode", centerOfMassModes[ guiComboBoxGetSelected ( item.combo_commode )+1 ] )
+
+                                    if bool then
+                                        setUserConfig ( "version", tostring ( HREV ) )
+                                        setUserConfig ( "minVersion", tostring ( HMREV ) )
+                                    end
                                 
-                                setUserConfig ( "usedKey", guiComboBoxGetItemText ( item.combo_key, guiComboBoxGetSelected ( item.combo_key ) ) )
-                                setUserConfig ( "usedCommand", guiGetText ( item.edit_cmd ) )
-                                setUserConfig ( "template", guiComboBoxGetItemText ( item.combo_template, guiComboBoxGetSelected ( item.combo_template ) ) )
-                                setUserConfig ( "language", guiComboBoxGetItemText ( item.combo_language, guiComboBoxGetSelected ( item.combo_language ) ) )
-                                setUserConfig ( "commode", centerOfMassModes[ guiComboBoxGetSelected ( item.combo_commode )+1 ] )
+                                    startBuilding ( )
                                 
-                                startBuilding ( )
+                                    toggleEditor ( )
+
+                                end
+
+                                if guiCheckBoxGetSelected ( item.checkbox_versionreset ) then
+                                    guiCreateWarningMessage ( getText ( "confirmVersionReset" ), 2, {apply, true}, {apply,false} )
+                                    return true
+                                end
                                 
-                                toggleEditor ( )
+                                apply ( false )
+
+                                return true
                             end
-                            guiCreateWarningMessage ( getText ( "wantTheSettings" ), 2, {apply} )
+
+                            guiCreateWarningMessage ( getText ( "wantTheSettings" ), 2, {confirm} )
                         end
                     }
                 }
@@ -1303,6 +1325,9 @@ guiTemplate.default = {
                 guiComboBoxSetSelected ( content.combo_template, guicache.optionmenu_item[ getUserConfig ( "template" ) ] )
                 guiComboBoxSetSelected ( content.combo_language, guicache.optionmenu_item[ getUserConfig ( "language" ) ] )
                 guiComboBoxSetSelected ( content.combo_commode, guicache.optionmenu_item[ getUserConfig ( "commode" ) ] )
+                if tonumber ( getUserConfig ( "version" ) ) <= HREV then
+                    guiSetVisible ( content.checkbox_versionreset, false )
+                end
             end
         },
 
