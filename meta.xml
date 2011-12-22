@@ -1,6 +1,6 @@
 <meta>
     <info type="script" name="Ingame Handling Editor" author="Remi-X" version="2.0.0" description="The first, and only ingame handling editor available for San Andreas, made with MTA ofcourse!" />
-	<min_mta_version server="1.1.1" client="1.1.1" />
+    <min_mta_version server="1.1.1" client="1.1.1" />
 
     <!-- SHARED -->
     <script src="shared/variables/general.lua"      type="client" />
@@ -32,6 +32,13 @@
 
 
     <!-- CLIENT -->
+    <script src="client/logmanager.lua"             type="client" />
+    <script src="client/updates.lua"                type="client" />
+    <script src="client/settings.lua"               type="client" />
+    <script src="client/cfgloader.lua"              type="client" />
+    <script src="client/utils.lua"                  type="client" />
+    <script src="client/exports.lua"                type="client" />
+    <script src="client/core.lua"                   type="client" />
     <script src="client/variables/general.lua"      type="client" />
     <script src="client/variables/vehicle.lua"      type="client" />
     
@@ -42,20 +49,12 @@
     <script src="client/gui/guievents.lua"          type="client" />
     <script src="client/gui/guifunctions.lua"       type="client" />
     <script src="client/gui/guiwrapper.lua"         type="client" />
-    <script src="client/gui/warningwnd.lua"          type="client" />
+    <script src="client/gui/warningwnd.lua"         type="client" />
     
-    <script src="client/logmanager.lua"             type="client" />
-    <script src="client/updates.lua"                type="client" />
-    <script src="client/settings.lua"               type="client" />
-    <script src="client/cfgloader.lua"              type="client" />
-    <script src="client/utils.lua"                  type="client" />
-    <script src="client/exports.lua"                type="client" />
-    <script src="client/core.lua"                   type="client" />
-	
-	<file src="images/warning.png"                  		type="client" />
-	<file src="images/question.png"                  		type="client" />
-	<file src="images/error.png"                  			type="client" />
-	<file src="images/info.png"              	    		type="client" />
+    <file src="images/warning.png"                  type="client" />
+    <file src="images/question.png"                 type="client" />
+    <file src="images/error.png"                    type="client" />
+    <file src="images/info.png"                     type="client" />
     
     
     
@@ -64,4 +63,5 @@
     <script src="server/cfgloader.lua"              type="server" />
     <script src="server/exports.lua"                type="server" />
     <script src="server/core.lua"                   type="server" />
-    <script src="server/utils.lua"                  type="server" /></meta>
+    <script src="server/utils.lua"                  type="server" />
+</meta>

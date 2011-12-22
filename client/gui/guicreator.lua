@@ -48,12 +48,12 @@ function startBuilding ( )
     
     local template = getUserTemplate ( )
     
-	if not template then
-		if DEBUGMODE then
-		end
+    if not template then
+        if DEBUGMODE then
+        end
 
-		return false
-	end
+        return false
+    end
 
     local window = buildMainWindow ( template )
     buildUtilButtons ( template )

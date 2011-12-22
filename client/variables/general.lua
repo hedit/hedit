@@ -7,7 +7,7 @@ guiElements = {}
 guiID = {}
 
 resetGUI = {
-	background = {},
+    background = {},
     menuButtons = {},
     menuItems = {},
     utilButtons = {},

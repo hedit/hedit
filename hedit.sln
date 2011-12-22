@@ -48,7 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GUI", "GUI", "{F997DBDB-4DC
 		client\gui\guifunctions.lua = client\gui\guifunctions.lua
 		client\gui\guimanager.lua = client\gui\guimanager.lua
 		client\gui\guiwrapper.lua = client\gui\guiwrapper.lua
-		client\gui\waringwnd.lua = client\gui\waringwnd.lua
+		client\gui\warningwnd.lua = client\gui\warningwnd.lua
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{D76F4EEE-5E20-418B-9ABC-5D11B51DB6FF}"

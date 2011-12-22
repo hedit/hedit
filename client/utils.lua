@@ -10,11 +10,11 @@
     getHandlingPropertyByteInformation ( string property, integer byte, string value )
     getHandlingHexadecimalChangeDetails ( element vehicle, string property, var value )
     
-	cacheClientSaves ( )
+    cacheClientSaves ( )
     getClientSaves ( )
-	isClientHandlingExisting ( string name )
+    isClientHandlingExisting ( string name )
     saveClientHandling ( string name, string description )
-	loadClientHandling ( string name )
+    loadClientHandling ( string name )
 
     loadHandling ( element vehicle, lowerCaseName, cacheLib ) -- Not for general use! It's called by functions.
     
@@ -37,12 +37,12 @@
 function getText ( ... )
     local entry = getUserLanguage()
     
-	if not entry then
-		if DEBUGMODE then
-		end
+    if not entry then
+        if DEBUGMODE then
+        end
 
-		return false
-	end
+        return false
+    end
 
     for i,tab in ipairs ( {...} ) do
     

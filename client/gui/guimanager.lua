@@ -188,9 +188,9 @@ function toggleEditor ( )
         local ver = tonumber ( getUserConfig ( "version" ) )
         local minver = tonumber ( getUserConfig ( "minVersion" ) )
 
-        if ver > EDITOR_REVISION then
+        if ver > HREV then
 
-            if minver > EDITOR_MINIMUM_REVISION then
+            if minver > HMREV then
                 guiCreateWarningMessage ( getText ( "outdatedUpgrade" ), 0 )
             else
                 guiCreateWarningMessage ( getText ( "outdatedUpdate" ), 1 )
@@ -211,11 +211,11 @@ function toggleEditor ( )
             guiCreateWarningMessage ( getText ( "notifyUpgrade" ), 1, {guiShowMenu,"updatelist"} )
             setUserConfig ( "notifyUpgrade", "false" )
         
-        elseif getUserConfig ( "notifyHandlingDelete" ) == "true" then
+        elseif tonumber ( getUserConfig ( "mtaVersion" ) ) < MTAVER then
             
             guiDestroyWarningWindow ( )
-            guiCreateWarningMessage ( getText ( "notifyHandlingDelete" ), 1, {guiShowMenu,"help"} )
-            setUserConfig ( "notifyHandlingDelete", "false" )
+            guiCreateWarningMessage ( getText ( "mtaUpdate" ), 1, {guiShowMenu,"help"} )
+            setUserConfig ( "mtaVersion", tostring ( MTAVER ) )
 
         end
 
@@ -252,6 +252,7 @@ function setVisible ( bool )
     
     if bool then
         bind = bindKey
+        guiSetInputMode ( "no_binds_when_editing" )
     end
     
     bind ( "lctrl", "both", showOriginalValue )
@@ -269,10 +270,7 @@ function setVisible ( bool )
     end
     
     showCursor ( bool, bool )
-	if bool then
-		guiSetInputMode("no_binds_when_editing")
-	end
-	
+    
     return true
 end
 

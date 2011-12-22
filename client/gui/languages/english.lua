@@ -1,8 +1,8 @@
 guiLanguage.english = {
     --
-	-- GENERAL STRINGS
-	--
-	windowHeader = "Handling Editor v"..EDITOR_VERSION.." r"..EDITOR_REVISION,
+    -- GENERAL STRINGS
+    --
+    windowHeader = "Handling Editor v"..HVER.." r"..HREV,
     
     restrictedPassenger = "You are not allowed to use the handling editor as a passenger.",
     needVehicle = "You must be driving a vehicle to use the handling editor!",
@@ -14,7 +14,7 @@ guiLanguage.english = {
     notifyUpgrade = "The handling editor has been UPGRADED. This means some of your files, such as saved handlings have been changed to another format. As a result, servers with an outdated version of hedit are not fully supported.\nWould you like to see a list of changes now? \nYou can always see the list of changes at 'Extra > Updates'",
     outdatedUpdate = "This server runs an outdated version of the handling editor. As a result, some features may be missing.\nPlease contact an administrator.",
     outdatedUpgrade = "This server runs an extremely outdated version of the handling editor. As a result, all settings/saved handling settings are incompatible.\nPlease contact an administrator.",
-    notifyHandlingDelete = "Your saved handlings are no longer compatible; please visit http://code.google.com/p/hedit/ for details.",
+    mtaUpdate = "Your saved handlings are no longer compatible; please visit http://code.google.com/p/hedit/ for details.",
     
     sameValue = "The %s is already that!",
     exceedLimits = "Value used at %s exceeds the limit. [%s]!",
@@ -29,7 +29,7 @@ guiLanguage.english = {
     loaded = "Successfully loaded your handling settings!",
     imported = "Succesfully imported the handling settings!",
     invalidImport = "Import failed; the handling data you provided is invalid!",
-	invalidSave = "Please provide a valid name and description to save this vehicle's handling data!",
+    invalidSave = "Please provide a valid name and description to save this vehicle's handling data!",
     
     confirmReplace = "Are you sure you would like to overwrite the existing save?",
     confirmLoad = "Are you sure you would like to load these handling settings? Any unsaved changes will be lost!",
@@ -40,6 +40,8 @@ guiLanguage.english = {
     successSave = "Successfully saved your handling settings!",
     successLoad = "Successfully loaded your handling settings!",
     
+    confirmVersionReset = "Are you sure to reset your editor version to the one of this server? You may lose some saved items because of this.",
+    successVersionReset = "Resetted your editor version to the one on this server.",
     wantTheSettings = "Are you sure you would like to apply these settings? The handling editor will restart.",
     
     vehicle = "Vehicle",
@@ -57,18 +59,18 @@ guiLanguage.english = {
         }
     },
     
-	--
-	-- BUTTON / MENU STRINGS
-	--
-	
-	--Warning level strings
-	warningtitles = {
-		info = "Information",
-		question = "Question",
-		warning = "Warning!",
-		["error"] = "Error!"
-	},
-	--Strings for the buttons at the top
+    --
+    -- BUTTON / MENU STRINGS
+    --
+    
+    --Warning level strings
+    warningtitles = {
+        info = "Information",
+        question = "Question",
+        warning = "Warning!",
+        ["error"] = "Error!"
+    },
+    --Strings for the buttons at the top
     utilbuttons = {
         handling = "Handling",
         tools = "Tools",
@@ -76,7 +78,7 @@ guiLanguage.english = {
         close = "X"
     },
 
-	--Strings for the buttons at the right
+    --Strings for the buttons at the right
     menubuttons = {
         engine = "Engine",
         body = "Body",
@@ -88,7 +90,7 @@ guiLanguage.english = {
         help = "Help"
     },
     
-	--Strings for the various menus of the editor
+    --Strings for the various menus of the editor
     menuinfo = {
         engine = {
             shortname = "Engine",
@@ -188,7 +190,7 @@ guiLanguage.english = {
             shortname = "Download",
             longname = "Download a set of handling settings from the server."
         },
-		
+        
         resourcesave = {
             shortname = "Resource save",
             longname = "Save your handling to a resource."
@@ -206,6 +208,7 @@ guiLanguage.english = {
                 label_template = "GUI template:",
                 label_language = "Language:",
                 label_commode = "Center Of Mass edit mode:",
+                checkbox_versionreset = "Downgrade my version number from "..getUserConfig ( "version" ).." to "..tostring ( HREV ),
                 button_save = "Apply"
             }
         },
@@ -223,9 +226,9 @@ guiLanguage.english = {
         }
     },
     
-	--
-	--NOTE: 12/17/2011 This section is pending review for typos and grammar.
-	--
+    --
+    --NOTE: 12/17/2011 This section is pending review for typos and grammar.
+    --
     handlingPropertyInformation = { 
         ["identifier"] = {
             friendlyName = "Vehicle Identifier",

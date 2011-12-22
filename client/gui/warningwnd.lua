@@ -2,7 +2,9 @@
 local warningTypes = {[0] = "error", [1] = "warning", [2] = "question", [3] = "info"}
 local function sendInput ( buttonFunc )
     if guiGetVisible ( warningWnd ) then
-    
+        
+        guiDestroyWarningWindow ( )
+        
         if type ( buttonFunc ) == "table" and #buttonFunc > 0 then
             local exe = table.remove ( buttonFunc, 1 )
         
@@ -12,7 +14,6 @@ local function sendInput ( buttonFunc )
             
         end
         
-        guiDestroyWarningWindow ( )
         unbindKey ( "enter", "down", sendInput )
         
     end
@@ -20,8 +21,8 @@ end
 
 function guiCreateWarningMessage ( text, level, buttonAccept, buttonDecline )
     if type(level) ~= "number" or type(text) ~= "string" then
-		return false
-	end
+        return false
+    end
     
     if isElement ( warningWnd ) then
         guiDestroyWarningWindow ( )
@@ -44,10 +45,10 @@ function guiCreateWarningMessage ( text, level, buttonAccept, buttonDecline )
     
     
     local accept, decline
-  if buttonDecline then
-		accept = guiCreateButton ( 114, 100, 136, 25, "Yes", false, warningWnd )
+    if buttonDecline or level == 2 then
+        accept = guiCreateButton ( 114, 100, 136, 25, "Yes", false, warningWnd )
         decline = guiCreateButton ( 255, 100, 136, 25, "No", false, warningWnd )
-	else
+    else
         accept = guiCreateButton ( 114, 100, 277, 25, "Okay", false, warningWnd )
     end
     
