@@ -37,20 +37,18 @@ function guiCreateWarningMessage ( text, level, buttonAccept, buttonDecline )
     
     warningWnd = guiCreateWindow ( (scrX/2)-200, (scrY/2)-67, 400, 134, getText("warningtitles", warningTypes[level]), false )
     local label = guiCreateLabel ( 114, 25,  276, 70, text, false, warningWnd )
-	--
-	-- TODO: Properly mplement a warning type system to determine both the string and image type to be used.
-	--
+
     guiCreateStaticImage( 9, 25, 100,100, "images/"..warningTypes[level]..".png", false, warningWnd )
     guiLabelSetHorizontalAlign ( label, "left", true )
     guiSetFont ( label, "default-small" ) -- Need some advanced length-checker to avoid the resizing.
     
     
     local accept, decline
-    if level == 2 then
+  if buttonDecline then
 		accept = guiCreateButton ( 114, 100, 136, 25, "Yes", false, warningWnd )
         decline = guiCreateButton ( 255, 100, 136, 25, "No", false, warningWnd )
 	else
-        accept = guiCreateButton ( 114, 100, 277, 25, "Ok", false, warningWnd )
+        accept = guiCreateButton ( 114, 100, 277, 25, "Okay", false, warningWnd )
     end
     
     
