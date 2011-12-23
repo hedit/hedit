@@ -2,5 +2,5 @@ DEBUGMODE = true
 
 MTAVER = 1.2
 HVER = "2.0 beta RC1"
-HREV = 0x8B
+HREV = 0x98
 HMREV = 0x89

@@ -40,8 +40,8 @@ guiLanguage.english = {
     successSave = "Successfully saved your handling settings!",
     successLoad = "Successfully loaded your handling settings!",
     
-	confirmVersionReset = "Are you sure you want to sync your editor version number to the one of this server? Your saved handlings may become incompatible.",
-	successVersionReset = "Your editor version has been synced with the server.",
+	confirmVersionReset = "Are you sure you want to set your editor version number to the one of this server? Your saved handlings may become incompatible.",
+	successVersionReset = "Your editor version has been updated.",
     wantTheSettings = "Are you sure you would like to apply these settings? The handling editor will restart.",
     
     vehicle = "Vehicle",
@@ -126,7 +126,7 @@ guiLanguage.english = {
             itemtext = {
                 textlabel = "Welcome to the official MTA handling editor! This resource allows you to edit the handling of any vehicle in-game in real time.\n"..
                             "You can save and load custom handlings you make, via the 'Handling' menu at the top right.\n"..
-                            "This handling editor is open source, and is available at:\n",
+                            "For more information about this handling editor, such as the official changelog, visit:\n",
                 websitebox = "http://hedit.googlecode.com/",
                 morelabel = "Thank you for choosing hedit!"
             }
