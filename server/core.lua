@@ -20,7 +20,7 @@ addEventHandler ( "onResourceStart", resourceRoot, function ( )
     
     
     print ( "===============================================================================" )
-    print ( " MTA:SA HANDLING EDITOR (hedit.googlecode.com)" )
+    print ( " MTA:SA HANDLING EDITOR [hedit.googlecode.com]" )
     print ( "===============================================================================" )
     if fileExists ( "handling.cfg" ) then
         print ( " Handling.cfg found." )

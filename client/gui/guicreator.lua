@@ -86,6 +86,11 @@ function destroyGUI ( )
         destroyElement ( heditGUI.window )
     end
     
+    unbindKey ( "lctrl", "both", showOriginalValue )
+    unbindKey ( "rctrl", "both", showOriginalValue )
+    unbindKey ( "lshift", "both", showPreviousValue )
+    unbindKey ( "rshift", "both", showPreviousValue )
+    
     guiElements = {}
     heditGUI = resetGUI
 end

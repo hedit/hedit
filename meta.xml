@@ -1,6 +1,6 @@
 <meta>
     <info type="script" name="Ingame Handling Editor" author="Remi-X" version="2.0.0" description="The first, and only ingame handling editor available for San Andreas, made with MTA ofcourse!" />
-    <min_mta_version server="1.1.1" client="1.1.1" />
+    <min_mta_version server="1.2.0" client="1.2.0" />
 
     <!-- SHARED -->
     <script src="shared/variables/general.lua"      type="client" />

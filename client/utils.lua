@@ -524,11 +524,11 @@ function getUserConfig ( config )
     
     if not node then
         if DEBUGMODE then
-            outputDebugString ( "Node '"..config.."' doesn't exist in the userconfig, can't return value." )
+            outputDebugString ( "Node '"..config.."' doesn't exist in the userconfig, returning default value." )
         end
 
         _xmlUnloadFile ( xml ) -- Avoid calling any wrappers!
-        return nil
+        return setting[config]
     end
     
     

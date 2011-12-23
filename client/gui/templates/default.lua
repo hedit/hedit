@@ -1368,6 +1368,28 @@ guiTemplate.default = {
                     size = { 290, 300 }
                 }
             }
+        },
+
+        ------------------------------------------------------------------------------------------------
+
+        mtaversionupdate = {
+            requirelogin = false,
+            requireadmin = false,
+            content = {
+                infotext = {
+                    type = "label",
+                    pos = { 73, 77 },
+                    size = { 285, 200 },
+                    runfunction = function ( this )
+                        guiLabelSetHorizontalAlign ( this, "left", true )
+                    end
+                },
+                websitebox = {
+                    type = "editbox",
+                    pos = { 73, 358 },
+                    size = { 285, 25 }
+                }
+            }
         }
     },
     

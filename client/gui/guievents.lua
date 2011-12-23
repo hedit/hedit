@@ -45,7 +45,7 @@ function onClick ( button )
                     guiBringToFront ( openedEditBox )
                     guiEditSetCaretIndex ( openedEditBox, string.len ( text ) )
                     
-                    local propType = getHandlingPropertyValueType ( property )
+                    local propType = getHandlingPropertyValueType ( property ) -- TODO: Add the limitations of the value to this string
                     local propInfo = getHandlingPropertyValueInformation ( property )
                     
                     guiSetStaticInfoText ( propType, propInfo )
