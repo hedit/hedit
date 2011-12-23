@@ -45,7 +45,8 @@ function onClick ( button )
                     guiBringToFront ( openedEditBox )
                     guiEditSetCaretIndex ( openedEditBox, string.len ( text ) )
                     
-                    local propType = getHandlingPropertyValueType ( property ) -- TODO: Add the limitations of the value to this string
+                    local min,max = getHandlingLimits ( property )
+                    local propType = getHandlingPropertyValueType ( property ) .. ( min and ": " .. tostring ( min ) .. " - " .. tostring ( max ) or "" )
                     local propInfo = getHandlingPropertyValueInformation ( property )
                     
                     guiSetStaticInfoText ( propType, propInfo )

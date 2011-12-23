@@ -11,6 +11,7 @@
     isHandlingPropertyCorrectable ( string property )
     isHandlingPropertyCenterOfMass ( string property )
     isHandlingPropertyHexadecimal ( string property )
+    getHandlingLimits ( string property )
     isHandlingValueWithinLimits ( string property, int/float value )
     
     getVehicleIdentifierByModel ( integer model )
@@ -184,16 +185,38 @@ end
 
 
 
+
+function getHandlingLimits ( property )
+    if not isHandlingPropertyValid ( property ) then
+        return false
+    end
+
+    if handlingLimits[property] and handlingLimits[property].limits then
+        if tonumber ( handlingLimits[property].limits[1] ) then
+            local min = tonumber(handlingLimits[property].limits[1])
+            local max = tonumber(handlingLimits[property].limits[2])
+
+            return min,max
+        end
+
+        return nil
+    end
+
+    return nil
+end
+
+
+
+
 --Returns true if the given value is within the limits for the handling type (as defined in shared\variables\handlingMTA.lua), false otherwise.
 function isHandlingValueWithinLimits ( property, value )
     if handlingLimits[property] and handlingLimits[property].limits then
 		local isNumeric = tonumber(handlingLimits[property].limits[1])
 		if isNumeric and type ( value ) == "number" then
-			local minLimit = tonumber(handlingLimits[property].limits[1])
-			local maxLimit = tonumber(handlingLimits[property].limits[2])
+			local min,max = getHandlingLimits ( property )
 			
-			if value >= minLimit then
-				if value <= maxLimit then
+			if value >= min then
+				if value <= max then
 					return true
 				else
 					return false
