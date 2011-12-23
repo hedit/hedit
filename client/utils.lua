@@ -514,7 +514,7 @@ function getUserConfig ( config )
     
     
     
-    local xml = _xmlLoadFile ( client_config_file ) -- Avoid calling any wrappers!
+    local xml = xmlLoadFile ( client_config_file )
     
     if not xml then
         error ( "Client config file doesn't exist!", 2 )
@@ -527,7 +527,7 @@ function getUserConfig ( config )
             outputDebugString ( "Node '"..config.."' doesn't exist in the userconfig, returning default value." )
         end
 
-        _xmlUnloadFile ( xml ) -- Avoid calling any wrappers!
+        xmlUnloadFile ( xml )
         return setting[config]
     end
     
@@ -540,7 +540,7 @@ function getUserConfig ( config )
         outputDebugString ( "Added userconfig "..config.." with value '"..tostring(value).."' to pData." )
     end
     
-    _xmlUnloadFile ( xml ) -- Avoid calling any wrappers!
+    xmlUnloadFile ( xml )
     
     return value
 end
@@ -560,7 +560,7 @@ function setUserConfig ( config, value )
     
     
     
-    local xml = _xmlLoadFile ( client_config_file ) -- Avoid calling any wrappers!
+    local xml = xmlLoadFile ( client_config_file )
     
     if not xml then
         error ( "Client config file doesn't exist!" )
@@ -581,8 +581,8 @@ function setUserConfig ( config, value )
         outputDebugString ( "Changed config "..config.." to '"..tostring(value).."'" )
     end
     
-    _xmlSaveFile ( xml ) -- Avoid calling any wrappers!
-    _xmlUnloadFile ( xml ) -- Avoid calling any wrappers!
+    xmlSaveFile ( xml )
+    xmlUnloadFile ( xml )
     
     return true
 end
