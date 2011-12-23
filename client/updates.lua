@@ -3,12 +3,19 @@
 -- List of all updates, newest on top.
 local updates = {
     {
+		revision = 155,
+		date = "23 December 2011",
+		info = "- Made the information text show limits of a property.\n"..
+			   "- Fixed a few settings bugs and various other.\n",
+		height = 40
+	},
+
+    {
 		revision = 151,
 		date = "22 December 2011",
 		info = "- Added images and tweaked settings for the warning windows.\n"..
 			   "- Fixed the limits system, invalid values are now detected properly.\n"..
 			   "- Improved the version system.\n"..
-			   "- Changed the format of handling save files. You can migrate your handling saves manually, visit our site for more info."..
 			   "- Fixed various typos and grammatical errors in the english language file. If you would like to contribute your own translation, contact us!",
 		height = 100
 	},

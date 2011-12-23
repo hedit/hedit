@@ -140,7 +140,9 @@ function xmlUnloadFile ( file )
     end
 
     _xmlSaveFile ( file )
-    _xmlUnloadFile ( file )
+    if not _xmlUnloadFile ( file ) then
+        outputChatBox ( "wut" )
+    end
     
     if strfile then
         xmlFile[file] = nil
@@ -151,10 +153,6 @@ function xmlUnloadFile ( file )
         if v == file then
             xmlFile[k] = nil
         end
-    end
-    
-    if DEBUGMODE then
-        outputDebugString ( "Failed to unload xml! XML: "..tostring(file).." STR: "..tostring(strfile) )
     end
     
     return false
