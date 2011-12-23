@@ -214,7 +214,7 @@ function toggleEditor ( )
         elseif tonumber ( getUserConfig ( "mtaVersion" ) ) < MTAVER then
             
             guiDestroyWarningWindow ( )
-            guiCreateWarningMessage ( getText ( "mtaUpdate" ), 2, {guiShowMenu,"help"} )
+            guiCreateWarningMessage ( getText ( "mtaUpdate" ), 2, {guiShowMenu,"mtaversionupdate"} )
             setUserConfig ( "mtaVersion", tostring ( MTAVER ) )
 
         end

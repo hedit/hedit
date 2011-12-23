@@ -20,11 +20,16 @@ addEventHandler ( "onClientResourceStart", resourceRoot,
             end
         end
         
-        for num,node in ipairs ( xmlNodeGetChildren ( xml ) ) do
-            local name = xmlNodeGetName ( node )
-            if not setting[name] then
-                xmlDestroyNode ( node )
+        local ver = getUserConfig ( "version" )
+        if ver and ver < HVER then -- Prevent older versions of hedit removing your new settings
+
+            for num,node in ipairs ( xmlNodeGetChildren ( xml ) ) do
+                local name = xmlNodeGetName ( node )
+                if not setting[name] then
+                    xmlDestroyNode ( node )
+                end
             end
+
         end
 
         xmlSaveFile ( xml )

@@ -188,7 +188,7 @@ end
 function isHandlingValueWithinLimits ( property, value )
     if handlingLimits[property] and handlingLimits[property].limits then
 		local isNumeric = tonumber(handlingLimits[property].limits[1])
-		if isNumeric then
+		if isNumeric and type ( value ) == "number" then
 			local minLimit = tonumber(handlingLimits[property].limits[1])
 			local maxLimit = tonumber(handlingLimits[property].limits[2])
 			

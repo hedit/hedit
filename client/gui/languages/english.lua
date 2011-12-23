@@ -14,7 +14,7 @@ guiLanguage.english = {
     notifyUpgrade = "The handling editor has been UPGRADED. This means some of your files, such as saved handlings have been changed to another format. As a result, servers with an outdated version of hedit are not fully supported.\nWould you like to see a list of changes now? \nYou can always see the list of changes at 'Extra > Updates'",
     outdatedUpdate = "This server runs an outdated version of the handling editor. As a result, some features may be missing.\nPlease contact an administrator.",
     outdatedUpgrade = "This server runs an extremely outdated version of the handling editor. As a result, all settings/saved handling settings are incompatible.\nPlease contact an administrator.",
-    mtaUpdate = "Your saved handlings are no longer compatible; please visit http://code.google.com/p/hedit/ for details.",
+    mtaUpdate = "If you have any saved handlings on MTA 1.1, your handlings are no longer compatible; please visit 'http://hedit.googclecode.com/' for details.",
     
     sameValue = "The %s is already that!",
     exceedLimits = "Value used at %s exceeds the limit. [%s]!",
@@ -90,7 +90,7 @@ guiLanguage.english = {
         help = "Help"
     },
     
-    --Strings for the various menus of the editor
+    --Strings for the various menus of the editor. Empty strings are placeholder to avoid debug as the debug is meant to show items which are missing text.
     menuinfo = {
         engine = {
             shortname = "Engine",
@@ -146,14 +146,18 @@ guiLanguage.english = {
             itemtext = {
                 nameLabel = "Name",
                 descriptionLabel = "Description",
-                button = "Save"
+                button = "Save",
+                grid = "",
+                nameEdit = "",
+                descriptionEdit = ""
             }
         },
         load = {
             shortname = "Load",
             longname = "Load a set of handling settings.",
             itemtext = {
-                button = "Load"
+                button = "Load",
+                grid = ""
             }
         },
         import = {
@@ -164,14 +168,16 @@ guiLanguage.english = {
                 III = "III",
                 VC = "VC",
                 SA = "SA",
-                IV = "IV"
+                IV = "IV",
+                memo = ""
             }
         },
         export = {
             shortname = "Export",
             longname = "Export the handling settings in handling.cfg format.",
             itemtext = {
-                button = "Copy to Clipboard"
+                button = "Copy to Clipboard",
+                memo = ""
             }
         },
         get = {
@@ -209,7 +215,12 @@ guiLanguage.english = {
                 label_language = "Language:",
                 label_commode = "Center Of Mass edit mode:",
                 checkbox_versionreset = "Downgrade my version number from "..getUserConfig ( "version" ).." to "..tostring ( HREV ),
-                button_save = "Apply"
+                button_save = "Apply",
+                combo_key = "",
+                combo_template = "",
+                edit_cmd = "",
+                combo_commode = "",
+                combo_language = "",
             }
         },
         administration = {
@@ -218,11 +229,25 @@ guiLanguage.english = {
         },
         handlinglog = {
             shortname = "Handling Log",
-            longname = "Log of recent changes to handling settings."
+            longname = "Log of recent changes to handling settings.",
+            itemtext = {
+                logpane = ""
+            }
         },
         updatelist = {
             shortname = "Updates",
-            longname = "List of recent updates."
+            longname = "List of recent updates.",
+            itemtext = {
+                scrollpane = ""
+            }
+        },
+        mtaversionupdate = {
+            shortname = "MTA Update",
+            longname = "Multi Theft Auto has been updated!",
+            itemtext = {
+                infotext = "Multi Theft Auto has been updated. Because of this, your saved handlings in the previous version are no longer compatible. Please visit the link below for help and get your handlings back.",
+                websitebox = "http://hedit.googlecode.com/"
+            }
         }
     },
     
