@@ -3,6 +3,17 @@
 -- List of all updates, newest on top.
 local updates = {
     {
+		revision = 151,
+		date = "22 December 2011",
+		info = "- Added images and tweaked settings for the warning windows.\n"..
+			   "- Fixed the limits system, invalid values are now detected properly.\n"..
+			   "- Improved the version system.\n"..
+			   "- Changed the format of handling save files. You can migrate your handling saves manually, visit our site for more info."..
+			   "- Fixed various typos and grammatical errors in the english language file. If you would like to contribute your own translation, contact us!",
+		height = 100
+	},
+			   
+	{
         revision = 137,
         date = "16 December 2011",
         info = "- Disabled the checkboxes at the import menu, as the functionality of these isn't yet implemented.\n" ..

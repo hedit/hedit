@@ -202,19 +202,19 @@ function toggleEditor ( )
         if getUserConfig ( "notifyUpdate" ) == "true" then
 
             guiDestroyWarningWindow ( )
-            guiCreateWarningMessage ( getText ( "notifyUpdate" ), 1, {guiShowMenu,"updatelist"} )
+            guiCreateWarningMessage ( getText ( "notifyUpdate" ), 2, {guiShowMenu,"updatelist"} )
             setUserConfig ( "notifyUpdate", "false" )
 
         elseif getUserConfig ( "notifyUpgrade" ) == "true" then
 
             guiDestroyWarningWindow ( )
-            guiCreateWarningMessage ( getText ( "notifyUpgrade" ), 1, {guiShowMenu,"updatelist"} )
+            guiCreateWarningMessage ( getText ( "notifyUpgrade" ), 2, {guiShowMenu,"updatelist"} )
             setUserConfig ( "notifyUpgrade", "false" )
         
         elseif tonumber ( getUserConfig ( "mtaVersion" ) ) < MTAVER then
             
             guiDestroyWarningWindow ( )
-            guiCreateWarningMessage ( getText ( "mtaUpdate" ), 1, {guiShowMenu,"help"} )
+            guiCreateWarningMessage ( getText ( "mtaUpdate" ), 2, {guiShowMenu,"help"} )
             setUserConfig ( "mtaVersion", tostring ( MTAVER ) )
 
         end
