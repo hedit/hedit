@@ -40,8 +40,8 @@ guiLanguage.english = {
     successSave = "Successfully saved your handling settings!",
     successLoad = "Successfully loaded your handling settings!",
     
-  confirmVersionReset = "Are you sure you want to reset your editor version to the one of this server? You saved handlings may become incompatible.",
-  successVersionReset = "Your edit version has been reset.",
+	confirmVersionReset = "Are you sure you want to sync your editor version number to the one of this server? Your saved handlings may become incompatible.",
+	successVersionReset = "Your editor version has been synced with the server.",
     wantTheSettings = "Are you sure you would like to apply these settings? The handling editor will restart.",
     
     vehicle = "Vehicle",
