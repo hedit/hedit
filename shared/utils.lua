@@ -184,18 +184,23 @@ end
 
 
 
-
+--Returns true if the given value is within the limits for the handling type (as defined in shared\variables\handlingMTA.lua), false otherwise.
 function isHandlingValueWithinLimits ( property, value )
-    if handlingLimits[property] and handlingLimits[property].limits and type ( value ) == "number" then
-        local minLimit = tonumber(handlingLimits[property].limits[1])
-        local maxLimit = tonumber(handlingLimits[property].limits[2])
-        
-        if minLimit and maxLimit then
-            if value > minLimit or value < maxLimit then
-                return true
-            end
-            
-            return false
+    if handlingLimits[property] and handlingLimits[property].limits then
+		local isNumeric = tonumber(handlingLimits[property].limits[1])
+		if isNumeric then
+			local minLimit = tonumber(handlingLimits[property].limits[1])
+			local maxLimit = tonumber(handlingLimits[property].limits[2])
+			
+			if value >= minLimit then
+				if value <= maxLimit then
+					return true
+				else
+					return false
+				end
+			else
+				return false
+			end
         end
     end
     
@@ -480,7 +485,10 @@ function tobool ( var )
     return nil
 end
 
-
+--Returns true if the given value is numeric, false otherwise.
+function isNumeric(value)
+	return (tonumber(value) and true) or false
+end
 
 
 
