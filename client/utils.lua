@@ -32,6 +32,7 @@
     getUserLanguage ( )
     updateXMLCache ( string cahchelib, string cachename, table entry )
     updateRights ( bool loggedin, bool admin )
+	setVehicleLocked(element vehicle, bool state)
 ]]
 
 function getText ( ... )
@@ -655,3 +656,9 @@ function updateRights ( loggedin, admin )
 end
 addEvent ( "updateClientRights", true )
 addEventHandler ( "updateClientRights", root, updateRights )
+
+--This function locks the vehicle, serverside.
+_setVehicleLocked = setVehicleLocked
+function setVehicleLocked(vehicle, state)
+	return triggerServerEvent("vehicleLockRequest", localPlayer, vehicle, state)
+end

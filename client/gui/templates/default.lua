@@ -1267,11 +1267,19 @@ guiTemplate.default = {
                         guiSetSize ( this, 100, 68, false )
                     end
                 },
-                checkbox_versionreset = {
-                    type = "checkbox",
-                    pos = { 72, 233 },
+			   checkbox_versionreset = {
+                    type = "checkbox", 
+                    pos = { 72, 250 },
                     size = { 285, 25 },
                 },
+				checkbox_lockwhenediting = {
+					type = "checkbox",
+					pos = {72, 275},
+					size = { 285, 25},
+					runfunction = function(this)
+						guiCheckBoxSetSelected(this, tobool(getUserConfig("lockVehicleWhenEditing")))
+					end
+				},
                 button_save = {
                     type = "button",
                     pos = { 72, 359 },
@@ -1292,7 +1300,8 @@ guiTemplate.default = {
                                     setUserConfig ( "template", guiComboBoxGetItemText ( item.combo_template, guiComboBoxGetSelected ( item.combo_template ) ) )
                                     setUserConfig ( "language", guiComboBoxGetItemText ( item.combo_language, guiComboBoxGetSelected ( item.combo_language ) ) )
                                     setUserConfig ( "commode", centerOfMassModes[ guiComboBoxGetSelected ( item.combo_commode )+1 ] )
-
+									setUserConfig("lockVehicleWhenEditing", guiCheckBoxGetSelected(item.checkbox_lockwhenediting))
+									
                                     if bool then
                                         setUserConfig ( "version", tostring ( HREV ) )
                                         setUserConfig ( "minVersion", tostring ( HMREV ) )
@@ -1303,7 +1312,7 @@ guiTemplate.default = {
                                     toggleEditor ( )
 
                                 end
-
+									
                                 if guiCheckBoxGetSelected ( item.checkbox_versionreset ) then
                                     guiCreateWarningMessage ( getText ( "confirmVersionReset" ), 2, {apply, true}, {apply,false} )
                                     return true

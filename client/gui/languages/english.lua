@@ -221,6 +221,7 @@ guiLanguage.english = {
                 edit_cmd = "",
                 combo_commode = "",
                 combo_language = "",
+				checkbox_lockwhenediting = "Lock vehicle when editing?"
             }
         },
         administration = {
