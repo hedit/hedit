@@ -8,5 +8,6 @@ setting = {
     minVersion = tostring ( HMREV ),
     notifyUpdate = "false",
     notifyUpgrade = "false",
-    mtaVersion = 0
+    mtaVersion = 0,
+	lockVehicleWhenEditing = true
 }

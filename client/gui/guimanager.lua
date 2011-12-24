@@ -149,6 +149,11 @@ function toggleEditor ( )
     if guiGetVisible ( window ) then
         guiToggleUtilityDropDown ( currentUtil )
         
+		if heditGUI.prevLockState == false then
+			setVehicleLocked(pVehicle, false)
+			heditGUI.prevLockState = nil
+		end
+		
         setVisible ( false )
         return true
     end
@@ -184,6 +189,14 @@ function toggleEditor ( )
         -- Show the editor before notifying updates or upgrades.
         setVisible ( true )
 
+		-- Lock the vehicle, if the user has set the setting.
+		if getUserConfig("lockVehicleWhenEditing") then
+			if not isVehicleLocked(pVehicle) then
+				setVehicleLocked(pVehicle, true)
+				heditGUI.prevLockState = false
+			end
+		end
+		
         -- If a server runs an older version, or doesnt meet your version of data files, show a message.
         local ver = tonumber ( getUserConfig ( "version" ) )
         local minver = tonumber ( getUserConfig ( "minVersion" ) )

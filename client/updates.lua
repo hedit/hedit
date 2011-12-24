@@ -2,6 +2,13 @@
 
 -- List of all updates, newest on top.
 local updates = {
+	{
+		revision = 156,
+		date = "24 December 2011",
+		info = "- Added a 'Lock vehicle while editing?' option.\n"..
+			   "- Added a setVehicleLocked wrapper clientside.",
+		height = 35
+	},
     {
 		revision = 155,
 		date = "23 December 2011",

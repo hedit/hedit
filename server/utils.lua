@@ -105,3 +105,13 @@ function setHandlingFromTable ( vehicle, tab, exe )
 
     return true
 end
+
+local function onRemoteLockRequest(vehicle, state)
+	if source ~= client then
+		return
+	end
+
+	setVehicleLocked(vehicle, state)
+end
+addEvent("vehicleLockRequest", true)
+addEventHandler("vehicleLockRequest", root, onRemoteLockRequest)
