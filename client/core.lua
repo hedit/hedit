@@ -13,6 +13,14 @@ local function resourceStart()
 		end
 	end
 	
+	--Remove deprecated/unused setting nodes.
+	for _, subNode in ipairs(xmlNodeGetChildren(rootNode)) do
+		local nodeName = xmlNodeGetName(subNode)
+		if not setting[nodeName] then
+			xmlDestroyNode(subNode)
+		end
+	end
+	
 	xmlSaveFile(rootNode)
 	xmlUnloadFile(rootNode)
 
@@ -20,10 +28,10 @@ local function resourceStart()
 	cacheClientSaves()
 
 	--Query the server for admin rights.
-	triggerServerEvent ( "requestRights", root )
+	triggerServerEvent("requestRights", root)
 	
 	--Build the GUI.
-	startBuilding ( )
+	startBuilding()
 end
 addEventHandler("onClientResourceStart", resourceRoot, resourceStart)
 
