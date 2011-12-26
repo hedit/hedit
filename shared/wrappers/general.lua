@@ -99,6 +99,11 @@ function xmlCreateFile ( file, rootNode )
         return false
     end
 
+	xmlSaveFile(xml)
+	xmlUnloadFile(xml)
+	
+	xml = xmlLoadFile(file)
+	
     xmlFile[file] = xml
     return xml
 end
