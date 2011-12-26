@@ -1271,9 +1271,9 @@ guiTemplate.default = {
                     type = "checkbox", 
                     pos = { 72, 250 },
                     size = { 285, 25 },
-					--[[runfunction = function(this)
+					runfunction = function(this)
 						guiSetText(this, string.format(getText("menuinfo", "options", "itemtext", "checkbox_versionreset"), tostring(getUserConfig(version)), tostring(HREV)))
-					end]]
+					end
                 },
 				checkbox_lockwhenediting = {
 					type = "checkbox",
