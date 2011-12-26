@@ -2,39 +2,30 @@
 
 -- List of all updates, newest on top.
 local updates = {
+	{	revision = "Release Candidate 2 (r161)",
+		date = "26 December 2011",
+		info = 	"- Re-wrote client/core.lua, fixing the clientside configuration XML parsing.\n"..
+				"- Fixed errors in the xml function wrappers.\n"..
+				"- Fixed an error where english.lua would fail to load if the clientside xml had not loaded yet.\n"..
+				"- Tweaked a warning window.",
+		height = 75
+	},
 	{
-		revision = 156,
+		revision = "Release Candidate 1 (r156)",
 		date = "24 December 2011",
-		info = "- Added a 'Lock vehicle while editing?' option.\n"..
-			   "- Added a setVehicleLocked wrapper clientside.",
-		height = 35
-	},
-    {
-		revision = 155,
-		date = "23 December 2011",
-		info = "- Made the information text show limits of a property.\n"..
-			   "- Fixed a few settings bugs and various other.\n",
-		height = 40
-	},
-
-    {
-		revision = 151,
-		date = "22 December 2011",
-		info = "- Added images and tweaked settings for the warning windows.\n"..
-			   "- Fixed the limits system, invalid values are now detected properly.\n"..
-			   "- Improved the version system.\n"..
-			   "- Fixed various typos and grammatical errors in the english language file. If you would like to contribute your own translation, contact us!",
-		height = 100
-	},
-			   
-	{
-        revision = 137,
-        date = "16 December 2011",
-        info = "- Disabled the checkboxes at the import menu, as the functionality of these isn't yet implemented.\n" ..
-               "- Added this list of updates menu, including a notifier.\n" ..
-               "- Fixed size of the 'Center Of Mass Mode' combobox in 'options'.\n" ..
-               "- Made the text in warining messages smaller because some messages were too long to display.",
-        height = 70
+		info = 	"- Added a 'Lock vehicle while editing?' option.\n"..
+				"- Added a setVehicleLocked wrapper clientside."..
+				"- Made the information text show limits of a property.\n"..
+				"- Fixed a few settings bugs and various other.\n"..
+				"- Added images and tweaked settings for the warning windows.\n"..
+				"- Fixed the limits system, invalid values are now detected properly.\n"..
+				"- Improved the version system.\n"..
+				"- Fixed various typos and grammatical errors in the english language file. If you would like to contribute your own translation, contact us!"..
+				"- Disabled the checkboxes at the import menu, as the functionality of these isn't yet implemented.\n" ..
+				"- Added this list of updates menu, including a notifier.\n" ..
+				"- Fixed size of the 'Center Of Mass Mode' combobox in 'options'.\n" ..
+				"- Made the text in warining messages smaller because some messages were too long to display.",
+        height = 175
     }
 }
 
@@ -106,7 +97,7 @@ end
 function listUpdate ( revision, date, infotext, textheight, upgrade )
     -- Create our new elements
     local scrollpane = heditGUI.menuItems.updatelist.guiItems.scrollpane
-    local header = guiCreateLabel ( 0, 5, 270, 20, "r"..revision..", "..date, false, scrollpane )
+    local header = guiCreateLabel ( 0, 5, 270, 20, revision..", "..date, false, scrollpane )
     local infolabel = guiCreateLabel ( 0, 25, 270, textheight, infotext, false, scrollpane )
 
     guiSetFont ( header, "default-bold-small" )
