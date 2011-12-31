@@ -7,6 +7,8 @@ addEventHandler ( "onResourceStart", resourceRoot, function ( )
     
     local resName = getResourceName ( resource )
     
+	setElementData(resourceRoot, "resourceVersion", getResourceInfo(resource, "version"))
+	
     if resName ~= "hedit" and not DEBUGMODE then
         outputChatBox ( "Handling Editor failed to start, see the log's for more information." )
         print ( "===============================================================================" )
@@ -29,9 +31,11 @@ addEventHandler ( "onResourceStart", resourceRoot, function ( )
         print ( "===============================================================================" )
     end
     
-    
-    
-    for model=400,611 do
+	--Parse meta settings
+	parseMetaSettings()
+	addEventHandler("onSettingChange", root, parseMetaSettings)
+	
+	for model=400,611 do
         setElementData ( root, "originalHandling."..tostring ( model ), getOriginalHandling ( model, true ) )
     end
     
@@ -47,7 +51,8 @@ end )
 
 addEventHandler ( "onResourceStop", resourceRoot, function ( )
     unloadHandlingLog ( )
-
+	removeElementData(resourceRoot, "resourceVersion")
+	removeElementData(resourceRoot, "propertySettings")
     return true
 end )
 

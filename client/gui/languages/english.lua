@@ -24,6 +24,7 @@ guiLanguage.english = {
     successRegular = "%s set to %s.",
     successHex = "%s %s.",
     unableToChange = "Unable to set the %s to %s!",
+	disabledProperty = "Editing %s is disabled on this server!",
     
     resetted = "Succesfully reset the vehicle's handling settings!",
     loaded = "Successfully loaded your handling settings!",

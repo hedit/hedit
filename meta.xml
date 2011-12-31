@@ -64,4 +64,44 @@
     <script src="server/exports.lua"                type="server" />
     <script src="server/core.lua"                   type="server" />
     <script src="server/utils.lua"                  type="server" />
+	
+	<!-- SETTINGS -->
+	<settings>
+		<setting name="*enable_suspensionLowerLimit" value="true"/>
+		<setting name="*enable_engineInertia" value="true"/>
+		<setting name="*enable_suspensionHighSpeedDamping" value="true"/>
+		<setting name="*enable_centerOfMassY" value="true"/>
+		<setting name="*enable_collisionDamageMultiplier" value="true"/>
+		<setting name="*enable_suspensionDamping" value="true"/>
+		<setting name="*enable_seatOffsetDistance" value="true"/>
+		<setting name="*enable_headLight" value="true"/>
+		<setting name="*enable_dragCoeff" value="true"/>
+		<setting name="*enable_engineAcceleration" value="true"/>
+		<setting name="*enable_steeringLock" value="true"/>
+		<setting name="*enable_suspensionUpperLimit" value="true"/>
+		<setting name="*enable_suspensionForceLevel" value="true"/>
+		<setting name="*enable_turnMass" value="true"/>
+		<setting name="*enable_brakeBias" value="true"/>
+		<setting name="*enable_centerOfMassZ" value="true"/>
+		<setting name="*enable_numberOfGears" value="true"/>
+		<setting name="*enable_ABS" value="true"/>
+		<setting name="*enable_mass" value="true"/>
+		<setting name="*enable_percentSubmerged" value="true"/>
+		<setting name="*enable_tractionBias" value="true"/>
+		<setting name="*enable_identifier" value="true"/>
+		<setting name="*enable_modelFlags" value="true"/>
+		<setting name="*enable_centerOfMassX" value="true"/>
+		<setting name="*enable_maxVelocity" value="true"/>
+		<setting name="*enable_animGroup" value="true"/>
+		<setting name="*enable_monetary" value="true"/>
+		<setting name="*enable_suspensionAntiDiveMultiplier" value="true"/>
+		<setting name="*enable_suspensionFrontRearBias" value="true"/>
+		<setting name="*enable_driveType" value="true"/>
+		<setting name="*enable_engineType" value="true"/>
+		<setting name="*enable_brakeDeceleration" value="true"/>
+		<setting name="*enable_handlingFlags" value="true"/>
+		<setting name="*enable_tractionMultiplier" value="true"/>
+		<setting name="*enable_tractionLoss" value="true"/>
+		<setting name="*enable_tailLight" value="true"/>
+	</settings>
 </meta>
