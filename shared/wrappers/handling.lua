@@ -60,7 +60,11 @@ function setVehicleHandling ( vehicle, property, value, withLog )
     end 
     
     
-    
+    if not isHandlingPropertyEnabled(property) then
+		addLogEntry(vehicle, client, "disabledProperty", {property, value}, nil, 3)
+		return false
+	end
+	
     if isHandlingPropertyCorrectable ( property ) then
         local corrected = isValueCorrected ( value )
         

@@ -115,3 +115,21 @@ local function onRemoteLockRequest(vehicle, state)
 end
 addEvent("vehicleLockRequest", true)
 addEventHandler("vehicleLockRequest", root, onRemoteLockRequest)
+
+--This function parses the meta.xml settings, storing them all as element data of resourceRoot (for use clientside).
+function parseMetaSettings()
+	local propertySettings = {}
+	for handlingProperty,_ in pairs(handlingLimits) do
+		local settingExists = get("*enable_"..handlingProperty)
+		if settingExists then
+			propertySettings[handlingProperty] = tobool(settingExists)
+		else
+			propertySettings[handlingProperty] = false
+			print("Missing setting for "..handlingProperty..", defaulting to false.")
+			if DEBUGMODE then
+				outputDebugString("Missing setting for "..handlingProperty..", defaulting to false.", 2)
+			end
+		end
+	end
+	setElementData(resourceRoot, "propertySettings", propertySettings)
+end

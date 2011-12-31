@@ -118,9 +118,14 @@ function isValidVehicleModel ( model )
     return true
 end
 
-
-
-
+--This function returns true if a setting is enabled in the meta, false otherwise.
+function isHandlingPropertyEnabled(property)
+	if getLocalPlayer then
+		return (getElementData(resourceRoot, "propertySettings", false)[property]) or false
+	else
+		return tobool(get("*enable_"..property))
+	end
+end
 
 function isHandlingPropertyValid ( property )
     if property == "centerOfMass" or handlingLimits[property] then

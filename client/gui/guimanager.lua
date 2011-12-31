@@ -479,6 +479,7 @@ function toggleMenuItemsVisibility ( menu, bool )
                     toggleVisibility ( gui )
                 else
                     guiSetVisible ( gui, bool )
+					guiSetEnabled(gui, isHandlingPropertyEnabled(guiGetElementProperty(gui)))
                 end
             end
         end
