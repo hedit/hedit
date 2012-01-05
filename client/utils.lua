@@ -393,7 +393,8 @@ end
 
 
 
-
+-- Imports a handling line in handling.cfg format, given a proper method.
+-- Valid methods: III, VC, SA, and IV
 function importHandling ( vehicle, handlingLine, method )
     if not isValidVehicle ( vehicle ) then
         if DEBUGMODE then
@@ -402,46 +403,122 @@ function importHandling ( vehicle, handlingLine, method )
         return false
     end
     
+	-- Split the line into a table.
+	local handlingValues = {}
+	for handlingValue in string.gmatch(handlingLine, "[^%s]+") do
+		outputDebugString(handlingValue)
+		table.insert(handlingValues, handlingValue)
+	end
+	
+	-- Parse GTA:IV-format handling lines.
+	-- TODO: tweak default.lua to include a warning window before importing.
+	if method == "IV" then
+		if #handlingValues ~= 37 then
+			return false
+		end
+		
+		for i, handlingValue in ipairs(handlingValues) do
+			if i ~= 1 then
+				if not isNumeric(handlingValue) then
+					return false
+				else
+					handlingValue = tonumber(handlingValue)
+				end
+			end
+			if i == 8 then
+				if handlingValue < 0.35 then handlingValues[i] = "rwd" end
+				if handlingValue >= 0.35 and handlingValue < 0.65 then handlingValues[i] = "awd" end
+				if handlingValue > 0.65 then handlingValues[i] = "fwd" end
+			elseif i == 9 then
+				if handlingValue < 1 then
+					handlingValues[i] = 1
+				end
+				if handlingValue > 5 then
+					handlingValues[i] = 5
+				end
+			else
+				handlingValues[i] = handlingValue
+			end
+		end
+		
+		-- TODO: tweak handling values to make them more like IV (less traction, more cushiony suspension)
+		
+		local handlingProperties = {}
+		handlingProperties["mass"] = handlingValues[2]
+		handlingProperties["dragCoeff"] = handlingValues[3]
+		handlingProperties["percentSubmerged"] = handlingValues[4]
+		handlingProperties["centerOfMassX"] = handlingValues[5]
+		handlingProperties["centerOfMassY"] = handlingValues[6]
+		handlingProperties["centerOfMassZ"] = handlingValues[7]
+		handlingProperties["driveType"] = handlingValues[8]
+		handlingProperties["numberOfGears"] = handlingValues[9]
+		handlingProperties["engineAcceleration"] = handlingValues[10] * 100
+		handlingProperties["engineInertia"] = handlingValues[11] * 10
+		handlingProperties["maxVelocity"] = handlingValues[12]
+		handlingProperties["brakeDeceleration"] = handlingValues[13] * 10
+		handlingProperties["brakeBias"] = handlingValues[14]
+		--handlingValue[15] is skipped (unknown paramater)
+		handlingProperties["steeringLock"] = handlingValues[16]
+		handlingProperties["tractionMultiplier"] = handlingValues[17]
+		handlingProperties["tractionLoss"] = handlingValues[18]
+		handlingProperties["tractionBias"] = handlingValues[21]
+		handlingProperties["suspensionForceLevel"] = handlingValues[22]
+		handlingProperties["suspensionDamping"] = (handlingValues[23] + handlingValues[24]) / 1 --average between compression and rebound damping.
+		handlingProperties["suspensionAntiDiveMultiplier"] = math.abs((handlingValues[23] - handlingValues[24])) * 10--diff between compression and rebound damping.
+		handlingProperties["suspensionHighSpeedDamping"] = handlingValues[24]
+		handlingProperties["suspensionUpperLimit"] = handlingValues[25]
+		handlingProperties["suspensionLowerLimit"] = handlingValues[26]
+		--handlingValue[27] is skipped
+		handlingProperties["suspensionFrontRearBias"] = handlingValues[28]
+		handlingProperties["collisionDamageMultiplier"] = handlingValues[29]
+		handlingProperties["seatOffsetDistance"] = handlingValues[33]
+		handlingProperties["monetaryValue"] = handlingValues[34]
+		
+		triggerServerEvent("importHandling", vehicle, handlingProperties)
+		return true
+	end
     
+	--TODO: clean this up a bit
+	if method == "SA" then
+		local handlingTable = {}
     
-    local handlingTable = {}
+		local id = 1
+		local vIdentifierFound = false
     
-    local id = 1
-    local vIdentifierFound = false
-    
-    for value in string.gmatch ( handlingLine, "[^%s]+" ) do
-        if not vIdentifierFound and tonumber ( value ) then
-            vIdentifierFound = true
-        end
+		for value in string.gmatch ( handlingLine, "[^%s]+" ) do
+			if not vIdentifierFound and tonumber ( value ) then
+				vIdentifierFound = true
+			end
         
-        if vIdentifierFound then
-            id = id + 1
-            local property = getHandlingPropertyNameFromID ( id )
+			if vIdentifierFound then
+				id = id + 1
+				local property = getHandlingPropertyNameFromID ( id )
             
-            if property then
-                handlingTable[property] = stringToValue ( property, value )
-            end
-        end
-    end
+				if property then
+					handlingTable[property] = stringToValue ( property, value )
+				end
+			end
+		end
     
-    if id ~= 36 then
-        addLogEntry ( vehicle, localPlayer, "invalidImport", nil, nil, 3 )
-        return false
-    end
+		if id ~= 36 then
+			addLogEntry ( vehicle, localPlayer, "invalidImport", nil, nil, 3 )
+			return false
+		end
     
     
     
-    local function func ( )
-        triggerServerEvent ( "importHandling", vehicle, handlingTable )
-    end
+		local function func ( )
+			triggerServerEvent ( "importHandling", vehicle, handlingTable )
+		end
     
-    if not isVehicleSaved ( vehicle ) then
-        guiCreateWarningMessage ( getText ( "confirmImport" ), 2, {func} )
-        return true
-    end
+		if not isVehicleSaved ( vehicle ) then
+			guiCreateWarningMessage ( getText ( "confirmImport" ), 2, {func} )
+			return true
+		end
     
-    func ( )
-    return true
+		func ( )
+		return true
+	end
 end
 
 

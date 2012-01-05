@@ -1,6 +1,6 @@
 <meta>
     <info type="script" name="Ingame Handling Editor" author="Remi-X" version="2.0.0" description="The first, and only ingame handling editor available for San Andreas, made with MTA ofcourse!" />
-    <min_mta_version server="1.2.0" client="1.2.0" />
+    <min_mta_version server="1.2.0" client="1.2.0-9.03618" />
 
     <!-- SHARED -->
     <script src="shared/variables/general.lua"      type="client" />
@@ -35,7 +35,6 @@
     <script src="client/logmanager.lua"             type="client" />
     <script src="client/updates.lua"                type="client" />
     <script src="client/settings.lua"               type="client" />
-    <script src="client/cfgloader.lua"              type="client" />
     <script src="client/utils.lua"                  type="client" />
     <script src="client/exports.lua"                type="client" />
     <script src="client/core.lua"                   type="client" />

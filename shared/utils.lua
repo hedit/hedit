@@ -121,7 +121,7 @@ end
 --This function returns true if a setting is enabled in the meta, false otherwise.
 function isHandlingPropertyEnabled(property)
 	if getLocalPlayer then
-		return (getElementData(resourceRoot, "propertySettings", false)[property]) or false
+		return (getElementData(resourceRoot, "propertySettings", false)[property]) or true
 	else
 		return tobool(get("*enable_"..property))
 	end
