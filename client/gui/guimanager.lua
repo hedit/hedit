@@ -46,7 +46,7 @@ function guiSetElementID ( guiElement, id )
         return false
     end
     
-    if guiID[id] and DEBUGMODE then
+    if guiID[id] then
         outputDebugString ( "Overwriting guiID "..tostring(id) )
     end
     
@@ -60,9 +60,7 @@ end
 
 function guiGetElementFromID ( id )
     if not guiID[id] then
-        if DEBUGMODE then
-            outputDebugString ( "Unexisting guiID '"..tostring(id) )
-        end
+        outputDebugString ( "Unexisting guiID '"..tostring(id) )
         
         return false
     end
@@ -163,9 +161,7 @@ function toggleEditor ( )
         -- When you abort entering a vehicle, hedit will still think you own a vehicle. Hax for thiz
         -- I need onClientVehicleAbortEnter, NOAW
         if not getPedOccupiedVehicle ( localPlayer ) then
-            if DEBUGMODE then
-                outputDebugString ( "pVehicle exist, but you do not own a vehicle!" )
-            end
+            outputDebugString ( "pVehicle exist, but you do not own a vehicle!" )
             
             pVehicle = false
             guiCreateWarningMessage(getText ( "needVehicle" ), 1)
@@ -470,9 +466,7 @@ end
 function toggleMenuItemsVisibility ( menu, bool )
     local function toggleVisibility ( tab )
         if type ( tab ) ~= "table" then
-            if DEBUGMODE then
-                outputChatBox ( "Error when showing menu items from menu '"..tostring ( menu ).."'" )
-            end
+            outputDebugString ( "Error when showing menu items from menu '"..tostring ( menu ).."'" )
         else
             for k,gui in pairs ( tab ) do
                 if type ( gui ) == "table" then
@@ -601,9 +595,7 @@ function guiUpdateMenu ( menu )
     if menu then
         local veh = getPedOccupiedVehicle ( localPlayer )
         if not veh or veh ~= pVehicle then
-            if DEBUGMODE then
-                outputDebugString ( "guiUpdateMenu is called while your vehicle differs from pVehicle or dont have a vehicle!" )
-            end
+            outputDebugString ( "guiUpdateMenu is called while your vehicle differs from pVehicle or dont have a vehicle!" )
             
             return false
         end

@@ -171,9 +171,7 @@ function setVehicleHandling ( vehicle, property, value, withLog )
             addLogEntry ( vehicle, client, "unableToChange", { property, value }, nil, 3 )
         end
         
-        if DEBUGMODE then
-            outputDebugString ( "Can't change property "..property.." to value '"..tostring(value).."'" )
-        end
+        outputDebugString ( "Can't change property "..property.." to value '"..tostring(value).."'" )
         
         return false
     end

@@ -96,9 +96,7 @@ function setHandlingFromTable ( vehicle, tab, exe )
     end
     
     for property,value in pairs ( tab ) do
-        if DEBUGMODE then
-            outputDebugString ( "PROPERTY: "..property.." - VALUE: "..tostring(value).." - TYPE: "..type(value) )
-        end
+        outputDebugString ( "PROPERTY: "..property.." - VALUE: "..tostring(value).." - TYPE: "..type(value) )
         
         setVehicleHandling ( vehicle, property, value, false )
     end
@@ -126,9 +124,7 @@ function parseMetaSettings()
 		else
 			propertySettings[handlingProperty] = false
 			print("Missing setting for "..handlingProperty..", defaulting to false.")
-			if DEBUGMODE then
-				outputDebugString("Missing setting for "..handlingProperty..", defaulting to false.", 2)
-			end
+			outputDebugString("Missing setting for "..handlingProperty..", defaulting to false.", 2)
 		end
 	end
 	setElementData(resourceRoot, "propertySettings", propertySettings)

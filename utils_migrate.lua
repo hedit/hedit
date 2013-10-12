@@ -239,9 +239,7 @@ function saveHandlingToServer ( player, vehicle, name, description )
     
     if not handlingXML then
         handlingXML = xmlAddFile ( server_handling_file )
-        if DEBUGMODE then
-            outputDebugString ( "Created new server handling file ["..tostring(handlingXML).."]" )
-        end
+        outputDebugString ( "Created new server handling file ["..tostring(handlingXML).."]" )
     end
     
     if cache then
@@ -301,9 +299,7 @@ function saveHandlingToClient ( vehicle, name, description )
     
     if not handlingXML then
         handlingXML = xmlAddFile ( client_handling_file )
-        if DEBUGMODE then
-            outputDebugString ( "Created new client handling file ["..tostring(handlingXML).."]" )
-        end
+        outputDebugString ( "Created new client handling file ["..tostring(handlingXML).."]" )
     end
     
     local cache = xmlCache.clientsaves[string.lower(name)]

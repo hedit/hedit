@@ -42,11 +42,9 @@ function checkTheUpdates ( )
     -- If we have a no menu to store our updates in, we shouldn't try adding them too.
     if not heditGUI.menuItems.updatelist or not heditGUI.menuItems.updatelist.guiItems.scrollpane then
 
-        if DEBUGMODE then
-            outputDebugString ( "> No menu found to store updates in." )
-            outputDebugString ( "> In order to create such a menu, name it 'updatelist' with a scrollpane in it named 'scrollpane'." )
-        end
-
+        outputDebugString ( "> No menu found to store updates in." )
+        outputDebugString ( "> In order to create such a menu, name it 'updatelist' with a scrollpane in it named 'scrollpane'." )
+        
     else
         
         -- If we do have a menu to list updates in, we only want to show the latest 15.

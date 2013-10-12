@@ -38,9 +38,7 @@ end
 
 
 function startBuilding ( )
-    if DEBUGMODE then
-        outputDebugString ( "Building the gui.." )
-    end
+    outputDebugString ( "Building the gui.." )
     
     if heditGUI.window then
         destroyGUI ( )
@@ -49,9 +47,6 @@ function startBuilding ( )
     local template = getUserTemplate ( )
     
     if not template then
-        if DEBUGMODE then
-        end
-
         return false
     end
 
@@ -421,9 +416,7 @@ function buildSpecials ( template )
             gui.runfunction ( element )
         end
         
-        if DEBUGMODE then
-            --outputDebugString ( "Created special element of "..parent )
-        end
+        --outputDebugString ( "Created special element of "..parent )
         
         return element
     end

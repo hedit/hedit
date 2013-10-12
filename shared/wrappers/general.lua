@@ -10,15 +10,18 @@ else
 end
 
 
-
+_outputDebugString = outputDebugString
+function outputDebugString(...)
+    if DEBUGMODE then
+       return _outputDebugString(...)
+    end
+end
 
 
 _getVehicleNameFromModel = getVehicleNameFromModel
 function getVehicleNameFromModel ( model )
     if not isValidVehicleModel ( model ) then
-        if DEBUGMODE then
-            outputDebugString ( "Invalid model "..tostring(model).." in 'getVehicleFromModel'!" )
-        end
+        outputDebugString ( "Invalid model "..tostring(model).." in 'getVehicleFromModel'!" )
         
         return false
     end
@@ -54,17 +57,13 @@ end
 _xmlLoadFile = xmlLoadFile
 function xmlLoadFile ( file )
     if type ( file ) ~= "string" then
-        if DEBUGMODE then
-            outputDebugString ( "Need a string at xmlLoadFile!" )
-        end
+        outputDebugString ( "Need a string at xmlLoadFile!" )
 
         return false
     end
 
     if not fileExists ( file ) then
-        if DEBUGMODE then
-            outputDebugString ( "XML '"..file.."' does not exist." ) 
-        end
+        outputDebugString ( "XML '"..file.."' does not exist." ) 
 
         return false
     end
@@ -76,9 +75,7 @@ function xmlLoadFile ( file )
     local xml = _xmlLoadFile ( file )
     
     if not xml then
-        if DEBUGMODE then
-            outputDebugString ( "Cannot open XML '"..tostring(file).."' for some reason." )
-        end
+        outputDebugString ( "Cannot open XML '"..tostring(file).."' for some reason." )
 
         return false
     end

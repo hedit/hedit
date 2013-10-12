@@ -17,10 +17,8 @@ function guiCreateElement ( guiType, x, y, w, h, text, alpha, hovercolor )
     }
     
     if not func[guiType] then
-        if DEBUGMODE then
-            outputDebugString ( "Invalid gui type found for some element in template '"..tostring(getUserConfig(localplayer,"template")).."'!" )
-            outputDebugString ( "[GUITYPE: "..tostring(guiType).."]" )
-        end
+        outputDebugString ( "Invalid gui type found for some element in template '"..tostring(getUserConfig(localplayer,"template")).."'!" )
+        outputDebugString ( "[GUITYPE: "..tostring(guiType).."]" )
         
         return false
     end

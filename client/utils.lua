@@ -39,9 +39,6 @@ function getText ( ... )
     local entry = getUserLanguage()
     
     if not entry then
-        if DEBUGMODE then
-        end
-
         return false
     end
 
@@ -51,9 +48,7 @@ function getText ( ... )
         
         if not entry then
         
-            if DEBUGMODE then
-                outputDebugString ( "No language entry in "..getUserConfig ( "language" )..": "..table.concat ( {...}, "." ) )
-            end
+            outputDebugString ( "No language entry in "..getUserConfig ( "language" )..": "..table.concat ( {...}, "." ) )
             
             return "NO_TEXT"
             
@@ -233,9 +228,7 @@ function cacheClientSaves ( )
     if not saves then
         saves = xmlCreateFile ( client_handling_file, "saves" )
 
-        if DEBUGMODE then
-            outputDebugString ( "Added new client handling saves file." )
-        end
+        outputDebugString ( "Added new client handling saves file." )
     end
 
     for i,node in ipairs ( xmlNodeGetChildren ( saves ) ) do
@@ -341,7 +334,7 @@ function saveClientHandling ( vehicle, name, description )
     for p,v in pairs ( getVehicleHandling ( vehicle ) ) do
         local str = valueToString ( p, v )
         handling[p] = str
-        if not xmlNodeSetAttribute ( handlingnode, p, str ) and DEBUGMODE then
+        if not xmlNodeSetAttribute ( handlingnode, p, str ) then
             outputDebugString ( "Cant write attribute! property: "..tostring(property).." - str: "..tostring(str) )
         end
     end
@@ -601,9 +594,7 @@ function getUserConfig ( config )
     local node = xmlFindChild ( xml, config, 0 )
     
     if not node then
-        if DEBUGMODE then
-            outputDebugString ( "Node '"..config.."' doesn't exist in the userconfig, returning default value." )
-        end
+        outputDebugString ( "Node '"..config.."' doesn't exist in the userconfig, returning default value." )
 
         xmlUnloadFile ( xml )
         return setting[config]
@@ -614,9 +605,7 @@ function getUserConfig ( config )
     local value = xmlNodeGetValue ( node )
     pData.userconfig[config] = value
     
-    if DEBUGMODE then
-        outputDebugString ( "Added userconfig "..config.." with value '"..tostring(value).."' to pData." )
-    end
+    outputDebugString ( "Added userconfig "..config.." with value '"..tostring(value).."' to pData." )
     
     xmlUnloadFile ( xml )
     
@@ -654,10 +643,8 @@ function setUserConfig ( config, value )
     
     xmlNodeSetValue ( node, tostring ( value ) )
     pData.userconfig[config] = value
-    
-    if DEBUGMODE then
-        outputDebugString ( "Changed config "..config.." to '"..tostring(value).."'" )
-    end
+
+    outputDebugString ( "Changed config "..config.." to '"..tostring(value).."'" )
     
     xmlSaveFile ( xml )
     xmlUnloadFile ( xml )
@@ -725,10 +712,8 @@ function updateRights ( loggedin, admin )
     pData.loggedin = loggedin
     pData.isadmin = admin
     
-    if DEBUGMODE then
-        outputDebugString ( "Updated rights: loggedin:"..tostring(loggedin).." | isadmin:"..tostring(admin) )
-    end
-    
+    outputDebugString ( "Updated rights: loggedin:"..tostring(loggedin).." | isadmin:"..tostring(admin) )
+
     return true
 end
 addEvent ( "updateClientRights", true )
