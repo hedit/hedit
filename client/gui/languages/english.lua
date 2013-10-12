@@ -517,7 +517,7 @@ guiLanguage.english = {
                 {
                     ["1"] = {"USE_MAXSP_LIMIT","Prevents the vehicle from going faster than the maximum speed."},
                     ["2"] = {"LOW_RIDER","Allows the vehicle to be modified at the Loco Low Co shops."},
-                    ["4"] = {"STREET_RACER","Causes vehicle to be only modifiable at the Wheel Arch Angels."},
+                    ["4"] = {"STREET_RACER","Causes vehicle to only be modifiable at the Wheel Arch Angels."},
                     ["8"] = {"",""}
                 },
                 {
