@@ -489,13 +489,13 @@ end
 
 
 
-function guiShowView ( menu )
-    if menu == "previous" then
+function guiShowView ( view )
+    if view == "previous" then
         guiShowView ( previousView )
         return true
     end
 
-    if menu == currentView then
+    if view == currentView then
         guiUpdateView ( currentView )
         return false
     end
@@ -522,7 +522,7 @@ function guiShowView ( menu )
     
     
     
-    guiSetText ( heditGUI.specials.viewheader, getViewLongName ( view ) )
+    guiSetText ( heditGUI.specials.menuheader, getViewLongName ( view ) )
     
     destroyEditBox ( )
     

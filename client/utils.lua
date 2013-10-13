@@ -28,7 +28,6 @@
     getPlayerCorrectTime ( int hours, int minutes, int seconds )
     setUserConfig ( string config, string value )
     getUserConfig ( string config )
-    getUserTemplate ( )
     getUserLanguage ( )
     updateXMLCache ( string cahchelib, string cachename, table entry )
     updateRights ( bool loggedin, bool admin )
@@ -42,15 +41,17 @@ function getText ( ... )
         return false
     end
 
-    for i,tab in ipairs ( {...} ) do
+    for i,tab in ipairs {...} do
     
         entry = entry[tab]
         
         if not entry then
-        
-            outputDebugString ( "No language entry in "..getUserConfig ( "language" )..": "..table.concat ( {...}, "." ) )
+            local path = table.concat ( {...}, "." ) 
+            outputDebugString ( "No language entry in "..getUserConfig ( "language" )..": ".. path)
             
-            return "NO_TEXT"
+            -- Returning path is more friendly, helps developer find source of issue and can give
+            -- user an idea of what was supposed to be said
+            return path
             
         elseif type ( entry ) == "string" then
             return entry
@@ -59,10 +60,10 @@ function getText ( ... )
     end
     
     if DEBUGMODE then
-        error ( "Cannot loop in getText!", 2 )
+        error ( "No valid arguments were passed!", 2 )
     end
     
-    return "NO_TEXT"
+    return ""
 end
 
 

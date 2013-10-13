@@ -12,14 +12,14 @@ addEventHandler ( "onClientPlayerVehicleEnter", localPlayer,
 )
 
 
--- For when a player falls off his bike, or when using removePedFromVehicle
+--[[ For when a player falls off his bike, or when using removePedFromVehicle
 addEventHandler ( "onClientPlayerVehicleExit", localPlayer,
     function ( )
         logCreated = false
         pVehicle = false
         setVisible ( false )
     end
-)
+)]]
 
 -- Starting to enter a vehicle normally. I NEED onClientVehicleAbortEnter!
 --[[addEventHandler ( "onClientVehicleStartEnter", root,
@@ -31,10 +31,21 @@ addEventHandler ( "onClientPlayerVehicleExit", localPlayer,
     end
 )]]
 
+
+-- For when a player dies whilst inside a vehicle
+addEventHandler ( "onClientPlayerWasted", localPlayer,
+    function()
+        logCreated = false
+        pVehicle = false
+        setVisible ( false )
+    end
+)
+
+
 -- And exiting normally.
 addEventHandler ( "onClientVehicleStartExit", root,
     function ( player )
-         -- Possible fix for when someone is trying to jack a locked vehicle, you cant open the editor anymore.
+        -- Possible fix for when someone is trying to jack a locked vehicle, you cant open the editor anymore.
         if player == localPlayer and not isVehicleLocked ( source ) then
             clearLog ( )
             pVehicle = false
@@ -72,7 +83,7 @@ function checkVehicleChange ( )
         if pVehicle ~= lastVehicle then
             requestMiniLog ( pVehicle )
             lastVehicle = pVehicle
-            guiShowMenu ( "engine" )
+            guiShowView ( "engine" )
         end
     end
 end
@@ -86,5 +97,5 @@ function forceVehicleChange ( )
     end
     
     lastVehicle = pVehicle
-    guiShowMenu ( "engine" )
+    guiShowView ( "engine" )
 end
