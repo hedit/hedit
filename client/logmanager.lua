@@ -147,7 +147,7 @@ end
 function addToLogGUI ( entry )
     addToMiniLog ( entry )
     addToFullLog ( entry )
-    guiUpdateMenu ( currentMenu )
+    guiUpdateView ( currentView )
     
     return true
 end
