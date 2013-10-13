@@ -501,7 +501,7 @@ function guiShowView ( view )
     end
     
     if not heditGUI.viewItems[view] then
-        guiCreateWarningMessage ( getText ( "invalidview" ), 0 )
+        guiCreateWarningMessage ( getText ( "invalidView" ), 0 )
         return false
     end
     
@@ -516,7 +516,7 @@ function guiShowView ( view )
     end
 
     if heditGUI.viewItems[view].disabled then
-        guiCreateWarningMessage ( getText ( "disabledview" ), 1 )
+        guiCreateWarningMessage ( getText ( "disabledView" ), 1 )
         return false
     end
     
