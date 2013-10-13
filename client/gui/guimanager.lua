@@ -263,10 +263,9 @@ function setVisible ( bool )
         guiSetInputMode ( "no_binds_when_editing" )
     end
     
-    bind ( "lctrl", "both", showOriginalValue )
-    bind ( "rctrl", "both", showOriginalValue )
-    bind ( "lshift", "both", showPreviousValue )
-    bind ( "rshift", "both", showPreviousValue )
+    for _, key in ipairs{"lctrl", "rctrl", "lshift", "rshift"} do
+        bind ( key, "both", showButtonValue )
+    end
     --[[bind ( "mouse_wheel_up", "up", onScroll, "up" )
     bind ( "mouse_wheel_down", "up", onScroll, "down" )
     bind ( "delete", "down", tryDelete )]]
@@ -312,90 +311,56 @@ end
 
 
 
-function showOriginalValue ( key, state ) -- Maybe merge with showPreviousValue?
-    if pointedButton then
-        if state == "down" then
-            if pressedKey ~= "shift" then
-                local property = guiGetElementProperty ( pointedButton )
-                local original = getOriginalHandling ( getElementModel ( pVehicle ) )[property]
-                
-                if property == "centerOfMass" then
-                    local hnd = getOriginalHandling ( getElementModel ( pVehicle ) )
-                    original = math.round ( hnd.centerOfMassX )..", "..math.round ( hnd.centerOfMassY )..", "..math.round ( hnd.centerOfMassZ )
-                end
+function showButtonValue ( key, state )
+    local ctrl = (key == "lctrl") or (key == "rctrl")
+    local shift = (key == "lshift") or (key == "rshift")
 
+    if not pointedButton then return false end
+
+    if state == "down" then
+        if pressedKey ~= "shift" then
+            local property = guiGetElementProperty ( pointedButton )
+            local new = ctrl and
+                getOriginalHandling ( getElementModel ( pVehicle ) )[property] or
+                getHandlingPreviousValue ( pVehicle, property )
+
+            
+            if property == "centerOfMass" then
+                local hnd = getOriginalHandling ( getElementModel ( pVehicle ) )
+                new = math.round ( hnd.centerOfMassX )..", "..math.round ( hnd.centerOfMassY )..", "..math.round ( hnd.centerOfMassZ )
+            end
+
+            if ctrl or (shift and new) then
                 buttonValue = guiGetText ( pointedButton )
-                guiSetText ( pointedButton, valueToString ( property, original ) )
-                guiSetProperty ( pointedButton, "HoverTextColour", "FF68F000" )
-                pressedKey = "ctrl"
+                guiSetText ( pointedButton, valueToString ( property, new ) )
+                guiSetProperty ( pointedButton, "HoverTextColour", ctrl and "FF68F000" or "FFF0D400")
+                pressedKey = ctrl and "ctrl" or "shift"
             end
-            
-            return true
-        end
-        
-        if buttonValue then
-            guiSetText ( pointedButton, buttonValue )
-            guiSetProperty ( pointedButton, "HoverTextColour", buttonHoverColor )
-            buttonValue = nil
-            pressedKey = nil
-            
-            handleKeyState ( "down" )
-            return true
         end
         
         return true
     end
     
-    return false
-end
-
-
-
-
-
-function showPreviousValue ( key, state ) -- Maybe merge with showOriginalValue?
-    if pointedButton then
-        if state == "down" then
-            if pressedKey ~= "ctrl" then
-                local property = guiGetElementProperty ( pointedButton )
-                local previous = getHandlingPreviousValue ( pVehicle, property )
-                
-                if previous then
-                    buttonValue = guiGetText ( pointedButton )
-                    guiSetText ( pointedButton, valueToString ( property, previous ) )
-                    guiSetProperty ( pointedButton, "HoverTextColour", "FFF0D400" )
-                    pressedKey = "shift"
-                end
-            end
-            
-            return true
-        end
+    if buttonValue then
+        guiSetText ( pointedButton, buttonValue )
+        guiSetProperty ( pointedButton, "HoverTextColour", buttonHoverColor )
+        buttonValue = nil
+        pressedKey = nil
         
-        if buttonValue then
-            guiSetText ( pointedButton, buttonValue )
-            guiSetProperty ( pointedButton, "HoverTextColour", buttonHoverColor )
-            buttonValue = nil
-            pressedKey = nil
-            
-            handleKeyState ( "down" )
-            return true
-        end
-        
+        handleKeyState ( "down" )
         return true
     end
     
-    return false
+    return true
 end
-
-
 
 
 
 function handleKeyState ( state )
     if getKeyState ( "lctrl" ) or getKeyState ( "rctrl" ) then
-        showOriginalValue ( "lctrl", state )
+        showButtonValue ( "lctrl", state )
     elseif getKeyState ( "lshift" ) or getKeyState ( "rshift" ) then
-        showPreviousValue ( "lshift", state )
+        showButtonValue ( "lshift", state )
     end
 end
 
@@ -594,8 +559,8 @@ function guiUpdateMenu ( View )
     if View then
         local veh = getPedOccupiedVehicle ( localPlayer )
         if not veh or veh ~= pVehicle then
+            -- This should never happen
             outputDebugString ( "guiUpdateView is called while your vehicle differs from pVehicle or dont have a vehicle!" )
-            
             return false
         end
         
