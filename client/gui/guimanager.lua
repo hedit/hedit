@@ -3,8 +3,8 @@
     guiGetElementFromID ( string id )
     
     guiGetElementParent ( element gui )
-    guiGetElementInputType ( element gui ) -- Only for menu items!
-    guiGetElementProperty ( element gui ) -- Only for config menu items!
+    guiGetElementInputType ( element gui ) -- Only for view items!
+    guiGetElementProperty ( element gui ) -- Only for config view items!
     guiGetElementInfo ( element gui )
     guiGetElementEvents ( element gui )
     
@@ -22,11 +22,11 @@
     guiResetStaticInfoText ( )
     
     guiToggleUtilityDropDown ( [string utility = all] )
-    guiShowMenu ( string menu )
-    guiUpdateMenu ( )
+    guiShowView ( string view )
+    guiUpdateView ( )
     
     guiTemplateGetViewButtonText ( string viewbutton )
-    guiTemplateGetItemText ( string menu, string item )
+    guiTemplateGetItemText ( string view, string item )
     
     getViewShortName ( string view )
     getViewLongName ( string view )
@@ -210,13 +210,13 @@ function toggleEditor ( )
         if getUserConfig ( "notifyUpdate" ) == "true" then
 
             guiDestroyWarningWindow ( )
-            guiCreateWarningMessage ( getText ( "notifyUpdate" ), 2, {guiShowMenu,"updatelist"} )
+            guiCreateWarningMessage ( getText ( "notifyUpdate" ), 2, {guiShowView,"updatelist"} )
             setUserConfig ( "notifyUpdate", "false" )
 
         elseif getUserConfig ( "notifyUpgrade" ) == "true" then
 
             guiDestroyWarningWindow ( )
-            guiCreateWarningMessage ( getText ( "notifyUpgrade" ), 2, {guiShowMenu,"updatelist"} )
+            guiCreateWarningMessage ( getText ( "notifyUpgrade" ), 2, {guiShowView,"updatelist"} )
             setUserConfig ( "notifyUpgrade", "false" )
         
         elseif tonumber ( getUserConfig ( "mtaVersion" ) ) < MTAVER then
@@ -324,7 +324,6 @@ function showButtonValue ( key, state )
                 getOriginalHandling ( getElementModel ( pVehicle ) )[property] or
                 getHandlingPreviousValue ( pVehicle, property )
 
-            
             if property == "centerOfMass" then
                 local hnd = getOriginalHandling ( getElementModel ( pVehicle ) )
                 new = math.round ( hnd.centerOfMassX )..", "..math.round ( hnd.centerOfMassY )..", "..math.round ( hnd.centerOfMassZ )
@@ -490,72 +489,72 @@ end
 
 
 
-function guiShowMenu ( menu )
+function guiShowView ( menu )
     if menu == "previous" then
-        guiShowMenu ( previousMenu )
+        guiShowView ( previousView )
         return true
     end
 
-    if menu == currentMenu then
-        guiUpdateMenu ( currentMenu )
+    if menu == currentView then
+        guiUpdateView ( currentView )
         return false
     end
     
-    if not heditGUI.viewItems[menu] then
-        guiCreateWarningMessage ( getText ( "invalidMenu" ), 0 )
+    if not heditGUI.viewItems[view] then
+        guiCreateWarningMessage ( getText ( "invalidview" ), 0 )
         return false
     end
     
-    if heditGUI.viewItems[menu].requireLogin and not pData.loggedin then
+    if heditGUI.viewItems[view].requireLogin and not pData.loggedin then
         guiCreateWarningMessage ( getText ( "needLogin" ), 1 )
         return false
     end
     
-    if heditGUI.viewItems[menu].requireAdmin and not pData.isadmin then
+    if heditGUI.viewItems[view].requireAdmin and not pData.isadmin then
         guiCreateWarningMessage ( getText ( "needAdmin" ), 1 )
         return false
     end
 
-    if heditGUI.viewItems[menu].disabled then
-        guiCreateWarningMessage ( getText ( "disabledMenu" ), 1 )
+    if heditGUI.viewItems[view].disabled then
+        guiCreateWarningMessage ( getText ( "disabledview" ), 1 )
         return false
     end
     
     
     
-    guiSetText ( heditGUI.specials.menuheader, getViewLongName ( menu ) )
+    guiSetText ( heditGUI.specials.viewheader, getViewLongName ( view ) )
     
     destroyEditBox ( )
     
-    guiUpdateMenu ( menu )
+    guiUpdateView ( view )
     
-    if currentMenu then
-        if type ( heditGUI.viewItems[currentMenu].onClose ) == "function" then
-            heditGUI.viewItems[currentMenu].onClose ( heditGUI.viewItems[currentMenu].guiItems )
+    if currentView then
+        if type ( heditGUI.viewItems[currentView].onClose ) == "function" then
+            heditGUI.viewItems[currentView].onClose ( heditGUI.viewItems[currentView].guiItems )
         end
 
-        toggleViewItemsVisibility ( currentMenu, false )
+        toggleViewItemsVisibility ( currentView, false )
     end
     
-    toggleViewItemsVisibility ( menu, true )
+    toggleViewItemsVisibility ( view, true )
     
-    if type ( heditGUI.viewItems[menu].onOpen ) == "function" then
-        heditGUI.viewItems[menu].onOpen ( heditGUI.viewItems[menu].guiItems )
+    if type ( heditGUI.viewItems[view].onOpen ) == "function" then
+        heditGUI.viewItems[view].onOpen ( heditGUI.viewItems[view].guiItems )
     end
 
-    previousMenu = currentMenu
-    currentMenu = menu
+    previousView = currentView
+    currentView = view
     
     return true
 end
-addEvent ( "showMenu", true )
-addEventHandler ( "showMenu", root, guiShowMenu )
+addEvent ( "showView", true )
+addEventHandler ( "showView", root, guiShowView )
 
 
 
 
 
-function guiUpdateMenu ( View )
+function guiUpdateView ( View )
     if View then
         local veh = getPedOccupiedVehicle ( localPlayer )
         if not veh or veh ~= pVehicle then
@@ -653,8 +652,8 @@ function guiUpdateMenu ( View )
     
     return false
 end
-addEvent ( "updateClientMenu", true )
-addEventHandler ( "updateClientMenu", root, guiUpdateMenu )
+addEvent ( "updateClientView", true )
+addEventHandler ( "updateClientView", root, guiUpdateView )
 
 
 
@@ -681,16 +680,16 @@ addEventHandler ( "updateVehicleText", root, vehicleTextUpdater )
 
 
 
-function guiTemplateGetViewButtonText ( menu )
-    return getText ( "viewbuttons", menu )
+function guiTemplateGetViewButtonText ( view )
+    return getText ( "viewbuttons", view )
 end
 
 
 
 
 
-function guiTemplateGetItemText ( menu, item )
-    local text = getText ( "viewinfo", menu, "itemtext", item )
+function guiTemplateGetItemText ( view, item )
+    local text = getText ( "viewinfo", view, "itemtext", item )
     return text == "NO_TEXT" and "" or text
 end
 

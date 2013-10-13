@@ -14,10 +14,10 @@ function onClick ( button )
             end
             
         elseif parent == "menuItem" then
-            guiShowMenu ( info )
+            guiShowView ( info )
             
         elseif parent == "viewButton" then
-            guiShowMenu ( info )
+            guiShowView ( info )
             
         elseif parent == "viewItem" then
             

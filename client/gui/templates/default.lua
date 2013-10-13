@@ -788,7 +788,7 @@ template.viewcontents = {
 
                         local function func ( )
                             saveClientHandling ( pVehicle, name, description )
-                            guiShowMenu ( previousMenu )
+                            guiShowView ( previousMenu )
                             guiCreateWarningMessage ( getText ( "successSave" ), 3 )
                         end
 
