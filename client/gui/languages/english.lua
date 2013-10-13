@@ -72,15 +72,14 @@ guiLanguage.english = {
         ["error"] = "Error!"
     },
     --Strings for the buttons at the top
-    utilbuttons = {
+    menubar = {
         handling = "Handling",
         tools = "Tools",
         extra = "Extra",
-        close = "X"
     },
 
     --Strings for the buttons at the right
-    menubuttons = {
+    viewbuttons = {
         engine = "Engine",
         body = "Body",
         wheels = "Wheels",

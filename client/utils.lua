@@ -668,22 +668,6 @@ end
 
 
 
-
-
-function getUserTemplate ( )
-    local config = getUserConfig ( "template" )
-    
-    if config then
-        return guiTemplate[config]
-    end
-    
-    return guiTemplate.default
-end
-
-
-
-
-
 function getPlayerCorrectTime ( hours, minutes, seconds )
     return hours, minutes, seconds
 end

@@ -2,7 +2,7 @@ function onClick ( button )
     local parent = guiGetElementParent ( source )
     local event = guiGetElementEvents ( source )
     local info = guiGetElementInfo ( source )
-    
+
     if button == "left" then
         
         if parent == "utilButton" then
@@ -16,7 +16,7 @@ function onClick ( button )
         elseif parent == "utilItem" then
             guiShowMenu ( info )
             
-        elseif parent == "menuButton" then
+        elseif parent == "viewButton" then
             guiShowMenu ( info )
             
         elseif parent == "menuItem" then

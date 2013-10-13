@@ -40,7 +40,7 @@ function checkTheUpdates ( )
     local ver = tonumber ( getUserConfig ( "version" ) or "0" )
 
     -- If we have a no menu to store our updates in, we shouldn't try adding them too.
-    if not heditGUI.menuItems.updatelist or not heditGUI.menuItems.updatelist.guiItems.scrollpane then
+    if not heditGUI.viewItems.updatelist or not heditGUI.viewItems.updatelist.guiItems.scrollpane then
 
         outputDebugString ( "> No menu found to store updates in." )
         outputDebugString ( "> In order to create such a menu, name it 'updatelist' with a scrollpane in it named 'scrollpane'." )
@@ -94,7 +94,7 @@ end
 
 function listUpdate ( revision, date, infotext, textheight, upgrade )
     -- Create our new elements
-    local scrollpane = heditGUI.menuItems.updatelist.guiItems.scrollpane
+    local scrollpane = heditGUI.viewItems.updatelist.guiItems.scrollpane
     local header = guiCreateLabel ( 0, 5, 270, 20, revision..", "..date, false, scrollpane )
     local infolabel = guiCreateLabel ( 0, 25, 270, textheight, infotext, false, scrollpane )
 

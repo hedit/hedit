@@ -25,8 +25,7 @@
     guiShowMenu ( string menu )
     guiUpdateMenu ( )
     
-    guiTemplateGetUtilButtonText ( string utilbutton )
-    guiTemplateGetMenuButtonText ( string menubutton )
+    guiTemplateGetViewButtonText ( string viewbutton )
     guiTemplateGetItemText ( string menu, string item )
     
     getMenuShortName ( string menu )
@@ -258,7 +257,7 @@ function setVisible ( bool )
     end
     
     local bind = unbindKey
-    
+
     if bool then
         bind = bindKey
         guiSetInputMode ( "no_binds_when_editing" )
@@ -463,10 +462,10 @@ end
 
 
 
-function toggleMenuItemsVisibility ( menu, bool )
+function toggleViewItemsVisibility ( view, bool )
     local function toggleVisibility ( tab )
         if type ( tab ) ~= "table" then
-            outputDebugString ( "Error when showing menu items from menu '"..tostring ( menu ).."'" )
+            outputDebugString ( "Error when showing view items from view '"..tostring ( view ).."'" )
         else
             for k,gui in pairs ( tab ) do
                 if type ( gui ) == "table" then
@@ -478,7 +477,7 @@ function toggleMenuItemsVisibility ( menu, bool )
             end
         end
     end
-    toggleVisibility ( heditGUI.menuItems[menu].guiItems )
+    toggleVisibility ( heditGUI.viewItems[view].guiItems )
     
     return true
 end
@@ -537,22 +536,22 @@ function guiShowMenu ( menu )
         return false
     end
     
-    if not heditGUI.menuItems[menu] then
+    if not heditGUI.viewItems[menu] then
         guiCreateWarningMessage ( getText ( "invalidMenu" ), 0 )
         return false
     end
     
-    if heditGUI.menuItems[menu].requireLogin and not pData.loggedin then
+    if heditGUI.viewItems[menu].requireLogin and not pData.loggedin then
         guiCreateWarningMessage ( getText ( "needLogin" ), 1 )
         return false
     end
     
-    if heditGUI.menuItems[menu].requireAdmin and not pData.isadmin then
+    if heditGUI.viewItems[menu].requireAdmin and not pData.isadmin then
         guiCreateWarningMessage ( getText ( "needAdmin" ), 1 )
         return false
     end
 
-    if heditGUI.menuItems[menu].disabled then
+    if heditGUI.viewItems[menu].disabled then
         guiCreateWarningMessage ( getText ( "disabledMenu" ), 1 )
         return false
     end
@@ -566,17 +565,17 @@ function guiShowMenu ( menu )
     guiUpdateMenu ( menu )
     
     if currentMenu then
-        if type ( heditGUI.menuItems[currentMenu].onClose ) == "function" then
-            heditGUI.menuItems[currentMenu].onClose ( heditGUI.menuItems[currentMenu].guiItems )
+        if type ( heditGUI.viewItems[currentMenu].onClose ) == "function" then
+            heditGUI.viewItems[currentMenu].onClose ( heditGUI.viewItems[currentMenu].guiItems )
         end
 
-        toggleMenuItemsVisibility ( currentMenu, false )
+        toggleViewItemsVisibility ( currentMenu, false )
     end
     
-    toggleMenuItemsVisibility ( menu, true )
+    toggleViewItemsVisibility ( menu, true )
     
-    if type ( heditGUI.menuItems[menu].onOpen ) == "function" then
-        heditGUI.menuItems[menu].onOpen ( heditGUI.menuItems[menu].guiItems )
+    if type ( heditGUI.viewItems[menu].onOpen ) == "function" then
+        heditGUI.viewItems[menu].onOpen ( heditGUI.viewItems[menu].guiItems )
     end
 
     previousMenu = currentMenu
@@ -608,7 +607,7 @@ function guiUpdateMenu ( menu )
         
         if redirect == "handlingconfig" then
             
-            local content = heditGUI.menuItems[menu].guiItems
+            local content = heditGUI.viewItems[menu].guiItems
             local handling = getVehicleHandling ( pVehicle )
             
             for i,gui in ipairs ( content ) do
@@ -655,7 +654,7 @@ function guiUpdateMenu ( menu )
         
         elseif redirect == "handlingflags" then
         
-            local content = heditGUI.menuItems[menu].guiItems
+            local content = heditGUI.viewItems[menu].guiItems
             local property = guiGetElementProperty ( content[1]["1"] )
             local config = getVehicleHandling ( pVehicle )[property]
             local reversedHex = string.reverse ( config )..string.rep ( "0", 8 - string.len ( config ) )
@@ -717,18 +716,8 @@ addEventHandler ( "updateVehicleText", root, vehicleTextUpdater )
 
 
 
-
-
-function guiTemplateGetUtilButtonText ( util )
-    return getText ( "utilbuttons", util )
-end
-
-
-
-
-
-function guiTemplateGetMenuButtonText ( menu )
-    return getText ( "menubuttons", menu )
+function guiTemplateGetViewButtonText ( menu )
+    return getText ( "viewbuttons", menu )
 end
 
 
@@ -761,8 +750,8 @@ end
 
 
 function getMenuRedirect ( menu )
-    if heditGUI.menuItems and heditGUI.menuItems[menu] and heditGUI.menuItems[menu].redirect then
-        return heditGUI.menuItems[menu].redirect
+    if heditGUI.viewItems and heditGUI.viewItems[menu] and heditGUI.viewItems[menu].redirect then
+        return heditGUI.viewItems[menu].redirect
     end
     
     return false

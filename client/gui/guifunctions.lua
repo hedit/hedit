@@ -29,6 +29,7 @@ function guiCreateElement ( guiType, x, y, w, h, text, alpha, hovercolor )
     
     if guiType == "line" then
         text = string.rep ( "_", 100 )
+        h = 15
     elseif not func[guiType][2] then
         element = func[guiType][1] ( x, y, w, h, false, heditGUI.window )
     end

@@ -1,4 +1,4 @@
-scrX, scrY = guiGetScreenSize ( )
+scrX, scrY = guiGetScreenSize()
 
 guiTemplate = {}
 guiLanguage = {}
@@ -8,12 +8,13 @@ guiID = {}
 
 resetGUI = {
     background = {},
-    menuButtons = {},
-    menuItems = {},
+    viewButtons = {},
+    viewItems = {},
     utilButtons = {},
     utilItems = {},
     specials = {}
 }
+heditGUI = resetGUI
 
 staticinfo = {
     header = "",
@@ -28,8 +29,6 @@ centerOfMassModes = {
     "splitted",
     "concatenated"
 }
-
-heditGUI = resetGUI
 
 logCreated = false
 logItems = {}

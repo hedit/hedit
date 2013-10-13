@@ -5,36 +5,37 @@
     
     destroyGUI ( )
     
-    buildMainWindow ( template )
-    buildUtilButtons ( template )
-    buildMenuButtons ( template )
-    buildMenus ( template )
-    buildSpecials ( template )
-    buildErrorMenu ( template )
+    buildMainWindow()
+    buildMenubar()
+    buildViewButtons()
+    buildViews()
+    buildSpecials()
+    buildErrorMenu()
     
     guiCreateElement ( string guiType, int posX, int posY, int sizeW, int sizeH, string text, int alpha, table hovercolor ) -- IN GUIFUNCTIONS.LUA
 ]]
-
 local function toggleEvents ( window, bool )
     local func = removeEventHandler
     if bool then
         func = addEventHandler
     end
     
-    func ( "onClientGUIClick",  window, onClick )
-    func ( "onClientGUIDoubleClick",  window, onDoubleClick )
-    func ( "onClientMouseEnter", window, onEnter )
-    func ( "onClientMouseLeave", window, onLeave )
-    func ( "onClientGUIFocus", window, onFocus )
-    func ( "onClientGUIBlur", window, onBlur )
-    func ( "onClientGUIAccepted", window, onEditBoxAccept )
-    func ( "onClientGUIComboBoxAccepted", window, onComboBoxAccept )
+    local actions = {
+        onClientGUIClick = onClick,
+        onClientGUIDoubleClick = onDoubleClick,
+        onClientMouseEnter = onEnter,
+        onClientMouseLeave = onLeave,
+        onClientGUIFocus = onFocus,
+        onClientGUIBlur = onBlur,
+        onClientGUIAccepted = onEditBoxAccept,
+        onClientGUIComboBoxAccepted = onComboBoxAccept
+    }
+    for event, fn in pairs(actions) do
+        func(event, window, fn)
+    end
     
     return true
 end
-
-
-
 
 
 function startBuilding ( )
@@ -43,18 +44,12 @@ function startBuilding ( )
     if heditGUI.window then
         destroyGUI ( )
     end
-    
-    local template = getUserTemplate ( )
-    
-    if not template then
-        return false
-    end
 
-    local window = buildMainWindow ( template )
-    buildUtilButtons ( template )
-    buildMenuButtons ( template )
-    buildMenus ( template )
-    buildSpecials ( template )
+    local window = buildMainWindow()
+    buildMenubar()
+    buildViewButtons()
+    buildViews()
+    buildSpecials()
     
     guiSetVisible ( window, false )
     
@@ -69,8 +64,6 @@ function startBuilding ( )
     
     return true
 end
-
-
 
 
 
@@ -94,7 +87,7 @@ end
 
 
 
-function buildMainWindow ( template )
+function buildMainWindow()
     local wnd = template.window
     heditGUI.window = guiCreateElement ( wnd.type, wnd.pos[1], wnd.pos[2], wnd.size[1], wnd.size[2], getText ( "windowHeader" ), wnd.alpha, wnd.hovercolor )
     
@@ -107,8 +100,8 @@ function buildMainWindow ( template )
     
     guiElements[heditGUI.window] = { "window", "window", "none", 1, wnd.events }
     
-    for layer,gui in ipairs ( wnd.extraItems ) do
-        local element = guiCreateElement ( gui.type, gui.pos[1], gui.pos[2], gui.size[1], gui.size[2], "", gui.alpha, gui.hovercolor )
+    for layer,gui in ipairs(wnd) do
+        local element = guiCreateElement ( gui.type, gui.pos[1], gui.pos[2], gui.size and gui.size[1] or gui.width, gui.size and gui.size[2] or gui.width, "", gui.alpha, gui.hovercolor )
         guiSetEnabled ( element, false )
         
         table.insert ( heditGUI.background, element )
@@ -122,24 +115,27 @@ end
 
 
 
-function buildUtilButtons ( template )
-    for util,gui in pairs ( template.utilbuttons ) do
-        local utilButton = guiCreateElement ( gui.type, gui.pos[1], gui.pos[2], gui.size[1], gui.size[2], guiTemplateGetUtilButtonText ( util ), gui.alpha, gui.hovercolor )
+function buildMenubar()
+    local offset = 65
+    local size = {60, 19}
+    local pos = {10-offset, 22}
+    for k,menu in ipairs ( template.menubar ) do
+        pos[1] = pos[1] + offset
+        local utilButton = guiCreateElement("button", pos[1], pos[2], size[1], size[2], getText("menubar", menu.title), 255, {255, 27, 224, 224})
         
-        guiElements[utilButton] = { "utilButton", "button", "none", util, gui.events }
-        table.insert ( heditGUI.utilButtons, element )
+        guiElements[utilButton] = { "utilButton", "button", "none", menu.title, nil}
         
         local buttons = {}
         
-        if type ( gui.items ) == "table" then
+        if menu[1] then
             local longestName = 100
             
-            for item,menu in ipairs ( gui.items ) do
+            for item,list in ipairs(menu) do
             
-                local posY = ( gui.pos[2] + 7 ) + ( 20 * item )
-                local itemButton = guiCreateElement ( "button", gui.pos[1], posY, 100, 20, getMenuShortName ( menu ) )
+                local posY = ( pos[2] + 7 ) + ( 20 * item )
+                local itemButton = guiCreateElement ( "button", pos[1], posY, 100, 20, getMenuShortName ( list ) )
                 
-                local textextent = guiCreateElement ( "label", gui.pos[1], posY, 100, 20, getMenuShortName ( menu ) )
+                local textextent = guiCreateElement ( "label", pos[1], posY, 100, 20, getMenuShortName ( list ) )
                 local extent = guiLabelGetTextExtent ( textextent )
                 
                 if extent > longestName then
@@ -150,7 +146,7 @@ function buildUtilButtons ( template )
                 
                 guiSetVisible ( itemButton, false )
                 
-                guiElements[itemButton] = { "utilItem", "button", "none", menu, gui.events }
+                guiElements[itemButton] = { "utilItem", "button", "none", list, nil }
                 table.insert ( buttons, itemButton )
                 
             end
@@ -160,37 +156,35 @@ function buildUtilButtons ( template )
             end
         end
         
-        heditGUI.utilItems[util] = buttons
+        heditGUI.utilItems[menu.title] = buttons
     end
 end
 
 
 
-
-
-function buildMenuButtons ( template )
-    for menu,gui in pairs ( template.menubuttons ) do
-        local element = guiCreateElement ( gui.type, gui.pos[1], gui.pos[2], gui.size[1], gui.size[2], guiTemplateGetMenuButtonText ( menu ), gui.alpha, gui.hovercolor )
+function buildViewButtons()
+    for menu,gui in pairs ( template.viewbuttons ) do
+        local element = guiCreateElement ( gui.type, gui.pos[1], gui.pos[2], gui.size[1], gui.size[2], guiTemplateGetViewButtonText ( menu ), gui.alpha, gui.hovercolor )
         
-        guiElements[element] = { "menuButton", "button", "none", menu, gui.events }
-        table.insert ( heditGUI.menuButtons, element )
+        guiElements[element] = { "viewButton", "button", "none", menu, gui.events }
+        table.insert ( heditGUI.viewButtons, element )
     end
 end
 
 
 
+-- these are for views
 
-
-function buildMenus ( template )
-    local function scanSpecialMenu ( menu, itemName, gui )
+function buildViews()
+    local function scanSpecialView ( menu, itemName, gui )
         local res = {}
         for k,v in pairs ( gui ) do
             if type ( v ) == "table" then
                 if not v.type then
-                    res[k] = scanSpecialMenu ( menu, k, v )
+                    res[k] = scanSpecialView ( menu, k, v )
                 else
                     local text = guiTemplateGetItemText ( menu, k )
-                
+                    
                     local element = guiCreateElement ( v.type, v.pos[1], v.pos[2], v.size[1], v.size[2], text, v.alpha, v.hovercolor )
                     
                     if type ( v.runfunction ) == "function" then
@@ -322,10 +316,7 @@ function buildMenus ( template )
                         outputDebugString ( "Invalid property used for handling menu "..menu..": "..tostring(property) )
                     end
                 end
-                
-                
-                
-                
+                 
                 
             elseif v.redirect == "handlingflags" then
                 -------------------------
@@ -376,7 +367,7 @@ function buildMenus ( template )
                 -- SPECIAL MENU
                 -------------------------
                 
-                items = scanSpecialMenu ( menu, "", v.content )
+                items = scanSpecialView ( menu, "", v.content )
                 
                 if type ( v.runfunction ) == "function" then
                     v.runfunction ( items )
@@ -389,7 +380,7 @@ function buildMenus ( template )
             
             
             
-            heditGUI.menuItems[menu] = {
+            heditGUI.viewItems[menu] = {
                 redirect = v.redirect,
                 requireLogin = v.requirelogin,
                 requireAdmin = v.requireadmin,
@@ -399,7 +390,7 @@ function buildMenus ( template )
                 guiItems = items
             }
             
-            toggleMenuItemsVisibility ( menu, false )
+            toggleViewItemsVisibility ( menu, false )
         end
     end
 end
@@ -408,7 +399,7 @@ end
 
 
 
-function buildSpecials ( template )
+function buildSpecials()
     local function create ( gui, parent )
         local element = guiCreateElement ( gui.type, gui.pos[1], gui.pos[2], gui.size[1], gui.size[2], "", gui.alpha, gui.hovercolor )
         
