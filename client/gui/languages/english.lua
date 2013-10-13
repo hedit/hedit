@@ -90,8 +90,8 @@ guiLanguage.english = {
         help = "Help"
     },
     
-    --Strings for the various menus of the editor. Empty strings are placeholder to avoid debug as the debug is meant to show items which are missing text.
-    menuinfo = {
+    --Strings for the various views of the editor. Empty strings are placeholder to avoid debug as the debug is meant to show items which are missing text.
+    viewinfo = {
         engine = {
             shortname = "Engine",
             longname = "Engine Settings"

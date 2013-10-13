@@ -5,7 +5,7 @@ function onClick ( button )
 
     if button == "left" then
         
-        if parent == "utilButton" then
+        if parent == "menuButton" then
             
             if info == "close" then
                 toggleEditor ( )
@@ -13,13 +13,13 @@ function onClick ( button )
                 guiToggleUtilityDropDown ( info )
             end
             
-        elseif parent == "utilItem" then
+        elseif parent == "menuItem" then
             guiShowMenu ( info )
             
         elseif parent == "viewButton" then
             guiShowMenu ( info )
             
-        elseif parent == "menuItem" then
+        elseif parent == "viewItem" then
             
             local inputType = guiGetElementInputType ( source )
             
@@ -122,7 +122,7 @@ function onClick ( button )
         
     end
     
-    if parent ~= "utilButton" then
+    if parent ~= "menuButton" then
         guiToggleUtilityDropDown ( currentUtil )
     end
     
@@ -157,18 +157,18 @@ function onEnter ( )
     local inputType = guiGetElementInputType ( source )
     local elementInfo = guiGetElementInfo ( source )
     
-    if parent == "utilButton" and currentUtil then
+    if parent == "menuButton" and currentUtil then
         local util = guiGetElementInfo ( source )
         
         if util ~= "close" and util ~= currentUtil then
             guiToggleUtilityDropDown ( util )
         end
         
-    elseif parent == "menuButton" or parent == "utilItem" then
+    elseif parent == "menuButton" or parent == "menuItem" then
     
-        guiSetInfoText ( getMenuLongName ( elementInfo ), "" )
+        guiSetInfoText ( getViewLongName ( elementInfo ), "" )
     
-    elseif parent == "menuItem" then
+    elseif parent == "viewItem" then
         
         if inputType == "infolabel" then
         
@@ -315,7 +315,7 @@ function onComboBoxAccept ( )
     local property = guiGetElementProperty ( source )
     
     
-    if parent == "menuItem" and property then
+    if parent == "viewItem" and property then
         
         if pVehicle then
         

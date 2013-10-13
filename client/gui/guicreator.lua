@@ -121,10 +121,11 @@ function buildMenubar()
     local pos = {10-offset, 22}
     for k,menu in ipairs ( template.menubar ) do
         pos[1] = pos[1] + offset
-        local utilButton = guiCreateElement("button", pos[1], pos[2], size[1], size[2], getText("menubar", menu.title), 255, {255, 27, 224, 224})
+        local element = guiCreateElement("button", pos[1], pos[2], size[1], size[2], getText("menubar", menu.title), 255, {255, 27, 224, 224})
         
-        guiElements[utilButton] = { "utilButton", "button", "none", menu.title, nil}
-        
+        guiElements[element] = { "menuButton", "button", "none", menu.title, nil}
+        table.insert ( heditGUI.menuButtons, element )
+
         local buttons = {}
         
         if menu[1] then
@@ -133,9 +134,9 @@ function buildMenubar()
             for item,list in ipairs(menu) do
             
                 local posY = ( pos[2] + 7 ) + ( 20 * item )
-                local itemButton = guiCreateElement ( "button", pos[1], posY, 100, 20, getMenuShortName ( list ) )
+                local menuButton = guiCreateElement ( "button", pos[1], posY, 100, 20, getViewShortName ( list ) )
                 
-                local textextent = guiCreateElement ( "label", pos[1], posY, 100, 20, getMenuShortName ( list ) )
+                local textextent = guiCreateElement ( "label", pos[1], posY, 100, 20, getViewShortName ( list ) )
                 local extent = guiLabelGetTextExtent ( textextent )
                 
                 if extent > longestName then
@@ -144,10 +145,10 @@ function buildMenubar()
                 
                 destroyElement ( textextent )
                 
-                guiSetVisible ( itemButton, false )
+                guiSetVisible ( menuButton, false )
                 
-                guiElements[itemButton] = { "utilItem", "button", "none", list, nil }
-                table.insert ( buttons, itemButton )
+                guiElements[menuButton] = { "menuItem", "button", "none", list, nil }
+                table.insert ( buttons, menuButton )
                 
             end
             
@@ -156,17 +157,23 @@ function buildMenubar()
             end
         end
         
-        heditGUI.utilItems[menu.title] = buttons
+        heditGUI.menuItems[menu.title] = buttons
     end
 end
 
 
 
 function buildViewButtons()
-    for menu,gui in pairs ( template.viewbuttons ) do
-        local element = guiCreateElement ( gui.type, gui.pos[1], gui.pos[2], gui.size[1], gui.size[2], guiTemplateGetViewButtonText ( menu ), gui.alpha, gui.hovercolor )
+    local hovercolor = { 255, 255, 255, 128 }
+    local offset = 55
+    local size = {50, 50}
+    local pos = {10, 54-offset}
+
+    for k,view in pairs ( template.views ) do
+        pos[2] = pos[2] + offset
+        local element = guiCreateElement ("button", pos[1], pos[2], size[1], size[2], guiTemplateGetViewButtonText ( view.title ), alpha, hovercolor )
         
-        guiElements[element] = { "viewButton", "button", "none", menu, gui.events }
+        guiElements[element] = { "viewButton", "button", "none", view.title }
         table.insert ( heditGUI.viewButtons, element )
     end
 end
@@ -192,7 +199,7 @@ function buildViews()
                     end
                     
                     res[k] = element
-                    guiElements[element] = { "menuItem", "special", "none", k, v.events }
+                    guiElements[element] = { "viewItem", "special", "none", k, v.events }
 
                     --[[if v.children then
                         --for name,child in pairs ( v.children ) do
@@ -206,7 +213,7 @@ function buildViews()
         return res
     end
     
-    for menu,v in pairs ( template.menucontents ) do
+    for menu,v in pairs ( template.viewcontents ) do
         if v.redirect ~= "THIS_IS_ONE" then
             local items = {}
             
@@ -217,7 +224,7 @@ function buildViews()
                 -- HANDLINGCONFIG MENU
                 -------------------------
                 
-                local guiInfo = template.menucontents.redirect_handlingconfig.content
+                local guiInfo = template.viewcontents.redirect_handlingconfig.content
                 
                 for i,property in ipairs ( v.content ) do
                     
@@ -248,9 +255,9 @@ function buildViews()
                             table.insert ( items, labelY )
                             table.insert ( items, labelZ )
                             
-                            guiElements[labelX] = { "menuItem", "infolabel", "centerOfMassX", i, labelInfo.events }
-                            guiElements[labelY] = { "menuItem", "infolabel", "centerOfMassY", i, labelInfo.events }
-                            guiElements[labelZ] = { "menuItem", "infolabel", "centerOfMassZ", i, labelInfo.events }
+                            guiElements[labelX] = { "viewItem", "infolabel", "centerOfMassX", i, labelInfo.events }
+                            guiElements[labelY] = { "viewItem", "infolabel", "centerOfMassY", i, labelInfo.events }
+                            guiElements[labelZ] = { "viewItem", "infolabel", "centerOfMassZ", i, labelInfo.events }
                             
                             if getUserConfig ( "commode" ) == "splitted" then
                             
@@ -269,15 +276,15 @@ function buildViews()
                                 table.insert ( items, buttonY )
                                 table.insert ( items, buttonZ )
                                 
-                                guiElements[buttonX] = { "menuItem", "config", "centerOfMassX", i, configInfo.events }
-                                guiElements[buttonY] = { "menuItem", "config", "centerOfMassY", i, configInfo.events }
-                                guiElements[buttonZ] = { "menuItem", "config", "centerOfMassZ", i, configInfo.events }
+                                guiElements[buttonX] = { "viewItem", "config", "centerOfMassX", i, configInfo.events }
+                                guiElements[buttonY] = { "viewItem", "config", "centerOfMassY", i, configInfo.events }
+                                guiElements[buttonZ] = { "viewItem", "config", "centerOfMassZ", i, configInfo.events }
                                 
                             else
                                 
                                 local button = guiCreateElement ( "button", configInfo.pos[1], configInfo.pos[2], configInfo.size[1], configInfo.size[2], "", configInfo.alpha, configInfo.hovercolor )
                                 table.insert ( items, button )
-                                guiElements[button] = { "menuItem", "config", "centerOfMass", i, configInfo.events }
+                                guiElements[button] = { "viewItem", "config", "centerOfMass", i, configInfo.events }
                                 
                             end
                             
@@ -305,12 +312,12 @@ function buildViews()
                             end
                             
                             table.insert ( items, button )
-                            guiElements[button] = { "menuItem", "config", property, i, configInfo.events }
+                            guiElements[button] = { "viewItem", "config", property, i, configInfo.events }
                             
                         end
                         
                         table.insert ( items, label )
-                        guiElements[label] = { "menuItem", "infolabel", property, i, labelInfo.events }
+                        guiElements[label] = { "viewItem", "infolabel", property, i, labelInfo.events }
                         
                     else
                         outputDebugString ( "Invalid property used for handling menu "..menu..": "..tostring(property) )
@@ -327,7 +334,7 @@ function buildViews()
                 
                 if isHandlingPropertyHexadecimal ( property ) then
                     
-                    local guiInfo = template.menucontents.redirect_handlingflags.content
+                    local guiInfo = template.viewcontents.redirect_handlingflags.content
                     
                     -- Make sure we have extras as it's optional
                     if type ( guiInfo.extras ) == "table" then
@@ -336,7 +343,7 @@ function buildViews()
                             local element = guiCreateElement ( gui.type, gui.pos[1], gui.pos[2], gui.size[1], gui.size[2], tostring(gui.text), gui.alpha, gui.hovercolor )
                             
                             table.insert ( items.extra, element )
-                            guiElements[element] = { "menuItem", "extra", property, i, gui.events }
+                            guiElements[element] = { "viewItem", "extra", property, i, gui.events }
                         end
                     end
                     
@@ -347,7 +354,7 @@ function buildViews()
                             local element = guiCreateElement ( gui.type, gui.pos[1], gui.pos[2], gui.size[1], gui.size[2], byteName, gui.alpha, gui.hovercolor )
                             
                             items[byte][value] = element
-                            guiElements[element] = { "menuItem", "infolabel", property, { byte=byte, value=value }, gui.events }
+                            guiElements[element] = { "viewItem", "infolabel", property, { byte=byte, value=value }, gui.events }
                         end
                     end
                 

@@ -67,69 +67,19 @@ template.menubar = {
     }
 }
 
--- This handles the "tabs"
-template.viewbuttons = {
-    engine = {
-        type = "button",
-        pos = { 10, 54 },
-        size = { 50, 50 },
-        content = "handlingconfig",
-        hovercolor = { 255, 255, 255, 128 }
-    },
-    body = {
-        type = "button",
-        pos = { 10, 109 },
-        size = { 50, 50 },
-        content = "handlingconfig",
-        hovercolor = { 255, 255, 255, 128 }
-    },
-    wheels = {
-        type = "button",
-        pos = { 10, 164 },
-        size = { 50, 50 },
-        content = "handlingconfig",
-        hovercolor = { 255, 255, 255, 128 }
-    },
-    appearance = {
-        type = "button",
-        pos = { 10, 219 },
-        size = { 50, 50 },
-        content = "submenu",
-        hovercolor = { 255, 255, 255, 128 }
-    },
-    modelflags = {
-        type = "button",
-        pos = { 10, 274 },
-        size = { 50, 50 },
-        content = "handlingflags",
-        hovercolor = { 255, 255, 255, 128 }
-    },
-    handlingflags = {
-        type = "button",
-        pos = { 10, 329 },
-        size = { 50, 50 },
-        content = "handlingflags",
-        hovercolor = { 255, 255, 255, 128 }
-    },
-    dynamometer = {
-        type = "button",
-        pos = { 10, 384 },
-        size = { 50, 50 },
-        content = "submenu",
-        hovercolor = { 255, 255, 255, 128 }
-    },
-    help = {
-        type = "button",
-        pos = { 10, 439 },
-        size = { 50, 50 },
-        content = "submenu",
-        hovercolor = { 255, 255, 255, 128 }
-    }
+template.views = {
+    { title = "engine", content = "handlingconfig" },
+    { title = "body", content = "handlingconfig" },
+    { title = "wheels", content = "handlingconfig" },
+    { title = "appearance", content = "submenu" },
+    { title = "modelflags", content = "handlingflags" },
+    { title = "handlingflags", content = "handlingflags" },
+    { title = "dynamometer", content = "submenu" },
+    { title = "help", content = "submenu" }
 }
-    
 
     
-template.menucontents = {
+template.viewcontents = {
     --// MULTI USAGE
     redirect_handlingconfig = {
         redirect = "THIS_IS_ONE",
@@ -1221,7 +1171,7 @@ template.menucontents = {
                 pos = { 72, 250 },
                 size = { 285, 25 },
 				runfunction = function(this)
-					guiSetText(this, string.format(getText("menuinfo", "options", "itemtext", "checkbox_versionreset"), tostring(getUserConfig(version)), tostring(HREV)))
+					guiSetText(this, string.format(getText("viewinfo", "options", "itemtext", "checkbox_versionreset"), tostring(getUserConfig(version)), tostring(HREV)))
 				end
             },
 			checkbox_lockwhenediting = {

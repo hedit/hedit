@@ -28,9 +28,9 @@
     guiTemplateGetViewButtonText ( string viewbutton )
     guiTemplateGetItemText ( string menu, string item )
     
-    getMenuShortName ( string menu )
-    getMenuLongName ( string menu )
-    getMenuRedirect ( string menu )
+    getViewShortName ( string view )
+    getViewLongName ( string view )
+    getViewRedirect ( string view )
     
     guiCreateWarningMessage ( string text, int level, table {function1, args... }, table {function2, args...} )
     guiDestroyWarningWindow ( )
@@ -84,7 +84,7 @@ end
 
 
 function guiGetElementInputType ( guiElement )
-    if guiGetElementParent ( guiElement ) ~= "menuItem" then
+    if guiGetElementParent ( guiElement ) ~= "viewItem" then
         return false
     end
     
@@ -100,7 +100,7 @@ end
 
 
 function guiGetElementProperty ( guiElement )
-    if guiGetElementParent ( guiElement ) ~= "menuItem" then
+    if guiGetElementParent ( guiElement ) ~= "viewItem" then
         return false
     end
     
@@ -488,7 +488,7 @@ end
 
 function guiToggleUtilityDropDown ( util )
     if not util then
-        for util,tab in pairs ( heditGUI.utilItems ) do
+        for util,tab in pairs ( heditGUI.menuItems ) do
             for i,gui in ipairs ( tab ) do
                 guiSetVisible ( gui, false )
             end
@@ -499,7 +499,7 @@ function guiToggleUtilityDropDown ( util )
     end
     
     if currentUtil then
-        for i,gui in ipairs ( heditGUI.utilItems[currentUtil] ) do
+        for i,gui in ipairs ( heditGUI.menuItems[currentUtil] ) do
             guiSetVisible ( gui, false )
         end
     end
@@ -509,9 +509,9 @@ function guiToggleUtilityDropDown ( util )
         return false
     end
     
-    local show = not guiGetVisible ( heditGUI.utilItems[util][1] )
+    local show = not guiGetVisible ( heditGUI.menuItems[util][1] )
     
-    for i,gui in ipairs ( heditGUI.utilItems[util] ) do
+    for i,gui in ipairs ( heditGUI.menuItems[util] ) do
         guiSetVisible ( gui, show )
         guiBringToFront ( gui )
     end
@@ -558,7 +558,7 @@ function guiShowMenu ( menu )
     
     
     
-    guiSetText ( heditGUI.specials.menuheader, getMenuLongName ( menu ) )
+    guiSetText ( heditGUI.specials.menuheader, getViewLongName ( menu ) )
     
     destroyEditBox ( )
     
@@ -590,11 +590,11 @@ addEventHandler ( "showMenu", root, guiShowMenu )
 
 
 
-function guiUpdateMenu ( menu )
-    if menu then
+function guiUpdateMenu ( View )
+    if View then
         local veh = getPedOccupiedVehicle ( localPlayer )
         if not veh or veh ~= pVehicle then
-            outputDebugString ( "guiUpdateMenu is called while your vehicle differs from pVehicle or dont have a vehicle!" )
+            outputDebugString ( "guiUpdateView is called while your vehicle differs from pVehicle or dont have a vehicle!" )
             
             return false
         end
@@ -603,11 +603,11 @@ function guiUpdateMenu ( menu )
         
         destroyEditBox ( )
         
-        local redirect = getMenuRedirect ( menu )
+        local redirect = getViewRedirect ( View )
         
         if redirect == "handlingconfig" then
             
-            local content = heditGUI.viewItems[menu].guiItems
+            local content = heditGUI.viewItems[View].guiItems
             local handling = getVehicleHandling ( pVehicle )
             
             for i,gui in ipairs ( content ) do
@@ -654,7 +654,7 @@ function guiUpdateMenu ( menu )
         
         elseif redirect == "handlingflags" then
         
-            local content = heditGUI.viewItems[menu].guiItems
+            local content = heditGUI.viewItems[View].guiItems
             local property = guiGetElementProperty ( content[1]["1"] )
             local config = getVehicleHandling ( pVehicle )[property]
             local reversedHex = string.reverse ( config )..string.rep ( "0", 8 - string.len ( config ) )
@@ -725,7 +725,7 @@ end
 
 
 function guiTemplateGetItemText ( menu, item )
-    local text = getText ( "menuinfo", menu, "itemtext", item )
+    local text = getText ( "viewinfo", menu, "itemtext", item )
     return text == "NO_TEXT" and "" or text
 end
 
@@ -733,25 +733,25 @@ end
 
 
 
-function getMenuShortName ( menu )
-    return getText ( "menuinfo", menu, "shortname" )
+function getViewShortName ( view )
+    return getText ( "viewinfo", view, "shortname" )
 end
 
 
 
 
 
-function getMenuLongName ( menu )
-    return getText ( "menuinfo", menu, "longname" )
+function getViewLongName ( view )
+    return getText ( "viewinfo", view, "longname" )
 end
 
 
 
 
 
-function getMenuRedirect ( menu )
-    if heditGUI.viewItems and heditGUI.viewItems[menu] and heditGUI.viewItems[menu].redirect then
-        return heditGUI.viewItems[menu].redirect
+function getViewRedirect ( view )
+    if heditGUI.viewItems and heditGUI.viewItems[view] and heditGUI.viewItems[view].redirect then
+        return heditGUI.viewItems[view].redirect
     end
     
     return false

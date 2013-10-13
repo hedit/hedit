@@ -10,8 +10,8 @@ resetGUI = {
     background = {},
     viewButtons = {},
     viewItems = {},
-    utilButtons = {},
-    utilItems = {},
+    menuButtons = {},
+    menuItems = {},
     specials = {}
 }
 heditGUI = resetGUI
