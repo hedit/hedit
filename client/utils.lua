@@ -47,7 +47,7 @@ function getText ( ... )
         
         if not entry then
             local path = table.concat ( {...}, "." ) 
-            error ( "No language entry in " .. getUserConfig ("language") .. ": ".. path, 2)
+            outputDebugString ( "No language entry in " .. getUserConfig ("language") .. ": ".. path, 2)
             
             -- Returning path is more friendly, helps developer find source of issue and can give user an idea of what was supposed to be said
             return path

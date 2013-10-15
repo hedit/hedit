@@ -11,8 +11,10 @@ function onMove ( _, _, cX, cY )
             local a, b = scrollbar.min, scrollbar.max
             local propertyValue = progress*(b-a)+a
             guiSetText(pressedButton, math.round(propertyValue, 0))
+        else
+            -- Allow overflows to snap to nearest boundary
+            guiSetText(pressedButton, (progress < 0) and scrollbar.min or scrollbar.max)
         end
-
     end
 end
 
@@ -60,9 +62,8 @@ function onClick ( button, state )
         local property = guiGetElementProperty ( source )
         local propertyType = getHandlingPropertyValueType ( property )
         
-        -- Limit propertyType to float since for now we'll deal with fluid scrollbars
-        -- Later, allow integers. Remember to block other types (String, Hexadecimal)
-        if (inputType == "config") and (propertyType == "Float") then
+        -- Limit propertyType to float/integer
+        if (inputType == "config") and (propertyType == "Float") or (propertyType == "Integer") then
             local mx, my = getCursorPosition()
             
             pressedButton = source
