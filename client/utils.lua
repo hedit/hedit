@@ -41,16 +41,15 @@ function getText ( ... )
         return false
     end
 
-    for i,tab in ipairs {...} do
+    for i,tab in ipairs{...} do
     
         entry = entry[tab]
         
         if not entry then
             local path = table.concat ( {...}, "." ) 
-            outputDebugString ( "No language entry in "..getUserConfig ( "language" )..": ".. path)
+            error ( "No language entry in " .. getUserConfig ("language") .. ": ".. path, 2)
             
-            -- Returning path is more friendly, helps developer find source of issue and can give
-            -- user an idea of what was supposed to be said
+            -- Returning path is more friendly, helps developer find source of issue and can give user an idea of what was supposed to be said
             return path
             
         elseif type ( entry ) == "string" then

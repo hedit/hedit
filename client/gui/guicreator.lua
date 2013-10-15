@@ -20,8 +20,11 @@ local function toggleEvents ( window, bool )
         func = addEventHandler
     end
     
+    func("onClientClick", root, onClick)
+    func("onClientCursorMove", root, onMove)
+    func("onClientRender", root, onRender)
+
     local actions = {
-        onClientGUIClick = onClick,
         onClientGUIDoubleClick = onDoubleClick,
         onClientMouseEnter = onEnter,
         onClientMouseLeave = onLeave,
@@ -57,7 +60,8 @@ function startBuilding ( )
     
     forceVehicleChange ( )
 
-    checkTheUpdates ( ) -- We check the updates after the gui has been build, because like this the updates will get listed upon a setting change too.
+    -- We check for updates after the gui has been built, as updates will get listed upon a setting change too.
+    checkForUpdates ( )
     
     bindKey ( getUserConfig ( "usedKey" ), "down", toggleEditor )
     addCommandHandler ( getUserConfig ( "usedCommand" ), toggleEditor )

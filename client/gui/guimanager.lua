@@ -283,8 +283,6 @@ end
 
 
 
-
-
 function setPointedElement ( element, bool ) -- Consider another name!
     if element == pointedButton and buttonValue then
         guiSetText ( pointedButton, buttonValue )
@@ -689,8 +687,7 @@ end
 
 
 function guiTemplateGetItemText ( view, item )
-    local text = getText ( "viewinfo", view, "itemtext", item )
-    return text == "NO_TEXT" and "" or text
+    return getText ( "viewinfo", view, "itemtext", item )
 end
 
 

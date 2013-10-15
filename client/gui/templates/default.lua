@@ -627,7 +627,7 @@ template.viewcontents = {
                     onClick = function ( this )
                         local vehicle = getPedOccupiedVehicle ( localPlayer )
                         if vehicle then
-                            local content = heditGUI.menuItems.reset.guiItems
+                            local content = heditGUI.viewItems.reset.guiItems
                             local selected = guiComboBoxGetSelected ( content.combo )
                             local vehID = getVehicleModelFromName ( guiComboBoxGetItemText ( content.combo, selected ) )
                             
@@ -678,7 +678,7 @@ template.viewcontents = {
                 end,
                 events = {
                     onClick = function ( this )
-                        local content = heditGUI.menuItems.save.guiItems
+                        local content = heditGUI.viewItems.save.guiItems
                         local row,col = guiGridListGetSelectedItem ( this )
                         if row > -1 and col > -1 then
                             local name = string.lower ( guiGridListGetItemText ( this, row, col ) )
@@ -705,12 +705,12 @@ template.viewcontents = {
                 size = { 212, 25 },
                 events = {
                     onFocus = function ( this )
-                        local content = heditGUI.menuItems.save.guiItems
+                        local content = heditGUI.viewItems.save.guiItems
                         guiSetVisible ( content.nameLabel, false )
                     end,
                     onBlur = function ( this )
                         if guiGetText ( this ) == "" then
-                            local content = heditGUI.menuItems.save.guiItems
+                            local content = heditGUI.viewItems.save.guiItems
                             guiBringToFront ( content.nameLabel )
                             guiSetVisible ( content.nameLabel, true )
                         end
@@ -723,12 +723,12 @@ template.viewcontents = {
                 size = { 212, 25 },
                 events = {
                     onFocus = function ( this )
-                        local content = heditGUI.menuItems.save.guiItems
+                        local content = heditGUI.viewItems.save.guiItems
                         guiSetVisible ( content.descriptionLabel, false )
                     end,
                     onBlur = function ( this )
                         if guiGetText ( this ) == "" then
-                            local content = heditGUI.menuItems.save.guiItems
+                            local content = heditGUI.viewItems.save.guiItems
                             guiBringToFront ( content.descriptionLabel )
                             guiSetVisible ( content.descriptionLabel, true )
                         end
@@ -745,7 +745,7 @@ template.viewcontents = {
                 end,
                 events = {
                     onClick = function ( this )
-                        local content = heditGUI.menuItems.save.guiItems
+                        local content = heditGUI.viewItems.save.guiItems
                         
                         guiSetVisible ( this, false )
                         guiBringToFront ( content.nameEdit )
@@ -763,7 +763,7 @@ template.viewcontents = {
                 end,
                 events = {
                     onClick = function ( this )
-                        local content = heditGUI.menuItems.save.guiItems
+                        local content = heditGUI.viewItems.save.guiItems
                         
                         guiSetVisible ( this, false )
                         guiBringToFront ( content.descriptionEdit )
@@ -777,7 +777,7 @@ template.viewcontents = {
                 size = { 68, 50 },
                 events = {
                     onClick = function ( this )
-                        local content = heditGUI.menuItems.save.guiItems
+                        local content = heditGUI.viewItems.save.guiItems
                         local name = guiGetText ( content.nameEdit )
                         local description = guiGetText ( content.descriptionEdit )
 
@@ -871,7 +871,7 @@ template.viewcontents = {
                 size = { 285, 25 },
                 events = {
                     onClick = function ( this )
-                        local content = heditGUI.menuItems.load.guiItems
+                        local content = heditGUI.viewItems.load.guiItems
                         local row,col = guiGridListGetSelectedItem ( content.grid )
 
                         if row ~= -1 and col ~= -1 then
@@ -912,7 +912,7 @@ template.viewcontents = {
                     end,
                     events = {
                         onClick = function ( this )
-                            for k,v in pairs ( heditGUI.menuItems.import.guiItems.methods ) do
+                            for k,v in pairs ( heditGUI.viewItems.import.guiItems.methods ) do
                                 guiCheckBoxSetSelected ( v, false )
                             end
                             guiCheckBoxSetSelected ( this, true )
@@ -928,7 +928,7 @@ template.viewcontents = {
                     end,
                     events = {
                         onClick = function ( this )
-                            for k,v in pairs ( heditGUI.menuItems.import.guiItems.methods ) do
+                            for k,v in pairs ( heditGUI.viewItems.import.guiItems.methods ) do
                                 guiCheckBoxSetSelected ( v, false )
                             end
                             guiCheckBoxSetSelected ( this, true )
@@ -944,7 +944,7 @@ template.viewcontents = {
                     end,
                     events = {
                         onClick = function ( this )
-                            for k,v in pairs ( heditGUI.menuItems.import.guiItems.methods ) do
+                            for k,v in pairs ( heditGUI.viewItems.import.guiItems.methods ) do
                                 guiCheckBoxSetSelected ( v, false )
                             end
                             guiCheckBoxSetSelected ( this, true )
@@ -963,7 +963,7 @@ template.viewcontents = {
                     end,
                     events = {
                         onClick = function ( this )
-                            for k,v in pairs ( heditGUI.menuItems.import.guiItems.methods ) do
+                            for k,v in pairs ( heditGUI.viewItems.import.guiItems.methods ) do
                                 guiCheckBoxSetSelected ( v, false )
                             end
                             guiCheckBoxSetSelected ( this, true )
@@ -984,7 +984,7 @@ template.viewcontents = {
                     onClick = function ( this )
                         local vehicle = getPedOccupiedVehicle ( localPlayer )
                         if vehicle then
-                            local items = heditGUI.menuItems.import.guiItems
+                            local items = heditGUI.viewItems.import.guiItems
                             local method = "SA"
                             for k,v in pairs ( items.methods ) do
                                 if guiCheckBoxGetSelected ( v ) then
@@ -1188,7 +1188,7 @@ template.viewcontents = {
                 size = { 285, 25 },
                 events = {
                     onClick = function ( this )
-                        local item = heditGUI.menuItems.options.guiItems
+                        local item = heditGUI.viewItems.options.guiItems
 
                         local function confirm ( )
 

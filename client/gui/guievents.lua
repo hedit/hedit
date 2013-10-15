@@ -1,18 +1,106 @@
-function onClick ( button )
+local abs = math.abs
+local scrollbarColor = tocolor(15, 95, 125, 150)
+
+function onMove ( _, _, cX, cY )
+    if pressedButton and scrollbar then
+        showScrollbar = true
+
+        local progress = (cX-scrollbar.virtualX)/(scrollbar.virtualX2-scrollbar.virtualX)
+        if (progress >= 0) and (progress <= 1) then
+            scrollbar.position = progress
+            local a, b = scrollbar.min, scrollbar.max
+            local propertyValue = progress*(b-a)+a
+            guiSetText(pressedButton, math.round(propertyValue, 0))
+        end
+
+    end
+end
+
+function onRender()
+    if showScrollbar and scrollbar then
+        local x, y = unpack(pressedButtonPosition)
+        local width = scrollbar.position * scrollbar.size[1]
+
+        -- Draw scroll box
+        dxDrawRectangle(x, y, width, scrollbar.size[2], scrollbarColor, true)
+
+        -- Draw pin point
+        dxDrawLine(x+width, y, x+width, y-5, tocolor(255, 0, 0, 255), 3, true)
+
+        -- DEBUG: Draw bounding box
+        --dxDrawRectangle(scrollbar.virtualX, y+20, scrollbar.size[1], scrollbar.size[2], scrollbar.color, true)
+    else
+        showScrollbar = false
+    end
+end
+
+function onClick ( button, state )
+    if pressedButton then
+        local buttonText, abort = guiGetText(pressedButton)
+        if scrollbar and (scrollbar.old ~= buttonText) and isElement(pVehicle) then
+            prepareHandlingValue(pVehicle, guiGetElementProperty(pressedButton), buttonText)
+            abort = true
+        end
+        scrollbar = nil
+        pressedButton = nil
+        pressedButtonPosition = nil
+        if abort then return end
+    end
+
+    if not pointedButton then return end
+
+    local source = pointedButton
     local parent = guiGetElementParent ( source )
     local event = guiGetElementEvents ( source )
     local info = guiGetElementInfo ( source )
+    local state = (state == "down") and true or false
 
-    if button == "left" then
+    if state and (button == "left") and (parent == "viewItem") then
+        local inputType = guiGetElementInputType ( source )
+        local property = guiGetElementProperty ( source )
+        local propertyType = getHandlingPropertyValueType ( property )
         
-        if parent == "menuButton" then
+        -- Limit propertyType to float since for now we'll deal with fluid scrollbars
+        -- Later, allow integers. Remember to block other types (String, Hexadecimal)
+        if (inputType == "config") and (propertyType == "Float") then
+            local mx, my = getCursorPosition()
             
-            if info == "close" then
-                toggleEditor ( )
-            else
-                guiToggleUtilityDropDown ( info )
+            pressedButton = source
+            pressedButtonPosition = {guiGetPosition(source, false)}
+
+            element = source
+            while getElementType(getElementParent(element)) ~= "guiroot" do
+                element = getElementParent(element)
+                local x, y = guiGetPosition(element, false)
+                pressedButtonPosition[1], pressedButtonPosition[2] = pressedButtonPosition[1] + x, pressedButtonPosition[2] + y
             end
-            
+
+            local a, b = getHandlingLimits( guiGetElementProperty(pressedButton) )
+            local x = guiGetText(pressedButton)
+
+            scrollbar = {}
+            scrollbar.clickOrigin = {mx * scrX, my * scrY}
+            scrollbar.position = (x-a)/(b-a)
+            scrollbar.size = {guiGetSize(pressedButton, false)}
+            scrollbar.old = guiGetText(pressedButton)
+
+            -- Calculate virtual scrollbar x value (is the originX-(width/2)
+            scrollbar.virtualX = scrollbar.clickOrigin[1] - (scrollbar.size[1]*scrollbar.position)
+            scrollbar.virtualX2 = scrollbar.virtualX + scrollbar.size[1]
+            scrollbar.min, scrollbar.max = a, b
+        end
+        return
+    elseif state then
+        -- I was going to change everything to do a check to see if its up or down..
+        -- Too much hassle. Just going to kill the function here.
+        return
+    end
+
+    if (button == "left") then
+
+        if parent == "menuButton" then
+            guiToggleUtilityDropDown ( info )
+    
         elseif parent == "menuItem" then
             guiShowView ( info )
             
@@ -20,14 +108,13 @@ function onClick ( button )
             guiShowView ( info )
             
         elseif parent == "viewItem" then
-            
             local inputType = guiGetElementInputType ( source )
-            
+
             local property = guiGetElementProperty ( source )
             
             if property then
             
-                if inputType == "config" then
+                if (inputType == "config") and (getElementType(source) == "gui-button") then
                     
                     destroyEditBox ( )
                     
@@ -110,7 +197,7 @@ function onClick ( button )
             
         end
         
-    elseif button == "right" then
+    elseif (button == "right") then
         
         if pressedKey then -- Check whether CTRL or SHIFT is valid pressed with a right-mouse-click
             
@@ -122,7 +209,7 @@ function onClick ( button )
         
     end
     
-    if parent ~= "menuButton" then
+    if (parent ~= "menuButton") then
         guiToggleUtilityDropDown ( currentUtil )
     end
     
@@ -132,10 +219,6 @@ function onClick ( button )
     
     return true
 end
-
-
-
-
 
 function onDoubleClick ( )
     local event = guiGetElementEvents ( source )
@@ -148,25 +231,23 @@ function onDoubleClick ( )
 end
 
 
-
-
-
 function onEnter ( )
     local parent = guiGetElementParent ( source )
     local event = guiGetElementEvents ( source )
     local inputType = guiGetElementInputType ( source )
     local elementInfo = guiGetElementInfo ( source )
+    setPointedElement ( source, true )
     
     if parent == "menuButton" and currentUtil then
         local util = guiGetElementInfo ( source )
         
-        if util ~= "close" and util ~= currentUtil then
+        if util ~= currentUtil then
             guiToggleUtilityDropDown ( util )
         end
         
-    elseif parent == "menuButton" or parent == "menuItem" then
+    elseif parent == "viewButton" or parent == "menuItem" then
     
-        guiSetInfoText ( getViewLongName ( elementInfo ), "" )
+        guiSetInfoText ( getViewLongName(elementInfo), "" )
     
     elseif parent == "viewItem" then
         
@@ -187,11 +268,9 @@ function onEnter ( )
             
         elseif inputType == "config" then
             
-            setPointedElement ( source, true )
             guiSetInfoText ( getText ( "clickToEdit" ), getText ( "enterToSubmit" ) )
             
         elseif inputType == "special" then
-            
             
             
         end
@@ -230,7 +309,7 @@ function onLeave ( )
     if event and event.onLeave then
         event.onLeave ( source )
     end
-    
+
     return true
 end
 

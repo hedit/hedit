@@ -69,7 +69,7 @@ guiLanguage.english = {
         info = "Information",
         question = "Question",
         warning = "Warning!",
-        ["error"] = "Error!"
+        error = "Error!"
     },
     --Strings for the buttons at the top
     menubar = {

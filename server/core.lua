@@ -10,11 +10,11 @@ addEventHandler ( "onResourceStart", resourceRoot, function ( )
 	setElementData(resourceRoot, "resourceVersion", getResourceInfo(resource, "version"))
 	
     if resName ~= "hedit" and not DEBUGMODE then
-        outputChatBox ( "Handling Editor failed to start, see the log's for more information." )
+        outputChatBox ( "Handling Editor failed to start, see the logs for more information." )
         print ( "===============================================================================" )
-        print ( "[HEDIT] Please rename resource '"..resName.."' to 'hedit' in order to work." )
-        print ( "[HEDIT] This is needed to sync the clients handlings properly." )
-        print ( "[HEDIT] The handling editor will not work now. Please rename first." )
+        print ( "[HEDIT] Please rename resource '"..resName.."' to 'hedit' in order use the handling editor." )
+        print ( "[HEDIT] This is needed to sync the handlings between clients properly." )
+        print ( "[HEDIT] The handling editor will not work unless you rename the resource to 'hedit'." )
         print ( "===============================================================================" )
         return cancelEvent ( true, "Rename the handling editor resource to 'hedit' in order to work." )
     end
@@ -51,6 +51,8 @@ end )
 
 addEventHandler ( "onResourceStop", resourceRoot, function ( )
     unloadHandlingLog ( )
+
+    -- Is this necessary? Surely resourceRoot is destroyed when the resource is stopped.
 	removeElementData(resourceRoot, "resourceVersion")
 	removeElementData(resourceRoot, "propertySettings")
     return true

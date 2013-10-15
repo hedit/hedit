@@ -36,7 +36,7 @@ local versionUpgrade = {}
 
 
 
-function checkTheUpdates ( )
+function checkForUpdates ( )
     local ver = tonumber ( getUserConfig ( "version" ) or "0" )
 
     -- If we have a no menu to store our updates in, we shouldn't try adding them too.
