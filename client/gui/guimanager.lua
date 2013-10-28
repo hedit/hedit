@@ -154,6 +154,11 @@ function toggleEditor ( )
         setVisible ( false )
         return true
     end
+
+    if not pData.access then
+        guiCreateWarningMessage ( getText ( "accessDenied" ), 1 )
+        return false
+    end
     
     if pVehicle then
         

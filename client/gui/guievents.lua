@@ -1,5 +1,5 @@
 local abs = math.abs
-local scrollbarColor = tocolor(15, 95, 125, 150)
+local scrollbarColor = tocolor(255, 255, 255, 50)
 
 function onMove ( _, _, cX, cY )
     if pressedButton and scrollbar then
@@ -79,16 +79,18 @@ function onClick ( button, state )
             local a, b = getHandlingLimits( guiGetElementProperty(pressedButton) )
             local x = guiGetText(pressedButton)
 
-            scrollbar = {}
-            scrollbar.clickOrigin = {mx * scrX, my * scrY}
-            scrollbar.position = (x-a)/(b-a)
-            scrollbar.size = {guiGetSize(pressedButton, false)}
-            scrollbar.old = guiGetText(pressedButton)
+            scrollbar = {
+                clickOrigin = {mx * scrX, my * scrY},
+                position = (x-a)/(b-a),
+                size = {guiGetSize(pressedButton, false)},
+                old = guiGetText(pressedButton),
+                min = a,
+                max = b
+            }
 
             -- Calculate virtual scrollbar x value (is the originX-(width/2)
             scrollbar.virtualX = scrollbar.clickOrigin[1] - (scrollbar.size[1]*scrollbar.position)
             scrollbar.virtualX2 = scrollbar.virtualX + scrollbar.size[1]
-            scrollbar.min, scrollbar.max = a, b
         end
         return
     elseif state then

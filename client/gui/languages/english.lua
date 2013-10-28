@@ -8,6 +8,7 @@ guiLanguage.english = {
     needVehicle = "You must be driving a vehicle to use the handling editor!",
     needLogin = "You must be logged in in order to view this menu.",
     needAdmin = "You must be logged in as an administrator to access this menu.",
+    accessDenied = "You do not have the required permissions to access this menu.",
     invalidView = "This menu does not exist!",
     disabledView = "This menu has been disabled.",
     notifyUpdate = "The handling editor has been updated since the last time you've used it. Would you like to see a list of changes now? \nYou can always view the list of changes at 'Extra > Updates'",
@@ -26,10 +27,10 @@ guiLanguage.english = {
     unableToChange = "Unable to set the %s to %s!",
 	disabledProperty = "Editing %s is disabled on this server!",
     
-    resetted = "Succesfully reset the vehicle's handling settings!",
+    resetted = "Successfully reset the vehicle's handling settings!",
     loaded = "Successfully loaded your handling settings!",
-    imported = "Succesfully imported the handling settings!",
-    invalidImport = "Import failed; the handling data you provided is invalid!",
+    imported = "Successfully imported the handling settings!",
+    invalidImport = "Import failed. The handling data you provided is invalid!",
     invalidSave = "Please provide a valid name and description to save this vehicle's handling data!",
     
     confirmReplace = "Are you sure you would like to overwrite the existing save?",
@@ -48,7 +49,7 @@ guiLanguage.english = {
     vehicle = "Vehicle",
     unsaved = "Unsaved",
     
-    clickToEdit = "Click to edit.",
+    clickToEdit = "Click to edit or drag to quick-tune.",
     enterToSubmit = "Press enter to confirm.",
     clickToViewFullLog = "Click to view the complete vehicle log.",
     copiedToClipboard = "The handling settings have been copied to the clipboard!",
@@ -246,7 +247,7 @@ guiLanguage.english = {
             shortname = "MTA Update",
             longname = "Multi Theft Auto has been updated!",
             itemtext = {
-                infotext = "Multi Theft Auto has been updated. Because of this, your saved handlings in the previous version are no longer compatible. Please visit the link below for help and get your handlings back.",
+                infotext = "Multi Theft Auto has been updated. This means your saved handlings from the previous version are no longer compatible. Please visit the link below for assistance in retrieving your old handlings.",
                 websitebox = "http://hedit.googlecode.com/"
             }
         }

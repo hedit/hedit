@@ -692,11 +692,11 @@ addEventHandler ( "updateClientXMLCache", root, updateXMLCache )
 
 
 
-function updateRights ( loggedin, admin )
+function updateRights ( loggedin, admin, canAccess )
     pData.loggedin = loggedin
     pData.isadmin = admin
-    
-    outputDebugString ( "Updated rights: loggedin:"..tostring(loggedin).." | isadmin:"..tostring(admin) )
+    pData.access = canAccess
+    outputDebugString ( "Updated rights: loggedin:"..tostring(loggedin).." | isadmin:"..tostring(admin) .. " | access:" .. tostring(canAccess))
 
     return true
 end

@@ -18,11 +18,12 @@ addEventHandler ( "requestRights", root, function ( )
     end
     
     local pAccount = getPlayerAccount ( client )
+    local canAccess = hasObjectPermissionTo(client, "resource.hedit.access", true)
     if isGuestAccount ( pAccount ) then
-        triggerClientEvent ( client, "updateClientRights", client, false, false )
+        triggerClientEvent ( client, "updateClientRights", client, false, false, canAccess )
     else
         local admin = isObjectInACLGroup ( "user."..getAccountName ( pAccount ), aclGetGroup ( "Admin" ) )
-        triggerClientEvent ( client, "updateClientRights", client, true, admin )
+        triggerClientEvent ( client, "updateClientRights", client, true, admin, canAccess )
     end
 end )
 
