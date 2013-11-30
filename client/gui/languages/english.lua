@@ -225,10 +225,6 @@ guiLanguage.english = {
 				checkbox_lockwhenediting = "Lock vehicle when editing?"
             }
         },
-        administration = {
-            shortname = "Administration",
-            longname = "Administrator tools."
-        },
         handlinglog = {
             shortname = "Handling Log",
             longname = "Log of recent changes to handling settings.",

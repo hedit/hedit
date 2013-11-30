@@ -62,7 +62,6 @@ template.menubar = {
     {
         title = "extra",
         "options",
-        "administration",
         "updatelist"
     }
 }
@@ -1239,16 +1238,6 @@ template.viewcontents = {
                 guiSetVisible ( content.checkbox_versionreset, false )
             end
         end
-    },
-
-    ------------------------------------------------------------------------------------------------
-
-    administration = {
-        requirelogin = true,
-        requireadmin = true,
-        disable = true,
-        content = {
-        }
     },
 
     ------------------------------------------------------------------------------------------------
