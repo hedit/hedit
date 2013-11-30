@@ -1,7 +1,7 @@
-Multi Theft Auto: Ingame Handling Editor
+MTA: Ingame Handling Editor
 =====
 
-Any trouble with the handling editor? [Be sure to post it here!](http://forum.mtasa.com/viewtopic.php?f=108&t=30494 "Forum topic") Problems with installing? Feel free to ask there too! Found a bug, tell us [here!](https://github.com/hedit/hedit/issues]
+Any trouble with the handling editor? [Be sure to post it here!](http://forum.mtasa.com/viewtopic.php?f=108&t=30494 "Forum topic") Problems with installing? Feel free to ask there too! Found a bug, tell us [here!](https://github.com/hedit/hedit/issues)
 
 Download
 -------
