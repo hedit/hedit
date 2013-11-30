@@ -160,22 +160,15 @@ guiLanguage.english = {
             }
         },
         import = {
-            shortname = "Import",
-            longname = "Import a handling line from the handling.cfg format.",
+            shortname = "Import/Export",
+            longname = "Import or Export to/from handling.cfg format.",
             itemtext = {
-                button = "Import",
+                importButton = "Import",
+                exportButton = "Export and copy to clipboard",
                 III = "III",
                 VC = "VC",
                 SA = "SA",
                 IV = "IV",
-                memo = ""
-            }
-        },
-        export = {
-            shortname = "Export",
-            longname = "Export handling settings to the handling.cfg format.",
-            itemtext = {
-                button = "Copy to Clipboard",
                 memo = ""
             }
         },

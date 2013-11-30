@@ -240,6 +240,7 @@ function onDoubleClick ( )
 end
 
 
+-- mouse enter, not edit enter!
 function onEnter ( )
     local parent = guiGetElementParent ( source )
     local event = guiGetElementEvents ( source )
@@ -385,7 +386,7 @@ function onEditBoxAccept ( box )
         end
         
     end
-    
+
     if event and event.onEditBoxAccept then
         event.onEditBoxAccept ( box )
     end

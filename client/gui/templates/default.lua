@@ -54,7 +54,6 @@ template.menubar = {
     {
         title = "tools",
         "import",
-        "export",
         "get",
         "share"
     },
@@ -851,12 +850,13 @@ template.viewcontents = {
     import = {
         requirelogin = false,
         requireadmin = false,
+
         content = {
             methods = {
                 III = {
                     type = "checkbox",
                     pos = { 72, 83 },
-                    size = { 72, 15 },
+                    size = { 34, 15 },
                     runfunction = function ( this )
                         guiSetEnabled ( this, false )
                     end,
@@ -871,8 +871,8 @@ template.viewcontents = {
                 },
                 VC = {
                     type = "checkbox",
-                    pos = { 144, 83 },
-                    size = { 71, 15 },
+                    pos = { 110, 83 },
+                    size = { 34, 15 },
                     runfunction = function ( this )
                         guiSetEnabled ( this, false )
                     end,
@@ -887,8 +887,8 @@ template.viewcontents = {
                 },
                 SA = {
                     type = "checkbox",
-                    pos = { 215, 83 },
-                    size = { 71, 15 },
+                    pos = { 148, 83 },
+                    size = { 34, 15 },
                     runfunction = function ( this )
                         guiSetEnabled ( this, false )
                     end,
@@ -906,8 +906,8 @@ template.viewcontents = {
                 },
                 IV = {
                     type = "checkbox",
-                    pos = { 286, 83 },
-                    size = { 71, 15 },
+                    pos = { 186, 83 },
+                    size = { 34, 15 },
                     runfunction = function ( this )
                         guiSetEnabled ( this, false )
                     end,
@@ -921,15 +921,17 @@ template.viewcontents = {
                     }
                 }
             },
+
             memo = {
                 type = "memo",
                 pos = { 72, 103 },
                 size = { 285, 251 }
             },
-            button = {
+
+            importButton = {
                 type = "button",
-                pos = { 72, 359 },
-                size = { 285, 25 },
+                pos = { 227, 78 },
+                size = { 123, 25 },
                 events = {
                     onClick = function ( this )
                         local vehicle = getPedOccupiedVehicle ( localPlayer )
@@ -946,29 +948,9 @@ template.viewcontents = {
                         end
                     end
                 }
-            }
-        }
-    },
-
-    ------------------------------------------------------------------------------------------------
-
-    export = {
-        requirelogin = false,
-        requireadmin = false,
-        onOpen = function ( content )
-            local vehicle = getPedOccupiedVehicle ( localPlayer )
-            if vehicle then
-                local line = exportHandling ( vehicle )
-                guiSetText ( content.memo, line )
-            end
-        end,
-        content = {
-            memo = {
-                type = "memo",
-                pos = { 72, 83 },
-                size = { 285, 271 }
             },
-            button = {
+
+            exportButton = {
                 type = "button",
                 pos = { 72, 359 },
                 size = { 285, 25 },
@@ -976,6 +958,8 @@ template.viewcontents = {
                     onClick = function ( this )
                         local vehicle = getPedOccupiedVehicle ( localPlayer )
                         if vehicle then
+                            local items = heditGUI.viewItems.import.guiItems
+                            guiSetText ( items.memo, exportHandling ( vehicle ) )
                             setClipboard ( exportHandling ( vehicle ) )
                             guiCreateWarningMessage ( getText ( "copiedToClipboard" ), 3 )
                         end
