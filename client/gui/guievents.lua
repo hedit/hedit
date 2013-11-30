@@ -60,6 +60,8 @@ function onClick ( button, state )
     if state and (button == "left") and (parent == "viewItem") then
         local inputType = guiGetElementInputType ( source )
         local property = guiGetElementProperty ( source )
+
+        if not property then return end
         local propertyType = getHandlingPropertyValueType ( property )
         
         -- Limit propertyType to float/integer
