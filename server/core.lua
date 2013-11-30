@@ -16,7 +16,7 @@ addEventHandler ( "onResourceStart", resourceRoot, function ( )
         print ( "[HEDIT] This is needed to sync the handlings between clients properly." )
         print ( "[HEDIT] The handling editor will not work unless you rename the resource to 'hedit'." )
         print ( "===============================================================================" )
-        return cancelEvent ( true, "Rename the handling editor resource to 'hedit' in order to work." )
+        return cancelEvent ( true, "Rename the handling editor resource to 'hedit' in order to use the resource." )
     end
     
     

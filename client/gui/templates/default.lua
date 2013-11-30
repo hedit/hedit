@@ -48,7 +48,6 @@ template.menubar = {
         title = "handling",
         "reset",
         "save",
-        "load",
         "upload",
         "download"
     },
@@ -62,7 +61,7 @@ template.menubar = {
     {
         title = "extra",
         "options",
-        "updatelist"
+        "about"
     }
 }
 
@@ -70,11 +69,11 @@ template.views = {
     { title = "engine", content = "handlingconfig" },
     { title = "body", content = "handlingconfig" },
     { title = "wheels", content = "handlingconfig" },
-    { title = "appearance", content = "submenu" },
     { title = "modelflags", content = "handlingflags" },
     { title = "handlingflags", content = "handlingflags" },
     { title = "dynamometer", content = "submenu" },
-    { title = "help", content = "submenu" }
+    { title = "save", content = "submenu" },
+    { contents = {"undo", "redo"} },
 }
 
     
@@ -461,13 +460,8 @@ template.viewcontents = {
             "dragCoeff",
             "centerOfMass",
             "percentSubmerged",
-            "suspensionForceLevel",
-            "suspensionDamping",
-            "suspensionHighSpeedDamping",
-            "suspensionUpperLimit",
-            "suspensionLowerLimit",
-            "suspensionAntiDiveMultiplier",
-            "suspensionFrontRearBias"
+            "animGroup",
+            "seatOffsetDistance",
         }
     },
 
@@ -482,19 +476,14 @@ template.viewcontents = {
             "tractionLoss",
             "tractionBias",
             "brakeDeceleration",
-            "brakeBias"
-        }
-    },
-
-    ------------------------------------------------------------------------------------------------
-
-    appearance = {
-        requirelogin = false,
-        requireadmin = false,
-        redirect = "handlingconfig",
-        content = {
-            "animGroup",
-            "seatOffsetDistance"
+            "brakeBias",
+            "suspensionForceLevel",
+            "suspensionDamping",
+            "suspensionHighSpeedDamping",
+            "suspensionUpperLimit",
+            "suspensionLowerLimit",
+            "suspensionAntiDiveMultiplier",
+            "suspensionFrontRearBias"
         }
     },
 
@@ -532,7 +521,7 @@ template.viewcontents = {
 
     ------------------------------------------------------------------------------------------------
 
-    help = {
+    about = {
         requirelogin = false,
         requireadmin = false,
         --[[runfunction = function ( content )
@@ -551,7 +540,7 @@ template.viewcontents = {
                 size = { 290, 200 },
                 runfunction = function ( this )
                     guiLabelSetHorizontalAlign ( this, "left", true )
-                    guiSetFont ( this, "default-small" )
+                    guiSetFont ( this, "default" )
                 end
             },
             websitebox = {
@@ -647,7 +636,7 @@ template.viewcontents = {
     save = {
         requirelogin = false,
         requireadmin = false,
-        onOpen = function ( content )
+        onOpen = function ( content ) 
             guiGridListClear ( content.grid )
 
             local saves = getClientSaves ( )
@@ -657,15 +646,18 @@ template.viewcontents = {
                 guiGridListSetItemText ( content.grid, row, 1, info.name, false, false )
                 guiGridListSetItemText ( content.grid, row, 2, model, false, false )
             end
-
             
-            
-            guiSetText ( content.nameEdit, "" )
-            guiSetText ( content.descriptionEdit, "" )
+            guiSetText ( content.nameEdit, "title" )
+            guiSetText ( content.descriptionEdit, "description" )
             
             guiBringToFront ( content.nameLabel )
             guiBringToFront ( content.descriptionLabel )
         end,
+
+        onClose = function ( content )
+            guiResetStaticInfoText ( )
+        end,
+
         content = {
             grid = {
                 type = "gridlist",
@@ -682,19 +674,41 @@ template.viewcontents = {
                         if row > -1 and col > -1 then
                             local name = string.lower ( guiGridListGetItemText ( this, row, col ) )
                             local save = getClientSaves()[name]
+                            guiSetStaticInfoText ( save.name, save.description )
                             guiSetVisible ( content.nameLabel, false )
                             guiSetVisible ( content.descriptionLabel, false )
                             guiSetText ( content.nameEdit, save.name )
                             guiSetText ( content.descriptionEdit, save.description )
                             return true
                         end
-
+                        guiResetStaticInfoText()
                         guiSetVisible ( content.nameLabel, true )
                         guiSetVisible ( content.descriptionLabel, true )
                         guiBringToFront ( content.nameLabel )
                         guiBringToFront ( content.descriptionLabel )
                         guiSetText ( content.nameEdit, "" )
                         guiSetText ( content.descriptionEdit, "" )
+                    end,
+
+                    onDoubleClick = function ( this )
+                        local row,col = guiGridListGetSelectedItem ( this )
+
+                        if row ~= -1 and col ~= -1 then
+                            local name = string.lower ( guiGridListGetItemText ( this, row, col ) )
+
+                            local function func ( )
+                                if loadClientHandling ( pVehicle, name ) then
+                                    guiCreateWarningMessage ( getText ( "successLoad" ), 3)
+                                end
+                            end
+
+                            if not isVehicleSaved ( pVehicle ) then
+                                guiCreateWarningMessage ( getText ( "confirmLoad" ), 2, {func} )
+                                return true
+                            end
+
+                            func ( )
+                        end
                     end
                 }
             },
@@ -770,10 +784,10 @@ template.viewcontents = {
                     end
                 }
             },
-            button = {
+            saveButton = {
                 type = "button",
                 pos = { 289, 334 },
-                size = { 68, 50 },
+                size = { 68, 25 },
                 events = {
                     onClick = function ( this )
                         local content = heditGUI.viewItems.save.guiItems
@@ -799,78 +813,15 @@ template.viewcontents = {
                         func ( )
                     end
                 }
-            }
-        }
-    },
-
-    ------------------------------------------------------------------------------------------------
-
-    load = {
-        requirelogin = false,
-        requireadmin = false,
-        onOpen = function ( content )
-            guiGridListClear ( content.grid )
-
-            local saves = getClientSaves ( )
-            for name,info in pairs ( saves ) do
-                local row = guiGridListAddRow ( content.grid )
-                local model = getVehicleNameFromModel ( tonumber ( info.model ) )
-                guiGridListSetItemText ( content.grid, row, 1, info.name, false, false )
-                guiGridListSetItemText ( content.grid, row, 2, model, false, false )
-            end
-        end,
-        onClose = function ( content )
-            guiResetStaticInfoText ( )
-        end,
-        content = {
-            grid = {
-                type = "gridlist",
-                pos = { 72, 83 },
-                size = { 285, 271 },
-                runfunction = function ( this )
-                    guiGridListAddColumn ( this, "Name",  0.5 )
-                    guiGridListAddColumn ( this, "Model", 0.4 )
-                end,
-                events = {
-                    onClick = function ( this )
-                        local row,col = guiGridListGetSelectedItem ( this )
-                        if row ~= -1 and col ~= -1 then
-                            local name = string.lower ( guiGridListGetItemText ( this, row, col ) )
-                            local save = getClientSaves()[name]
-                            guiSetStaticInfoText ( save.name, save.description )
-                            return true
-                        end
-                        guiResetStaticInfoText ( )
-                    end,
-                    onDoubleClick = function ( this )
-                        local row,col = guiGridListGetSelectedItem ( this )
-
-                        if row ~= -1 and col ~= -1 then
-                            local name = string.lower ( guiGridListGetItemText ( this, row, col ) )
-
-                            local function func ( )
-                                if loadClientHandling ( pVehicle, name ) then
-                                    guiCreateWarningMessage ( getText ( "successLoad" ), 3)
-                                end
-                            end
-
-                            if not isVehicleSaved ( pVehicle ) then
-                                guiCreateWarningMessage ( getText ( "confirmLoad" ), 2, {func} )
-                                return true
-                            end
-
-                            func ( )
-                        end
-                    end
-                }
             },
-            button = {
+
+            loadButton = {
                 type = "button",
-                pos = { 72, 359 },
-                size = { 285, 25 },
+                pos = { 289, 359 },
+                size = { 68, 25 },
                 events = {
                     onClick = function ( this )
-                        local content = heditGUI.viewItems.load.guiItems
+                        local content = heditGUI.viewItems.save.guiItems
                         local row,col = guiGridListGetSelectedItem ( content.grid )
 
                         if row ~= -1 and col ~= -1 then
@@ -1129,12 +1080,12 @@ template.viewcontents = {
             },
             label_language = {
                 type = "label",
-                pos = { 72, 173 },
+                pos = { 72, 144 },
                 size = { 180, 25 }
             },
             combo_language = {
                 type = "combobox",
-                pos = { 258, 173 },
+                pos = { 258, 144 },
                 size = { 100, 25 },
                 runfunction = function ( this )
                     local item = 0
@@ -1148,34 +1099,9 @@ template.viewcontents = {
                     guiSetSize ( this, 100, size, false )
                 end
             },
-            label_commode = {
-                type = "label",
-                pos = { 72, 203 },
-                size = { 180, 25 }
-            },
-            combo_commode = {
-                type = "combobox",
-                pos = { 258, 203 },
-                size = { 100, 25 },
-                runfunction = function ( this )
-                    for num,name in ipairs ( centerOfMassModes ) do
-                        guiComboBoxAddItem ( this, getText ( "special", "commode", num ) )
-                        guicache.optionmenu_item[name] = num-1
-                    end
-                    guiSetSize ( this, 100, 68, false )
-                end
-            },
-		   checkbox_versionreset = {
-                type = "checkbox", 
-                pos = { 72, 250 },
-                size = { 285, 25 },
-				runfunction = function(this)
-					guiSetText(this, string.format(getText("viewinfo", "options", "itemtext", "checkbox_versionreset"), tostring(getUserConfig(version)), tostring(HREV)))
-				end
-            },
 			checkbox_lockwhenediting = {
 				type = "checkbox",
-				pos = {72, 275},
+				pos = {72, 175},
 				size = { 285, 25},
 				runfunction = function(this)
 					guiCheckBoxSetSelected(this, tobool(getUserConfig("lockVehicleWhenEditing")))
@@ -1200,7 +1126,6 @@ template.viewcontents = {
                                 setUserConfig ( "usedCommand", guiGetText ( item.edit_cmd ) )
                                 setUserConfig ( "template", guiComboBoxGetItemText ( item.combo_template, guiComboBoxGetSelected ( item.combo_template ) ) )
                                 setUserConfig ( "language", guiComboBoxGetItemText ( item.combo_language, guiComboBoxGetSelected ( item.combo_language ) ) )
-                                setUserConfig ( "commode", centerOfMassModes[ guiComboBoxGetSelected ( item.combo_commode )+1 ] )
 								setUserConfig("lockVehicleWhenEditing", guiCheckBoxGetSelected(item.checkbox_lockwhenediting))
 								
                                 if bool then
@@ -1233,10 +1158,6 @@ template.viewcontents = {
             guiSetText ( content.edit_cmd, getUserConfig ( "usedCommand" ) )
             guiComboBoxSetSelected ( content.combo_key, guicache.optionmenu_item[ string.lower ( getUserConfig ( "usedKey" ) ) ] )
             guiComboBoxSetSelected ( content.combo_language, guicache.optionmenu_item[ getUserConfig ( "language" ) ] )
-            guiComboBoxSetSelected ( content.combo_commode, guicache.optionmenu_item[ getUserConfig ( "commode" ) ] )
-            if tonumber ( getUserConfig ( "version" ) ) <= HREV then
-                guiSetVisible ( content.checkbox_versionreset, false )
-            end
         end
     },
 
@@ -1254,42 +1175,6 @@ template.viewcontents = {
             }
         }
     },
-
-    ------------------------------------------------------------------------------------------------
-
-    updatelist = {
-        requirelogin = false,
-        requireadmin = false,
-        content = {
-            scrollpane = {
-                type = "scrollpane",
-                pos = { 73, 77 },
-                size = { 290, 300 }
-            }
-        }
-    },
-
-    ------------------------------------------------------------------------------------------------
-
-    mtaversionupdate = {
-        requirelogin = false,
-        requireadmin = false,
-        content = {
-            infotext = {
-                type = "label",
-                pos = { 73, 77 },
-                size = { 285, 200 },
-                runfunction = function ( this )
-                    guiLabelSetHorizontalAlign ( this, "left", true )
-                end
-            },
-            websitebox = {
-                type = "editbox",
-                pos = { 73, 358 },
-                size = { 285, 25 }
-            }
-        }
-    }
 }
 
 

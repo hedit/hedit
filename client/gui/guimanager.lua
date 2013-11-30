@@ -196,41 +196,6 @@ function toggleEditor ( )
 				heditGUI.prevLockState = false
 			end
 		end
-		
-        -- If a server runs an older version, or doesnt meet your version of data files, show a message.
-        local ver = tonumber ( getUserConfig ( "version" ) )
-        local minver = tonumber ( getUserConfig ( "minVersion" ) )
-
-        if ver > HREV then
-
-            if minver > HMREV then
-                guiCreateWarningMessage ( getText ( "outdatedUpgrade" ), 0 )
-            else
-                guiCreateWarningMessage ( getText ( "outdatedUpdate" ), 1 )
-            end
-
-        end
-
-        -- Notify the player upon an update or upgrade
-        if getUserConfig ( "notifyUpdate" ) == "true" then
-
-            guiDestroyWarningWindow ( )
-            guiCreateWarningMessage ( getText ( "notifyUpdate" ), 2, {guiShowView,"updatelist"} )
-            setUserConfig ( "notifyUpdate", "false" )
-
-        elseif getUserConfig ( "notifyUpgrade" ) == "true" then
-
-            guiDestroyWarningWindow ( )
-            guiCreateWarningMessage ( getText ( "notifyUpgrade" ), 2, {guiShowView,"updatelist"} )
-            setUserConfig ( "notifyUpgrade", "false" )
-        
-        elseif tonumber ( getUserConfig ( "mtaVersion" ) ) < MTAVER then
-            
-            guiDestroyWarningWindow ( )
-            guiCreateWarningMessage ( getText ( "mtaUpdate" ), 1)
-            setUserConfig ( "mtaVersion", tostring ( MTAVER ) )
-
-        end
 
         return true
     end

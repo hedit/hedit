@@ -11,12 +11,7 @@ guiLanguage.english = {
     accessDenied = "You do not have the required permissions to access this menu.",
     invalidView = "This menu does not exist!",
     disabledView = "This menu has been disabled.",
-    notifyUpdate = "The handling editor has been updated since the last time you've used it. Would you like to see a list of changes now? \nYou can always view the list of changes at 'Extra > Updates'",
-    notifyUpgrade = "The handling editor has been UPGRADED. This means some of your files, such as saved handlings have been changed to another format. As a result, servers with an outdated version of hedit are not fully supported.\nWould you like to see a list of changes now? \nYou can always view the list of changes at 'Extra > Updates'",
-    outdatedUpdate = "This server runs an outdated version of the handling editor. As a result, some features may be missing.\nPlease contact an administrator.",
-    outdatedUpgrade = "This server runs an extremely outdated version of the handling editor. As a result, all settings/saved handling settings are incompatible.\nPlease contact an administrator.",
-    mtaUpdate = "If you have any saved handlings on MTA 1.1, your handlings are no longer compatible; please visit 'http://hedit.googlecode.com/' for more details.",
-    
+ 
     sameValue = "The %s is already that!",
     exceedLimits = "Value used at %s exceeds the limit. [%s]!",
     cantSameValue = "%s may not the same as %s!",
@@ -41,9 +36,7 @@ guiLanguage.english = {
 
     successSave = "Successfully saved your handling settings!",
     successLoad = "Successfully loaded your handling settings!",
-    
-	confirmVersionReset = "Are you sure you want to set your editor version number to the one of this server? Your saved handlings may become incompatible.",
-	successVersionReset = "Your editor version has been updated.",
+
     wantTheSettings = "Are you sure you would like to apply these settings? The handling editor will restart.",
     
     vehicle = "Vehicle",
@@ -55,10 +48,6 @@ guiLanguage.english = {
     copiedToClipboard = "The handling settings have been copied to the clipboard!",
     
     special = {
-        commode = {
-            "Split",
-            "Merged"
-        }
     },
     
     --
@@ -79,7 +68,7 @@ guiLanguage.english = {
         extra = "Extra",
     },
 
-    --Strings for the buttons at the right
+    --Strings for the buttons at the left
     viewbuttons = {
         engine = "Engine",
         body = "Body",
@@ -88,10 +77,12 @@ guiLanguage.english = {
         modelflags = "Model\nFlags",
         handlingflags = "Handling\nFlags",
         dynamometer = "Dyno",
-        help = "Help"
+        undo = "<",
+        redo = ">",
+        save = "Saves"
     },
     
-    --Strings for the various views of the editor. Empty strings are placeholder to avoid debug as the debug is meant to show items which are missing text.
+    -- Strings for the various views of the editor. Empty strings are placeholder to avoid debug as the debug is meant to show items which are missing text.
     viewinfo = {
         engine = {
             shortname = "Engine",
@@ -99,7 +90,7 @@ guiLanguage.english = {
         },
         body = {
             shortname = "Body",
-            longname = "Body & Suspension Settings"
+            longname = "Body Settings"
         },
         wheels = {
             shortname = "Wheels",
@@ -121,15 +112,29 @@ guiLanguage.english = {
             shortname = "Dyno",
             longname = "Start Dynamometer"
         },
-        help = {
-            shortname = "Help and Information",
-            longname = "Help",
+        about = {
+            shortname = "About",
+            longname = "About the official handling editor",
             itemtext = {
-                textlabel = "Welcome to the official MTA handling editor! This resource allows you to edit the handling of any vehicle in-game in real time.\n"..
-                            "You can save and load custom handlings you make through the 'Handling' menu in the top left corner.\n"..
-                            "For more information about the handling editor - such as the official changelog - visit:\n",
-                websitebox = "http://hedit.googlecode.com/",
-                morelabel = "Thank you for choosing hedit!"
+                textlabel = "Welcome to the official MTA handling editor! This resource allows you to edit the handling of any vehicle in-game in real time.\n\n"..
+                            "You can save and load custom handlings you make through the 'Handling' menu in the top left corner.\n\n"..
+                            "For more information about the handling editor - such as the official changelog - visit:",
+                websitebox = "http://github.com/hedit/hedit",
+                morelabel = "\nThank you for choosing hedit!"
+            }
+        },
+        undo = {
+            shortname = "Undo",
+            longname = "Undo",
+            itemtext = {
+                textlabel = "Something went wrong."
+            }
+        },
+        redo = {
+            shortname = "Redo",
+            longname = "Redo",
+            itemtext = {
+                textlabel = "Something went wrong."
             }
         },
         reset = {
@@ -142,23 +147,16 @@ guiLanguage.english = {
             }
         },
         save = {
-            shortname = "Save",
-            longname = "Save the handling settings of this vehicle.",
+            shortname = "Saves",
+            longname = "Load or save handling settings.",
             itemtext = {
                 nameLabel = "Name",
                 descriptionLabel = "Description",
-                button = "Save",
+                saveButton = "Save",
+                loadButton = "Load",
                 grid = "",
                 nameEdit = "",
                 descriptionEdit = ""
-            }
-        },
-        load = {
-            shortname = "Load",
-            longname = "Load a set of handling settings.",
-            itemtext = {
-                button = "Load",
-                grid = ""
             }
         },
         import = {
@@ -232,21 +230,6 @@ guiLanguage.english = {
                 logpane = ""
             }
         },
-        updatelist = {
-            shortname = "Updates",
-            longname = "List of recent updates.",
-            itemtext = {
-                scrollpane = ""
-            }
-        },
-        mtaversionupdate = {
-            shortname = "MTA Update",
-            longname = "Multi Theft Auto has been updated!",
-            itemtext = {
-                infotext = "Multi Theft Auto has been updated. This means your saved handlings from the previous version are no longer compatible. Please visit the link below for assistance in retrieving your old handlings.",
-                websitebox = "http://hedit.googlecode.com/"
-            }
-        }
     },
     
 

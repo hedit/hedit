@@ -59,9 +59,6 @@ function startBuilding ( )
     toggleEvents ( window, true )
     
     forceVehicleChange ( )
-
-    -- We check for updates after the gui has been built, as updates will get listed upon a setting change too.
-    checkForUpdates ( )
     
     bindKey ( getUserConfig ( "usedKey" ), "down", toggleEditor )
     addCommandHandler ( getUserConfig ( "usedCommand" ), toggleEditor )
@@ -175,10 +172,24 @@ function buildViewButtons()
 
     for k,view in pairs ( template.views ) do
         pos[2] = pos[2] + offset
-        local element = guiCreateElement ("button", pos[1], pos[2], size[1], size[2], guiTemplateGetViewButtonText ( view.title ), alpha, hovercolor )
-        
-        guiElements[element] = { "viewButton", "button", "none", view.title }
-        table.insert ( heditGUI.viewButtons, element )
+
+        local subContents = view.contents
+        if subContents then
+
+            local width = size[1] / #subContents
+            for _, title in ipairs(subContents) do
+                local element = guiCreateElement ("button", pos[1]+(width*_)-width, pos[2], width, size[2], guiTemplateGetViewButtonText ( title ), alpha, hovercolor )
+                
+                guiElements[element] = { "viewButton", "button", "none", title }
+                table.insert ( heditGUI.viewButtons, element )
+            end
+
+        else
+            local element = guiCreateElement ("button", pos[1], pos[2], size[1], size[2], guiTemplateGetViewButtonText ( view.title ), alpha, hovercolor )
+            
+            guiElements[element] = { "viewButton", "button", "none", view.title }
+            table.insert ( heditGUI.viewButtons, element )
+        end
     end
 end
 
@@ -238,9 +249,6 @@ function buildViews()
                         local propertyName = getHandlingPropertyFriendlyName ( property )
                         local labelInfo = guiInfo.labels[i]
                         local label = guiCreateElement ( labelInfo.type, labelInfo.pos[1], labelInfo.pos[2], labelInfo.size[1], labelInfo.size[2], propertyName, labelInfo.alpha, labelInfo.hovercolor )
-                        local commode = getUserConfig ( "commode" )
-                        
-                        
                         
                         local configInfo = guiInfo.buttons[i]
                         
@@ -262,35 +270,25 @@ function buildViews()
                             guiElements[labelX] = { "viewItem", "infolabel", "centerOfMassX", i, labelInfo.events }
                             guiElements[labelY] = { "viewItem", "infolabel", "centerOfMassY", i, labelInfo.events }
                             guiElements[labelZ] = { "viewItem", "infolabel", "centerOfMassZ", i, labelInfo.events }
+                        
+                            local buttonPosX = configInfo.pos[1]
+                            local buttonWidth = math.round ( configInfo.size[1] / 3, 0 )
                             
-                            if getUserConfig ( "commode" ) == "splitted" then
+                            local buttonX = guiCreateElement ( "button", buttonPosX,                       configInfo.pos[2], buttonWidth, configInfo.size[2], "", configInfo.alpha, configInfo.hovercolor )
+                            local buttonY = guiCreateElement ( "button", buttonPosX + buttonWidth,         configInfo.pos[2], buttonWidth, configInfo.size[2], "", configInfo.alpha, configInfo.hovercolor )
+                            local buttonZ = guiCreateElement ( "button", buttonPosX + ( buttonWidth * 2 ), configInfo.pos[2], buttonWidth, configInfo.size[2], "", configInfo.alpha, configInfo.hovercolor )
                             
-                                local buttonPosX = configInfo.pos[1]
-                                local buttonWidth = math.round ( configInfo.size[1] / 3, 0 )
-                                
-                                local buttonX = guiCreateElement ( "button", buttonPosX,                       configInfo.pos[2], buttonWidth, configInfo.size[2], "", configInfo.alpha, configInfo.hovercolor )
-                                local buttonY = guiCreateElement ( "button", buttonPosX + buttonWidth,         configInfo.pos[2], buttonWidth, configInfo.size[2], "", configInfo.alpha, configInfo.hovercolor )
-                                local buttonZ = guiCreateElement ( "button", buttonPosX + ( buttonWidth * 2 ), configInfo.pos[2], buttonWidth, configInfo.size[2], "", configInfo.alpha, configInfo.hovercolor )
-                                
-                                guiSetFont ( buttonX, "default-small" )
-                                guiSetFont ( buttonY, "default-small" )
-                                guiSetFont ( buttonZ, "default-small" )
-                                
-                                table.insert ( items, buttonX )
-                                table.insert ( items, buttonY )
-                                table.insert ( items, buttonZ )
-                                
-                                guiElements[buttonX] = { "viewItem", "config", "centerOfMassX", i, configInfo.events }
-                                guiElements[buttonY] = { "viewItem", "config", "centerOfMassY", i, configInfo.events }
-                                guiElements[buttonZ] = { "viewItem", "config", "centerOfMassZ", i, configInfo.events }
-                                
-                            else
-                                
-                                local button = guiCreateElement ( "button", configInfo.pos[1], configInfo.pos[2], configInfo.size[1], configInfo.size[2], "", configInfo.alpha, configInfo.hovercolor )
-                                table.insert ( items, button )
-                                guiElements[button] = { "viewItem", "config", "centerOfMass", i, configInfo.events }
-                                
-                            end
+                            guiSetFont ( buttonX, "default-small" )
+                            guiSetFont ( buttonY, "default-small" )
+                            guiSetFont ( buttonZ, "default-small" )
+                            
+                            table.insert ( items, buttonX )
+                            table.insert ( items, buttonY )
+                            table.insert ( items, buttonZ )
+                            
+                            guiElements[buttonX] = { "viewItem", "config", "centerOfMassX", i, configInfo.events }
+                            guiElements[buttonY] = { "viewItem", "config", "centerOfMassY", i, configInfo.events }
+                            guiElements[buttonZ] = { "viewItem", "config", "centerOfMassZ", i, configInfo.events }
                             
                         else
                         

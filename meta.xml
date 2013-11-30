@@ -28,12 +28,8 @@
     <script src="shared/exports.lua"                type="server" />
 
 
-
-
-
     <!-- CLIENT -->
     <script src="client/logmanager.lua"             type="client" />
-    <script src="client/updates.lua"                type="client" />
     <script src="client/settings.lua"               type="client" />
     <script src="client/utils.lua"                  type="client" />
     <script src="client/exports.lua"                type="client" />
@@ -56,8 +52,7 @@
     <file src="images/error.png"                    type="client" />
     <file src="images/info.png"                     type="client" />
     
-    
-    
+
     <!-- SERVER -->
     <script src="server/logmanager.lua"             type="server" />
     <script src="server/cfgloader.lua"              type="server" />

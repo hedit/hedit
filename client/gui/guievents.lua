@@ -110,7 +110,11 @@ function onClick ( button, state )
             guiShowView ( info )
             
         elseif parent == "viewButton" then
-            guiShowView ( info )
+            if (info == "undo") or (info == "redo") then
+                outputChatBox(info)
+            else
+                guiShowView ( info )
+            end
             
         elseif parent == "viewItem" then
             local inputType = guiGetElementInputType ( source )
