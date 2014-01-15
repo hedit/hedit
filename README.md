@@ -13,7 +13,7 @@ Here are some quick links:
 
 Getting started with the Handling Editor
 -------
-You'll download the latest release from the [releases page.](https://github.com/hedit/hedit/releases). It's as simple as pressing "download zip"!
+You'll download the latest release from the [releases page](https://github.com/hedit/hedit/releases). It's as simple as pressing "download zip"!
 
 First of all, you need a MTA server.
 
