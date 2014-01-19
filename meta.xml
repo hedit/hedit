@@ -3,10 +3,19 @@
     <min_mta_version server="1.2.0" client="1.2.0-9.03618" />
 
     <!-- SHARED SCRIPTS -->
-    <!--script src="shared/variables/general.lua"      type="shared" /->
+		<!-- Class file first -->
+		<script src="shared/middleclass.lua" type="shared" />
+
+		<script src="shared/init.lua" type="shared" />
+		<script src="shared/settings.lua" type="shared" />
+		
+		<!-- Data import -->
+		<script src="shared/data/vehicleModels.lua" type="shared" />
+		<script src="shared/data/handlingProperties.lua" type="shared" />
 	
     <!-- CLIENT SCRIPTS -->
-    <!--script src="client/logmanager.lua"             type="client" /-->
+		<script src="client/core.lua" type="client" />
+		<script src="client/PreferenceManager.lua" type="client" />
     
 	<!-- CLIENT FILES -->
 	<file src="images/warning.png"                  type="client" />
@@ -16,44 +25,10 @@
     
 
     <!-- SERVER SCRIPTS -->
+		<script src="server/core.lua" type="server" />
 	
-	<!-- SETTINGS -->
-	<settings>
-		<setting name="*enable_suspensionLowerLimit" value="true"/>
-		<setting name="*enable_engineInertia" value="true"/>
-		<setting name="*enable_suspensionHighSpeedDamping" value="true"/>
-		<setting name="*enable_centerOfMassY" value="true"/>
-		<setting name="*enable_collisionDamageMultiplier" value="true"/>
-		<setting name="*enable_suspensionDamping" value="true"/>
-		<setting name="*enable_seatOffsetDistance" value="true"/>
-		<setting name="*enable_headLight" value="true"/>
-		<setting name="*enable_dragCoeff" value="true"/>
-		<setting name="*enable_engineAcceleration" value="true"/>
-		<setting name="*enable_steeringLock" value="true"/>
-		<setting name="*enable_suspensionUpperLimit" value="true"/>
-		<setting name="*enable_suspensionForceLevel" value="true"/>
-		<setting name="*enable_turnMass" value="true"/>
-		<setting name="*enable_brakeBias" value="true"/>
-		<setting name="*enable_centerOfMassZ" value="true"/>
-		<setting name="*enable_numberOfGears" value="true"/>
-		<setting name="*enable_ABS" value="true"/>
-		<setting name="*enable_mass" value="true"/>
-		<setting name="*enable_percentSubmerged" value="true"/>
-		<setting name="*enable_tractionBias" value="true"/>
-		<setting name="*enable_identifier" value="true"/>
-		<setting name="*enable_modelFlags" value="true"/>
-		<setting name="*enable_centerOfMassX" value="true"/>
-		<setting name="*enable_maxVelocity" value="true"/>
-		<setting name="*enable_animGroup" value="true"/>
-		<setting name="*enable_monetary" value="true"/>
-		<setting name="*enable_suspensionAntiDiveMultiplier" value="true"/>
-		<setting name="*enable_suspensionFrontRearBias" value="true"/>
-		<setting name="*enable_driveType" value="true"/>
-		<setting name="*enable_engineType" value="true"/>
-		<setting name="*enable_brakeDeceleration" value="true"/>
-		<setting name="*enable_handlingFlags" value="true"/>
-		<setting name="*enable_tractionMultiplier" value="true"/>
-		<setting name="*enable_tractionLoss" value="true"/>
-		<setting name="*enable_tailLight" value="true"/>
-	</settings>
+		<!-- API -->
+			<script src="server/api/loadHandlingsFromFile.lua" type="server" />
+			<export function="loadHandlingsFromFile" type="server" />
+
 </meta>
