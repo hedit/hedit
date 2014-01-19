@@ -54,34 +54,33 @@ function Preferences.init()
 	DEBUG("Pref.init called")
 	local xmlFile = xmlLoadFile(path)
 
-    if not xmlFile then
+	if not xmlFile then
 		DEBUG("Creating preference file")
-        xmlFile = xmlCreateFile(path, 'preferences')
-        for k,v in pairs(PREFERENCES) do
-            local property = xmlCreateChild(xmlFile, k)
+		xmlFile = xmlCreateFile(path, 'preferences')
+		for k,v in pairs(PREFERENCES) do
+			local property = xmlCreateChild(xmlFile, k)
 			xmlNodeSetValue(property, v)
-        end
-        xmlNodeSetAttribute(xmlFile, "revision", revision)
-        xmlSaveFile(xmlFile)
+		end
+		xmlNodeSetAttribute(xmlFile, "revision", revision)
+		xmlSaveFile(xmlFile)
 		xmlUnloadFile(xmlFile)
 		return
-    else
+	else
 		DEBUG("Loading preferences from file")
-        for k,v in pairs(PREFERENCES) do
+		for k,v in pairs(PREFERENCES) do
 			local property = xmlFindChild(xmlFile, k, 0)
-            PREFERENCES[k] = xmlNodeGetValue(xmlFindChild(xmlFile, k, 0))
-        end
-        if xmlNodeGetAttribute(xmlFile, "revision") ~= revision then
-		
+			PREFERENCES[k] = xmlNodeGetValue(xmlFindChild(xmlFile, k, 0))
+		end
+		if xmlNodeGetAttribute(xmlFile, "revision") ~= revision then
 			DEBUG("Updating preference file with new preferences")
-            xmlNodeSetAttribute(xmlFile, "revision", revision)
-            for k,v in ipairs(PREFERENCES) do
+			xmlNodeSetAttribute(xmlFile, "revision", revision)
+			for k,v in ipairs(PREFERENCES) do
 				local property = xmlFindChild(xmlFile, k, 0)
-                if not property then
+				if not property then
 					property = xmlCreateChild(xmlFile, k)
 					xmlNodeSetValue(property, v)
 				end
-            end
+			end
 			
 			DEBUG("Checking for redundant variables")
 			for k,v in ipairs(xmlNodeGetChildren(xmlFile)) do
@@ -92,8 +91,8 @@ function Preferences.init()
 			end
 			
 			xmlSaveFile(xmlFile); xmlUnloadFile(xmlFile)
-        end
-    end
+		end
+	end
 	
 	--[[ TEST
 	for i,v in pairs(PREFERENCES) do chat(i..":"..v) end
