@@ -72,7 +72,7 @@ template.views = {
     { title = "handlingflags", content = "handlingflags" },
     { title = "dynamometer", content = "submenu" },
     { title = "save", content = "submenu" },
-    { contents = {"undo", "redo"} },
+    { contents = {} },
 }
 
     
