@@ -2,61 +2,52 @@
     --
     -- GENERAL STRINGS
     --
-    windowHeader = "Редактор Handling v"..HVER.." r"..HREV,
+    windowHeader = "Редактор Хэндлинга v"..HVER.." r"..HREV,
     
-    restrictedPassenger = "Вы не можете использоват редактор в качестве пассажира.",
-    needVehicle = "Вы должны сесть в транспорт чтобы использовать редактор!",
+    restrictedPassenger = "Вы не можете использовать редактор хэндлинга в качестве пассажира.",
+    needVehicle = "Вы должны находиться в транспорте, чтобы использовать редактор хэндлинга!",
     needLogin = "Авторизуйтесь для пользования этим меню.",
-    needAdmin = "Только администратор может использовать это меню",
-    invalidMenu = "Этого меню не существует!",
-    disabledMenu = "Это меню было отключено.",
-    notifyUpdate = "Этот редактор был обнослён со времени его последнего использования. Чтобы просмтореть список изменений нажмите 'Extra > Updates'",
-    notifyUpgrade = "The handling editor has been UPGRADED. This means some of your files, such as saved handlings have been changed to another format. As a result, servers with an outdated version of hedit are not fully supported.\nWould you like to see a list of changes now? \nYou can always see the list of changes at 'Extra > Updates'",
-    outdatedUpdate = "Этот сервер использует устаревшую версию редактора и вмогут быть недоступны некоторые функции. Обратитесь к администратору.",
-    outdatedUpgrade = "This server runs an extremely outdated version of the handling editor. As a result, all settings/saved handling settings are incompatible.\nPlease contact an administrator.",
-    mtaUpdate = "If you have any saved handlings on MTA 1.1, your handlings are no longer compatible; please visit 'http://hedit.googclecode.com/' for details.",
-    
-    sameValue = "The %s is already that!",
-    exceedLimits = "Используется значение %s превышающее предел. [%s]!",
-    cantSameValue = "%s may not the same as %s!",
-    needNumber = "Вы должны использовать цифры!",
-    unsupportedProperty = "%s не поддерживается собственности.",
-    successRegular = "%s установлено на %s.",
+    needAdmin = "Только администратор может использовать это меню.",
+    accessDenied = "У вас нет должного доступа, чтобы использовать это меню.",
+    invalidView = "Этого меню не существует!",
+    disabledView = "Это меню было отключено.",
+ 
+    sameValue = "%s это то же самое!",
+    exceedLimits = "Значение %s превышает лимит. [%s]!",
+    cantSameValue = "%s не то же самое, что и %s!",
+    needNumber = "Пожалуйста, используйте только цифры!",
+    unsupportedProperty = "%s не поддерживаемое значение.",
+    successRegular = "%s был(а) изменен(а) на %s.",
     successHex = "%s %s.",
-    unableToChange = "Не удаётся установить %s на %s!",
+    unableToChange = "Не удаётся изменить %s на %s!",
+	disabledProperty = "Редактирование %s отключено на этом сервере!",
     
-    resetted = "Удачно возвращены стандартные настройки!",
-    loaded = "Удачно загружены настройки!",
-    imported = "Удачно импортированы настройки!",
-    invalidImport = "Ошибка импорта; данные не допустимы!",
-    invalidSave = "Пожалуйста укажите правильное имя и описание для сохранения!",
+    resetted = "Успешно сброшен стандартный хэндлинг этого авто!",
+    loaded = "Успешно был загружен ваш хэндлинг!",
+    imported = "Успешно был импортирован ваш хэндлинг!",
+    invalidImport = "Ошибка импорта. Импортируемый хэндлинг не допустим!",
+    invalidSave = "Пожалуйста, укажите корректное имя и описание для вашего хэндлинга!",
     
-    confirmReplace = "Вы уверены, что хотите, чтобы заменить существующий сохранения?",
-    confirmLoad = "Вы уверены, что хотите, чтобы загрузить эти настройки обработки? Все несохраненные изменения будут потеряны!",
-    confirmDelete = "Вы уверены, что хотите удалить эти параметры?",
-    confirmReset = "Вы уверены, что хотите сбросить ваши параметры? Все несохраненные изменения будут потеряны!",
-    confirmImport = "Вы умерены что хотит еимпортировать эти настройки? Все несохраненные изменения будут потеряны!",
+    confirmReplace = "Вы уверены, что хотите перезаписать существующее сохранение?",
+    confirmLoad = "Вы уверены, что хотите загрузить эти настройки хэндлинга? Все несохраненные изменения будут утеряны!",
+    confirmDelete = "Вы уверены, что хотите удалить эти настройки хэндлинга?",
+    confirmReset = "Вы уверены, что хотите сбросить эти настройки хэндлинга? Все несохраненные изменения будут утеряны!",
+    confirmImport = "Вы уверены, что хотите импортировать эти настройки хэндлинга? Все несохраненные изменения будут утеряны!",
 
-    successSave = "Удачно сохранены параметры!",
-    successLoad = "Удачно загружены параметры!",
-    
-	confirmVersionReset = "Are you sure you want to set your editor version number to the one of this server? Your saved handlings may become incompatible.",
-	successVersionReset = "Для вашей версии вышло обновление.",
-    wantTheSettings = "Вы действительно хотите применить это? Редактор перезагрузится.",
+    successSave = "Вы успешно сохранили ваш хэндлинг!",
+    successLoad = "Вы успешно загрузили ваш хэндлинг!",
+
+    wantTheSettings = "Вы уверены, что хотите применить эти настройки? Редактор хэндлинга будет перезагружен.",
     
     vehicle = "Транспорт",
-    unsaved = "Несохраненные",
+    unsaved = "Несохранено!",
     
-    clickToEdit = "Кликните для редактирования.",
-    enterToSubmit = "Нажмите Enter чтобы подтвердить.",
-    clickToViewFullLog = "Нажмите чтобы посмотреть полный лог.",
-    copiedToClipboard = "Параметры были занесены в Буфер обмена!",
+    clickToEdit = "Нажмите или потяните, чтобы отредактировать.",
+    enterToSubmit = "Нажмите 'Enter', чтобы применить изменения.",
+    clickToViewFullLog = "Нажмите, для просмотра полного лога авто.",
+    copiedToClipboard = "Ваш хэндлинг был скопирован в буфер обмена!",
     
     special = {
-        commode = {
-            "Split",
-            "Merged"
-        }
     },
     
     --
@@ -67,42 +58,43 @@
     warningtitles = {
         info = "Информация",
         question = "Вопрос",
-        warning = "Внимание!",
-        ["error"] = "Ошибка!"
+        warning = "Предупреждение!",
+        error = "Ошибка!"
     },
     --Strings for the buttons at the top
-    utilbuttons = {
-        handling = "Настр.",
+    menubar = {
+        handling = "Хэндлинг",
         tools = "Функции",
         extra = "Экстра",
-        close = "X"
     },
 
-    --Strings for the buttons at the right
-    menubuttons = {
-        engine = "Движок",
-        body = "Тело",
-        wheels = "Колёса",
+    --Strings for the buttons at the left
+    viewbuttons = {
+        engine = "Двига-\nтель",
+        body = "Кузов",
+        wheels = "Сцеп-\nление",
         appearance = "Вид",
-        modelflags = "Модель\nФлаги",
-        handlingflags = "Настр.\nФлаги",
-        dynamometer = "Динам.",
-        help = "Помощь"
+        modelflags = "Флаги\nМодели",
+        handlingflags = "Флаги\nХэнд-\nлинга",
+        dynamometer = "Стенд",
+        undo = "<",
+        redo = ">",
+        save = "Сохра-\nнения"
     },
     
-    --Strings for the various menus of the editor. Empty strings are placeholder to avoid debug as the debug is meant to show items which are missing text.
-    menuinfo = {
+    -- Strings for the various views of the editor. Empty strings are placeholder to avoid debug as the debug is meant to show items which are missing text.
+    viewinfo = {
         engine = {
-            shortname = "Движок",
-            longname = "Настройки двигателя"
+            shortname = "Давигатель",
+            longname = "Нстройки двигателя"
         },
         body = {
-            shortname = "Тело",
-            longname = "Тело & Подвеска"
+            shortname = "Кузов",
+            longname = "Настройки Кузова и Подвески"
         },
         wheels = {
-            shortname = "Колёса",
-            longname = "Настройка колёс"
+            shortname = "Сцепление",
+            longname = "Настройка сцепления"
         },
         appearance = {
             shortname = "Вид",
@@ -110,61 +102,70 @@
         },
         modelflags = {
             shortname = "Флаги модели",
-            longname = "Настройки модели"
+            longname = "Специальные настройки для модели транспорта"
         },
         handlingflags = {
-            shortname = "Флаги обратобки",
-            longname = "Специальные настройки обработки"
+            shortname = "Флаги хэндлинга",
+            longname = "Специальные настройки для хэндлинга"
         },
         dynamometer = {
-            shortname = "Динамика",
-            longname = "Старт Замера динамики"
+            shortname = "Динаметр",
+            longname = "Старт замера динамики на стенде"
         },
-        help = {
-            shortname = "Помощь и информация",
-            longname = "Помощь",
+        about = {
+            shortname = "Помощь",
+            longname = "Помощь и дополнительная информация",
             itemtext = {
-                textlabel = "Добро пожаловать в оффициальный МТА обработчик транспорта! Этот ресурс позволит редактировать настройки в реальном времени прямо в игре.\n"..
-                            "Вы можете загружать и сохранять ваши индивидуальные настройки в верхнем правом углу во вкладке Настр.\n"..
-                            "Постмотреть прочую информацию вы можете посетив оффициальную страницу:\n",
-                websitebox = "http://hedit.googlecode.com/",
-                morelabel = "Спасибо за пользование! Перевод выполнен командой [BS], наша группа ВКонтакте vk.com/bsmta а так-же наш сайт bsmta.3dn.ru"
+                textlabel = "Добро пожаловать в официальный MTA редактор хэндлинга!\n"..
+				            "Этот скрипт позволяет вам редактировать хэндлинг любого транспорта прямо в игре!\n"..
+                            "Вы можете сохранять и загружать свой хэндлинг черех меню 'Хэндлинг' или же имортировать хэндлинг из других игр через меню 'Функции' в верхнем левом углу.\n"..
+                            "За большей информацией о хэндлинг редакторе - такой, как список изменений - посетите сайт в окошке снизу:\n\n\n\nP.S. Редактор хэндлинга был переведен FornetGear'ом. Страница в ВКонтакте скриптера - переводчика: 'http://vk.com/id41070112'",
+                websitebox = "http://github.com/hedit/hedit",
+                morelabel = "Благодарим вас за пользование редактором хэндлинга!"
+            }
+        },
+        undo = {
+            shortname = "Возврат",
+            longname = "Возврат",
+            itemtext = {
+                textlabel = "Вернитесь, если что-то пошло не так."
+            }
+        },
+        redo = {
+            shortname = "Повтор",
+            longname = "Повтор",
+            itemtext = {
+                textlabel = "Повторите действие, если что-то пошло не так."
             }
         },
         reset = {
-            shortname = "Возврат",
-            longname = "Сбросить настройки.",
+            shortname = "Сброс",
+            longname = "Сброс хэндлинга транспорта до оригинального.",
             itemtext = {
-                label = "Базовый транспорт:",
+                label = "Ваш транспорт:",
                 combo = "-----",
                 button = "Сброс"
             }
         },
         save = {
-            shortname = "Сохран.",
-            longname = "Сохранить текущие настройки.",
+            shortname = "Сохранение",
+            longname = "Сохранить или загрузить настройки хэндлинга.",
             itemtext = {
-                nameLabel = "Имя",
+                nameLabel = "Название",
                 descriptionLabel = "Описание",
-                button = "Сохранить",
+                saveButton = "Сохранить",
+                loadButton = "Загрузить",
                 grid = "",
                 nameEdit = "",
                 descriptionEdit = ""
             }
         },
-        load = {
-            shortname = "Загруз.",
-            longname = "Загрузить выбранные настройки.",
-            itemtext = {
-                button = "Загруз.",
-                grid = ""
-            }
-        },
         import = {
-            shortname = "Импорт",
-            longname = "Импортировать настройки из файла handling.cfg.",
+            shortname = "Импорт/Экспорт",
+            longname = "Импорт или экспорт настройек хэндлинга.",
             itemtext = {
-                button = "Импорт",
+                importButton = "Импорт",
+				exportButton = "Экспорт",
                 III = "III",
                 VC = "VC",
                 SA = "SA",
@@ -172,378 +173,349 @@
                 memo = ""
             }
         },
-        export = {
-            shortname = "Экспорт",
-            longname = "Экспортировать настройки в handling.cfg формат.",
-            itemtext = {
-                button = "Копировать в Буфер",
-                memo = ""
-            }
-        },
         get = {
             shortname = "Получить",
-            longname = "Получить настройки другого игрока."
+            longname = "Получить настройки хэндлинга от другого игрока."
         },
         share = {
-            shortname = "Отправить",
-            longname = "Отправить свои натройки другим игрокам."
+            shortname = "Поделиться",
+            longname = "Поделиться настройками хэндлинга для другого игрока."
         },
         upload = {
             shortname = "Выгрузить",
-            longname = "Выгрузить настройки с сервера."
+            longname = "Выгрузить ваши настройки хэндлинга на сервер."
         },
         download = {
             shortname = "Скачать",
-            longname = "Загрузить настройки на сервер."
-        },
+            longname = "Скачать настройки хэндлинга с сервера."
+        },   
         
         resourcesave = {
-            shortname = "Сохр. Рес.",
-            longname = "Сохранить настройки в ресурс."
+            shortname = "Сохранение в скрипт",
+            longname = "Сохранение ваших настройек хэндлинга в скрипт."
         },
         resourceload = {
-            shortname = "Загр. Рес.",
-            longname = "Загрузить настройки из ресурса."
+            shortname = "Загрузка из скрипта",
+            longname = "Загрузка настройек хэндлинга из скрипта."
         },
         options = {
             shortname = "Опции",
             longname = "Опции",
             itemtext = {
-                label_key = "Кнопка вызова",
-                label_cmd = "Команда вызова:",
-                label_template = "GUI шаблон:",
-                label_language = "Язык:",
-                label_commode = "Редактор центра массы:",
-                checkbox_versionreset = "Downgrade my version number from %s to %s?",
+                label_key = "Кнопка  вызова  редактора:",
+                label_cmd = "Команда вызова редактора:",
+                label_template = "Шаблон панели:",
+                label_language = "Язык редактора хэндлинга:",
+                label_commode = "Отображение центров массы:",
+                checkbox_versionreset = "Откатить мою версию редактора с %s до %s?",
                 button_save = "Применить",
                 combo_key = "",
                 combo_template = "",
                 edit_cmd = "",
                 combo_commode = "",
                 combo_language = "",
-				checkbox_lockwhenediting = "Закрыть на момент редактирования?"
+				checkbox_lockwhenediting = "Закрывать транспорт при редактировании?"
             }
         },
-        administration = {
-            shortname = "Администрация",
-            longname = "Функции администратора."
-        },
         handlinglog = {
-            shortname = "Лог настроек",
-            longname = "Последние изменения настроек.",
+            shortname = "Лог Хэндлинга",
+            longname = "Лог недавних изменений в настройках хэндлинга.",
             itemtext = {
                 logpane = ""
             }
         },
-        updatelist = {
-            shortname = "Обносления",
-            longname = "Лист последних обновлений.",
-            itemtext = {
-                scrollpane = ""
-            }
-        },
-        mtaversionupdate = {
-            shortname = "MTA Обновление",
-            longname = "Multi Theft Auto has been updated!",
-            itemtext = {
-                infotext = "Multi Theft Auto has been updated. Because of this, your saved handlings in the previous version are no longer compatible. Please visit the link below for help and get your handlings back.",
-                websitebox = "http://hedit.googlecode.com/"
-            }
-        }
     },
     
-    --
-    --NOTE: 12/17/2011 This section is pending review for typos and grammar.
-    --
+
     handlingPropertyInformation = { 
         ["identifier"] = {
             friendlyName = "Идентификатор транспорта",
-            information = "Представляет идентификатор для использования в handling.cfg.",
-            syntax = { "Строка", "Используйте только допустимыми идентификаторами, в противном случае экспорт не будет работать." }
+            information = "Представляет идентификатор транспорта используемый в handling.cfg",
+            syntax = { "Слово", "Используйте только допустимые идентификаторы, иначе, экспорт не будет работать." }
         },
         ["mass"] = {
             friendlyName = "Масса",
-            information = "Устанавливает вес авто в КГ.",
-            syntax = { "Переменная", "Не забудьте изменить [turnMass] первой, чтобы избежать подпрыгивая!" }
+            information = "Меняет вес транспорта. (килограммы)",
+            syntax = { "Переменная", "Не забывайте сначала изменить ходовую массу во избежании подпрыгивания!" }
         },
         ["turnMass"] = {
             friendlyName = "Ходовая масса",
             information = "Используется для расчета эффекта движения.",
-            syntax = { "Переменная", "Более высокие значения делают ваш автомобиль лёгче." }
+            syntax = { "Переменная", "Более высокие значения делают ваш автомобиль легче." }
         },
         ["dragCoeff"] = {
-            friendlyName = "Перемещение Множителя",
-            information = "Изменение сопротивления движению.",
-            syntax = { "Переменная", "Чем выше значение, тем меньше шанс максимальной скорости." }
+            friendlyName = "Смещение Множителя",
+            information = "Меняет сопротивление движению.",
+            syntax = { "Переменная", "Чем выше значение, тем меньше значение максимальной скорости." }
         },
         ["centerOfMass"] = {
-            friendlyName = "ЦМ",
-            information = "Центры гравитации. Устанавливает точки гравитации на транспорте, в Метрах.",
-            syntax = { "Переменная", "Использовать X, Y, и Z для получения информации." }
+            friendlyName = "Центр Массы",
+            information = "Меняет точки гравитации вашего автомобиля. (метры)",
+            syntax = { "Переменная", "Зависит от координат X,Y,Z центров масс." }
         },
         ["centerOfMassX"] = {
-            friendlyName = "X",
-            information = "Установка переднего и заднего расстояния от центра массы в метрах.",
-            syntax = { "Переменная", "Более высокие значения значения на перед, ниже задних значений." }
+            friendlyName = "Центр Массы X",
+            information = "Задает передне-занюю дистанцию центра массы. (метры)",
+            syntax = { "Переменная", "Высокие значения для переда а низкие значения для зада." }
         },
         ["centerOfMassY"] = {
-            friendlyName = "Y",
-            information = "Установка левого и правого расстояния от центра массы в метрах.",
-            syntax = { "Переменная", "Более высокие значения находятся справа и ниже левых значений." }
+            friendlyName = "Центр Массы Y",
+            information = "Задает лево-правую дистанцию центра массы. (метры)",
+            syntax = { "Переменная", "Высокие значения для правой стороны а низкие значения для левой." }
         },
         ["centerOfMassZ"] = {
-            friendlyName = "Z",
-            information = "Устанавливает высоту вверх и вниз от центра массы в метрах.",
-            syntax = { "Переменная", "Чем выше значение тем выше точка." }
+            friendlyName = "Центр Массы Z",
+            information = "Задает высоту центра массы. (метры)",
+            syntax = { "Переменная", "Чем выше значение, тем выше расположение точки." }
         },
         ["percentSubmerged"] = {
-            friendlyName = "Процент погрузки",
-            information = "Установить насколько глубоко транспорт может погружаться в воду.",
-            syntax = { "Целое", "Высокие значения установят более высокую глубину для погружения." }
+            friendlyName = "Процент Погружения",
+            information = "Меняет глубину, на которой ваш транспорт будет держаться на поверхности воды. (процент)",
+            syntax = { "Целое", "Более высокие значения позволят вашему транспорту держаться на повехности воды глубже." }
         },
         ["tractionMultiplier"] = {
-            friendlyName = "Множитель сцепления",
-            information = "Устанавливает захват значения угла транспорта.",
-            syntax = { "Переменная", "Высокие значения приводят к мощному захвату." }
+            friendlyName = "Множитель Сцепления",
+            information = "Меняет коэффицент сцепления между транспортом и поверхностью.",
+            syntax = { "Переменная", "Более высокие значения увеличат сцепление между колесами и поверхностью." }
         },
         ["tractionLoss"] = {
-            friendlyName = "Убыток сцепления",
-            information = "Устанавливает захват значения ускорения и замедления.",
-            syntax = { "Переменная", "Высокие значения заставляют транспорт резать угол угла." }
+            friendlyName = "Убыток Сцепления",
+            information = "Меняет коэффицент сцепления между транспортом и поверхностью пока ваш транспорт ускоряется или останавливается.",
+            syntax = { "Переменная", "Более высокие значения позволят вашему транспорту поворачивать быстрее." }
         },
         ["tractionBias"] = {
-            friendlyName = "Смещение сцепления",
-            information = "Натсройкт захвата колёс на дороге.",
-            syntax = { "Переменная", "Высокие значения устанавливают большое смещение вперёд." }
+            friendlyName = "Смещение Сцепления",
+            information = "Меняет расположения сцепления относительно транспорта.",
+            syntax = { "Переменная", "Более высокие значения смещают сцепление ближе к переду транспорта." }
         },
         ["numberOfGears"] = {
-            friendlyName = "Количество шестерней",
-            information = "Установить количество шестерней для двигателя.",
-            syntax = { "Целое", "Не даёт эффекта при большом значении ускорения." }
+            friendlyName = "Количество Передач",
+            information = "Меняет максимальное количество передач для вашего транспорта.",
+            syntax = { "Целое", "Не влияет на максимальную скорость или ускорение вашего транспорта." }
         },
         ["maxVelocity"] = {
-            friendlyName = "Максимальная скорость",
-            information = "Устанавливает максимальную скорость в километрах.",
-            syntax = { "Переменная", "Может быть не естественно с другими настройками." }
+            friendlyName = "Максимальная Скорость",
+            information = "Меняет максимальную скорость вашего транспорта. (км/ч)",
+            syntax = { "Переменная", "Это значение влияет на другие параметры транспорта." }
         },
         ["engineAcceleration"] = {
             friendlyName = "Ускорение",
-            information = "Устанавливает ускорение на MS^2 текущего транспорта.",
-            syntax = { "Переменная", "Высокие значения увеличивают скорость разгона." }
+            information = "Меняет ускорение вашего транспорта. (MS^2)",  
+            syntax = { "Переменная", "Более высокие значения увеличивают коэффицент при котором ваш транспорт будет ускоряться." }
         },
         ["engineInertia"] = {
             friendlyName = "Инерция",
-            information = "Сглаживание искривлений ускорения.",
-            syntax = { "Переменная", "Высокие значения сильно сглаживают ускорение." }
+            information = "Сглаживает или заостряет кривую ускорения.",
+            syntax = { "Переменная", "Более высокие значения сгладят кривую ускорения." }
         },
         ["driveType"] = {
-            friendlyName = "Привод",
-            information = "Привод автомобиля",
-            syntax = { "Серия", "Выбор привода двигателя для вождения." },
-            options = { ["f"]="Передний",["r"]="Задний",["4"]="4х4" }
+            friendlyName = "Привод Колес",
+            information = "Меняет привод колес, которые будут задействованы при вождении.",
+            syntax = { "Слово", "Выбрав 'Полный' приведет к легкому и простому вождению транспорта." },
+            options = { ["f"]="Передний",["r"]="Задний",["4"]="Полный" }
         },
         ["engineType"] = {
-            friendlyName = "Тип двигателя",
-            information = "Выберите тип двигателя.",
-            syntax = { "Серия", "[UNKNOWN]" },
-            options = { ["p"]="Бензин",["d"]="Дизель",["e"]="Электрика" }
+            friendlyName = "Тип Двигателя",
+            information = "Меняет тип двигателя вашего транспорта.",
+            syntax = { "Слово", "Данный параметр не имеет практического применения и ни на что не влияет." },
+            options = { ["p"]="Бензиновый",["d"]="Дизельный",["e"]="Электрический" }
         },
         ["brakeDeceleration"] = {
-            friendlyName = "Тормоз",
-            information = "Установите значение тормоза для MS^2.",
-            syntax = { "Переменная", "Высокие значения замедляют силу, но возможно скольжение его сцепления на маленькой скорости." }
+            friendlyName = "Замедление Тормоза",
+            information = "Уменьшает скорость вашего транспорта при торможении. (MS^2)",
+            syntax = { "Переменная", "Более высокие значения приведут к тому, что ваш транспорт будет тормозить быстрее." }
         },
         ["brakeBias"] = {
-            friendlyName = "Смещение тормоза",
-            information = "Устанавливает основную позицию тормозов.",
-            syntax = { "Переменная", "Высокие значения устанавливают смещение в переднюю часть." }
+            friendlyName = "Смещение Тормоза",
+            information = "Меняет положение тормоза относительно вашего транспорта.",
+            syntax = { "Переменная", "Более высокие значения сместят тормоз к переду транспорта." }
         },
         ["ABS"] = {
             friendlyName = "ABS",
-            information = "Включить или отключить ABS в транспорте.",
-            syntax = { "Логика", "Без эффекта." },
-            options = { ["true"]="Включен",["false"]="Отключен" }
+            information = "Активирует или деактивирует ABS на вашем транспорте.",
+            syntax = { "Слово", "Данный параметр не имеет практического применения и ни на что не влияет." },
+            options = { ["true"]="Активировать",["false"]="Деактивировать" }
         },
         ["steeringLock"] = {
-            friendlyName = "Блокировка управления",
-            information = "Устанавливает максимальный угол управления транспортом.",
-            syntax = { "Переменная", "Управление углом становится медленным или быстрым в ходовой функции." }
+            friendlyName = "Угол Поворота",
+            information = "Меняет угол, на который ваш транспорт модет поворачивать рулевые колеса.",
+            syntax = { "Переменная", "Более низкие значения делают ваш транспорт более неуклюжим." }
         },
         ["suspensionForceLevel"] = {
-            friendlyName = "Уровень усиленного зависания",
-            information = "Неизвестны эффекты.",
-            syntax = { "Переменная", "Неизвестны." }
+            friendlyName = "Жесткость Подвески",
+            information = "Меняет жесткость подвески.",
+            syntax = { "Переменная", "Более низкие значения сильно смягчают подвеску вашего транспорта." }
         },
         ["suspensionDamping"] = {
-            friendlyName = "Зависание торможением",
-            information = "Неизвестны эффекты.",
-            syntax = { "Переменная", "Неизвестны." }
+            friendlyName = "Зависание Подвески",
+            information = "Меняет зависание подвески.",
+            syntax = { "Переменная", "Данный параметр не имеет практического применения и ни на что не влияет." }
         },
         ["suspensionHighSpeedDamping"] = {
-            friendlyName = "Зависание на высокой скорости торможения",
-            information = "Устанавливает зависание при быстрой езде.",
-            syntax = { "Переменная", "Не тестировались" } -- HERE
+            friendlyName = "Жесткость Подвески",
+            information = "Меняет жесткость подвески, позволяя вам двигаться на вашем транспорте быстрее.",
+            syntax = { "Переменная", "Более высокие значения увеличивают жесткость подвески на высоких скоростях." } 
         },
         ["suspensionUpperLimit"] = {
-            friendlyName = "Зависание предельного лимита",
-            information = "Наивысшее перемещение колёс в метрах.",
-            syntax = { "Переменная", "Не тестировались" } -- HERE
+            friendlyName = "Сход-Развал Подвески",
+            information = "Изменяет сход-зазвал вашего транспорта. (метры)",
+            syntax = { "Переменная", "Отрицательные значения увеличивают развал вашего транспорта." }
         },
         ["suspensionLowerLimit"] = {
-            friendlyName = "Подвеска",
-            information = "Высота вашей подвески.",
-            syntax = { "Переменная", "Низкие значения делают ваш транспорт выше." }
+            friendlyName = "Высота Подвески",
+            information = "Изменяет высоту подвески вашего транспорта.",
+            syntax = { "Переменная", "Более высокие значения уменьшат клиренс вашего транспорта." }
         },
         ["suspensionFrontRearBias"] = {
-            friendlyName = "Пропорциональность подвески",
-            information = "Устанавливается пропорция передней и задней стороны подвески.",
-            syntax = { "Переменная", "Низкие значения опускают переднюю чать." }
+            friendlyName = "Пропорциональность Подвески",
+            information = "Меняет положение опорной силы подвески.",
+            syntax = { "Переменная", "Более высокие значения сдвинут подвеску вперед вашего транспорта." }
         },
         ["suspensionAntiDiveMultiplier"] = {
-            friendlyName = "Резкость старта авто",
-            information = "При средних значениях во время старта будет поднимать перед авто.",
+            friendlyName = "Множитель Резкости Подвески",
+            information = "Меняет коэффицент который смещает кузов транспорта за счет торможения и ускорения.",
             syntax = { "Переменная", "" }
         },
         ["seatOffsetDistance"] = {
-            friendlyName = "Расстояние посадки двери",
-            information = "Усстановить расстояние до двери при взаимодействии с транспортом.",
-            syntax = { "Переменная", "" }
+            friendlyName = "Расстояние До Водителя",
+            information = "Меняет значение, которое задает расстояние до водителького кресла транспорта. (метры)",
+            syntax = { "Переменная", "К примеру, '0.5' подойдет для леворулых автомобилей, а '1.0' для праворулых." }
         },
         ["collisionDamageMultiplier"] = {
-            friendlyName = "Получение урона",
-            information = "Устанавливает получение урона при столкновениями с объектами.",
+            friendlyName = "Множитель Урона",
+            information = "Меняет коэффицент, который отвечает за получение транспортом урона.",
             syntax = { "Переменная", "" }
         },
         ["monetary"] = {
-            friendlyName = "Monetary Value",
-            information = "Sets the exact price of your vehicle.",
-            syntax = { "Переменная", "" }
+            friendlyName = "Денежная Стоимость",
+            information = "Меняет стоимость вашего транспорта.",
+            syntax = { "Целое", "Этот параметр не используется в MTA." }
         },
         ["modelFlags"] = {
-            friendlyName = "Модельные флаги",
-            information = "Управление специальными анимациями характеристик.",
-            syntax = { "Шестнадцетиричные", "" },
+            friendlyName = "Флаг модели",
+            information = "Переключаемые специальные анимации транспорта.", -- HERE "where is this shown?"
+            syntax = { "Шестнадцатиричное", "" },
             items = {
                 {
-                    ["1"] = {"IS_VAN","Allows double doors for the rear animation."},
-                    ["2"] = {"IS_BUS","Vehicle uses bus stops and will try to take on passengers."},
-                    ["4"] = {"IS_LOW","Drivers and passengers sit lower and lean back."},
-                    ["8"] = {"IS_BIG","Changes the way that the AI drives around corners."}
+                    ["1"] = {"IS_VAN","Аниммирует задние двойные двери. (как в фургонах)"},
+                    ["2"] = {"IS_BUS","Позволяет транспорту останвливаться на автобусных остановках и забирать пассажиров. (не используется в МТА)"}, 
+                    ["4"] = {"IS_LOW","Позволяет водителям и пассажирам транспорта сидеть ниже и отклониться дальше."},
+                    ["8"] = {"IS_BIG","Меняет траекторию, по которой NPC вводят транспорт в повороты."}
                 },
                 {
-                    ["1"] = {"REVERSE_BONNET","Bonnet and boot open in opposite direction from normal."},
-                    ["2"] = {"HANGING_BOOT","Boot opens from top edge."},
-                    ["4"] = {"TAILGATE_BOOT","Boot opens from bottom edge."},
-                    ["8"] = {"NOSWING_BOOT","Boot does not open."}
+                    ["1"] = {"REVERSE_BONNET","Позволяет багажнику транспорта и капоту открываться в противоположном направлении."},
+                    ["2"] = {"HANGING_BOOT","Позволяет багажнику транспорта открываться с верхнего конца."},
+                    ["4"] = {"TAILGATE_BOOT","Позволяет багажнику транспорта открываться с нижнего конца."},
+                    ["8"] = {"NOSWING_BOOT","Позволяет багажнику транспорта не исполнять никаких действий."}
                 },
                 {
-                    ["1"] = {"NO_DOORS","Door open and close animations are skipped."},
-                    ["2"] = {"TANDEM_SEATS","Two people will use the front passenger seat."},
-                    ["4"] = {"SIT_IN_BOAT","Uses seated boat animation instead of standing."},
-                    ["8"] = {"CONVERTIBLE","Changes how hookers operate and other small effects."}
+                    ["1"] = {"NO_DOORS","Анимации, вовлекающие открывание и закрывание дверей транспорта, пропускаются."},
+                    ["2"] = {"TANDEM_SEATS","Позволяет двум игрокам сидеть на переднем пассажирском сидении в транспорте."},
+                    ["4"] = {"SIT_IN_BOAT","Позволяет игрокам использовать анимацию посадки в лодку вместо стоячей."},
+                    ["8"] = {"CONVERTIBLE","Изменяет тип посадки и другие мелкие эффекты для рыболовных лодок."}
                 },
                 {
-                    ["1"] = {"NO_EXHAUST","Removes all exhaust particles."},
-                    ["2"] = {"DBL_EXHAUST","Adds a second exhaust particle on opposite side to first."},
-                    ["4"] = {"NO1FPS_LOOK_BEHIND","Prevents player using rear view when in first-person mode."},
-                    ["8"] = {"FORCE_DOOR_CHECK","Needs testing."}
+                    ["1"] = {"NO_EXHAUST","Позволяет отключить все эффекты выхлопных труб транспорта."},
+                    ["2"] = {"DBL_EXHAUST","Добавляет вторую выхлопную трубу транспорту симметрично другой."},
+                    ["4"] = {"NO1FPS_LOOK_BEHIND","Предотвращает игрока смотреть назад в транспорте, когда он находится в режиме игры от первого лица."},
+                    ["8"] = {"FORCE_DOOR_CHECK","Эффект от этого флага неизвестен и нуждается в тестировании."} -- HERE {untested}
                 },
                 {
-                    ["1"] = {"AXLE_F_NOTILT","Front wheels stay vertical to the car like GTA 3."},
-                    ["2"] = {"AXLE_F_SOLID","Front wheels stay parallel to each other."},
-                    ["4"] = {"AXLE_F_MCPHERSON","Front wheels tilt like GTA Vice City."},
-                    ["8"] = {"AXLE_F_REVERSE","Reverses the tilting of wheels when using AXLE_F_MCPHERSON suspension."}
+                    ["1"] = {"AXLE_F_NOTILT","Позволяет передним колесам транспорта быть вертикальми относительно транспорта (как в GTA 3)."},
+                    ["2"] = {"AXLE_F_SOLID","Позволяет передним колесам транспорта быть параллельными относительно друг друга."},
+                    ["4"] = {"AXLE_F_MCPHERSON","Позволяет передним колесам транспорта наклоняться (как в GTA Vice City)."},
+                    ["8"] = {"AXLE_F_REVERSE","Позволяет передним колесам транспорта наклоняться в противоположную сторону."}
                 },
                 {
-                    ["1"] = {"AXLE_R_NOTILT","Rear wheels stay vertical to the car like GTA 3."},
-                    ["2"] = {"AXLE_R_SOLID","Rear wheels stay parallel to each other."},
-                    ["4"] = {"AXLE_R_MCPHERSON","Rear wheels tilt like GTA Vice City."},
-                    ["8"] = {"AXLE_R_REVERSE","Reverses the tilting of wheels when using AXLE_R_MCPHERSON suspension."}
+                    ["1"] = {"AXLE_R_NOTILT","Позволяет задним колесам транспорта быть вертикальми относительно транспорта (как в GTA 3)."},
+                    ["2"] = {"AXLE_R_SOLID","Позволяет задним колесам транспорта быть параллельными относительно друг друга."}, 
+                    ["4"] = {"AXLE_R_MCPHERSON","Позволяет задним колесам транспорта наклоняться (как в GTA Vice City)."}, 
+                    ["8"] = {"AXLE_R_REVERSE","Позволяет задним колесам транспорта наклоняться в противоположную сторону."}
                 },
                 {
-                    ["1"] = {"IS_BIKE","Use extra handling settings in the bikes section."},
-                    ["2"] = {"IS_HELI","Use extra handling settings in the flying section."},
-                    ["4"] = {"IS_PLANE","Use extra handling settings in the flying section."},
-                    ["8"] = {"IS_BOAT","Use extra handling settings in the flying section."}
+                    ["1"] = {"IS_BIKE","Используйте дополнительные настройки в разделе 'Мотоциклы'."},
+                    ["2"] = {"IS_HELI","Используйте дополнительные настройки в разделе 'Летательные Аппараты'."},
+                    ["4"] = {"IS_PLANE","Используйте дополнительные настройки в разделе 'Летательные Аппараты'."},
+                    ["8"] = {"IS_BOAT","Используйте дополнительные настройки в разделе 'Лодки'."}
                 },
                 {
-                    ["1"] = {"BOUNCE_PANELS","Needs testing."},
-                    ["2"] = {"DOUBLE_RWHEELS","Places a second instance of each rear wheel next to the normal one."},
-                    ["4"] = {"FORCE_GROUND_CLEARANCE","Needs testing."},
-                    ["8"] = {"IS_HATCHBACK","Needs testing."}
+                    ["1"] = {"BOUNCE_PANELS","Эффект от этого флага неизвестен и нуждается в тестировании."}, -- HERE {untested}
+                    ["2"] = {"DOUBLE_RWHEELS","Создает второе дополнительное заднее колесо рядом с другим. (итого в сумме сзади 4 колеса)"},
+                    ["4"] = {"FORCE_GROUND_CLEARANCE","Эффект от этого флага неизвестен и нуждается в тестировании."}, -- HERE {untested}
+                    ["8"] = {"IS_HATCHBACK","Эффект от этого флага неизвестен и нуждается в тестировании."} -- HERE {untested}
                 }
             }
         },
         ["handlingFlags"] = {
-            friendlyName = "Флаги обработки",
-            information = "Специальные настройки.",
-            syntax = { "Шестнадцетиричные", "" },
+            friendlyName = "Флаг хэндлинга",
+            information = "Специальные функции повышающие эффективность транспорта.",
+            syntax = { "Шестнадцатиричное", "" },
             items = {
                 {
-                    ["1"] = {"1G_BOOST","Gives more engine power for standing starts; better hill climbing."},
-                    ["2"] = {"2G_BOOST","Gives more engine power at slightly higher speeds."},
-                    ["4"] = {"NPC_ANTI_ROLL","No body roll when driven by AI characters."},
-                    ["8"] = {"NPC_NEUTRAL_HANDL","Less likely to spin out when driven by AI characters."}
+                    ["1"] = {"1G_BOOST","Позволяет двигателю транспорта иметь больше мощности с момента старта (для лучшего сцепления на горах)."},
+                    ["2"] = {"2G_BOOST","Позволяет двигателю транспорт иметь больше мощности на высоких скоростях."},
+                    ["4"] = {"NPC_ANTI_ROLL","Отключает вращение кузова, когда транспорт управляется NPC."},
+                    ["8"] = {"NPC_NEUTRAL_HANDL","Снижает вероятность вращения кузова, когда транспорт управляется NPC."}
                 },
                 {
-                    ["1"] = {"NO_HANDBRAKE","Disables the handbrake effect."},
-                    ["2"] = {"STEER_REARWHEELS","Rear wheels steer instead of front, like a forklift truck."},
-                    ["4"] = {"HB_REARWHEEL_STEER","Handbrake makes the rear wheels steer as well as front, like the monster truck"},
-                    ["8"] = {"ALT_STEER_OPT","Needs testing."}
+                    ["1"] = {"NO_HANDBRAKE","Отключает эффект ручного тормоза для транспорта."},
+                    ["2"] = {"STEER_REARWHEELS","Позволяет транспорту поворачивать задними колесами вместо передних (как на погрузчике)."},
+                    ["4"] = {"HB_REARWHEEL_STEER","Позволяет транспорту, зажав пробел, поворачивать и задними колесами и передними (как на монстре)."},
+                    ["8"] = {"ALT_STEER_OPT","Эффект от этого флага неизвестен и нуждается в тестировании."} -- HERE {untested}
                 },
                 {
-                    ["1"] = {"WHEEL_F_NARROW2","Very narrow front wheels."},
-                    ["2"] = {"WHEEL_F_NARROW","Narrow front wheels."},
-                    ["4"] = {"WHEEL_F_WIDE","Wide front wheels."},
-                    ["8"] = {"WHEEL_F_WIDE2","Very wide front wheels."}
+                    ["1"] = {"WHEEL_F_NARROW2","Делает передние колеса транспорта очень узкими."},
+                    ["2"] = {"WHEEL_F_NARROW","Делает передние колеса транспорта узкими."},
+                    ["4"] = {"WHEEL_F_WIDE","Делает передние колеса транспорта широкими."},
+                    ["8"] = {"WHEEL_F_WIDE2","Делает передние колеса транспорта очень широкими."}
                 },
                 {
-                    ["1"] = {"WHEEL_R_NARROW2","Very narrow rear wheels."},
-                    ["2"] = {"WHEEL_R_NARROW","Narrow rear wheels."},
-                    ["4"] = {"WHEEL_R_WIDE","Wide rear wheels."},
-                    ["8"] = {"WHEEL_R_WIDE2","Very wide rear wheels."}
+                    ["1"] = {"WHEEL_R_NARROW2","Делает задние колеса транспорта очень узкими."},
+                    ["2"] = {"WHEEL_R_NARROW","Делает задние колеса транспорта узкими."},
+                    ["4"] = {"WHEEL_R_WIDE","Делает задние колеса транспорта широкими."},
+                    ["8"] = {"WHEEL_R_WIDE2","Делает задние колеса транспорта очень широкими."}
                 },
                 {
-                    ["1"] = {"HYDRAULIC_GEOM","Needs testing."},
-                    ["2"] = {"HYDRAULIC_INST","Will spawn with hydraulics installed."},
-                    ["4"] = {"HYDRAULIC_NONE","Hydraulics cannot be installed."},
-                    ["8"] = {"NOS_INST","Vehicle automatically gets NOS installed when it spawns."}
+                    ["1"] = {"HYDRAULIC_GEOM","Эффект от этого флага неизвестен и нуждается в тестировании."}, -- HERE {untested}
+                    ["2"] = {"HYDRAULIC_INST","Позволяет транспорту создаваться с уже предустановленной гидравликой."},
+                    ["4"] = {"HYDRAULIC_NONE","Отключает возможность транспорту устанавливать гидравлику."},
+                    ["8"] = {"NOS_INST","Позволяет транспорту создаваться с уже предустановленным нитро."}
                 },
                 {
-                    ["1"] = {"OFFROAD_ABILITY","Vehicle will perform better on loose surfaces like dirt."},
-                    ["2"] = {"OFFROAD_ABILITY2","Vehicle will perform better on soft surfaces like sand."},
-                    ["4"] = {"HALOGEN_LIGHTS","Makes headlights brighter and more blue."},
-                    ["8"] = {"PROC_REARWHEEL_1ST","Needs testing."}
+                    ["1"] = {"OFFROAD_ABILITY","Позволяет транспорту двигаться на сложных поверхностях (как грязь)."},
+                    ["2"] = {"OFFROAD_ABILITY2","Позволяет транспорту двигаться на сложных поверхностях (как песок)."},
+                    ["4"] = {"HALOGEN_LIGHTS","Делает передние фары транспорта галогеновыми."},
+                    ["8"] = {"PROC_REARWHEEL_1ST","Эффект от этого флага неизвестен и нуждается в тестировании."} -- HERE {untested}
                 },
                 {
-                    ["1"] = {"USE_MAXSP_LIMIT","Prevents vehicle going faster than the maximum speed."},
-                    ["2"] = {"LOW_RIDER","Allows vehicle to be modified at Loco Low Co shops."},
-                    ["4"] = {"STREET_RACER","When set, vehicle can only be modified at Wheel Arch Angels."},
-                    ["8"] = {"UNDEFINED","No effect."}
+                    ["1"] = {"USE_MAXSP_LIMIT","Предотвращает транспорт двигаться быстрее, чем его максимальная скорость."},
+                    ["2"] = {"LOW_RIDER","Позволяет транспорту быть тюнингованным в 'Loco Low Co'."},
+                    ["4"] = {"STREET_RACER","Позволяет транспорту быть тюнингованым в 'Wheel Arch Angels'."},
+                    ["8"] = {"",""}
                 },
                 {
-                    ["1"] = {"SWINGING_CHASSIS","Lets the car body move from side to side on the suspension."},
-                    ["2"] = {"UNDEFINED","No effect."},
-                    ["4"] = {"UNDEFINED","No effect."},
-                    ["8"] = {"UNDEFINED","No effect."}
+                    ["1"] = {"SWINGING_CHASSIS","Позволяет двигаться кузову транспорта из стороны в сторону."},
+                    ["2"] = {"",""},
+                    ["4"] = {"",""},
+                    ["8"] = {"",""}
                 }
             }
         },
         ["headLight"] = {
-            friendlyName = "Главные фары",
-            information = "Установить тип главных фар.",
+            friendlyName = "Передние Фары",
+            information = "Меняет тип передних фар вашего транспорта.",
             syntax = { "Целое", "" },
-            options = { ["0"]="Длинные",["1"]="Маленькие",["2"]="Большие",["3"]="Высокие" }
+            options = { ["0"]="Длинные",["1"]="Маленькие",["2"]="Большие",["3"]="Вытянутые" }
         },
         ["tailLight"] = {
-            friendlyName = "Верхние фары",
-            information = "Установить тип верхних фар.",
+            friendlyName = "Задние Фары",
+            information = "Меняет тип задних фар вашего транспорта.",
             syntax = { "Целое", "" },
-            options = { ["0"]="Длинные",["1"]="Маленькие",["2"]="Большие",["3"]="Высокие" }
+            options = { ["0"]="Длинные",["1"]="Маленькие",["2"]="Большие",["3"]="Вытянутые" }
         },
         ["animGroup"] = {
-            friendlyName = "Группа анимаций",
-            information = "Установить группу анимаций использующую для данного транспорта.",
+            friendlyName = "Группа Анимаций",
+            information = "Меняет группу анимаций для пассажиров транспорта, пока они находятся внутри него.",
             syntax = { "Целое", "" }
         }
     }
