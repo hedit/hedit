@@ -72,7 +72,7 @@
     viewbuttons = {
         engine = "Двига-\nтель",
         body = "Кузов",
-        wheels = "Сцеп-\nление",
+        wheels = "Под-\nвеска",
         appearance = "Вид",
         modelflags = "Флаги\nМодели",
         handlingflags = "Флаги\nХэнд-\nлинга",
@@ -93,8 +93,8 @@
             longname = "Настройки Кузова и Подвески"
         },
         wheels = {
-            shortname = "Сцепление",
-            longname = "Настройка сцепления"
+            shortname = "Подвеска",
+            longname = "Настройка подвески"
         },
         appearance = {
             shortname = "Вид",
