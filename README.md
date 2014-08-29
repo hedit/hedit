@@ -7,7 +7,7 @@ Here are some quick links:
 * [Instant IRC support - don't ask to ask, just ask!](http://mibbit.com/#mta@irc.gtanet.com)
 * [Forum topic](http://forum.mtasa.com/viewtopic.php?f=108&t=30494)
 * [Issue/bug tracker](https://github.com/Deltanic/hedit/issues)
-* [Download latest release](https://github.com/Deltanic/hedit/releases/download/v2.0-beta.2/hedit-beta_rc2-r164.zip)
+* [Download latest release](https://github.com/Deltanic/Hedit/archive/v2.1.zip)
 * [Download releases](https://github.com/Deltanic/hedit/releases)
 * [Download latest nightly code *bleeding edge!*](https://github.com/Deltanic/hedit/archive/master.zip)
 
