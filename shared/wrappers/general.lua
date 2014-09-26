@@ -54,6 +54,30 @@ end
 
 
 
+-- Fix for trailers
+_getVehicleOccupants = getVehicleOccupants
+function getVehicleOccupants ( vehicle )
+    return isVehicleATrailer ( vehicle )
+        and {[0] = getVehicleController ( vehicle )}
+        or _getVehicleOccupants ( vehicle )
+end
+
+
+
+
+
+-- Fix for trailers
+_getVehicleMaxPassengers = getVehicleMaxPassengers
+function getVehicleMaxPassengers ( vehicle )
+    return isVehicleATrailer ( vehicle )
+        and 1
+        or _getVehicleMaxPassengers ( vehicle )
+end
+
+
+
+
+
 _xmlLoadFile = xmlLoadFile
 function xmlLoadFile ( file )
     if type ( file ) ~= "string" then

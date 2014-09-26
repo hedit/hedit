@@ -118,6 +118,26 @@ function isValidVehicleModel ( model )
     return true
 end
 
+
+
+
+
+function isVehicleATrailer ( model )
+    if isElement ( model ) then
+        model = getElementModel ( model )
+    end
+
+    local trailers = {
+        [606] = true, [607] = true, [610] = true,
+        [611] = true, [584] = true, [608] = true,
+        [435] = true, [450] = true, [591] = true
+    }
+
+    return not not trailers[model]
+end
+
+
+
 --This function returns true if a setting is enabled in the meta, false otherwise.
 function isHandlingPropertyEnabled(property)
 	if getLocalPlayer then
