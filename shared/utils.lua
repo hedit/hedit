@@ -133,7 +133,7 @@ function isVehicleATrailer ( model )
         [435] = true, [450] = true, [591] = true
     }
 
-    return not not trailers[model]
+    return trailers[model] == true
 end
 
 
