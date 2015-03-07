@@ -128,3 +128,12 @@ function uploadFullLog ( vehicle )
 end
 addEvent ( "requestFullLog", true )
 addEventHandler ( "requestFullLog", root, uploadFullLog )
+
+
+-- Destroy log information when vehicle is destroyed
+local function cleanupVehicleLog()
+	if source.type == "vehicle" then
+		vehicleLogs[source] = nil
+	end
+end
+addEventHandler("onElementDestroy", root, cleanupVehicleLog)
