@@ -46,7 +46,7 @@ addEventHandler ( "onClientVehicleExplode", root,
 
 -- When the vehicle you're in destroys
 addEventHandler("onClientElementDestroy", root, function()
-        if (source.type == "vehicle") and (source == localPlayer.vehicle) then
+        if (source == localPlayer.vehicle) then
             clearLog()
             pVehicle = false
             setVisible(false)
