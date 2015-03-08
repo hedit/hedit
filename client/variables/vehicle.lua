@@ -44,6 +44,16 @@ addEventHandler ( "onClientVehicleExplode", root,
     end
 )
 
+-- When the vehicle you're in destroys
+addEventHandler("onClientElementDestroy", root, function()
+        if (source.type == "vehicle") and (source == localPlayer.vehicle) then
+            clearLog()
+            pVehicle = false
+            setVisible(false)
+        end
+    end
+)
+
 -- For when the vehicle element model changes.
 addEventHandler ( "onClientElementStreamIn", root,
     function ( )
