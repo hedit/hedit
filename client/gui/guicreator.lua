@@ -1,19 +1,3 @@
---[[
-    local toggleEvents ( element window, bool toggle )
-    
-    startBuilding ( )
-    
-    destroyGUI ( )
-    
-    buildMainWindow()
-    buildMenubar()
-    buildViewButtons()
-    buildViews()
-    buildSpecials()
-    buildErrorMenu()
-    
-    guiCreateElement ( string guiType, int posX, int posY, int sizeW, int sizeH, string text, int alpha, table hovercolor ) -- IN GUIFUNCTIONS.LUA
-]]
 local function toggleEvents ( window, bool )
     local func = removeEventHandler
     if bool then
@@ -215,12 +199,6 @@ function buildViews()
                     
                     res[k] = element
                     guiElements[element] = { "viewItem", "special", "none", k, v.events }
-
-                    --[[if v.children then
-                        --for name,child in pairs ( v.children ) do
-                            res = scanSpecialMenu ( menu, k, v.children )
-                        --end
-                    end]]
                 end
             end
         end
@@ -368,9 +346,6 @@ function buildViews()
                 end
                 
                 
-                
-                
-                
             else
                 -------------------------
                 -- SPECIAL MENU
@@ -381,9 +356,6 @@ function buildViews()
                 if type ( v.runfunction ) == "function" then
                     v.runfunction ( items )
                 end
-                
-                
-                
                 
             end
             
@@ -415,8 +387,6 @@ function buildSpecials()
         if type ( gui.runfunction ) == "function" then
             gui.runfunction ( element )
         end
-        
-        --outputDebugString ( "Created special element of "..parent )
         
         return element
     end

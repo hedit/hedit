@@ -39,6 +39,16 @@
     table.size ( table table )
 ]]
 
+_emptyfn = function()end
+
+-- Debug utility
+Debug = setmetatable({}, {
+        __index = function(t, k)
+            return DEBUGMODE and _G[k] or _emptyfn
+        end
+    }
+)
+
 function checkArguments ( ... ) -- return success, type, value
     local types = {
         player = isValidPlayer,

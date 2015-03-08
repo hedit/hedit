@@ -1,4 +1,4 @@
-DEBUGMODE = true
+DEBUGMODE = false
 
 MTAVER = 1.2
 HVER = "2.0 beta RC2"

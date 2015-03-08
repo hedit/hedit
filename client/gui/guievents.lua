@@ -30,7 +30,7 @@ function onRender()
         dxDrawLine(x+width, y, x+width, y-5, tocolor(255, 0, 0, 255), 3, true)
 
         -- DEBUG: Draw bounding box
-        --dxDrawRectangle(scrollbar.virtualX, y+20, scrollbar.size[1], scrollbar.size[2], scrollbar.color, true)
+        Debug.dxDrawRectangle(scrollbar.virtualX, y+20, scrollbar.size[1], scrollbar.size[2], scrollbar.color, true)
     else
         showScrollbar = false
     end

@@ -11,27 +11,6 @@ addEventHandler ( "onClientPlayerVehicleEnter", localPlayer,
     end 
 )
 
-
---[[ For when a player falls off his bike, or when using removePedFromVehicle
-addEventHandler ( "onClientPlayerVehicleExit", localPlayer,
-    function ( )
-        logCreated = false
-        pVehicle = false
-        setVisible ( false )
-    end
-)]]
-
--- Starting to enter a vehicle normally. I NEED onClientVehicleAbortEnter!
---[[addEventHandler ( "onClientVehicleStartEnter", root,
-    function ( player )
-        if player == localPlayer then
-            pVehicle = source
-            checkVehicleChange ( )
-        end
-    end
-)]]
-
-
 -- For when a player dies whilst inside a vehicle
 addEventHandler ( "onClientPlayerWasted", localPlayer,
     function()

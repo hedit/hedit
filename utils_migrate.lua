@@ -7,27 +7,8 @@ function getResourceHandlingList ( resource )
         return false
     end
     
-    --[[local list = {}
-    local handlingXML = xmlLoadFile ( ":"..resource.."/handling.xml" )
-    
-    if not handlingXML then
-        outputDebugString ( "Resource "..resource.." has no handling XML!" )
-        return false
-    end
-    
-    for _,node in ipairs ( xmlNodeGetChildren ( handlingXML ) ) do
-        local model = tonumber ( xmlNodeGetName ( node ) )
-        list[model] = {}
-        for property,value in pairs ( xmlNodeGetAttributes ( node ) ) do
-            list[model][property] = value
-        end
-    end]]
-    
     return list
 end
-
-
-
 
 
 function saveHandlingToResource ( vehicle, resource, model )
@@ -141,9 +122,6 @@ if serverside then
 end
 
 
-
-
-
 function loadHandlingFromResource ( vehicle, resource, model )
     if not isValidVehicle ( vehicle ) then
         return false
@@ -198,9 +176,6 @@ if serverside then
     addEvent ( "loadFromResource", true )
     addEventHandler ( "loadFromResource", root, loadHandlingFromResource )
 end
-
-
-
 
 
 function saveHandlingToServer ( player, vehicle, name, description )
@@ -281,13 +256,12 @@ function saveHandlingToServer ( player, vehicle, name, description )
     
     return true
 end
+
+
 if serverside then
     addEvent ( "saveToServer", true )
     addEventHandler ( "saveToServer", root, saveHandlingToServer )
 end
-
-
-
 
 
 function saveHandlingToClient ( vehicle, name, description )
@@ -357,25 +331,16 @@ function saveHandlingToClient ( vehicle, name, description )
 end
 
 
-
-
-
 function loadHandlingFromClient ( vehicle, lowerCaseName )
     loadHandling ( vehicle, lowerCaseName, "clientsaves" )
     return
 end
 
 
-
-
-
 function loadHandlingFromServer ( vehicle, lowerCaseName )
     loadHandling ( vehicle, lowerCaseName, "serversaves" )
     return
 end
-
-
-
 
 
 function loadHandling ( vehicle, lowerCaseName, cacheLib )
@@ -402,9 +367,6 @@ function loadHandling ( vehicle, lowerCaseName, cacheLib )
     
     hndload ( )
 end
-
-
-
 
 
 function shareHandlingWithPlayer ( senderPlayer, targetPlayer, vehicle )
@@ -437,95 +399,9 @@ if serverside then
 end
 
 
-
-
-
 function receiveSharedHandling ( senderPlayer, vehicle )
     outputDebugString ( "Recieved handling from "..getPlayerName ( senderPlayer ).." :D" )
     return true
 end
 addEvent ( "receiveHandling", true )
 addEventHandler ( "receiveHandling", root, receiveSharedHandling )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---[[function guiSetTemplate ( template, default )
-    if not guiTemplate[template] then
-        outputHandlingLog ( "unexisting template" )
-        return false
-    end
-    
-    if getUserConfig ( "template" ) == template then
-        outputHandlingLog ( "changed template" )
-        
-        if default then
-            setUserConfig ( "template", template )
-        end
-    end
-    
-    guiSetVisible ( resourceGUI.window.element, true )
-    
-    return true
-end
-
-
-
-
-
-function guiSetLanguage ( lang, default )
-    if not language[lang] then
-        outputHandlingLog ( "unexisting language" )
-        return false
-    end
-    
-    for k,v in pairs ( elementGUI ) do
-        local text
-        if language[lang] and language[lang][v.parent] and language[lang][v.parent][v.child] then
-            text = language[lang][v.parent][v.child]
-        end
-        
-        outputChatBox ( tostring ( k ) )
-        
-        if text then
-            guiSetText ( k, text )
-        end
-    end
-    
-    -- Set HEADER text!
-    -- Reload menu text
-    
-    if default then
-        setUserConfig ( "language", lang )
-    end
-    
-    outputHandlingLog ( "changed language" )
-    
-    return true
-end
-addCommandHandler ( "lang", function ( ) guiSetLanguage ( "spanish" ) end )]]

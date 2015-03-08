@@ -178,28 +178,17 @@ function setVehicleHandling ( vehicle, property, value, withLog )
     
     
     if withLog then
-        --if isHandlingPropertyHexadecimal ( property ) then
-        
-            --local hexChanges, hexByte, hexValue, hexBool = getHandlingHexadecimalChangeDetails ( property, value, oldValue )
-            
-            --if not hexChanges or hexChanges > 1 then
-            --    addLogEntry ( vehicle, client, "successRegular", { property, value }, oldValue, 1 )
-            --else
-                --addLogEntry ( vehicle, client, "successHex", { property, hexByte, hexValue, hexBool }, not hexBool, 1 )
-            --end
-            
-        --else
-            local data = getVehicleHandling ( vehicle )[property]
-            if property == "centerOfMass" then
-                local hnd = getVehicleHandling ( vehicle )
-                data = math.round ( hnd.centerOfMassX )..", "..math.round ( hnd.centerOfMassY )..", "..math.round ( hnd.centerOfMassZ )
-            elseif type ( data ) == "number" then
-                data = tostring ( math.round ( data ) )
-            end
 
-            addLogEntry ( vehicle, client, "successRegular", { property, data }, oldValue, 1 )
-            
-        --end
+        local data = getVehicleHandling ( vehicle )[property]
+        if property == "centerOfMass" then
+            local hnd = getVehicleHandling ( vehicle )
+            data = math.round ( hnd.centerOfMassX )..", "..math.round ( hnd.centerOfMassY )..", "..math.round ( hnd.centerOfMassZ )
+        elseif type ( data ) == "number" then
+            data = tostring ( math.round ( data ) )
+        end
+
+        addLogEntry ( vehicle, client, "successRegular", { property, data }, oldValue, 1 )
+        
 
         setVehicleSaved ( vehicle, false )
     end
