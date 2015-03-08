@@ -2,7 +2,7 @@ guiLanguage.english = {
     --
     -- GENERAL STRINGS
     --
-    windowHeader = "Handling Editor v"..HVER.." r"..HREV,
+    windowHeader = "Handling Editor v"..HVER,
     
     restrictedPassenger = "You are not allowed to use the handling editor as a passenger.",
     needVehicle = "You must be driving a vehicle to use the handling editor!",
