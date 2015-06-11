@@ -309,13 +309,13 @@ guiLanguage.english = {
             syntax = { "Float", "Greater values make the acceleration curve smoother." }
         },
         ["driveType"] = {
-            friendlyName = "Drivetype",
+            friendlyName = "Wheel Drive",
             information = "Changes which wheels will be used whilst driving.",
             syntax = { "String", "Choosing 'All wheels' will result in the vehicle being easier to control." },
             options = { ["f"]="Front wheels",["r"]="Rear wheels",["4"]="All wheels" }
         },
         ["engineType"] = {
-            friendlyName = "Enginetype",
+            friendlyName = "Engine Type",
             information = "Changes the type of engine for your vehicle.",
             syntax = { "String", "The effect this property causes is unknown." },
             options = { ["p"]="Petrol",["d"]="Diesel",["e"]="Electric" }
