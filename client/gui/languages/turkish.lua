@@ -2,7 +2,7 @@ guiLanguage.english = {
     --
     -- GENERAL STRINGS
     --
-    windowHeader = "Mta San Turkiye Handling Menüsü "..HVER.." "..HREV,
+    windowHeader = "Mta San Turkiye Handling Menüsü "..HVER,
     
     restrictedPassenger = "Bir yolcu olarak ele editörü kullanmak için izin verilmez.",
     needVehicle = "Sen taşıma editörü kullanmak için bir araç sürüş olmalı!",
