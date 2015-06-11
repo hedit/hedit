@@ -547,7 +547,8 @@ template.viewcontents = {
                 pos = { 73, 220 },
                 size = { 290, 30 },
                 runfunction = function ( this )
-                    guiSetEnabled ( this, false )
+                    this.enabled = false
+                    this.readOnly = true
                 end
             },
             morelabel = {
