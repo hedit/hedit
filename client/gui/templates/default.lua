@@ -70,7 +70,7 @@ template.views = {
     { title = "wheels", content = "handlingconfig" },
     { title = "modelflags", content = "handlingflags" },
     { title = "handlingflags", content = "handlingflags" },
-    { title = "dynamometer", content = "submenu" },
+    -- { title = "dynamometer", content = "submenu" },
     { title = "save", content = "submenu" },
     { contents = {} },
 }
