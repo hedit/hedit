@@ -1,39 +1,3 @@
---[[
-    getText ( ... )
-    
-    getHandlingPropertyFriendlyName ( string property )
-    getHandlingPropertyInformationText ( string property )
-    getHandlingPropertyValueType ( string property )
-    getHandlingPropertyValueInformation ( string property )
-    getHandlingPropertyOptionNames ( string property )
-    getHandlingPropertyByteName ( string property, integer byte, string value )
-    getHandlingPropertyByteInformation ( string property, integer byte, string value )
-    getHandlingHexadecimalChangeDetails ( element vehicle, string property, var value )
-    
-    cacheClientSaves ( )
-    getClientSaves ( )
-    isClientHandlingExisting ( string name )
-    saveClientHandling ( string name, string description )
-    loadClientHandling ( string name )
-
-    loadHandling ( element vehicle, lowerCaseName, cacheLib ) -- Not for general use! It's called by functions.
-    
-    importHandling ( element vehicle, string handlingLine/table handlingTable )
-    exportHandling ( element vehicle )
-    
-    resetVehicleHandling ( element vehicle, int baseID )
-    
-    prepareHandlingValue ( element vehicle, string property, var value )
-    
-    getPlayerCorrectTime ( int hours, int minutes, int seconds )
-    setUserConfig ( string config, string value )
-    getUserConfig ( string config )
-    getUserLanguage ( )
-    updateXMLCache ( string cahchelib, string cachename, table entry )
-    updateRights ( bool loggedin, bool admin )
-	setVehicleLocked(element vehicle, bool state)
-]]
-
 function getText ( ... )
     local entry = getUserLanguage()
     
@@ -579,7 +543,7 @@ function getUserConfig ( config )
         return false
     end
     
-    if pData.userconfig[config] then
+    if type(pData.userconfig[config]) ~= "nil" then
         return pData.userconfig[config]
     end
     
@@ -603,7 +567,7 @@ function getUserConfig ( config )
     
     
     local value = xmlNodeGetValue ( node )
-    pData.userconfig[config] = value
+    pData.userconfig[config] = tostring(value)
     
     outputDebugString ( "Added userconfig "..config.." with value '"..tostring(value).."' to pData." )
     
@@ -617,15 +581,9 @@ end
 
 
 function setUserConfig ( config, value )
-    if type ( config ) ~= "string" then
+    if value == nil then
         return false
     end
-    
-    if not value then
-        return false
-    end
-    
-    
     
     local xml = xmlLoadFile ( client_config_file )
     

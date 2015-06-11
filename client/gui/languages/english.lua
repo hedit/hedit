@@ -213,7 +213,8 @@ guiLanguage.english = {
                 edit_cmd = "",
                 combo_commode = "",
                 combo_language = "",
-				checkbox_lockwhenediting = "Lock vehicle when editing?"
+                checkbox_lockwhenediting = "Lock vehicle when editing?",
+                checkbox_dragmeterEnabled = "Use quick-tune"
             }
         },
         handlinglog = {

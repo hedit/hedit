@@ -3,5 +3,6 @@ setting = {
     usedCommand = "hedit",
     language = "english",
     template = "default",
-    lockVehicleWhenEditing = true
+    lockVehicleWhenEditing = true,
+    dragmeterEnabled = true,
 }

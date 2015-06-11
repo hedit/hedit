@@ -1083,14 +1083,22 @@ template.viewcontents = {
                     guiSetSize ( this, 100, size, false )
                 end
             },
-			checkbox_lockwhenediting = {
-				type = "checkbox",
-				pos = {72, 175},
-				size = { 285, 25},
-				runfunction = function(this)
-					guiCheckBoxSetSelected(this, tobool(getUserConfig("lockVehicleWhenEditing")))
-				end
-			},
+            checkbox_lockwhenediting = {
+                type = "checkbox",
+                pos = {72, 175},
+                size = { 285, 25},
+                runfunction = function(this)
+                    guiCheckBoxSetSelected(this, tobool(getUserConfig("lockVehicleWhenEditing")))
+                end
+            },
+            checkbox_dragmeterEnabled = {
+                type = "checkbox",
+                pos = {72, 196},
+                size = { 285, 25},
+                runfunction = function(this)
+                    guiCheckBoxSetSelected(this, tobool(getUserConfig("dragmeterEnabled")))
+                end
+            },
             button_save = {
                 type = "button",
                 pos = { 72, 359 },
@@ -1108,10 +1116,11 @@ template.viewcontents = {
                             
                                 setUserConfig ( "usedKey", guiComboBoxGetItemText ( item.combo_key, guiComboBoxGetSelected ( item.combo_key ) ) )
                                 setUserConfig ( "usedCommand", guiGetText ( item.edit_cmd ) )
-                                setUserConfig ( "template", guiComboBoxGetItemText ( item.combo_template, guiComboBoxGetSelected ( item.combo_template ) ) )
+                                -- setUserConfig ( "template", guiComboBoxGetItemText ( item.combo_template, guiComboBoxGetSelected ( item.combo_template ) ) )
                                 setUserConfig ( "language", guiComboBoxGetItemText ( item.combo_language, guiComboBoxGetSelected ( item.combo_language ) ) )
 								setUserConfig("lockVehicleWhenEditing", guiCheckBoxGetSelected(item.checkbox_lockwhenediting))
-								
+                                setUserConfig("dragmeterEnabled", guiCheckBoxGetSelected(item.checkbox_dragmeterEnabled))
+
                                 if bool then
                                     setUserConfig ( "version", tostring ( HREV ) )
                                     setUserConfig ( "minVersion", tostring ( HMREV ) )
@@ -1123,10 +1132,10 @@ template.viewcontents = {
 
                             end
 								
-                            if guiCheckBoxGetSelected ( item.checkbox_versionreset ) then
-                                guiCreateWarningMessage ( getText ( "confirmVersionReset" ), 2, {apply, true}, {apply,false} )
-                                return true
-                            end
+                            -- if guiCheckBoxGetSelected ( item.checkbox_versionreset ) then
+                            --     guiCreateWarningMessage ( getText ( "confirmVersionReset" ), 2, {apply, true}, {apply,false} )
+                            --     return true
+                            -- end
                             
                             apply ( false )
 

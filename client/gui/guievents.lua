@@ -3,28 +3,28 @@ local scrollbarColor = tocolor(255, 255, 255, 50)
 local SCROLLBAR_THRESHOLD = 10 -- in pixels
 
 function onMove ( _, _, cX, cY )
-    if pressedButton and scrollbar then
-        if not scrollbar.thresholdReached then
-            if abs(scrollbar.clickX - cX) > SCROLLBAR_THRESHOLD then
-                scrollbar.thresholdReached = true
-                scrollbar.virtualX = cX - (scrollbar.size[1]*scrollbar.position)
-                scrollbar.virtualX2 = scrollbar.virtualX + scrollbar.size[1]
-                showScrollbar = true
-            else
-                return
-            end
-        end
+    if not (pressedButton and scrollbar and tobool(getUserConfig("dragmeterEnabled"))) then return end
 
-        local progress = (cX-scrollbar.virtualX)/(scrollbar.virtualX2-scrollbar.virtualX)
-        if (progress >= 0) and (progress <= 1) then
-            scrollbar.position = progress
-            local a, b = scrollbar.min, scrollbar.max
-            local propertyValue = progress*(b-a)+a
-            guiSetText(pressedButton, math.round(propertyValue, 0))
-        else
-            -- Allow overflows to snap to nearest boundary
-            guiSetText(pressedButton, (progress < 0) and scrollbar.min or scrollbar.max)
-        end
+    if not scrollbar.thresholdReached then
+        if not( abs(scrollbar.clickX - cX) > SCROLLBAR_THRESHOLD )then return end
+        -- execute belowif outside threshold...
+        scrollbar.thresholdReached = true
+        showScrollbar = true
+
+        -- Calculate virtual scrollbar x value (is the originX-(width/2)
+        scrollbar.virtualX = cX - (scrollbar.size[1]*scrollbar.position)
+        scrollbar.virtualX2 = scrollbar.virtualX + scrollbar.size[1]
+    end
+
+    local progress = (cX-scrollbar.virtualX)/(scrollbar.virtualX2-scrollbar.virtualX)
+    if (progress >= 0) and (progress <= 1) then
+        scrollbar.position = progress
+        local a, b = scrollbar.min, scrollbar.max
+        local propertyValue = progress*(b-a)+a
+        guiSetText(pressedButton, math.round(propertyValue, 0))
+    else
+        -- Allow overflows to snap to nearest boundary
+        guiSetText(pressedButton, (progress < 0) and scrollbar.min or scrollbar.max)
     end
 end
 
@@ -67,7 +67,7 @@ function onClick ( button, state )
     local info = guiGetElementInfo ( source )
     local state = (state == "down") and true or false
 
-    if state and (button == "left") and (parent == "viewItem") then
+    if state and (button == "left") and (parent == "viewItem") and tobool(getUserConfig("dragmeterEnabled")) then
         local inputType = guiGetElementInputType ( source )
         local property = guiGetElementProperty ( source )
 
@@ -100,9 +100,6 @@ function onClick ( button, state )
                 max = b,
                 thresholdReached = false,
             }
-
-            -- Calculate virtual scrollbar x value (is the originX-(width/2)
-            
         end
         return
     elseif state then
