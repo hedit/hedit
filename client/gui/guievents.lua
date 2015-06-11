@@ -1,9 +1,19 @@
 local abs = math.abs
 local scrollbarColor = tocolor(255, 255, 255, 50)
+local SCROLLBAR_THRESHOLD = 10 -- in pixels
 
 function onMove ( _, _, cX, cY )
     if pressedButton and scrollbar then
-        showScrollbar = true
+        if not scrollbar.thresholdReached then
+            if abs(scrollbar.clickX - cX) > SCROLLBAR_THRESHOLD then
+                scrollbar.thresholdReached = true
+                scrollbar.virtualX = cX - (scrollbar.size[1]*scrollbar.position)
+                scrollbar.virtualX2 = scrollbar.virtualX + scrollbar.size[1]
+                showScrollbar = true
+            else
+                return
+            end
+        end
 
         local progress = (cX-scrollbar.virtualX)/(scrollbar.virtualX2-scrollbar.virtualX)
         if (progress >= 0) and (progress <= 1) then
@@ -82,17 +92,17 @@ function onClick ( button, state )
             local x = guiGetText(pressedButton)
 
             scrollbar = {
-                clickOrigin = {mx * scrX, my * scrY},
+                clickX = mx * scrX,
                 position = (x-a)/(b-a),
                 size = {guiGetSize(pressedButton, false)},
                 old = guiGetText(pressedButton),
                 min = a,
-                max = b
+                max = b,
+                thresholdReached = false,
             }
 
             -- Calculate virtual scrollbar x value (is the originX-(width/2)
-            scrollbar.virtualX = scrollbar.clickOrigin[1] - (scrollbar.size[1]*scrollbar.position)
-            scrollbar.virtualX2 = scrollbar.virtualX + scrollbar.size[1]
+            
         end
         return
     elseif state then
