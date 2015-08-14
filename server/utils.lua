@@ -65,7 +65,7 @@ function handlingMod ( arg )
     }
 
     executeEvent[eventName]()
-    triggerClientEvent ( client, "showView", client, "previous" )
+    triggerClientEvent ( client, "showMenu", client, "previous" )
 
     return true
 end
