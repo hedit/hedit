@@ -1048,7 +1048,7 @@ template.viewcontents = {
                 runfunction = function ( this )
                     for i=1,#validKeys do
                         guiComboBoxAddItem ( this, validKeys[i] )
-                        guicache.optionmenu_item[ validKeys[i] ] = i-1
+                        guicache.optionmenu_item[ string.lower( validKeys[i] ) ] = i-1
                     end
                     guiSetSize ( this, 100, ( 20 * #validKeys ) + 25, false )
                 end
