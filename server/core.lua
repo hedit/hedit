@@ -12,8 +12,7 @@ addEventHandler ( "onResourceStart", resourceRoot, function ( )
     if resName ~= "hedit" and not DEBUGMODE then
         outputChatBox ( "Handling Editor failed to start, see the logs for more information." )
         print ( "===============================================================================" )
-        print ( "[HEDIT] Please rename resource '"..resName.."' to 'hedit' in order to use the handling editor." )
-        print ( "[HEDIT] This is needed to sync the handlings between clients properly." )
+        print ( "[HEDIT] Please rename resource '"..resName.."' to 'hedit' to use the handling editor." )
         print ( "[HEDIT] The handling editor will not work unless you rename the resource to 'hedit'." )
         print ( "===============================================================================" )
         return cancelEvent ( true, "Rename the handling editor resource to 'hedit' in order to use the resource." )
@@ -22,7 +21,7 @@ addEventHandler ( "onResourceStart", resourceRoot, function ( )
     
     
     print ( "===============================================================================" )
-    print ( " MTA:SA HANDLING EDITOR [hedit.googlecode.com]" )
+    print ( " MTA:SA HANDLING EDITOR [hedit.github.io]" )
     print ( "===============================================================================" )
     if fileExists ( "handling.cfg" ) then
         print ( " Handling.cfg found." )
