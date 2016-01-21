@@ -617,10 +617,11 @@ end
 function getUserLanguage ( )
     local config = getUserConfig ( "language" )
     
-    if config then
+    if config and guiLanguage[config] then
         return guiLanguage[config]
     end
-    
+
+    setUserConfig("language", "english")
     return guiLanguage.english
 end
 
