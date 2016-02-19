@@ -53,15 +53,11 @@ function guiCreateElement ( guiType, x, y, w, h, text, alpha, hovercolor )
     if type ( hovercolor ) == "table" then
         local h = hovercolor
         
-        for i=1,4 do
-            h[i] = type ( h[i] ) == "number" and ( ( h[i] <= 255 and h[i] >= 0 ) and h[i] or ( i == 1 and 255 or 0 ) ) or ( i == 1 and 255 or 0 ) -- HARHARHAR
-        end
-        
         if guiType == "label" then
         
             addEventHandler ( "onClientMouseEnter", element, function ( )
-                guiLabelSetColor ( element, h[2], h[3], h[4] )
-                guiSetAlpha ( element, h[1] / 255 )
+                guiLabelSetColor ( element, h[1], h[2], h[3] )
+                guiSetAlpha ( element, h[4] / 255 )
             end, false )
             
             addEventHandler ( "onClientMouseLeave", element, function ( )
@@ -71,7 +67,7 @@ function guiCreateElement ( guiType, x, y, w, h, text, alpha, hovercolor )
                 
         else
         
-            guiSetProperty ( element, "HoverTextColour", RGBtoHEX ( h[1], h[2], h[3], h[4] ) )
+            guiSetProperty ( element, "HoverTextColour", RGBtoHEX ( h[4], h[1], h[2], h[3] ) )
             
         end
     end

@@ -89,7 +89,7 @@ function onClick ( button, state )
             end
 
             local a, b = getHandlingLimits( guiGetElementProperty(pressedButton) )
-            local x = guiGetText(pressedButton)
+            local x = tonumber(guiGetText(pressedButton))
 
             scrollbar = {
                 clickX = mx * scrX,

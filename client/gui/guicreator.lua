@@ -106,7 +106,7 @@ function buildMenubar()
     local pos = {10-offset, 22}
     for k,menu in ipairs ( template.menubar ) do
         pos[1] = pos[1] + offset
-        local element = guiCreateElement("button", pos[1], pos[2], size[1], size[2], getText("menubar", menu.title), 255, {255, 27, 224, 224})
+        local element = guiCreateElement("button", pos[1], pos[2], size[1], size[2], getText("menubar", menu.title), 255, template.menubar.hovercolor)
         
         guiElements[element] = { "menuButton", "button", "none", menu.title, nil}
         table.insert ( heditGUI.menuButtons, element )
@@ -149,12 +149,11 @@ end
 
 
 function buildViewButtons()
-    local hovercolor = { 255, 255, 255, 128 }
     local offset = 55
     local size = {50, 50}
     local pos = {10, 54-offset}
 
-    for k,view in pairs ( template.views ) do
+    for k,view in ipairs ( template.views ) do
         pos[2] = pos[2] + offset
 
         local subContents = view.contents
@@ -162,14 +161,14 @@ function buildViewButtons()
 
             local width = size[1] / #subContents
             for _, title in ipairs(subContents) do
-                local element = guiCreateElement ("button", pos[1]+(width*_)-width, pos[2], width, size[2], guiTemplateGetViewButtonText ( title ), alpha, hovercolor )
+                local element = guiCreateElement ("button", pos[1]+(width*_)-width, pos[2], width, size[2], guiTemplateGetViewButtonText ( title ), alpha, template.views.hovercolor )
                 
                 guiElements[element] = { "viewButton", "button", "none", title }
                 table.insert ( heditGUI.viewButtons, element )
             end
 
         else
-            local element = guiCreateElement ("button", pos[1], pos[2], size[1], size[2], guiTemplateGetViewButtonText ( view.title ), alpha, hovercolor )
+            local element = guiCreateElement ("button", pos[1], pos[2], size[1], size[2], guiTemplateGetViewButtonText ( view.title ), alpha, template.views.hovercolor )
             
             guiElements[element] = { "viewButton", "button", "none", view.title }
             table.insert ( heditGUI.viewButtons, element )

@@ -41,6 +41,11 @@
 
 _emptyfn = function()end
 
+colors = {
+    yellow = {255, 255, 128, 255},
+    cyan = {27, 224, 224, 255}
+}
+
 -- Debug utility
 Debug = setmetatable({}, {
         __index = function(t, k)
