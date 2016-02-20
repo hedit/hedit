@@ -48,17 +48,9 @@ template.window = {
 template.menubar = {
     hovercolor = colors.cyan,
     {
-        title = "handling",
-        "reset",
-        "save",
-        -- "upload",
-        -- "download"
-    },
-    {
         title = "tools",
         "import",
-        "get",
-        -- "share"
+        "reset"
     },
     {
         title = "extra",
