@@ -5,24 +5,12 @@ xmlCache = {
     resourcesaves = {}
 }
 
-
-
-
-
 guicache = {
     optionmenu_item = {}
 }
 
-
-
-
-
 client_config_file = "settings_c.xml"
 client_handling_file = "saves/saves.xml" -- handlings_c.xml
-
-
-
-
 
 validKeys = {
     "mouse1", "mouse2", "mouse3", "mouse4", "mouse5", "mouse_wheel_up", "mouse_wheel_down", "arrow_l", "arrow_u",
@@ -33,12 +21,4 @@ validKeys = {
     "insert", "delete", "lshift", "rshift", "lctrl", "rctrl", "[", "]", "pause", "capslock", "scroll", ";", ",", "-", ".", "/", "#", "\\", "="
 }
 
-
-
-
-
-if getLocalPlayer then
-    clientside = true
-else
-    serverside = true
-end
+_G[getLocalPlayer and "clientside" or "serverside"] = true

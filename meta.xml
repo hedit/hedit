@@ -4,30 +4,13 @@
     <min_mta_version server="1.4.0" client="1.4.0" />
 
     <!-- SHARED -->
-    <script src="shared/variables/general.lua"      type="client" />
-    <script src="shared/variables/general.lua"      type="server" />
-
-    <script src="shared/variables/handlingMTA.lua"  type="client" />
-    <script src="shared/variables/handlingMTA.lua"  type="server" />
-
-    <script src="shared/variables/handlingGTA.lua"  type="client" />
-    <script src="shared/variables/handlingGTA.lua"  type="server" />
-
-    <script src="shared/wrappers/handling.lua"      type="client" />
-    <script src="shared/wrappers/handling.lua"      type="server" />
-
-    <script src="shared/wrappers/general.lua"       type="client" />
-    <script src="shared/wrappers/general.lua"       type="server" />
-
-    <script src="shared/settings.lua"               type="client" />
-    <script src="shared/settings.lua"               type="server" />
-
-    <script src="shared/utils.lua"                  type="client" />
-    <script src="shared/utils.lua"                  type="server" />
-
-    <script src="shared/exports.lua"                type="client" />
-    <script src="shared/exports.lua"                type="server" />
-
+    <script src="shared/variables/general.lua"      type="shared" />
+    <script src="shared/variables/handlingMTA.lua"  type="shared" />
+    <script src="shared/variables/handlingGTA.lua"  type="shared" />
+    <script src="shared/wrappers/handling.lua"      type="shared" />
+    <script src="shared/wrappers/general.lua"       type="shared" />
+    <script src="shared/settings.lua"               type="shared" />
+    <script src="shared/utils.lua"                  type="shared" />
 
     <!-- CLIENT -->
     <script src="client/logmanager.lua"             type="client" />
@@ -61,8 +44,7 @@
 
     <!-- SERVER -->
     <script src="server/logmanager.lua"             type="server" />
-    <script src="server/cfgloader.lua"              type="server" />
-    <script src="server/exports.lua"                type="server" />
+    <script src="server/cfgloader.lua"              type="server" />>
     <script src="server/core.lua"                   type="server" />
     <script src="server/utils.lua"                  type="server" />
 	

@@ -36,9 +36,6 @@ function getVehicleNameFromModel ( model )
 end
 
 
-
-
-
 _getVehicleModelFromName = getVehicleModelFromName
 function getVehicleModelFromName ( name )
     local subname = string.gsub ( name, "ID: ", "" )
@@ -51,9 +48,6 @@ function getVehicleModelFromName ( name )
 end
 
 
-
-
-
 -- Fix for trailers
 _getVehicleOccupants = getVehicleOccupants
 function getVehicleOccupants ( vehicle )
@@ -63,9 +57,6 @@ function getVehicleOccupants ( vehicle )
 end
 
 
-
-
-
 -- Fix for trailers
 _getVehicleMaxPassengers = getVehicleMaxPassengers
 function getVehicleMaxPassengers ( vehicle )
@@ -73,9 +64,6 @@ function getVehicleMaxPassengers ( vehicle )
         and 1
         or _getVehicleMaxPassengers ( vehicle )
 end
-
-
-
 
 
 _xmlLoadFile = xmlLoadFile
@@ -109,9 +97,6 @@ function xmlLoadFile ( file )
 end
 
 
-
-
-
 _xmlCreateFile = xmlCreateFile
 function xmlCreateFile ( file, rootNode )
     local xml = _xmlCreateFile ( file, rootNode )
@@ -130,9 +115,6 @@ function xmlCreateFile ( file, rootNode )
 end
 
 
-
-
-
 _xmlSaveFile = xmlSaveFile
 function xmlSaveFile ( file )
     if type ( file ) == "string" then
@@ -149,9 +131,6 @@ function xmlSaveFile ( file )
 end
 
 
-
-
-
 _xmlUnloadFile = xmlUnloadFile
 function xmlUnloadFile ( file )
     local strfile
@@ -165,10 +144,7 @@ function xmlUnloadFile ( file )
         return false
     end
 
-    _xmlSaveFile ( file )
-    if not _xmlUnloadFile ( file ) then
-        outputChatBox ( "wut" )
-    end
+    _xmlUnloadFile ( file )
     
     if strfile then
         xmlFile[file] = nil

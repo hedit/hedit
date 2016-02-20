@@ -211,10 +211,7 @@ end
 
 function setVisible ( bool )
     if type ( bool ) ~= "boolean" then
-        if DEBUGMODE then
-            error ( "No boolean value at 'setVisible'!", 2 )
-        end
-        
+        outputDebugString("Received invalid boolean", 1)
         return false
     end
 

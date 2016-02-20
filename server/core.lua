@@ -50,10 +50,6 @@ end )
 
 addEventHandler ( "onResourceStop", resourceRoot, function ( )
     unloadHandlingLog ( )
-
-    -- Is this necessary? Surely resourceRoot is destroyed when the resource is stopped.
-	removeElementData(resourceRoot, "resourceVersion")
-	removeElementData(resourceRoot, "propertySettings")
     return true
 end )
 
