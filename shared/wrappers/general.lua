@@ -29,7 +29,7 @@ function getVehicleNameFromModel ( model )
     local name = _getVehicleNameFromModel ( model )
     
     if not name or name == "" then
-        name = "ID: "..tostring(v)
+        name = "ID: ".. model
     end
     
     return name
