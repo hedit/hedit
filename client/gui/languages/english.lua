@@ -160,7 +160,7 @@ guiLanguage.english = {
             }
         },
         import = {
-            shortname = "Import/Export",
+            shortname = "handling.cfg",
             longname = "Import or Export to/from handling.cfg format.",
             itemtext = {
                 importButton = "Import",
