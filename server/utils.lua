@@ -109,6 +109,37 @@ function setHandlingFromTable ( vehicle, tab, exe )
     return true
 end
 
+function outputHandlings(player2,cmd,target)
+
+	local account = getPlayerAccount(player2)
+	local name = getAccountName(account)
+
+	if not isObjectInACLGroup("user."..name,aclGetGroup("Admin")) then return end
+
+	if not target then return end
+	local player = getPlayerFromName(target)
+	if not player then return end
+
+	local vehicle = getPedOccupiedVehicle(player)
+	local model = getElementModel(vehicle)
+	local handling = _getVehicleHandling(vehicle)
+
+	local x,y,z = getElementPosition(player2)
+
+	local vehicle2 = createVehicle(model,x,y,z)
+	warpPedIntoVehicle(player2,vehicle2)
+
+	for property,value in pairs(handling) do
+		_setVehicleHandling(vehicle2,property,value)
+	end
+
+	outputChatBox("The vehicle is being destroyed in 1 minute!",player2,255,0,0)
+	setTimer(destroyElement,60000,1,vehicle2)
+
+end
+
+addCommandHandler("cloneveh",outputHandlings)
+
 local function onRemoteLockRequest(vehicle, state)
 	if source ~= client then
 		return
